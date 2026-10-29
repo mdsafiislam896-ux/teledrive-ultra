@@ -1,6 +1,6 @@
 /**
- * TeleDrive Ultra - Visual Theme Engine
- * Controls 5 ultra-premium visual themes with instant hot-swapping and persistence.
+ * TeleDrive Ultra - Expanded 6-Theme Visual Engine
+ * Instant hot-swapping, ambient glow accents, and custom theme overrides.
  */
 
 const ThemeEngine = {
@@ -8,37 +8,50 @@ const ThemeEngine = {
         {
             id: 'oled',
             name: 'OLED Obsidian',
-            subtitle: 'Pure AMOLED black with cyan electric glow',
+            subtitle: 'Pure AMOLED black with cyan laser glow (Zero Battery Drain)',
             primaryColor: '#00f2fe',
+            accentColor: '#4facfe',
             bgPreview: '#030712'
         },
         {
-            id: 'nordic',
-            name: 'Nordic Frost',
-            subtitle: 'Frosted glass with cool ice blue tones',
-            primaryColor: '#38bdf8',
-            bgPreview: '#0b1329'
-        },
-        {
             id: 'cyberpunk',
-            name: 'Cyberpunk Neon',
-            subtitle: 'Futuristic night city with neon pink & cyan',
+            name: 'Cyberpunk Neon 2077',
+            subtitle: 'High-tech dark violet with neon magenta & electric cyan',
             primaryColor: '#ff007f',
+            accentColor: '#00ffff',
             bgPreview: '#090615'
         },
         {
+            id: 'nordic',
+            name: 'Nordic Frosted Glass',
+            subtitle: 'Hyper-realistic frosted sapphire glass with soft blur',
+            primaryColor: '#38bdf8',
+            accentColor: '#818cf8',
+            bgPreview: '#0b1329'
+        },
+        {
             id: 'luxury',
-            name: 'Champagne & Emerald',
-            subtitle: 'Royal gold accents with deep forest emerald',
+            name: 'Royal Champagne & Emerald',
+            subtitle: 'Prestige 24K gold accents on deep velvet emerald',
             primaryColor: '#d4af37',
+            accentColor: '#10b981',
             bgPreview: '#06130e'
         },
         {
-            id: 'sunset',
-            name: 'Sunset Terracotta',
-            subtitle: 'Warm terracotta orange with modern slate',
+            id: 'titanium',
+            name: 'Liquid Titanium Pro',
+            subtitle: 'Sleek metallic space gray with Apple Pro aesthetics',
+            primaryColor: '#e2e8f0',
+            accentColor: '#94a3b8',
+            bgPreview: '#0f172a'
+        },
+        {
+            id: 'tokyo',
+            name: 'Tokyo Neon Sunset',
+            subtitle: 'Warm sunset gradients on midnight indigo',
             primaryColor: '#fb923c',
-            bgPreview: '#180d0d'
+            accentColor: '#ec4899',
+            bgPreview: '#180d1e'
         }
     ],
 
@@ -61,10 +74,16 @@ const ThemeEngine = {
             nameLabel.textContent = theme.name.split(' ')[0];
         }
 
+        if (window.FX) {
+            FX.playSuccess();
+            FX.haptic('medium');
+        }
+
         this.renderThemePickerList();
     },
 
     toggleThemePicker() {
+        if (window.FX) FX.tap();
         const modal = document.getElementById('themePickerModal');
         if (!modal) return;
         modal.classList.toggle('hidden');
@@ -77,17 +96,17 @@ const ThemeEngine = {
         container.innerHTML = this.themes.map(t => {
             const isSelected = t.id === this.currentTheme;
             return `
-                <div onclick="ThemeEngine.setTheme('${t.id}')" class="p-3.5 rounded-2xl border cursor-pointer transition-all flex items-center justify-between ${
+                <div onclick="ThemeEngine.setTheme('${t.id}')" class="p-3.5 rounded-2xl border cursor-pointer transition-all flex items-center justify-between group ${
                     isSelected ? 'border-theme-primary bg-theme-primary/10 shadow-lg shadow-theme-primary/15' : 'border-theme-border bg-theme-bg/60 hover:border-theme-border/80'
                 }">
                     <div class="flex items-center gap-3">
-                        <div class="w-8 h-8 rounded-xl flex items-center justify-center border border-white/10" style="background-color: ${t.bgPreview};">
-                            <span class="w-3.5 h-3.5 rounded-full" style="background-color: ${t.primaryColor}; box-shadow: 0 0 8px ${t.primaryColor};"></span>
+                        <div class="w-9 h-9 rounded-xl flex items-center justify-center border border-white/10 relative overflow-hidden" style="background-color: ${t.bgPreview};">
+                            <span class="w-4 h-4 rounded-full" style="background-color: ${t.primaryColor}; box-shadow: 0 0 10px ${t.primaryColor};"></span>
                         </div>
                         <div>
                             <div class="text-xs font-bold text-white flex items-center gap-1.5">
                                 ${t.name}
-                                ${isSelected ? '<span class="text-[9px] bg-theme-primary text-black px-1.5 py-0.2 rounded font-bold">Active</span>' : ''}
+                                ${isSelected ? '<span class="text-[9px] bg-theme-primary text-black px-1.5 py-0.2 rounded-full font-extrabold uppercase">Active</span>' : ''}
                             </div>
                             <div class="text-[10px] text-theme-muted">${t.subtitle}</div>
                         </div>
@@ -103,5 +122,4 @@ const ThemeEngine = {
     }
 };
 
-// Initialize theme engine immediately
 ThemeEngine.init();
