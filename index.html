@@ -1609,6 +1609,444 @@
       opacity: 1;
       transform: translateX(-50%) translateY(0);
     }
+  
+    /* ========================================================
+       7-STEP TELEGRAM LOGIN & ONBOARDING WIZARD (IMAGES 1 TO 7)
+       ======================================================== */
+    #modal-7step-wizard {
+      display: none !important;
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      bottom: 0 !important;
+      width: 100% !important;
+      height: 100% !important;
+      z-index: 9999999 !important;
+      overflow-y: auto !important;
+      -webkit-overflow-scrolling: touch;
+      background: #0D0F17 !important;
+      color: #FFFFFF !important;
+      padding: 16px 20px 30px !important;
+      box-sizing: border-box !important;
+    }
+    [data-theme="light"] #modal-7step-wizard {
+      background: #F8FAFC !important;
+      color: #1A1D26 !important;
+    }
+    #modal-7step-wizard.active {
+      display: flex !important;
+      flex-direction: column !important;
+    }
+
+    .wizard-inner-shell {
+      max-width: 420px;
+      width: 100%;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      min-height: 92vh;
+      justify-content: space-between;
+      position: relative;
+      z-index: 10;
+    }
+    .wizard-top-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .wizard-step-pill-indicator {
+      background: #232C42;
+      color: #A5B4FC;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 4px 14px;
+      border-radius: 999px;
+      letter-spacing: 0.3px;
+    }
+    [data-theme="light"] .wizard-step-pill-indicator {
+      background: #E8EAF6 !important;
+      color: #303F9F !important;
+    }
+    .wizard-skip-btn {
+      font-size: 13px;
+      font-weight: 600;
+      color: #94A3B8;
+      background: #1A2030;
+      border: 1px solid #2B3448;
+      padding: 5px 12px;
+      border-radius: 999px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.2s;
+    }
+    [data-theme="light"] .wizard-skip-btn {
+      color: #586074 !important;
+      background: #EEF2F8 !important;
+      border: 1px solid #CBD5E1 !important;
+    }
+    .wizard-skip-btn:hover {
+      color: var(--tg-blue);
+    }
+
+    /* Dynamic Wavy Sine-Line Progress Bar */
+    .wavy-sine-progress-track {
+      width: 100%;
+      height: 24px;
+      margin-bottom: 24px;
+      position: relative;
+    }
+    .wavy-sine-svg {
+      width: 100%;
+      height: 24px;
+      display: block;
+    }
+
+    /* 12-Lobed Scalloped Badge */
+    .scalloped-center-badge {
+      width: 100px;
+      height: 100px;
+      margin: 12px auto 20px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .scalloped-bg-svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      fill: #1E2638;
+      transition: fill 0.2s;
+    }
+    [data-theme="light"] .scalloped-bg-svg {
+      fill: #E8EDFA !important;
+    }
+    .scalloped-icon-art {
+      position: relative;
+      z-index: 2;
+      font-size: 38px;
+      color: #A5B4FC;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    [data-theme="light"] .scalloped-icon-art {
+      color: #233261 !important;
+    }
+
+    .wizard-step-view {
+      display: none !important;
+      flex-direction: column;
+      animation: fadeInStep 0.25s ease-out;
+    }
+    .wizard-step-view.active {
+      display: flex !important;
+    }
+    @keyframes fadeInStep {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .wizard-big-title {
+      font-size: 28px;
+      font-weight: 700;
+      color: #FFFFFF;
+      margin-bottom: 8px;
+      letter-spacing: -0.5px;
+    }
+    [data-theme="light"] .wizard-big-title {
+      color: #1A1D26 !important;
+    }
+    .wizard-desc-sub {
+      font-size: 14.5px;
+      color: #94A3B8;
+      line-height: 1.45;
+      margin-bottom: 24px;
+    }
+    [data-theme="light"] .wizard-desc-sub {
+      color: #586074 !important;
+    }
+
+    /* Material 3 Outlined Input Field with Floating Border Label */
+    .m3-outlined-input-wrap {
+      position: relative;
+      margin-bottom: 18px;
+      width: 100%;
+    }
+    .m3-outlined-input-wrap label {
+      position: absolute;
+      top: -9px;
+      left: 12px;
+      background: #0D0F17;
+      padding: 0 6px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #94A3B8;
+      border-radius: 4px;
+      transition: color 0.2s;
+      z-index: 2;
+    }
+    [data-theme="light"] .m3-outlined-input-wrap label {
+      background: #F8FAFC !important;
+      color: #4A5568 !important;
+    }
+    .m3-outlined-input-wrap input,
+    .m3-outlined-input-wrap select {
+      width: 100%;
+      height: 54px;
+      border: 1.5px solid #2B3448;
+      border-radius: 10px;
+      background: #151824;
+      padding: 12px 16px;
+      font-size: 15.5px;
+      color: #FFFFFF;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      font-family: inherit;
+      box-sizing: border-box;
+    }
+    [data-theme="light"] .m3-outlined-input-wrap input,
+    [data-theme="light"] .m3-outlined-input-wrap select {
+      border: 1.5px solid #CBD5E1 !important;
+      background: #FFFFFF !important;
+      color: #1A1D26 !important;
+    }
+    .m3-outlined-input-wrap input:focus,
+    .m3-outlined-input-wrap select:focus {
+      border-color: var(--tg-blue);
+      box-shadow: 0 0 0 2px rgba(36,161,222,0.2);
+    }
+    [data-theme="light"] .m3-outlined-input-wrap input:focus,
+    [data-theme="light"] .m3-outlined-input-wrap select:focus {
+      border-color: #3E4D7E !important;
+      box-shadow: 0 0 0 2px rgba(62,77,126,0.15) !important;
+    }
+
+    /* Helper Pill Button */
+    .btn-helper-pill {
+      background: #232C42;
+      color: #A5B4FC;
+      border: none;
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 18px;
+      width: fit-content;
+    }
+    [data-theme="light"] .btn-helper-pill {
+      background: #E8EAF6 !important;
+      color: #303F9F !important;
+    }
+
+    /* Primary Wizard CTA Button */
+    .btn-wizard-cta {
+      height: 52px;
+      width: 100%;
+      border-radius: 999px;
+      background: #3E4D7E;
+      color: #FFFFFF;
+      font-size: 16px;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s;
+      box-shadow: 0 4px 14px rgba(62,77,126,0.25);
+    }
+    .btn-wizard-cta:hover {
+      background: #334068;
+      transform: translateY(-1px);
+    }
+    [data-theme="dark"] .btn-wizard-cta {
+      background: var(--tg-blue);
+      box-shadow: 0 4px 14px rgba(36,161,222,0.3);
+    }
+    [data-theme="dark"] .btn-wizard-cta:hover {
+      background: #1D8CC2;
+    }
+
+    .btn-wizard-secondary-ghost {
+      height: 48px;
+      width: 100%;
+      border-radius: 999px;
+      background: transparent;
+      color: #94A3B8;
+      font-size: 14.5px;
+      font-weight: 600;
+      border: 1.5px solid #2B3448;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 10px;
+      transition: all 0.2s;
+    }
+    [data-theme="light"] .btn-wizard-secondary-ghost {
+      color: #586074 !important;
+      border-color: #CBD5E1 !important;
+    }
+    .btn-wizard-secondary-ghost:hover {
+      background: rgba(255,255,255,0.05);
+    }
+
+    /* Proxy Banner Card (Step 3) */
+    .proxy-banner-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      background: #151824;
+      border-radius: 16px;
+      margin-top: 18px;
+      cursor: pointer;
+      border: 1px solid #2B3448;
+      transition: all 0.2s;
+    }
+    [data-theme="light"] .proxy-banner-card {
+      background: #EEF2F8 !important;
+      border-color: #E2E8F0 !important;
+    }
+    .proxy-banner-card:hover {
+      filter: brightness(1.05);
+    }
+    .proxy-banner-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .proxy-icon-badge {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(190, 24, 93, 0.2);
+      color: #F472B6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+    [data-theme="light"] .proxy-icon-badge {
+      background: #FCE7F3 !important;
+      color: #BE185D !important;
+    }
+
+    /* Drive Ready Channel Card (Step 6) */
+    .channel-ready-card {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 16px 20px;
+      background: #1E2638;
+      border-radius: 20px;
+      margin-bottom: 24px;
+    }
+    [data-theme="light"] .channel-ready-card {
+      background: #E8EDFA !important;
+    }
+    .channel-avatar-circle {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: #E05238;
+      color: #FFFFFF;
+      font-size: 20px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Material 3 Switch Row (Step 7) */
+    .m3-toggle-setting-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 16px;
+      background: #1E2638;
+      border-radius: 14px;
+      margin-bottom: 8px;
+    }
+    [data-theme="light"] .m3-toggle-setting-row {
+      background: #E8EDFA !important;
+    }
+    .m3-switch-pill {
+      width: 48px;
+      height: 28px;
+      background: #475569;
+      border-radius: 999px;
+      position: relative;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    [data-theme="light"] .m3-switch-pill {
+      background: #CBD5E1 !important;
+    }
+    .m3-switch-pill.active {
+      background: var(--tg-blue) !important;
+    }
+    [data-theme="light"] .m3-switch-pill.active {
+      background: #3E4D7E !important;
+    }
+    .m3-switch-knob {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #FFFFFF;
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      transition: transform 0.2s;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    }
+    .m3-switch-pill.active .m3-switch-knob {
+      transform: translateX(20px);
+    }
+
+    /* Bottom Wizard Controls */
+    .wizard-bottom-nav-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 16px;
+      margin-top: 20px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    [data-theme="light"] .wizard-bottom-nav-controls {
+      border-top-color: #E2E8F0 !important;
+    }
+    .wizard-nav-btn {
+      background: none;
+      border: none;
+      font-size: 14px;
+      font-weight: 600;
+      color: #94A3B8;
+      cursor: pointer;
+      padding: 8px 12px;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 0.2s;
+    }
+    [data-theme="light"] .wizard-nav-btn {
+      color: #586074 !important;
+    }
+    .wizard-nav-btn:hover {
+      color: var(--tg-blue) !important;
+    }
+
   </style>
 </head>
 <body>
@@ -1634,6 +2072,11 @@
     </div>
 
     <div class="header-actions">
+            <!-- 7-Step Login Wizard Button -->
+      <button class="header-btn" onclick="open7StepWizard(1)" style="width:auto; padding:0 12px; font-size:12px; font-weight:700; gap:5px; background:rgba(36,161,222,0.15); color:var(--tg-blue); border:1px solid rgba(36,161,222,0.35); border-radius:999px;" title="Open 7-Step Telegram Login Wizard">
+        <span>🚀 7-Step Login</span>
+      </button>
+
       <!-- Telegram Live Status -->
       <div class="tg-sync-status-indicator" onclick="openTelegramConfigModal()" title="Telegram Supergroup Forum Topics Synced">
         <span class="tg-sync-dot"></span>
@@ -1997,6 +2440,315 @@
       <span>Settings</span>
     </button>
   </nav>
+
+  
+  <!-- ========================================================
+       MODAL: FULL 7-STEP TELEGRAM LOGIN & ONBOARDING WIZARD (IMAGES 1 TO 7)
+       ======================================================== -->
+  <div id="modal-7step-wizard">
+    <div class="wizard-inner-shell">
+      
+      <!-- Top Step Header & Progress -->
+      <div>
+        <div class="wizard-top-header-row">
+          <div class="wizard-step-pill-indicator" id="wizard-step-pill">Step 1 of 7</div>
+          <button class="wizard-skip-btn" onclick="close7StepWizard()">✕ Skip to App</button>
+        </div>
+
+        <!-- Animated Wavy Sine-Line Progress Bar -->
+        <div class="wavy-sine-progress-track">
+          <svg class="wavy-sine-svg" viewBox="0 0 340 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Background track line with ending dot -->
+            <path d="M 0 12 L 328 12" stroke="#CBD5E1" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="328" cy="12" r="3.5" fill="#3E4D7E"/>
+            <!-- Dynamic sinusoidal wavy active segment -->
+            <path id="wavy-sine-active-path" d="M 0 12 Q 10 4, 20 12 T 40 12 T 60 12" stroke="#3E4D7E" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+          </svg>
+        </div>
+
+        <!-- Central 12-Lobed Scalloped Badge -->
+        <div class="scalloped-center-badge">
+          <svg class="scalloped-bg-svg" viewBox="0 0 100 100">
+            <!-- Precise 12-lobed flower scallop -->
+            <path d="M50 0 C56 0 59 7 64 9 C69 11 76 7 80 11 C84 15 82 22 85 27 C88 32 95 34 97 40 C98 46 92 50 92 53 C92 56 98 60 97 66 C95 72 88 74 85 79 C82 84 84 91 80 95 C76 99 69 95 64 97 C59 99 56 106 50 106 C44 106 41 99 36 97 C31 95 24 99 20 95 C16 91 18 84 15 79 C12 74 5 72 3 66 C2 60 8 56 8 53 C8 50 2 46 3 40 C5 34 12 32 15 27 C18 22 16 15 20 11 C24 7 31 11 36 9 C41 7 44 0 50 0 Z"/>
+          </svg>
+          <div class="scalloped-icon-art" id="wizard-badge-icon">
+            <!-- Icon rendered dynamically -->
+            <svg width="42" height="42" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/>
+            </svg>
+          </div>
+        </div>
+
+        <!-- ================= STEP 1: INTRO ================= -->
+        <div class="wizard-step-view active" id="wizard-view-1">
+          <div class="wizard-big-title">TeleDrive</div>
+          <div class="wizard-desc-sub">Your files live in your own private Telegram channel. Your account, your storage, your control.</div>
+          <button class="btn-wizard-cta" onclick="goToWizardStep(2)">Get started</button>
+        </div>
+
+        <!-- ================= STEP 2: API ACCESS ================= -->
+        <div class="wizard-step-view" id="wizard-view-2">
+          <div class="wizard-big-title">API access</div>
+          <div class="wizard-desc-sub">One-time setup. Your keys stay on this device, encrypted.</div>
+          
+          <button class="btn-helper-pill" onclick="openModal('modal-api-keys-help')">
+            <span>(?) Where do I get these?</span>
+          </button>
+
+          <div class="m3-outlined-input-wrap">
+            <label>API ID</label>
+            <input type="text" id="wiz-api-id" value="23604855" placeholder="e.g. 23604855">
+          </div>
+
+          <div class="m3-outlined-input-wrap">
+            <label>API hash</label>
+            <input type="text" id="wiz-api-hash" value="75eda588b3d57b2e77576ae09a26313f" placeholder="e.g. 75eda588b3d57b2e...">
+          </div>
+
+          <button class="btn-wizard-cta" onclick="goToWizardStep(3)">Continue</button>
+        </div>
+
+        <!-- ================= STEP 3: YOUR NUMBER ================= -->
+        <div class="wizard-step-view" id="wizard-view-3">
+          <div class="wizard-big-title">Your number</div>
+          <div class="wizard-desc-sub">The phone number of your Telegram account, with country code.</div>
+
+          <div class="m3-outlined-input-wrap">
+            <label>Country</label>
+            <select id="wiz-country-select">
+              <option value="+880" selected>Bangladesh (+880)</option>
+              <option value="+1">United States (+1)</option>
+              <option value="+44">United Kingdom (+44)</option>
+              <option value="+91">India (+91)</option>
+              <option value="+971">United Arab Emirates (+971)</option>
+              <option value="+65">Singapore (+65)</option>
+            </select>
+          </div>
+
+          <div class="m3-outlined-input-wrap">
+            <label>Phone number</label>
+            <input type="text" id="wiz-phone-num" value="01726280203" placeholder="Phone number">
+          </div>
+
+          <button class="btn-wizard-cta" onclick="goToWizardStep(4)">Send code</button>
+
+          <div style="text-align:center; margin-top:16px;">
+            <button class="btn-helper-pill" onclick="openModal('modal-qr-login')" style="background:transparent; border:1px solid var(--border-color); color:var(--text-heading);">
+              <span>🔲 Sign in by QR code</span>
+            </button>
+          </div>
+
+          <!-- Proxy Banner -->
+          <div class="proxy-banner-card" onclick="openModal('modal-proxy-setup')">
+            <div class="proxy-banner-left">
+              <div class="proxy-icon-badge">🔑</div>
+              <div>
+                <div style="font-size:13.5px; font-weight:700; color:var(--text-heading);">Telegram blocked on this network?</div>
+                <div style="font-size:12px; color:var(--text-sub);">Set up a proxy</div>
+              </div>
+            </div>
+            <span style="font-size:16px; color:var(--text-sub);">›</span>
+          </div>
+        </div>
+
+        <!-- ================= STEP 4: VERIFICATION ================= -->
+        <div class="wizard-step-view" id="wizard-view-4">
+          <div id="wiz-substep-code">
+            <div class="wizard-big-title">Enter the code</div>
+            <div class="wizard-desc-sub">Telegram sent a code to your other devices.</div>
+
+            <div class="m3-outlined-input-wrap">
+              <label>Code</label>
+              <input type="text" id="wiz-verification-code" value="50432" placeholder="e.g. 50432">
+            </div>
+
+            <button class="btn-wizard-cta" onclick="switchWiz2FA()">Verify</button>
+            <div style="text-align:center; margin-top:14px;">
+              <span class="wizard-skip-btn" onclick="showSleekToast('Code resent to your Telegram devices')">Resend code</span>
+            </div>
+          </div>
+
+          <div id="wiz-substep-2fa" style="display:none;">
+            <div class="wizard-big-title">Two-step verification</div>
+            <div class="wizard-desc-sub">Enter your Telegram password.</div>
+
+            <div class="m3-outlined-input-wrap">
+              <label>Password</label>
+              <input type="password" id="wiz-password" value="••••••••" placeholder="Telegram password">
+            </div>
+
+            <button class="btn-wizard-cta" onclick="goToWizardStep(5)">Sign in</button>
+          </div>
+        </div>
+
+        <!-- ================= STEP 5: STORAGE ACCESS ================= -->
+        <div class="wizard-step-view" id="wizard-view-5">
+          <div class="wizard-big-title">Storage access</div>
+          <div class="wizard-desc-sub">TeleDrive needs your media and your files to back them up, and notifications to show transfer progress.</div>
+
+          <button class="btn-wizard-cta" onclick="goToWizardStep(6)">Allow all-files access</button>
+          
+          <div style="font-size:12px; color:var(--text-sub); text-align:center; margin:14px auto; line-height:1.4;">
+            All-files access covers documents, downloads and SD card folders. Without it those folders cannot be backed up.
+          </div>
+
+          <button class="btn-wizard-secondary-ghost" onclick="goToWizardStep(6)">Continue without it</button>
+        </div>
+
+        <!-- ================= STEP 6: YOUR DRIVE IS READY ================= -->
+        <div class="wizard-step-view" id="wizard-view-6">
+          <div class="wizard-big-title">Your drive is ready</div>
+          <div class="wizard-desc-sub">A private channel was created on your account. Everything you back up goes there, and only you can read it.</div>
+
+          <div class="channel-ready-card">
+            <div class="channel-avatar-circle">T</div>
+            <div>
+              <div style="font-size:16px; font-weight:700; color:var(--text-heading);">TeleDrive</div>
+              <div style="font-size:13px; color:var(--text-sub);">0 files in this channel</div>
+            </div>
+          </div>
+
+          <button class="btn-wizard-cta" onclick="goToWizardStep(7)">Continue</button>
+        </div>
+
+        <!-- ================= STEP 7: BACKUP PREFERENCES ================= -->
+        <div class="wizard-step-view" id="wizard-view-7">
+          <div class="wizard-big-title">Backup</div>
+          <div class="wizard-desc-sub">Choose what to back up. You can change this anytime in Settings.</div>
+
+          <div style="font-size:12px; font-weight:700; color:var(--text-sub); text-transform:uppercase; margin-bottom:8px; letter-spacing:0.5px;">Folders</div>
+          
+          <div class="m3-toggle-setting-row">
+            <span style="font-size:14.5px; font-weight:600; color:var(--text-heading);">Camera (DCIM)</span>
+            <div class="m3-switch-pill active" onclick="toggleM3Switch(this)">
+              <div class="m3-switch-knob"></div>
+            </div>
+          </div>
+
+          <div class="m3-toggle-setting-row">
+            <span style="font-size:14.5px; font-weight:600; color:var(--text-heading);">Pictures</span>
+            <div class="m3-switch-pill active" onclick="toggleM3Switch(this)">
+              <div class="m3-switch-knob"></div>
+            </div>
+          </div>
+
+          <div class="m3-toggle-setting-row">
+            <span style="font-size:14.5px; font-weight:600; color:var(--text-heading);">Movies</span>
+            <div class="m3-switch-pill" onclick="toggleM3Switch(this)">
+              <div class="m3-switch-knob"></div>
+            </div>
+          </div>
+
+          <div style="font-size:12px; font-weight:700; color:var(--text-sub); text-transform:uppercase; margin:16px 0 8px; letter-spacing:0.5px;">Behavior</div>
+
+          <div class="m3-toggle-setting-row">
+            <span style="font-size:14.5px; font-weight:600; color:var(--text-heading);">Automatic backup</span>
+            <div class="m3-switch-pill active" onclick="toggleM3Switch(this)">
+              <div class="m3-switch-knob"></div>
+            </div>
+          </div>
+
+          <div class="m3-toggle-setting-row">
+            <span style="font-size:14.5px; font-weight:600; color:var(--text-heading);">Wi-Fi only</span>
+            <div class="m3-switch-pill" onclick="toggleM3Switch(this)">
+              <div class="m3-switch-knob"></div>
+            </div>
+          </div>
+
+          <div style="margin-top:20px;">
+            <button class="btn-wizard-cta" onclick="complete7StepWizard()">Finish setup</button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bottom Step Navigation Controls -->
+      <div class="wizard-bottom-nav-controls">
+        <button class="wizard-nav-btn" id="btn-wiz-prev" onclick="navWizardStep(-1)">
+          <span>←</span>
+          <span>Previous</span>
+        </button>
+        <div style="display:flex; gap:6px;" id="wizard-dots-row">
+          <!-- Rendered dynamically -->
+        </div>
+        <button class="wizard-nav-btn" id="btn-wiz-next" onclick="navWizardStep(1)">
+          <span>Next</span>
+          <span>→</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- HELPER MODAL: GET YOUR API KEYS (EXACT IMAGE 3) -->
+  <div class="modal-backdrop-layer" id="modal-api-keys-help" style="z-index:10000002;">
+    <div class="telegram-styled-modal-card" style="max-width:400px; padding:24px; border-radius:24px; background:var(--bg-card, #151824);">
+      <div style="font-size:22px; font-weight:700; color:var(--text-heading); margin-bottom:16px;">Get your API keys</div>
+      
+      <div style="display:flex; flex-direction:column; gap:12px; margin-bottom:20px;">
+        <div style="display:flex; gap:12px; align-items:flex-start; background:var(--bg-surface-2); padding:14px; border-radius:14px;">
+          <div style="width:24px; height:24px; border-radius:50%; background:#3E4D7E; color:white; font-size:12px; font-weight:700; display:flex; align-items:center; justify-content:center; flex-shrink:0;">1</div>
+          <div>
+            <div style="font-size:13.5px; color:var(--text-heading); margin-bottom:8px;">Open Telegram's developer page and sign in</div>
+            <a href="https://my.telegram.org" target="_blank" class="btn-helper-pill" style="margin:0; text-decoration:none;">
+              <span>↗ my.telegram.org</span>
+            </a>
+          </div>
+        </div>
+
+        <div style="display:flex; gap:12px; align-items:flex-start; background:var(--bg-surface-2); padding:14px; border-radius:14px;">
+          <div style="width:24px; height:24px; border-radius:50%; background:#3E4D7E; color:white; font-size:12px; font-weight:700; display:flex; align-items:center; justify-content:center; flex-shrink:0;">2</div>
+          <div style="font-size:13.5px; color:var(--text-heading);">Choose "API development tools" and create an app. Any name works.</div>
+        </div>
+
+        <div style="display:flex; gap:12px; align-items:flex-start; background:var(--bg-surface-2); padding:14px; border-radius:14px;">
+          <div style="width:24px; height:24px; border-radius:50%; background:#3E4D7E; color:white; font-size:12px; font-weight:700; display:flex; align-items:center; justify-content:center; flex-shrink:0;">3</div>
+          <div style="font-size:13.5px; color:var(--text-heading);">Copy the api_id and api_hash into TeleDrive.</div>
+        </div>
+      </div>
+
+      <button class="btn-wizard-cta" onclick="closeModal('modal-api-keys-help')">Got it</button>
+    </div>
+  </div>
+
+  <!-- HELPER MODAL: QR CODE LOGIN -->
+  <div class="modal-backdrop-layer" id="modal-qr-login" style="z-index:10000002;">
+    <div class="telegram-styled-modal-card" style="max-width:380px; text-align:center; padding:24px; border-radius:24px; background:var(--bg-card, #151824);">
+      <div style="font-size:20px; font-weight:700; color:var(--text-heading); margin-bottom:8px;">Scan QR Code</div>
+      <div style="font-size:13px; color:var(--text-sub); margin-bottom:16px;">Open Telegram > Settings > Devices > Link Desktop Device</div>
+
+      <div style="width:180px; height:180px; margin:0 auto 16px; background:white; padding:12px; border-radius:16px; box-shadow:0 4px 16px rgba(0,0,0,0.1); display:flex; align-items:center; justify-content:center;">
+        <svg viewBox="0 0 100 100" width="100%" height="100%">
+          <rect width="100" height="100" fill="white"/>
+          <path d="M10 10h30v30H10zm5 5v20h20V15zm45-5h30v30H60zm5 5v20h20V15zM10 60h30v30H10zm5 5v20h20V65zm50 0h10v10H65zm15 0h10v10H80zm-15 15h10v10H65zm15 0h10v10H80zM20 20h10v10H20zm50 0h10v10H70zm-50 50h10v10H20z" fill="#1C274C"/>
+          <circle cx="50" cy="50" r="12" fill="#24A1DE"/>
+          <path d="M46 50l3 3 5-6" stroke="white" stroke-width="2" fill="none"/>
+        </svg>
+      </div>
+
+      <button class="btn-wizard-cta" onclick="closeModal('modal-qr-login'); goToWizardStep(5);">Simulate QR Scan Success</button>
+    </div>
+  </div>
+
+  <!-- HELPER MODAL: PROXY SETUP -->
+  <div class="modal-backdrop-layer" id="modal-proxy-setup" style="z-index:10000002;">
+    <div class="telegram-styled-modal-card" style="max-width:380px; padding:22px; border-radius:24px; background:var(--bg-card, #151824);">
+      <div style="font-size:20px; font-weight:700; color:var(--text-heading); margin-bottom:6px;">Set up a proxy</div>
+      <div style="font-size:13px; color:var(--text-sub); margin-bottom:16px;">Configure MTProto or SOCKS5 proxy to bypass restrictions.</div>
+
+      <div class="m3-outlined-input-wrap">
+        <label>Proxy Server</label>
+        <input type="text" id="wiz-proxy-server" placeholder="proxy.telegram.org">
+      </div>
+      <div class="m3-outlined-input-wrap">
+        <label>Port</label>
+        <input type="text" id="wiz-proxy-port" placeholder="443">
+      </div>
+
+      <button class="btn-wizard-cta" onclick="closeModal('modal-proxy-setup'); showSleekToast('Proxy configured successfully!');">Save Proxy</button>
+    </div>
+  </div>
 
   <!-- FLOATING ACTION BUTTON (+) -->
   <button id="fab-main-btn" onclick="openAddModal()" title="Add Record">
@@ -3440,6 +4192,133 @@
         .replace(/"/g, '&quot;')
         .replace(/'/g, '&#39;');
     }
+  
+    /* ========================================================
+       7-STEP ONBOARDING WIZARD CONTROLLER
+       ======================================================== */
+    let CURRENT_WIZARD_STEP = 1;
+    const TOTAL_WIZARD_STEPS = 7;
+
+    const WIZARD_STEP_ICONS = {
+      1: `<svg width="42" height="42" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>`,
+      2: `<span style="font-size:38px;">🔑</span>`,
+      3: `<span style="font-size:38px;">📱</span>`,
+      4: `<span style="font-size:38px;">💬</span>`,
+      5: `<span style="font-size:38px;">🖼️</span>`,
+      6: `<span style="font-size:38px;">☁️</span>`,
+      7: `<span style="font-size:38px;">☁️✓</span>`
+    };
+
+    function open7StepWizard(step = 1) {
+      CURRENT_WIZARD_STEP = step;
+      const el = document.getElementById('modal-7step-wizard');
+      if (el) {
+        el.classList.add('active');
+        renderWizardStep(CURRENT_WIZARD_STEP);
+      }
+      document.body.style.overflow = 'hidden';
+    }
+
+    function close7StepWizard() {
+      const el = document.getElementById('modal-7step-wizard');
+      if (el) el.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    function goToWizardStep(step) {
+      if (step < 1) step = 1;
+      if (step > TOTAL_WIZARD_STEPS) step = TOTAL_WIZARD_STEPS;
+      CURRENT_WIZARD_STEP = step;
+      renderWizardStep(CURRENT_WIZARD_STEP);
+    }
+
+    function navWizardStep(delta) {
+      goToWizardStep(CURRENT_WIZARD_STEP + delta);
+    }
+
+    function renderWizardStep(step) {
+      // 1. Update Pill
+      const pill = document.getElementById('wizard-step-pill');
+      if (pill) pill.textContent = `Step ${step} of ${TOTAL_WIZARD_STEPS}`;
+
+      // 2. Update Wavy Progress Sine Path
+      const activePath = document.getElementById('wavy-sine-active-path');
+      if (activePath) {
+        const maxLen = 328;
+        const currentLen = Math.floor((step / TOTAL_WIZARD_STEPS) * maxLen);
+        let pathD = "M 0 12 ";
+        let x = 0;
+        while (x < currentLen) {
+          const nextX = Math.min(x + 20, currentLen);
+          pathD += `Q ${x + 10} ${((x/20)%2 === 0 ? 4 : 20)}, ${nextX} 12 `;
+          x += 20;
+        }
+        activePath.setAttribute('d', pathD);
+      }
+
+      // 3. Update Icon in Scalloped Center
+      const iconWrap = document.getElementById('wizard-badge-icon');
+      if (iconWrap && WIZARD_STEP_ICONS[step]) {
+        iconWrap.innerHTML = WIZARD_STEP_ICONS[step];
+      }
+
+      // 4. Switch View Active
+      for (let i = 1; i <= TOTAL_WIZARD_STEPS; i++) {
+        const v = document.getElementById(`wizard-view-${i}`);
+        if (v) {
+          if (i === step) {
+            v.classList.add('active');
+          } else {
+            v.classList.remove('active');
+          }
+        }
+      }
+
+      // 5. Update Dots
+      const dotsRow = document.getElementById('wizard-dots-row');
+      if (dotsRow) {
+        dotsRow.innerHTML = Array.from({ length: TOTAL_WIZARD_STEPS }, (_, i) => `
+          <div style="width:8px; height:8px; border-radius:50%; background:${i + 1 === step ? 'var(--tg-blue)' : 'var(--border-color)'}; transition:background 0.2s;"></div>
+        `).join('');
+      }
+
+      // Prev button visibility
+      const btnPrev = document.getElementById('btn-wiz-prev');
+      if (btnPrev) btnPrev.style.visibility = (step === 1 ? 'hidden' : 'visible');
+      
+      const btnNext = document.getElementById('btn-wiz-next');
+      if (btnNext) btnNext.style.visibility = (step === TOTAL_WIZARD_STEPS ? 'hidden' : 'visible');
+
+      // Scroll wizard to top
+      const overlay = document.getElementById('modal-7step-wizard');
+      if (overlay) overlay.scrollTop = 0;
+    }
+
+    function switchWiz2FA() {
+      document.getElementById('wiz-substep-code').style.display = 'none';
+      document.getElementById('wiz-substep-2fa').style.display = 'block';
+      const iconWrap = document.getElementById('wizard-badge-icon');
+      if (iconWrap) iconWrap.innerHTML = `<span style="font-size:38px;">🔒</span>`;
+    }
+
+    function toggleM3Switch(el) {
+      el.classList.toggle('active');
+    }
+
+    function complete7StepWizard() {
+      safeSet('teledrive_7step_completed', 'true');
+      const apiId = document.getElementById('wiz-api-id')?.value;
+      const apiHash = document.getElementById('wiz-api-hash')?.value;
+      const phone = document.getElementById('wiz-phone-num')?.value;
+      if (apiId) safeSet('teledrive_tg_api_id', apiId);
+      if (apiHash) safeSet('teledrive_tg_api_hash', apiHash);
+      if (phone) safeSet('teledrive_user_phone', phone);
+
+      close7StepWizard();
+      showSleekToast('🎉 7-Step TeleDrive Setup Completed Successfully!');
+      switchMainTab('home');
+    }
+
   </script>
 </body>
 </html>
