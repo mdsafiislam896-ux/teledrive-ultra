@@ -2,7 +2,7 @@
 <html lang="bn" data-theme="dark">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, interactive-widget=resizes-content">
 <meta name="theme-color" content="#090a14">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -14,7 +14,7 @@
 
 <style>
 /* ========================================================
-   SAFI TELEGRAM VAULT - PROFESSIONAL ULTRA-PREMIUM TOKENS
+   SAFI TELEGRAM VAULT - AWD TELEDRIVE NATIVE DESIGN SYSTEM
    ======================================================== */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html{height:100%;overflow:hidden;font-size:15px}
@@ -24,8 +24,17 @@ body{
   transition:background .3s cubic-bezier(.4,0,.2,1),color .3s;
   -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
 }
+
+/* Form Inputs Mobile Fix: Must be 16px to prevent iOS/Android focus/zoom lock */
 button,input,textarea,select{font-family:inherit;color:inherit}
 button{border:none;background:none;cursor:pointer}
+input,textarea,select{
+  font-size:16px !important;
+  -webkit-user-select:text !important;
+  user-select:text !important;
+  touch-action:manipulation;
+  pointer-events:auto !important;
+}
 code,pre,.mono{font-family:'JetBrains Mono',monospace}
 
 /* Custom Scrollbars */
@@ -279,7 +288,7 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
 .search-input{
   width:100%;height:36px;padding:0 12px 0 34px;border-radius:20px;
   background:var(--surface2);border:1px solid var(--border);
-  color:var(--text);font-size:13px;outline:none;transition:var(--transition);
+  color:var(--text);font-size:13px !important;outline:none;transition:var(--transition);
 }
 .search-input:focus{border-color:var(--primary);background:var(--surface)}
 .search-icon{position:absolute;left:11px;color:var(--text-muted);font-size:14px;pointer-events:none}
@@ -312,16 +321,57 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
   #content{padding:20px 24px}
 }
 
-.items-container{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+/* ========================================================
+   AWD TELEDRIVE FOLDER DIRECTORY GRID (HOME TAB)
+   ======================================================== */
+.folders-section-title{
+  font-size:11px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;
+  color:var(--text-muted);margin-bottom:12px;display:flex;align-items:center;justify-content:space-between;
+}
+.folder-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px;margin-bottom:24px;
+}
+@media(max-width:480px){
+  .folder-grid{grid-template-columns:repeat(2,1fr);gap:10px}
+}
+
+.folder-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);
+  padding:14px 12px;cursor:pointer;transition:var(--transition);display:flex;
+  flex-direction:column;gap:8px;position:relative;box-shadow:var(--card-shadow);
+  user-select:none;
+}
+.folder-card:hover{transform:translateY(-3px);border-color:var(--primary);box-shadow:0 12px 28px var(--primary-glow)}
+.folder-card:active{transform:scale(.96)}
+.folder-icon{font-size:32px;line-height:1}
+.folder-name{font-size:13px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--text)}
+.folder-count{font-size:11px;color:var(--text-muted);font-weight:700}
+
+/* Inside Folder Navigation Bar */
+.folder-nav-header{
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);
+  padding:10px 14px;margin-bottom:16px;
+}
+.folder-back-btn{
+  font-size:12px;font-weight:800;color:var(--primary);cursor:pointer;display:flex;align-items:center;gap:6px;
+}
+.folder-back-btn:hover{text-decoration:underline}
+
+/* Compact Non-Stretching Items Grid */
+.items-container{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;
+  align-items:start; /* CRITICAL: Prevents cards from stretching to match tallest card! */
+}
 
 /* ========================================================
-   CARDS & MICRO-INTERACTIONS
+   COMPACT CARDS
    ======================================================== */
 .card{
   background:var(--surface);border:1px solid var(--border);
   border-radius:var(--radius-md);padding:14px;position:relative;
-  transition:var(--transition);display:flex;flex-direction:column;gap:10px;
-  box-shadow:var(--card-shadow);
+  transition:var(--transition);display:flex;flex-direction:column;gap:8px;
+  box-shadow:var(--card-shadow);height:fit-content; /* CRITICAL: Each card takes exact height! */
 }
 .card:hover{transform:translateY(-2px);border-color:var(--primary-glow)}
 
@@ -344,7 +394,7 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
 .card-desc{font-size:12px;color:var(--text-muted);line-height:1.5;white-space:pre-wrap;word-break:break-word}
 
 /* ========================================================
-   1. COPYABLE ELEMENT CHIP (UNIVERSAL TAP & BUTTON COPY)
+   COPYABLE PILLS & CHIPS (FLAWLESS UNIVERSAL COPY)
    ======================================================== */
 .copy-pill-btn{
   padding:4px 9px;border-radius:6px;background:var(--primary);color:var(--primary-text);
@@ -366,7 +416,7 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
 }
 
 /* ========================================================
-   2. REALISTIC 3D CREDIT / DEBIT CARD (100% VISIBLE)
+   REALISTIC CLEAN CREDIT CARD (REDUNDANT BUTTONS REMOVED!)
    ======================================================== */
 .credit-card-ui{
   background:linear-gradient(135deg,#1c1b2b 0%,#2d1b4e 50%,#18233c 100%);
@@ -397,23 +447,8 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
 .cc-exp-cvv-box{display:flex;gap:14px;text-align:right}
 .cc-val{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:800}
 
-/* Copy Card Master Row */
-.cc-copy-actions{
-  display:flex;gap:6px;margin-top:4px;flex-wrap:wrap;
-}
-.cc-quick-copy{
-  padding:3px 8px;border-radius:6px;background:rgba(255,255,255,.16);color:#fff;
-  font-size:10px;font-weight:700;cursor:pointer;transition:var(--transition);display:inline-flex;align-items:center;gap:3px;
-}
-.cc-quick-copy:hover{background:rgba(255,255,255,.3)}
-.cc-quick-copy.copied{background:var(--success) !important;color:#000 !important}
-
-/* ========================================================
-   3. INLINE MEDIA & AUDIO/VIDEO PLAYER
-   ======================================================== */
-.inline-video-box{
-  width:100%;border-radius:10px;overflow:hidden;background:#000;position:relative;
-}
+/* Inline Audio/Video */
+.inline-video-box{width:100%;border-radius:10px;overflow:hidden;background:#000;position:relative}
 .inline-video-box video{width:100%;max-height:220px;display:block}
 
 .inline-audio-player{
@@ -429,9 +464,7 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
 .iap-bar-bg{height:5px;border-radius:3px;background:var(--surface3);margin-top:4px;cursor:pointer;overflow:hidden}
 .iap-bar-fill{height:100%;border-radius:3px;background:var(--primary);width:0%}
 
-/* ========================================================
-   4. IDM 8-CHANNEL TURBO DOWNLOAD ACCELERATOR MODAL
-   ======================================================== */
+/* IDM Modal */
 .idm-box{
   background:var(--surface);border-radius:var(--radius-md);padding:18px;
   border:1px solid var(--border);display:flex;flex-direction:column;gap:12px;
@@ -490,11 +523,13 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
   #sidebar-backdrop.open{display:block}
 }
 
-/* Overlays & Modals */
+/* ========================================================
+   OVERLAYS & MODALS (MOBILE KEYBOARD SAFE - NO CSS TRANSFORM BREAKAGE)
+   ======================================================== */
 .overlay{
   position:fixed;inset:0;background:var(--overlay);backdrop-filter:blur(6px);
   z-index:120;display:flex;align-items:flex-end;justify-content:center;
-  opacity:0;pointer-events:none;transition:opacity .25s ease;
+  opacity:0;pointer-events:none;transition:opacity .2s ease;
 }
 .overlay.open{opacity:1;pointer-events:all}
 .overlay.center{align-items:center}
@@ -502,18 +537,15 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
 .sheet{
   width:100%;max-width:540px;background:var(--surface);
   border-radius:var(--radius-xl) var(--radius-xl) 0 0;padding:16px 20px 32px;
-  transform:translateY(100%);transition:transform .3s cubic-bezier(.4,0,.2,1);
   max-height:88vh;overflow-y:auto;border-top:1px solid var(--border);
 }
-.overlay.open .sheet{transform:translateY(0)}
 
+/* Mobile-Safe Modal (No transform:scale to ensure inputs focus on phone) */
 .modal{
   width:calc(100% - 32px);max-width:480px;background:var(--surface);
   border-radius:var(--radius-lg);padding:22px;border:1px solid var(--border);
-  box-shadow:0 16px 40px rgba(0,0,0,.6);transform:scale(.92);
-  transition:transform .25s cubic-bezier(.4,0,.2,1);max-height:86vh;overflow-y:auto;
+  box-shadow:0 16px 40px rgba(0,0,0,.6);max-height:86vh;overflow-y:auto;
 }
-.overlay.center.open .modal{transform:scale(1)}
 
 .sheet-handle{width:40px;height:5px;border-radius:3px;background:var(--border);margin:0 auto 16px}
 .modal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
@@ -535,9 +567,9 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
 .form-group{margin-bottom:14px}
 .form-label{display:block;font-size:12px;font-weight:800;margin-bottom:6px;color:var(--text)}
 .form-input,.form-textarea,.form-select{
-  width:100%;padding:11px 14px;border-radius:var(--radius-sm);
+  width:100%;padding:12px 14px;border-radius:var(--radius-sm);
   background:var(--surface2);border:1px solid var(--border);color:var(--text);
-  font-size:13px;outline:none;transition:var(--transition);
+  outline:none;transition:var(--transition);
 }
 .form-input:focus,.form-textarea:focus,.form-select:focus{
   border-color:var(--primary);background:var(--surface);box-shadow:0 0 0 3px var(--primary-glow);
@@ -664,7 +696,7 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
       <div class="header-title-box">
         <div class="header-title" id="current-view-title">
           <span id="view-icon">🏠</span>
-          <span id="view-name">All Items</span>
+          <span id="view-name">My Vault</span>
         </div>
         <div class="header-sub" id="current-view-sub">Personal Digital Archive</div>
       </div>
@@ -690,8 +722,32 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
 
     <!-- Content Area -->
     <div id="content">
-      <div id="items-container" class="items-container">
-        <!-- Rendered dynamically -->
+      <!-- 1. AWD TELEDRIVE FOLDERS VIEW (ON HOME TAB) -->
+      <div id="folders-container">
+        <div class="folders-section-title">
+          <span>📁 Vault Folders</span>
+          <span style="font-size:10px;color:var(--primary);cursor:pointer" onclick="openCreateCategoryModal()">＋ New Folder</span>
+        </div>
+        <div class="folder-grid" id="folder-grid">
+          <!-- Injected dynamically -->
+        </div>
+      </div>
+
+      <!-- 2. INSIDE FOLDER / ALL ITEMS VIEW -->
+      <div id="items-section">
+        <div id="folder-nav-header-box" style="display:none">
+          <div class="folder-nav-header">
+            <div class="folder-back-btn" onclick="backToFolders()">
+              <span>‹</span> <span>Back to Folders</span>
+            </div>
+            <div style="font-size:12px;font-weight:800" id="current-folder-label">Folder Name</div>
+            <button class="copy-pill-btn ripple" onclick="openCreateItemModal(VAULT.currentCategory)">＋ Add</button>
+          </div>
+        </div>
+
+        <div id="items-container" class="items-container">
+          <!-- Rendered dynamically -->
+        </div>
       </div>
     </div>
   </main>
@@ -702,11 +758,11 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
 
 <!-- Bottom Navigation (Mobile) -->
 <nav id="bottom-nav">
-  <div class="bnav-btn active ripple" onclick="switchCategory('all', this)">
+  <div class="bnav-btn active ripple" id="bn-home" onclick="backToFolders();switchCategory('all', this)">
     <span class="bnav-icon">🏠</span>
     <span>Home</span>
   </div>
-  <div class="bnav-btn ripple" onclick="switchCategory('photos', this)">
+  <div class="bnav-btn ripple" id="bn-photos" onclick="switchCategory('photos', this)">
     <span class="bnav-icon">🖼️</span>
     <span>Photos</span>
   </div>
@@ -714,7 +770,7 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
     <span class="bnav-icon" style="color:var(--primary);font-size:24px">➕</span>
     <span>Add</span>
   </div>
-  <div class="bnav-btn ripple" onclick="switchCategory('important', this)">
+  <div class="bnav-btn ripple" id="bn-important" onclick="switchCategory('important', this)">
     <span class="bnav-icon">⭐</span>
     <span>Important</span>
   </div>
@@ -725,12 +781,12 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
 </nav>
 
 <!-- ========================================================
-     MODALS & SHEETS
+     MODALS & SHEETS (MOBILE-OPTIMIZED WITH STOPPROPAGATION)
      ======================================================== -->
 
-<!-- 1. ADD NEW ITEM SHEET (ALL 12 ITEM TYPES) -->
+<!-- 1. ADD NEW ITEM SHEET -->
 <div class="overlay" id="add-action-overlay" onclick="closeOverlayOnBackdrop(event, 'add-action-overlay')">
-  <div class="sheet">
+  <div class="sheet" onclick="event.stopPropagation()">
     <div class="sheet-handle"></div>
     <div class="modal-header">
       <div class="modal-title"><span>➕</span> Add to Safi Vault</div>
@@ -792,9 +848,9 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
   </div>
 </div>
 
-<!-- 2. CREATE ITEM MODAL -->
+<!-- 2. CREATE ITEM MODAL (MOBILE TAP-SAFE) -->
 <div class="overlay center" id="create-item-overlay" onclick="closeOverlayOnBackdrop(event, 'create-item-overlay')">
-  <div class="modal">
+  <div class="modal" onclick="event.stopPropagation()">
     <div class="modal-header">
       <div class="modal-title" id="create-modal-title"><span>📝</span> Save Item</div>
       <button class="modal-close" onclick="closeOverlay('create-item-overlay')">✕</button>
@@ -809,35 +865,35 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
 
       <div class="form-group">
         <label class="form-label">Title / Subject</label>
-        <input type="text" class="form-input" id="form-item-title" placeholder="e.g. Visa Platinum, Google Interview CV, OTP..." required>
+        <input type="text" class="form-input" id="form-item-title" placeholder="e.g. Visa Platinum, Google Interview CV, OTP..." required autocomplete="off">
       </div>
 
-      <!-- Specialized field: Web Link -->
+      <!-- Web Link -->
       <div class="form-group" id="field-url" style="display:none">
         <label class="form-label">Website URL</label>
-        <input type="url" class="form-input" id="form-item-url" placeholder="https://example.com">
+        <input type="url" class="form-input" id="form-item-url" placeholder="https://example.com" autocomplete="off">
       </div>
 
-      <!-- Specialized field: SMS Info -->
+      <!-- SMS Info -->
       <div id="field-sms" style="display:none">
         <div class="form-row">
           <div class="form-group" style="flex:1">
             <label class="form-label">Sender / Service</label>
-            <input type="text" class="form-input" id="form-sms-sender" placeholder="e.g. bKash, Bank, WhatsApp">
+            <input type="text" class="form-input" id="form-sms-sender" placeholder="e.g. bKash, Bank, WhatsApp" autocomplete="off">
           </div>
           <div class="form-group" style="flex:1">
             <label class="form-label">Phone Number</label>
-            <input type="text" class="form-input mono" id="form-sms-phone" placeholder="01726280203">
+            <input type="text" class="form-input mono" id="form-sms-phone" placeholder="01726280203" autocomplete="off">
           </div>
         </div>
       </div>
 
-      <!-- Specialized field: Job Details -->
+      <!-- Job Details -->
       <div id="field-job" style="display:none">
         <div class="form-row">
           <div class="form-group" style="flex:1">
             <label class="form-label">Company / Platform</label>
-            <input type="text" class="form-input" id="form-job-company" placeholder="e.g. Google, Remote, Freelance">
+            <input type="text" class="form-input" id="form-job-company" placeholder="e.g. Google, Remote, Freelance" autocomplete="off">
           </div>
           <div class="form-group" style="flex:1">
             <label class="form-label">Application Status</label>
@@ -851,41 +907,41 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
         </div>
       </div>
 
-      <!-- Specialized field: Card Details (100% VISIBLE) -->
+      <!-- Card Details (100% VISIBLE) -->
       <div id="field-card" style="display:none">
         <div class="form-group">
           <label class="form-label">Card Number (16 Digits)</label>
-          <input type="text" class="form-input mono" id="form-card-num" placeholder="4525 6532 6532 1234">
+          <input type="text" class="form-input mono" id="form-card-num" placeholder="4525 6532 6532 1234" autocomplete="off">
         </div>
         <div class="form-row">
           <div class="form-group" style="flex:1">
             <label class="form-label">Cardholder Name</label>
-            <input type="text" class="form-input" id="form-card-name" placeholder="MD SAFI ISLAM">
+            <input type="text" class="form-input" id="form-card-name" placeholder="MD SAFI ISLAM" autocomplete="off">
           </div>
           <div class="form-group" style="flex:1">
             <label class="form-label">Bank / Brand</label>
-            <input type="text" class="form-input" id="form-card-bank" placeholder="VISA PLATINUM">
+            <input type="text" class="form-input" id="form-card-bank" placeholder="VISA PLATINUM" autocomplete="off">
           </div>
         </div>
         <div class="form-row">
           <div class="form-group" style="flex:1">
             <label class="form-label">Expiry (MM/YY)</label>
-            <input type="text" class="form-input mono" id="form-card-exp" placeholder="10/27">
+            <input type="text" class="form-input mono" id="form-card-exp" placeholder="10/27" autocomplete="off">
           </div>
           <div class="form-group" style="flex:1">
             <label class="form-label">CVV Code</label>
-            <input type="text" class="form-input mono" id="form-card-cvv" placeholder="111" maxlength="4">
+            <input type="text" class="form-input mono" id="form-card-cvv" placeholder="111" maxlength="4" autocomplete="off">
           </div>
         </div>
       </div>
 
-      <!-- Specialized field: Bulk Emails / Numbers -->
+      <!-- Bulk Emails / Numbers -->
       <div class="form-group" id="field-bubbles" style="display:none">
         <label class="form-label">Emails / Numbers (One per line)</label>
         <textarea class="form-textarea" id="form-item-bubbles" placeholder="ariYaNsAFI1132@gmail.com&#10;+21620809250"></textarea>
       </div>
 
-      <!-- General Description / Note / Text -->
+      <!-- General Content -->
       <div class="form-group" id="field-notes">
         <label class="form-label">Notes / Instructions / Content</label>
         <textarea class="form-textarea" id="form-item-notes" placeholder="Write details, tutorial steps, keys, or descriptions..."></textarea>
@@ -910,9 +966,9 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
   </div>
 </div>
 
-<!-- 3. CREATE CATEGORY / TOPIC MODAL -->
+<!-- 3. CREATE CATEGORY MODAL -->
 <div class="overlay center" id="create-cat-overlay" onclick="closeOverlayOnBackdrop(event, 'create-cat-overlay')">
-  <div class="modal">
+  <div class="modal" onclick="event.stopPropagation()">
     <div class="modal-header">
       <div class="modal-title"><span>📁</span> New Category & Topic</div>
       <button class="modal-close" onclick="closeOverlay('create-cat-overlay')">✕</button>
@@ -920,11 +976,11 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
     <form onsubmit="handleCreateCategory(event)">
       <div class="form-group">
         <label class="form-label">Category Name</label>
-        <input type="text" class="form-input" id="cat-name-input" placeholder="e.g. Bank Statements, Crypto..." required>
+        <input type="text" class="form-input" id="cat-name-input" placeholder="e.g. Bank Statements, Crypto..." required autocomplete="off">
       </div>
       <div class="form-group">
         <label class="form-label">Icon (Emoji)</label>
-        <input type="text" class="form-input" id="cat-icon-input" value="📁" maxlength="4" required>
+        <input type="text" class="form-input" id="cat-icon-input" value="📁" maxlength="4" required autocomplete="off">
       </div>
       <div class="form-group" style="display:flex;align-items:center;gap:10px">
         <input type="checkbox" id="cat-create-tg-topic" checked style="width:16px;height:16px">
@@ -937,7 +993,7 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
 
 <!-- 4. PROFILE & SETTINGS FULL CONTROL CENTER -->
 <div class="overlay center" id="profile-settings-overlay" onclick="closeOverlayOnBackdrop(event, 'profile-settings-overlay')">
-  <div class="modal" style="max-width:500px">
+  <div class="modal" onclick="event.stopPropagation()" style="max-width:500px">
     <div class="modal-header">
       <div class="modal-title"><span>👤</span> Profile & Settings</div>
       <button class="modal-close" onclick="closeOverlay('profile-settings-overlay')">✕</button>
@@ -1021,7 +1077,7 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
 
 <!-- 5. THEME PICKER MODAL -->
 <div class="overlay center" id="theme-overlay" onclick="closeOverlayOnBackdrop(event, 'theme-overlay')">
-  <div class="modal" style="max-width:440px">
+  <div class="modal" onclick="event.stopPropagation()" style="max-width:440px">
     <div class="modal-header">
       <div class="modal-title"><span>🎨</span> Select Theme</div>
       <button class="modal-close" onclick="closeOverlay('theme-overlay')">✕</button>
@@ -1034,7 +1090,7 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
 
 <!-- 6. IDM 8-CHANNEL TURBO DOWNLOAD ACCELERATOR MODAL -->
 <div class="overlay center" id="idm-overlay">
-  <div class="modal" style="max-width:480px">
+  <div class="modal" onclick="event.stopPropagation()" style="max-width:480px">
     <div class="idm-box">
       <div class="idm-header">
         <div class="idm-header-icon">⚡</div>
@@ -1044,7 +1100,6 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
         </div>
       </div>
 
-      <!-- 8 Streaming Channels -->
       <div class="idm-channels-grid">
         <div class="idm-chan-row"><span class="idm-chan-lbl">Ch 1</span><div class="idm-chan-bar-bg"><div class="idm-chan-bar-fill" id="idm-c1"></div></div></div>
         <div class="idm-chan-row"><span class="idm-chan-lbl">Ch 2</span><div class="idm-chan-bar-bg"><div class="idm-chan-bar-fill" id="idm-c2"></div></div></div>
@@ -1056,7 +1111,6 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
         <div class="idm-chan-row"><span class="idm-chan-lbl">Ch 8</span><div class="idm-chan-bar-bg"><div class="idm-chan-bar-fill" id="idm-c8"></div></div></div>
       </div>
 
-      <!-- Master Progress Bar -->
       <div class="idm-master-bar-bg">
         <div class="idm-master-bar-fill" id="idm-master-fill"></div>
       </div>
@@ -1085,17 +1139,16 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
 <div id="toast">Message</div>
 
 <!-- ========================================================
-     JAVASCRIPT LOGIC & UNIVERSAL CLIPBOARD ENGINE
+     JAVASCRIPT LOGIC
      ======================================================== -->
 <script>
 // ========================================================
-// 1. BULLETPROOF UNIVERSAL CLIPBOARD ENGINE (DUAL FALLBACK)
+// 1. UNIVERSAL CLIPBOARD ENGINE (DUAL FALLBACK)
 // ========================================================
 function copyTextSafely(text, label = 'Text', triggerBtn = null) {
   if (!text) return;
   const str = String(text).trim();
 
-  // Visual button feedback
   if (triggerBtn) {
     const origHtml = triggerBtn.innerHTML;
     triggerBtn.innerHTML = `✓ Copied!`;
@@ -1106,12 +1159,10 @@ function copyTextSafely(text, label = 'Text', triggerBtn = null) {
     }, 2000);
   }
 
-  // Haptic feedback
   if (navigator.vibrate) {
     try { navigator.vibrate(25); } catch(e) {}
   }
 
-  // 1. Try modern navigator.clipboard
   if (navigator.clipboard && window.isSecureContext) {
     navigator.clipboard.writeText(str).then(() => {
       showToast(`✓ Copied ${label}!`);
@@ -1123,7 +1174,6 @@ function copyTextSafely(text, label = 'Text', triggerBtn = null) {
   }
 }
 
-// Fallback using execCommand for HTTP / Brave / WebViews
 function fallbackExecCopy(text, label) {
   try {
     const el = document.createElement('textarea');
@@ -1148,7 +1198,7 @@ function fallbackExecCopy(text, label) {
   }
 }
 
-// Global Event Listener for all [data-copy] elements
+// Global Event Listener for all [data-copy]
 document.addEventListener('click', (e) => {
   const el = e.target.closest('[data-copy]');
   if (el) {
@@ -1160,7 +1210,7 @@ document.addEventListener('click', (e) => {
 });
 
 // ========================================================
-// CORE CATEGORIES DEFINITION
+// CORE CATEGORIES & THEMES
 // ========================================================
 const DEFAULT_CATEGORIES = [
   { id: 'all', name: 'All Items', icon: '🏠', isSystem: true },
@@ -1199,6 +1249,7 @@ const VAULT = {
   items: [],
   categories: [],
   currentCategory: 'all',
+  isInsideFolder: false,
   searchQuery: '',
   theme: localStorage.getItem('safi_theme') || 'dark',
   tgToken: localStorage.getItem('safi_tg_token') || '',
@@ -1217,6 +1268,7 @@ document.addEventListener('DOMContentLoaded', () => {
   updateProfileUI();
   renderCategoryNav();
   renderFilterChips();
+  renderFoldersGrid();
   renderItems();
   initThemeGrid();
   checkTelegramStatus();
@@ -1249,6 +1301,63 @@ function saveVaultData() {
 
 function generateId() {
   return 'item_' + Date.now().toString(36) + '_' + Math.random().toString(36).substr(2, 5);
+}
+
+// ========================================================
+// AWD TELEDRIVE FOLDERS GRID RENDERER
+// ========================================================
+function renderFoldersGrid() {
+  const grid = document.getElementById('folder-grid');
+  if(!grid) return;
+
+  const displayCats = VAULT.categories.filter(c => c.id !== 'all');
+
+  grid.innerHTML = displayCats.map(c => {
+    let count = 0;
+    if(c.id === 'bin') count = VAULT.items.filter(i => i.isDeleted).length;
+    else if(c.id === 'important') count = VAULT.items.filter(i => i.isImportant && !i.isDeleted).length;
+    else count = VAULT.items.filter(i => i.category === c.id && !i.isDeleted).length;
+
+    return `
+      <div class="folder-card ripple" onclick="openFolderView('${c.id}')">
+        <div class="folder-icon">${c.icon}</div>
+        <div class="folder-name">${escapeHtml(c.name)}</div>
+        <div class="folder-count">${count} ${count === 1 ? 'item' : 'items'}</div>
+      </div>
+    `;
+  }).join('');
+}
+
+function openFolderView(catId) {
+  VAULT.currentCategory = catId;
+  VAULT.isInsideFolder = true;
+
+  // Hide folders grid, show items section with back bar
+  document.getElementById('folders-container').style.display = 'none';
+  document.getElementById('folder-nav-header-box').style.display = 'block';
+
+  const cat = VAULT.categories.find(c => c.id === catId) || { name: 'Folder', icon: '📁' };
+  document.getElementById('current-folder-label').textContent = `${cat.icon} ${cat.name}`;
+  document.getElementById('view-icon').textContent = cat.icon;
+  document.getElementById('view-name').textContent = cat.name;
+
+  renderItems();
+  updateCategoryNavActive(catId);
+}
+
+function backToFolders() {
+  VAULT.currentCategory = 'all';
+  VAULT.isInsideFolder = false;
+
+  document.getElementById('folders-container').style.display = 'block';
+  document.getElementById('folder-nav-header-box').style.display = 'none';
+
+  document.getElementById('view-icon').textContent = '🏠';
+  document.getElementById('view-name').textContent = 'My Vault';
+
+  renderFoldersGrid();
+  renderItems();
+  updateCategoryNavActive('all');
 }
 
 // ========================================================
@@ -1327,11 +1436,12 @@ function deleteCategory(catId) {
   });
 
   VAULT.categories = VAULT.categories.filter(c => c.id !== catId);
-  if(VAULT.currentCategory === catId) VAULT.currentCategory = 'all';
+  if(VAULT.currentCategory === catId) backToFolders();
 
   saveVaultData();
   renderCategoryNav();
   renderFilterChips();
+  renderFoldersGrid();
   renderItems();
   updateTopicsManagerList();
   showToast(`Category "${cat.name}" deleted!`);
@@ -1366,23 +1476,22 @@ function openThemeModal() { openOverlay('theme-overlay'); }
 // NAVIGATION & CATEGORY SWITCHING
 // ========================================================
 function switchCategory(catId, element) {
-  VAULT.currentCategory = catId;
-  
-  document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
-  const targetNav = document.getElementById(`nav-${catId}`);
-  if(targetNav) targetNav.classList.add('active');
+  if (catId === 'all') {
+    backToFolders();
+    return;
+  }
+  openFolderView(catId);
 
   document.querySelectorAll('.bnav-btn').forEach(el => el.classList.remove('active'));
   if(element && element.classList.contains('bnav-btn')) element.classList.add('active');
 
-  const cat = VAULT.categories.find(c => c.id === catId) || { name: 'Items', icon: '📂' };
-  document.getElementById('view-icon').textContent = cat.icon;
-  document.getElementById('view-name').textContent = cat.name;
-
   if(window.innerWidth < 768) toggleSidebar(false);
+}
 
-  renderFilterChips();
-  renderItems();
+function updateCategoryNavActive(catId) {
+  document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+  const targetNav = document.getElementById(`nav-${catId}`);
+  if(targetNav) targetNav.classList.add('active');
 }
 
 function renderCategoryNav() {
@@ -1434,7 +1543,7 @@ function renderFilterChips() {
 }
 
 // ========================================================
-// RENDER ITEMS (FLAWLESS COPY & FULL DETAILS)
+// RENDER ITEMS (COMPACT HEIGHT & CLEAN DESIGN)
 // ========================================================
 function renderItems() {
   const container = document.getElementById('items-container');
@@ -1466,15 +1575,13 @@ function renderItems() {
     );
   }
 
-  // Empty State
+  // If in Home and not inside folder, we show recent items below folders
   if(filtered.length === 0) {
     container.innerHTML = `
-      <div class="empty-box" style="grid-column:1/-1">
+      <div class="empty-box" style="grid-column:1/-1;padding:30px 10px">
         <div class="empty-icon">${VAULT.currentCategory === 'bin' ? '🗑️' : '📂'}</div>
-        <div class="empty-title">${VAULT.currentCategory === 'bin' ? 'Bin is empty' : 'No items found'}</div>
-        <div class="empty-desc">
-          ${VAULT.currentCategory === 'bin' ? 'Deleted items will appear here.' : 'Tap the ＋ button below to add records.'}
-        </div>
+        <div class="empty-title">${VAULT.currentCategory === 'bin' ? 'Bin is empty' : 'No items in this section'}</div>
+        <div class="empty-desc">Tap ＋ to add your first record.</div>
       </div>
     `;
     renderCategoryNav();
@@ -1493,7 +1600,7 @@ function renderItemCard(item) {
   let mediaHtml = '';
   if(item.fileData && (item.fileType?.startsWith('image/') || item.category === 'photos')) {
     mediaHtml = `
-      <div style="width:100%;height:150px;border-radius:10px;overflow:hidden;background:var(--surface2);cursor:pointer;position:relative" onclick="openMediaViewer('${item.id}', 'img')">
+      <div style="width:100%;height:140px;border-radius:10px;overflow:hidden;background:var(--surface2);cursor:pointer;position:relative" onclick="openMediaViewer('${item.id}', 'img')">
         <img src="${item.fileData}" style="width:100%;height:100%;object-fit:cover" alt="${escapeHtml(item.title)}">
         <span style="position:absolute;bottom:6px;right:6px;padding:2px 7px;border-radius:4px;background:rgba(0,0,0,.75);color:#fff;font-size:10px;font-weight:700">
           ${formatFileSize(item.fileSize)}
@@ -1518,13 +1625,12 @@ function renderItemCard(item) {
     `;
   }
 
-  // 2. REALISTIC 3D CREDIT / DEBIT CARD (100% VISIBLE + WORKING COPY BUTTONS)
+  // 2. REALISTIC CREDIT CARD (COMPACT - REDUNDANT BOTTOM BUTTONS REMOVED!)
   let cardHtml = '';
   if(item.cardDetails) {
     const cd = item.cardDetails;
     const numClean = (cd.number || '').replace(/\s+/g, '');
     const numFormatted = numClean.replace(/(\d{4})/g, '$1 ').trim();
-    const allCardDetails = `Card: ${numClean}\nHolder: ${cd.name}\nBank: ${cd.bank}\nEXP: ${cd.exp}\nCVV: ${cd.cvv}`;
 
     cardHtml = `
       <div class="credit-card-ui">
@@ -1536,7 +1642,7 @@ function renderItemCard(item) {
         <div class="cc-number-row">
           <span class="cc-number">${escapeHtml(numFormatted || '•••• •••• •••• ••••')}</span>
           <button class="copy-pill-btn ripple" data-copy="${escapeHtml(numClean)}" data-label="Card Number">
-            📋 Copy
+            Copy
           </button>
         </div>
 
@@ -1548,31 +1654,24 @@ function renderItemCard(item) {
           <div class="cc-exp-cvv-box">
             <div>
               <div class="cc-holder-label">EXP</div>
-              <div class="cc-val" style="cursor:pointer" data-copy="${escapeHtml(cd.exp)}" data-label="Expiry Date">${escapeHtml(cd.exp || '10/27')}</div>
+              <div class="cc-val" style="cursor:pointer" data-copy="${escapeHtml(cd.exp)}" data-label="Expiry Date" title="Click to copy">${escapeHtml(cd.exp || '10/27')}</div>
             </div>
             <div>
               <div class="cc-holder-label">CVV</div>
-              <div class="cc-val" style="cursor:pointer" data-copy="${escapeHtml(cd.cvv)}" data-label="CVV Code">${escapeHtml(cd.cvv || '111')}</div>
+              <div class="cc-val" style="cursor:pointer" data-copy="${escapeHtml(cd.cvv)}" data-label="CVV Code" title="Click to copy">${escapeHtml(cd.cvv || '111')}</div>
             </div>
           </div>
-        </div>
-
-        <div class="cc-copy-actions">
-          <button class="cc-quick-copy ripple" data-copy="${escapeHtml(numClean)}" data-label="Card Number">📋 Number</button>
-          <button class="cc-quick-copy ripple" data-copy="${escapeHtml(cd.exp)}" data-label="Expiry Date">📅 Exp (${escapeHtml(cd.exp)})</button>
-          <button class="cc-quick-copy ripple" data-copy="${escapeHtml(cd.cvv)}" data-label="CVV Code">🔒 CVV (${escapeHtml(cd.cvv)})</button>
-          <button class="cc-quick-copy ripple" data-copy="${escapeHtml(allCardDetails)}" data-label="Full Card Details">📄 Copy All</button>
         </div>
       </div>
     `;
   }
 
-  // 3. SMS & MESSAGES (WITH WORKING PHONE COPY & TAP-TO-COPY)
+  // 3. SMS & MESSAGES (COMPACT WITH WORKING PHONE COPY)
   let smsHtml = '';
   if(item.smsDetails) {
     const s = item.smsDetails;
     smsHtml = `
-      <div style="display:flex;flex-direction:column;gap:6px">
+      <div style="display:flex;flex-direction:column;gap:5px">
         ${s.phone ? `
           <div class="copy-interactive-row" data-copy="${escapeHtml(s.phone)}" data-label="Phone Number" title="Click to copy phone number">
             <div style="display:flex;align-items:center;gap:6px">
@@ -1580,7 +1679,7 @@ function renderItemCard(item) {
               <span class="copy-interactive-text">Phone: <b>${escapeHtml(s.phone)}</b></span>
             </div>
             <button class="copy-pill-btn ripple" data-copy="${escapeHtml(s.phone)}" data-label="Phone Number">
-              📋 Copy
+              Copy
             </button>
           </div>
         ` : ''}
@@ -1604,19 +1703,19 @@ function renderItemCard(item) {
     `;
   }
 
-  // 5. Emails / Numbers Bubble List (With dedicated working copy buttons)
+  // 5. Emails / Numbers Bubble List
   let bubblesHtml = '';
   if(item.bubbles && item.bubbles.length > 0) {
     bubblesHtml = `
-      <div style="max-height:220px;overflow-y:auto;border-radius:10px;background:var(--surface2);padding:8px;display:flex;flex-direction:column;gap:6px;border:1px solid var(--border)">
+      <div style="max-height:180px;overflow-y:auto;border-radius:10px;background:var(--surface2);padding:6px;display:flex;flex-direction:column;gap:5px;border:1px solid var(--border)">
         ${item.bubbles.map((b, idx) => `
-          <div class="bubble-item ${b.isMarked ? 'marked' : ''}" id="bubble-${item.id}-${idx}">
-            <span class="bubble-text" style="cursor:pointer" data-copy="${escapeHtml(b.text)}" data-label="Email/Number" title="Click to copy">${escapeHtml(b.text)}</span>
+          <div class="bubble-item ${b.isMarked ? 'marked' : ''}" style="display:flex;align-items:center;justify-content:space-between;padding:6px 8px;border-radius:6px;background:var(--surface);border:1px solid var(--border)" id="bubble-${item.id}-${idx}">
+            <span class="bubble-text" style="cursor:pointer;font-size:12px;font-weight:700" data-copy="${escapeHtml(b.text)}" data-label="Email/Number" title="Click to copy">${escapeHtml(b.text)}</span>
             <div style="display:flex;align-items:center;gap:6px">
-              <button class="mark-btn ${b.isMarked ? 'marked' : ''}" onclick="toggleBubbleMark('${item.id}', ${idx})">
+              <button class="mark-btn ${b.isMarked ? 'marked' : ''}" style="font-size:10px;font-weight:700;padding:3px 6px" onclick="toggleBubbleMark('${item.id}', ${idx})">
                 ${b.isMarked ? '✓ Marked' : '○ Not marked'}
               </button>
-              <button class="copy-pill-btn ripple" data-copy="${escapeHtml(b.text)}" data-label="Email/Number">
+              <button class="copy-pill-btn ripple" style="padding:3px 6px;font-size:10px" data-copy="${escapeHtml(b.text)}" data-label="Email/Number">
                 Copy
               </button>
             </div>
@@ -1683,7 +1782,7 @@ function renderItemCard(item) {
       ${item.category !== 'prompts' && item.category !== 'idm_keys' && item.notes ? `
         <div class="card-desc" style="position:relative">
           ${escapeHtml(item.notes)}
-          <button class="copy-pill-btn ripple" style="float:right;margin-top:-20px;padding:2px 7px;font-size:10px" data-copy="${escapeHtml(item.notes)}" data-label="Notes">Copy</button>
+          <button class="copy-pill-btn ripple" style="float:right;margin-top:-18px;padding:2px 6px;font-size:10px" data-copy="${escapeHtml(item.notes)}" data-label="Notes">Copy</button>
         </div>
       ` : ''}
 
@@ -1723,6 +1822,10 @@ function openCreateItemModal(catId) {
   VAULT.activeFilePayload = null;
 
   openOverlay('create-item-overlay');
+  setTimeout(() => {
+    const titleInput = document.getElementById('form-item-title');
+    if (titleInput) titleInput.focus();
+  }, 250);
 }
 
 function adaptFormFields(catId) {
@@ -1840,6 +1943,7 @@ async function handleSaveItem(e) {
   VAULT.items.unshift(newItem);
   saveVaultData();
   closeOverlay('create-item-overlay');
+  renderFoldersGrid();
   renderItems();
 
   submitBtn.disabled = false;
@@ -1869,6 +1973,7 @@ function toggleImportant(itemId) {
   if(!item) return;
   item.isImportant = !item.isImportant;
   saveVaultData();
+  renderFoldersGrid();
   renderItems();
   showToast(item.isImportant ? '⭐ Marked as Important' : 'Unmarked');
 }
@@ -1878,6 +1983,7 @@ function moveToBin(itemId) {
   if(!item) return;
   item.isDeleted = true;
   saveVaultData();
+  renderFoldersGrid();
   renderItems();
   showToast('🗑️ Moved to Bin');
 }
@@ -1887,6 +1993,7 @@ function restoreFromBin(itemId) {
   if(!item) return;
   item.isDeleted = false;
   saveVaultData();
+  renderFoldersGrid();
   renderItems();
   showToast('↩️ Restored to Vault');
 }
@@ -1908,6 +2015,7 @@ async function permanentlyDeleteItem(itemId) {
 
   VAULT.items = VAULT.items.filter(i => i.id !== itemId);
   saveVaultData();
+  renderFoldersGrid();
   renderItems();
   showToast('Permanently deleted from Vault');
 }
@@ -2039,6 +2147,7 @@ async function handleCreateCategory(e) {
   saveVaultData();
   renderCategoryNav();
   renderFilterChips();
+  renderFoldersGrid();
   closeOverlay('create-cat-overlay');
   showToast(`Topic "${name}" created!`);
 }
@@ -2060,7 +2169,6 @@ function triggerTurboDownload(itemId) {
   
   openOverlay('idm-overlay');
   
-  // 8 Channels progress animation
   const channels = [0,0,0,0,0,0,0,0];
   const interval = setInterval(() => {
     for (let c = 0; c < 8; c++) {
@@ -2154,7 +2262,7 @@ function openMediaViewer(itemId, type) {
 // ========================================================
 function exportVaultBackup() {
   const data = {
-    version: '3.0',
+    version: '3.5',
     exportedAt: new Date().toISOString(),
     profile: { name: VAULT.profileName, avatar: VAULT.profileAvatar },
     categories: VAULT.categories,
@@ -2187,6 +2295,7 @@ function importVaultBackup(input) {
         saveVaultData();
         renderCategoryNav();
         renderFilterChips();
+        renderFoldersGrid();
         renderItems();
         showToast('✅ Vault restored successfully!');
       }
