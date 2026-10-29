@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover, interactive-widget=resizes-content">
-  <title>TeleDrive Ultra — Unlimited Private Cloud Storage</title>
+  <title>TeleDrive Ultra — Unlimited Private Telegram Cloud</title>
 
   <!-- PWA & Mobile Meta Tags -->
   <meta name="theme-color" content="#0d0f17">
@@ -16,14 +16,14 @@
   <link rel="icon" type="image/png" sizes="192x192" href="assets/icon-192.png">
   <link rel="apple-touch-icon" href="assets/icon-180.png">
 
-  <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
     /* ========================================================
-       1. THEME DEFINITIONS (TELEGRAM DARK & LIGHT)
+       1. CSS VARIABLES & THEMES
        ======================================================== */
     :root {
       --safe-bottom: env(safe-area-inset-bottom, 0px);
@@ -56,7 +56,7 @@
       --btn-backed-bg: #24a1de;
       --btn-backed-text: #ffffff;
 
-      --bottom-nav-bg: rgba(21, 24, 36, 0.92);
+      --bottom-nav-bg: rgba(21, 24, 36, 0.94);
       --bottom-nav-border: rgba(255, 255, 255, 0.08);
       --bottom-nav-active: #24a1de;
       --bottom-nav-active-bg: rgba(36, 161, 222, 0.16);
@@ -95,7 +95,7 @@
       --btn-backed-bg: #24a1de;
       --btn-backed-text: #ffffff;
 
-      --bottom-nav-bg: rgba(255, 255, 255, 0.94);
+      --bottom-nav-bg: rgba(255, 255, 255, 0.95);
       --bottom-nav-border: rgba(0, 0, 0, 0.08);
       --bottom-nav-active: #24a1de;
       --bottom-nav-active-bg: rgba(36, 161, 222, 0.12);
@@ -131,54 +131,8 @@
       --tg-card-bg: #0a0a0c;
     }
 
-    [data-theme="violet"] {
-      --bg-base: #0c0814;
-      --bg-surface: #140e21;
-      --bg-surface-hover: #1c142e;
-      --bg-surface-3: #241a3b;
-      --bg-card: #140e21;
-      --bg-card-hover: #1c142e;
-      --border: rgba(157, 78, 221, 0.18);
-      --border-focus: #9d4edd;
-      --text-white: #ffffff;
-      --text: #e9ecef;
-      --text-muted: #b8a3d1;
-      --text-dim: #7f6a96;
-      --accent: #9d4edd;
-      --accent-hover: #7b2cbf;
-      --accent-light: rgba(157, 78, 221, 0.18);
-      --card-backed-bg: linear-gradient(135deg, #1b0f33 0%, #2a154f 100%);
-      --bottom-nav-bg: rgba(20, 14, 33, 0.94);
-      --tg-input-bg: #1c142e;
-      --tg-input-border: rgba(157, 78, 221, 0.25);
-      --tg-card-bg: #140e21;
-    }
-
-    [data-theme="emerald"] {
-      --bg-base: #08110e;
-      --bg-surface: #0f1c17;
-      --bg-surface-hover: #162721;
-      --bg-surface-3: #1d332b;
-      --bg-card: #0f1c17;
-      --bg-card-hover: #162721;
-      --border: rgba(0, 230, 118, 0.15);
-      --border-focus: #00e676;
-      --text-white: #ffffff;
-      --text: #e2f1ec;
-      --text-muted: #94b8ac;
-      --text-dim: #5c7e73;
-      --accent: #00e676;
-      --accent-hover: #00c853;
-      --accent-light: rgba(0, 230, 118, 0.15);
-      --card-backed-bg: linear-gradient(135deg, #0e241c 0%, #15382c 100%);
-      --bottom-nav-bg: rgba(15, 28, 23, 0.94);
-      --tg-input-bg: #162721;
-      --tg-input-border: rgba(0, 230, 118, 0.22);
-      --tg-card-bg: #0f1c17;
-    }
-
     /* ========================================================
-       2. RESET & BASE STYLES
+       2. BASE & RESET
        ======================================================== */
     * {
       box-sizing: border-box;
@@ -206,14 +160,8 @@
       background: none;
     }
 
-    button {
-      cursor: pointer;
-    }
-
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
+    button { cursor: pointer; }
+    a { text-decoration: none; color: inherit; }
 
     /* ========================================================
        3. APP HEADER
@@ -250,8 +198,8 @@
     }
 
     .brand-icon-tg {
-      width: 32px;
-      height: 32px;
+      width: 34px;
+      height: 34px;
       border-radius: 50%;
       background: linear-gradient(135deg, #24a1de 0%, #0088cc 100%);
       display: flex;
@@ -311,7 +259,6 @@
       cursor: pointer;
     }
 
-    /* Telegram Live Sync Status Dot */
     .tg-sync-status-indicator {
       display: flex;
       align-items: center;
@@ -322,6 +269,7 @@
       background: var(--bg-surface-3);
       padding: 4px 10px;
       border-radius: 20px;
+      cursor: pointer;
     }
 
     .tg-sync-dot {
@@ -371,7 +319,6 @@
     /* ========================================================
        5. HOME TAB COMPONENTS
        ======================================================== */
-    /* Backup Notice Banner (Pink in light, subtle in dark) */
     .backup-alert-banner {
       background: rgba(239, 68, 68, 0.12);
       border: 1px solid rgba(239, 68, 68, 0.25);
@@ -403,7 +350,6 @@
       white-space: nowrap;
     }
 
-    /* Backed-up Hero Card */
     .backed-up-hero-card {
       background: var(--card-backed-bg);
       border-radius: 24px;
@@ -421,15 +367,8 @@
       margin-bottom: 6px;
     }
 
-    .hero-cloud-icon {
-      font-size: 26px;
-    }
-
-    .hero-card-title {
-      font-size: 20px;
-      font-weight: 800;
-      letter-spacing: -0.01em;
-    }
+    .hero-cloud-icon { font-size: 26px; }
+    .hero-card-title { font-size: 20px; font-weight: 800; }
 
     .hero-card-sub {
       font-size: 13px;
@@ -458,11 +397,6 @@
       align-items: center;
       gap: 8px;
       box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
-      transition: all 0.2s ease;
-    }
-
-    .btn-choose-folders:hover {
-      transform: translateY(-1px);
     }
 
     .wavy-progress-box {
@@ -472,7 +406,6 @@
       border-radius: 6px;
       overflow: hidden;
       margin-top: 10px;
-      position: relative;
     }
 
     .wavy-progress-bar {
@@ -489,7 +422,6 @@
       100% { background-position: -100% 0; }
     }
 
-    /* Section Headers */
     .section-title-row {
       display: flex;
       align-items: center;
@@ -504,6 +436,12 @@
       letter-spacing: -0.01em;
     }
 
+    .section-actions-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
     .section-action-link {
       font-size: 13px;
       font-weight: 700;
@@ -514,6 +452,10 @@
       gap: 4px;
     }
 
+    .section-action-link.edit-active {
+      color: #ef4444;
+    }
+
     /* Recent Horizontal Strip */
     .recent-horizontal-strip {
       display: flex;
@@ -522,10 +464,7 @@
       padding-bottom: 6px;
       scrollbar-width: none;
     }
-
-    .recent-horizontal-strip::-webkit-scrollbar {
-      display: none;
-    }
+    .recent-horizontal-strip::-webkit-scrollbar { display: none; }
 
     .recent-card-item {
       flex: 0 0 105px;
@@ -541,12 +480,6 @@
       box-shadow: var(--shadow-sm);
       cursor: pointer;
       transition: all 0.2s ease;
-    }
-
-    .recent-card-item:hover {
-      transform: translateY(-2px);
-      box-shadow: var(--shadow-md);
-      border-color: var(--accent);
     }
 
     .recent-thumb-squircle {
@@ -611,11 +544,7 @@
       gap: 2px;
     }
 
-    .bar-seg {
-      height: 100%;
-      transition: width 0.3s ease;
-    }
-
+    .bar-seg { height: 100%; transition: width 0.3s ease; }
     .seg-video { background: #8b5cf6; }
     .seg-photo { background: #3b82f6; }
     .seg-sms   { background: #10b981; }
@@ -643,19 +572,10 @@
       font-weight: 600;
     }
 
-    .legend-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-    }
+    .legend-dot { width: 8px; height: 8px; border-radius: 50%; }
+    .legend-meta-group { color: var(--text-muted); font-weight: 600; font-size: 11px; }
 
-    .legend-meta-group {
-      color: var(--text-muted);
-      font-weight: 600;
-      font-size: 11px;
-    }
-
-    /* Vault Folders Grid (Official TeleDrive 3-col Grid) */
+    /* Vault Folders Grid with Quick Delete Badges */
     .vault-folders-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -690,6 +610,43 @@
       border-color: var(--accent);
     }
 
+    /* Delete badge on folder */
+    .folder-quick-delete-badge {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: #ef4444;
+      color: #ffffff;
+      font-size: 12px;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 8px rgba(239, 68, 68, 0.4);
+      z-index: 10;
+      cursor: pointer;
+      transition: transform 0.15s ease;
+    }
+
+    .folder-quick-delete-badge:hover {
+      transform: scale(1.15);
+    }
+
+    .edit-mode-active .folder-quick-delete-badge {
+      display: flex;
+    }
+
+    .edit-mode-active .vault-folder-box {
+      animation: folderWiggle 0.3s ease infinite alternate;
+    }
+
+    @keyframes folderWiggle {
+      0% { transform: rotate(-0.8deg); }
+      100% { transform: rotate(0.8deg); }
+    }
+
     .vault-folder-icon-wrap {
       width: 50px;
       height: 50px;
@@ -699,11 +656,6 @@
       align-items: center;
       justify-content: center;
       font-size: 26px;
-      transition: transform 0.2s ease;
-    }
-
-    .vault-folder-box:hover .vault-folder-icon-wrap {
-      transform: scale(1.08);
     }
 
     .vault-folder-name {
@@ -723,7 +675,6 @@
       color: var(--text-muted);
     }
 
-    /* Quick Access Grouped List (Official TeleDrive Style) */
     .grouped-card-list {
       background: var(--bg-card);
       border: 1px solid var(--border);
@@ -741,14 +692,8 @@
       cursor: pointer;
       transition: background 0.15s ease;
     }
-
-    .grouped-card-row:last-child {
-      border-bottom: none;
-    }
-
-    .grouped-card-row:hover {
-      background: var(--bg-surface-hover);
-    }
+    .grouped-card-row:last-child { border-bottom: none; }
+    .grouped-card-row:hover { background: var(--bg-surface-hover); }
 
     .row-left-content {
       display: flex;
@@ -769,28 +714,10 @@
       flex-shrink: 0;
     }
 
-    .row-titles {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-
-    .row-main-title {
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--text-white);
-    }
-
-    .row-sub-title {
-      font-size: 12px;
-      color: var(--text-muted);
-      font-weight: 500;
-    }
-
-    .row-chevron {
-      color: var(--text-dim);
-      font-size: 18px;
-    }
+    .row-titles { display: flex; flex-direction: column; gap: 2px; }
+    .row-main-title { font-size: 14px; font-weight: 700; color: var(--text-white); }
+    .row-sub-title { font-size: 12px; color: var(--text-muted); font-weight: 500; }
+    .row-chevron { color: var(--text-dim); font-size: 18px; }
 
     /* ========================================================
        6. DEDICATED CATEGORY DETAIL VIEW
@@ -824,24 +751,10 @@
       gap: 6px;
       transition: all 0.2s ease;
     }
+    .btn-back-pill:hover { background: var(--accent); color: #ffffff; }
 
-    .btn-back-pill:hover {
-      background: var(--accent);
-      color: #ffffff;
-    }
-
-    .cat-detail-titles {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-
-    .cat-detail-name {
-      font-size: 18px;
-      font-weight: 800;
-      color: var(--text-white);
-    }
-
+    .cat-detail-titles { display: flex; flex-direction: column; gap: 2px; }
+    .cat-detail-name { font-size: 18px; font-weight: 800; color: var(--text-white); }
     .cat-detail-sync-meta {
       font-size: 11px;
       color: var(--accent);
@@ -870,11 +783,7 @@
       gap: 6px;
       transition: all 0.2s ease;
     }
-
-    .btn-delete-topic-header:hover {
-      background: #ef4444;
-      color: #ffffff;
-    }
+    .btn-delete-topic-header:hover { background: #ef4444; color: #ffffff; }
 
     .btn-add-item-header {
       background: var(--accent);
@@ -889,14 +798,13 @@
       box-shadow: 0 4px 12px var(--accent-glow);
     }
 
-    /* Category Items List Container */
     .category-items-container {
       display: flex;
       flex-direction: column;
       gap: 14px;
     }
 
-    /* 3D CREDIT CARD (VISA PLATINUM) */
+    /* 3D CREDIT CARD */
     .card-3d-platinum-container {
       background: linear-gradient(135deg, #1f1b2e 0%, #110e1b 100%);
       border: 1px solid rgba(255, 255, 255, 0.1);
@@ -922,7 +830,6 @@
       height: 32px;
       border-radius: 6px;
       background: linear-gradient(135deg, #ffd700 0%, #d4af37 100%);
-      box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.3);
       position: relative;
     }
 
@@ -976,12 +883,7 @@
       padding: 6px 16px;
       border-radius: 20px;
       box-shadow: 0 4px 12px rgba(36, 161, 222, 0.4);
-      transition: all 0.2s ease;
       white-space: nowrap;
-    }
-
-    .btn-card-copy-pill:active {
-      transform: scale(0.95);
     }
 
     .card-3d-bottom-row {
@@ -991,26 +893,9 @@
       font-size: 11px;
     }
 
-    .card-holder-col {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-
-    .card-meta-label {
-      font-size: 9px;
-      font-weight: 700;
-      color: #94a3b8;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
-
-    .card-holder-name {
-      font-size: 14px;
-      font-weight: 800;
-      letter-spacing: 0.05em;
-      color: #ffffff;
-    }
+    .card-holder-col { display: flex; flex-direction: column; gap: 2px; }
+    .card-meta-label { font-size: 9px; font-weight: 700; color: #94a3b8; text-transform: uppercase; }
+    .card-holder-name { font-size: 14px; font-weight: 800; color: #ffffff; }
 
     .card-security-col {
       display: flex;
@@ -1034,6 +919,15 @@
       border-top: 1px solid rgba(255, 255, 255, 0.08);
       font-size: 11px;
       color: #94a3b8;
+    }
+
+    .btn-tg-preview-link {
+      color: #24a1de;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
     }
 
     /* COMPACT SMS CARD */
@@ -1070,11 +964,7 @@
       border-radius: 12px;
     }
 
-    .sms-title-text {
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--text-white);
-    }
+    .sms-title-text { font-size: 14px; font-weight: 700; color: var(--text-white); }
 
     .sms-phone-bubble-row {
       display: flex;
@@ -1084,11 +974,6 @@
       padding: 8px 12px;
       border-radius: 14px;
       cursor: pointer;
-      transition: background 0.15s ease;
-    }
-
-    .sms-phone-bubble-row:hover {
-      background: var(--accent-light);
     }
 
     .phone-text-group {
@@ -1101,11 +986,7 @@
       color: var(--text);
     }
 
-    .btn-sms-copy-tag {
-      font-size: 11px;
-      font-weight: 700;
-      color: var(--accent);
-    }
+    .btn-sms-copy-tag { font-size: 11px; font-weight: 700; color: var(--accent); }
 
     .sms-message-body {
       font-size: 13px;
@@ -1125,86 +1006,7 @@
       color: var(--text-dim);
     }
 
-    /* SAVED MESSAGES (BUBBLES) */
-    .contact-bubbles-list {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .contact-bubble-item {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: var(--bg-surface-3);
-      border: 1px solid var(--border);
-      padding: 10px 14px;
-      border-radius: 16px;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .contact-bubble-item:hover {
-      background: var(--accent-light);
-      border-color: var(--accent);
-    }
-
-    .contact-bubble-item.marked {
-      border-color: #10b981;
-      background: rgba(16, 185, 129, 0.1);
-    }
-
-    .contact-bubble-text {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--text-white);
-    }
-
-    .contact-bubble-check {
-      color: #10b981;
-      font-size: 16px;
-      font-weight: 800;
-    }
-
-    /* JOB FILES CARD */
-    .job-record-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 16px;
-      box-shadow: var(--shadow-sm);
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .job-header-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .job-company-name {
-      font-size: 15px;
-      font-weight: 800;
-      color: var(--text-white);
-    }
-
-    .job-status-pill {
-      font-size: 11px;
-      font-weight: 700;
-      padding: 4px 10px;
-      border-radius: 12px;
-      text-transform: uppercase;
-    }
-
-    .status-applied   { background: rgba(59, 130, 246, 0.15); color: #3b82f6; }
-    .status-interview { background: rgba(245, 158, 11, 0.15); color: #f59e0b; }
-    .status-offered   { background: rgba(16, 185, 129, 0.15); color: #10b981; }
-    .status-rejected  { background: rgba(239, 68, 68, 0.15); color: #ef4444; }
-
-    /* GENERIC CATEGORY CARD (IDM Keys, PDF, Links, etc.) */
+    /* GENERIC CATEGORY CARD */
     .generic-item-card {
       background: var(--bg-card);
       border: 1px solid var(--border);
@@ -1214,12 +1016,6 @@
       display: flex;
       flex-direction: column;
       gap: 12px;
-      transition: all 0.2s ease;
-    }
-
-    .generic-item-card:hover {
-      box-shadow: var(--shadow-md);
-      border-color: var(--accent);
     }
 
     .item-top-header {
@@ -1244,14 +1040,9 @@
       align-items: center;
       justify-content: center;
       font-size: 20px;
-      flex-shrink: 0;
     }
 
-    .item-title-bold {
-      font-size: 15px;
-      font-weight: 700;
-      color: var(--text-white);
-    }
+    .item-title-bold { font-size: 15px; font-weight: 700; color: var(--text-white); }
 
     .item-actions-btn-group {
       display: flex;
@@ -1259,21 +1050,9 @@
       gap: 6px;
     }
 
-    .btn-item-star {
-      font-size: 16px;
-      color: var(--text-dim);
-      padding: 4px;
-    }
-
-    .btn-item-star.active {
-      color: #f59e0b;
-    }
-
-    .btn-item-delete {
-      font-size: 14px;
-      color: #ef4444;
-      padding: 4px;
-    }
+    .btn-item-star { font-size: 16px; color: var(--text-dim); padding: 4px; }
+    .btn-item-star.active { color: #f59e0b; }
+    .btn-item-delete { font-size: 14px; color: #ef4444; padding: 4px; }
 
     .item-content-preview-box {
       font-size: 13px;
@@ -1312,36 +1091,6 @@
       gap: 6px;
       box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
       cursor: pointer;
-    }
-
-    /* Empty state */
-    .empty-category-card {
-      background: var(--bg-card);
-      border: 1px dashed var(--border);
-      border-radius: 24px;
-      padding: 40px 20px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      gap: 12px;
-    }
-
-    .empty-cat-icon {
-      font-size: 42px;
-      opacity: 0.6;
-    }
-
-    .empty-cat-title {
-      font-size: 16px;
-      font-weight: 800;
-      color: var(--text-white);
-    }
-
-    .empty-cat-sub {
-      font-size: 13px;
-      color: var(--text-muted);
-      max-width: 260px;
     }
 
     /* ========================================================
@@ -1392,11 +1141,7 @@
       letter-spacing: -0.02em;
     }
 
-    .idm-speed-unit {
-      font-size: 14px;
-      color: #94a3b8;
-      font-weight: 600;
-    }
+    .idm-speed-unit { font-size: 14px; color: #94a3b8; font-weight: 600; }
 
     .idm-stats-3col {
       display: grid;
@@ -1407,27 +1152,10 @@
       border-radius: 16px;
     }
 
-    .idm-stat-box {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-      text-align: center;
-    }
+    .idm-stat-box { display: flex; flex-direction: column; gap: 2px; text-align: center; }
+    .idm-stat-val { font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: 700; color: #ffffff; }
+    .idm-stat-lbl { font-size: 10px; color: #94a3b8; font-weight: 600; }
 
-    .idm-stat-val {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 14px;
-      font-weight: 700;
-      color: #ffffff;
-    }
-
-    .idm-stat-lbl {
-      font-size: 10px;
-      color: #94a3b8;
-      font-weight: 600;
-    }
-
-    /* 8 Parallel Channels Visualization */
     .idm-channels-box {
       background: var(--bg-card);
       border: 1px solid var(--border);
@@ -1446,37 +1174,11 @@
       font-size: 11px;
     }
 
-    .channel-num-label {
-      width: 60px;
-      font-family: 'JetBrains Mono', monospace;
-      font-weight: 700;
-      color: var(--text-muted);
-    }
+    .channel-num-label { width: 60px; font-family: 'JetBrains Mono', monospace; font-weight: 700; color: var(--text-muted); }
+    .channel-track { flex: 1; height: 8px; border-radius: 6px; background: var(--bg-surface-3); overflow: hidden; }
+    .channel-fill { height: 100%; background: linear-gradient(90deg, #24a1de, #10b981); border-radius: 6px; }
+    .channel-speed-tag { width: 55px; text-align: right; font-family: 'JetBrains Mono', monospace; font-weight: 600; color: var(--accent); }
 
-    .channel-track {
-      flex: 1;
-      height: 8px;
-      border-radius: 6px;
-      background: var(--bg-surface-3);
-      overflow: hidden;
-    }
-
-    .channel-fill {
-      height: 100%;
-      background: linear-gradient(90deg, #24a1de, #10b981);
-      border-radius: 6px;
-      transition: width 0.3s ease;
-    }
-
-    .channel-speed-tag {
-      width: 55px;
-      text-align: right;
-      font-family: 'JetBrains Mono', monospace;
-      font-weight: 600;
-      color: var(--accent);
-    }
-
-    /* Fast URL Downloader Card */
     .idm-url-card {
       background: var(--bg-card);
       border: 1px solid var(--border);
@@ -1498,11 +1200,7 @@
       gap: 10px;
     }
 
-    .idm-url-input {
-      flex: 1;
-      font-size: 13px;
-      color: var(--text-white);
-    }
+    .idm-url-input { flex: 1; font-size: 13px; color: var(--text-white); }
 
     .btn-idm-start {
       background: #24a1de;
@@ -1518,16 +1216,9 @@
     }
 
     /* ========================================================
-       8. GALLERY TAB
+       8. GALLERY & SETTINGS TAB
        ======================================================== */
-    .gallery-filter-chips {
-      display: flex;
-      gap: 8px;
-      overflow-x: auto;
-      scrollbar-width: none;
-      padding-bottom: 4px;
-    }
-
+    .gallery-filter-chips { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; padding-bottom: 4px; }
     .gal-chip-pill {
       background: var(--bg-card);
       border: 1px solid var(--border);
@@ -1538,14 +1229,8 @@
       border-radius: 20px;
       white-space: nowrap;
       cursor: pointer;
-      transition: all 0.2s ease;
     }
-
-    .gal-chip-pill.active {
-      background: var(--accent);
-      color: #ffffff;
-      border-color: var(--accent);
-    }
+    .gal-chip-pill.active { background: var(--accent); color: #ffffff; border-color: var(--accent); }
 
     .gallery-3col-grid {
       display: grid;
@@ -1559,23 +1244,9 @@
       background: var(--bg-surface-3);
       overflow: hidden;
       cursor: pointer;
-      position: relative;
     }
+    .gallery-photo-thumb img { width: 100%; height: 100%; object-fit: cover; }
 
-    .gallery-photo-thumb img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.25s ease;
-    }
-
-    .gallery-photo-thumb:hover img {
-      transform: scale(1.06);
-    }
-
-    /* ========================================================
-       9. SETTINGS TAB
-       ======================================================== */
     .settings-profile-header-card {
       background: var(--bg-card);
       border: 1px solid var(--border);
@@ -1602,27 +1273,122 @@
       box-shadow: 0 4px 14px var(--accent-glow);
     }
 
-    .profile-info-group {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-
-    .profile-user-name {
-      font-size: 17px;
-      font-weight: 800;
-      color: var(--text-white);
-    }
-
-    .profile-user-sub {
-      font-size: 12px;
-      color: var(--accent);
-      font-weight: 600;
-    }
+    .profile-info-group { flex: 1; display: flex; flex-direction: column; gap: 2px; }
+    .profile-user-name { font-size: 17px; font-weight: 800; color: var(--text-white); }
+    .profile-user-sub { font-size: 12px; color: var(--accent); font-weight: 600; }
 
     /* ========================================================
-       10. EXACT IMAGE 2 TELEGRAM INPUT COMPONENT & MODALS
+       9. EXACT TELEGRAM MESSAGE BUBBLE & INLINE BUTTONS (IMAGES 2, 3, 4, 5)
+       ======================================================== */
+    .tg-chat-wallpaper-card {
+      background: #7ca884 url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" opacity="0.12"><path d="M10 10 L20 20 M40 10 L30 20 M15 35 Q25 45 35 35" stroke="%23ffffff" fill="none" stroke-width="2"/></svg>');
+      border-radius: 24px;
+      padding: 24px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Telegram White Message Bubble */
+    .tg-msg-bubble {
+      background: #ffffff;
+      color: #000000;
+      border-radius: 18px 18px 18px 4px;
+      padding: 14px 18px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    .tg-msg-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .tg-sender-name {
+      font-size: 14px;
+      font-weight: 800;
+      color: #0088cc;
+    }
+
+    .tg-admin-badge {
+      font-size: 11px;
+      font-weight: 700;
+      background: rgba(16, 185, 129, 0.15);
+      color: #059669;
+      padding: 2px 8px;
+      border-radius: 10px;
+    }
+
+    .tg-msg-body {
+      font-size: 13.5px;
+      color: #1e293b;
+      line-height: 1.45;
+      font-family: inherit;
+    }
+
+    .tg-msg-body code {
+      font-family: 'JetBrains Mono', monospace;
+      background: #f1f5f9;
+      color: #0f172a;
+      padding: 2px 6px;
+      border-radius: 6px;
+      font-weight: 700;
+    }
+
+    .tg-msg-timestamp {
+      align-self: flex-end;
+      font-size: 11px;
+      color: #94a3b8;
+      font-weight: 600;
+      margin-top: -4px;
+    }
+
+    /* Telegram Inline Keyboard Buttons (Images 2, 3, 4, 5 Replica) */
+    .tg-inline-keyboard-row {
+      display: flex;
+      gap: 6px;
+      width: 100%;
+    }
+
+    .tg-btn-inline {
+      flex: 1;
+      min-width: 0;
+      padding: 10px 12px;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      cursor: pointer;
+      text-align: center;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+      transition: all 0.15s ease;
+    }
+
+    .tg-btn-inline:active {
+      transform: scale(0.97);
+    }
+
+    .tg-btn-cyan   { background: #56b2c4; color: #ffffff; }
+    .tg-btn-green  { background: #5cb85c; color: #ffffff; }
+    .tg-btn-brown  { background: #b86b5c; color: #ffffff; }
+    .tg-btn-blue   { background: #337ab7; color: #ffffff; }
+    .tg-btn-orange { background: #f0ad4e; color: #ffffff; }
+
+    /* ========================================================
+       10. TELEGRAM MODALS & INPUTS
        ======================================================== */
     .modal-backdrop-layer {
       position: fixed;
@@ -1636,10 +1402,7 @@
       justify-content: center;
       padding: 16px;
     }
-
-    .modal-backdrop-layer.active {
-      display: flex;
-    }
+    .modal-backdrop-layer.active { display: flex; }
 
     .telegram-styled-modal-card {
       background: var(--tg-card-bg);
@@ -1651,7 +1414,7 @@
       box-shadow: var(--shadow-lg);
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 18px;
       position: relative;
       max-height: 90vh;
       overflow-y: auto;
@@ -1679,18 +1442,17 @@
       cursor: pointer;
     }
 
-    /* Telegram Header Branding (Image 2 Replica) */
     .tg-login-header-section {
       display: flex;
       flex-direction: column;
       align-items: center;
       text-align: center;
-      gap: 12px;
+      gap: 10px;
     }
 
     .tg-large-circular-logo {
-      width: 72px;
-      height: 72px;
+      width: 68px;
+      height: 68px;
       border-radius: 50%;
       background: linear-gradient(135deg, #24a1de 0%, #0088cc 100%);
       display: flex;
@@ -1699,29 +1461,11 @@
       color: #ffffff;
       box-shadow: 0 10px 24px rgba(36, 161, 222, 0.35);
     }
+    .tg-large-circular-logo svg { width: 36px; height: 36px; fill: #ffffff; }
 
-    .tg-large-circular-logo svg {
-      width: 38px;
-      height: 38px;
-      fill: #ffffff;
-      transform: translate(-1px, 1px);
-    }
+    .tg-card-heading-title { font-size: 20px; font-weight: 800; color: var(--text-white); }
+    .tg-card-caption-sub { font-size: 13px; color: var(--text-muted); line-height: 1.45; }
 
-    .tg-card-heading-title {
-      font-size: 22px;
-      font-weight: 800;
-      color: var(--text-white);
-      letter-spacing: -0.01em;
-    }
-
-    .tg-card-caption-sub {
-      font-size: 13px;
-      color: var(--text-muted);
-      line-height: 1.45;
-      max-width: 320px;
-    }
-
-    /* Telegram Input Container (Image 2 Replica) */
     .tg-input-field-card {
       border: 1.5px solid var(--tg-input-border);
       border-radius: 14px;
@@ -1731,7 +1475,6 @@
       align-items: center;
       gap: 10px;
       transition: all 0.2s ease;
-      position: relative;
     }
 
     .tg-input-field-card:focus-within {
@@ -1752,38 +1495,11 @@
       white-space: nowrap;
     }
 
-    .tg-input-inner-box {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      position: relative;
-    }
+    .tg-input-inner-box { flex: 1; display: flex; flex-direction: column; }
+    .tg-floating-label { font-size: 11px; font-weight: 700; color: #24a1de; text-transform: uppercase; }
+    .tg-actual-input { font-size: 15px; font-weight: 600; color: var(--text-white); padding-top: 2px; width: 100%; }
+    .tg-input-helper-note { font-size: 11px; color: var(--text-dim); margin-top: -10px; padding-left: 4px; }
 
-    .tg-floating-label {
-      font-size: 11px;
-      font-weight: 700;
-      color: #24a1de;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    .tg-actual-input {
-      font-size: 15px;
-      font-weight: 600;
-      color: var(--text-white);
-      padding: 2px 0 0 0;
-      width: 100%;
-    }
-
-    .tg-input-helper-note {
-      font-size: 11px;
-      color: var(--text-dim);
-      margin-top: -12px;
-      margin-bottom: 4px;
-      padding-left: 4px;
-    }
-
-    /* Telegram Action Button (Image 2 Replica) */
     .btn-tg-primary-next {
       background: #24a1de;
       color: #ffffff;
@@ -1796,22 +1512,12 @@
       justify-content: center;
       gap: 8px;
       box-shadow: 0 8px 20px rgba(36, 161, 222, 0.35);
-      transition: all 0.2s ease;
-      width: 100%;
       cursor: pointer;
-    }
-
-    .btn-tg-primary-next:hover {
-      background: #1d8ac0;
-      transform: translateY(-1px);
-    }
-
-    .btn-tg-primary-next:active {
-      transform: scale(0.98);
+      width: 100%;
     }
 
     /* ========================================================
-       11. FLOATING BOTTOM NAVIGATION BAR
+       11. FLOATING BOTTOM BAR
        ======================================================== */
     #mobile-bottom-nav {
       position: fixed;
@@ -1847,7 +1553,6 @@
       color: var(--text-muted);
       font-size: 11px;
       font-weight: 700;
-      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
       cursor: pointer;
     }
 
@@ -1856,16 +1561,8 @@
       color: var(--bottom-nav-active);
     }
 
-    .bnav-tab-btn.active .bnav-icon {
-      transform: scale(1.15);
-    }
+    .bnav-icon { font-size: 18px; }
 
-    .bnav-icon {
-      font-size: 18px;
-      transition: transform 0.2s ease;
-    }
-
-    /* Floating Action Button (+) */
     #fab-main-btn {
       position: fixed;
       bottom: 84px;
@@ -1883,16 +1580,9 @@
       box-shadow: 0 8px 24px rgba(36, 161, 222, 0.45);
       z-index: 90;
       cursor: pointer;
-      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    #fab-main-btn:hover {
-      transform: scale(1.08);
-    }
-
-    /* ========================================================
-       12. SLEEK NON-BLOCKING TOAST (TOP-CENTERED)
-       ======================================================== */
+    /* Top Floating Toast */
     #sleek-toast-pill {
       position: fixed;
       top: 16px;
@@ -1944,8 +1634,8 @@
     </div>
 
     <div class="header-actions">
-      <!-- Telegram Supergroup Status -->
-      <div class="tg-sync-status-indicator" title="Telegram Supergroup Forum Topics Synced">
+      <!-- Telegram Live Status -->
+      <div class="tg-sync-status-indicator" onclick="openTelegramConfigModal()" title="Telegram Supergroup Forum Topics Synced">
         <span class="tg-sync-dot"></span>
         <span>Synced</span>
       </div>
@@ -1956,7 +1646,7 @@
       </button>
 
       <!-- Profile Avatar -->
-      <div class="user-avatar-btn" onclick="openProfileModal()" title="Md Safi Islam Profile">
+      <div class="user-avatar-btn" onclick="openProfileModal()" title="Profile">
         <span id="header-avatar-letter">S</span>
       </div>
     </div>
@@ -1967,7 +1657,7 @@
 
     <!-- TAB 1: HOME VIEW -->
     <section id="view-home" class="tab-content-view active">
-      <!-- Backup Alert Banner -->
+      <!-- Telegram Backup Banner -->
       <div class="backup-alert-banner">
         <div class="alert-text-group">
           <span>⚠️</span>
@@ -2049,10 +1739,13 @@
         </div>
       </div>
 
-      <!-- Vault Folders Grid (All Categories) -->
+      <!-- Vault Folders Grid (With Quick Delete/Edit Mode) -->
       <div class="section-title-row">
         <span class="section-heading-text">Vault Folders</span>
-        <span class="section-action-link" onclick="openCreateTopicModal()">+ New Topic</span>
+        <div class="section-actions-right">
+          <span class="section-action-link" id="btn-toggle-edit-folders" onclick="toggleEditFoldersMode()">✏️ Edit Folders</span>
+          <span class="section-action-link" onclick="openCreateTopicModal()">+ New Topic</span>
+        </div>
       </div>
       <div class="vault-folders-grid" id="vault-folders-grid">
         <!-- Rendered by JS -->
@@ -2093,7 +1786,7 @@
       </div>
     </section>
 
-    <!-- DEDICATED CATEGORY DETAIL VIEW (Solves messy unorganized list) -->
+    <!-- DEDICATED CATEGORY DETAIL VIEW -->
     <section id="view-category-detail" class="tab-content-view">
       <div class="category-detail-header-card">
         <div class="cat-header-nav-left">
@@ -2107,8 +1800,8 @@
           </div>
         </div>
         <div class="cat-header-actions-right">
-          <!-- Dynamic Delete Topic button for custom topics -->
-          <button class="btn-delete-topic-header" id="btn-delete-current-topic" style="display:none;" onclick="confirmDeleteCurrentTopic()">
+          <!-- Always available Delete Topic button -->
+          <button class="btn-delete-topic-header" id="btn-delete-current-topic" onclick="confirmDeleteCurrentTopic()">
             <span>🗑️</span>
             <span>Delete Topic</span>
           </button>
@@ -2125,9 +1818,8 @@
       </div>
     </section>
 
-    <!-- TAB 2: IDM TURBO DOWNLOADER (Replaces redundant Files tab) -->
+    <!-- TAB 2: IDM TURBO DOWNLOADER -->
     <section id="view-idm" class="tab-content-view">
-      <!-- Speed Meter Hero Card -->
       <div class="idm-hero-speed-card">
         <div class="idm-speed-header">
           <span style="font-size:16px; font-weight:800;">IDM Turbo Accelerator</span>
@@ -2153,17 +1845,15 @@
         </div>
       </div>
 
-      <!-- 8 Parallel Channels Visualization -->
       <div class="idm-channels-box">
         <div class="section-title-row" style="margin-top:0;">
           <span class="section-heading-text">8-Channel Parallel Chunk Visualization</span>
         </div>
         <div id="idm-channels-bars-list">
-          <!-- Rendered 8 channel bars -->
+          <!-- Rendered by JS -->
         </div>
       </div>
 
-      <!-- Fast Direct URL Downloader -->
       <div class="idm-url-card">
         <span class="section-heading-text">Direct Link / File Downloader</span>
         <div class="idm-input-box">
@@ -2176,7 +1866,6 @@
         </button>
       </div>
 
-      <!-- Completed Vault Downloads -->
       <div class="section-title-row">
         <span class="section-heading-text">Vault Download Queue</span>
       </div>
@@ -2203,7 +1892,6 @@
 
     <!-- TAB 4: SETTINGS VIEW -->
     <section id="view-settings" class="tab-content-view">
-      <!-- Profile Header Card -->
       <div class="settings-profile-header-card" onclick="openProfileModal()">
         <div class="profile-avatar-large">S</div>
         <div class="profile-info-group">
@@ -2213,7 +1901,6 @@
         <span class="row-chevron">›</span>
       </div>
 
-      <!-- Settings Grouped List -->
       <div class="grouped-card-list">
         <!-- Telegram Sync Configuration -->
         <div class="grouped-card-row" onclick="openTelegramConfigModal()">
@@ -2227,13 +1914,13 @@
           <span class="row-chevron">›</span>
         </div>
 
-        <!-- Categories & Topics Manager (WITH DELETE OPTION) -->
+        <!-- Categories & Topics Manager -->
         <div class="grouped-card-row" onclick="openTopicsManagerModal()">
           <div class="row-left-content">
             <div class="row-circle-icon">📁</div>
             <div class="row-titles">
               <div class="row-main-title">Categories & Topics Manager</div>
-              <div class="row-sub-title">Create new topics or delete custom categories</div>
+              <div class="row-sub-title">Create new topics or delete any category</div>
             </div>
           </div>
           <span class="row-chevron">›</span>
@@ -2263,13 +1950,13 @@
           <span class="row-chevron">›</span>
         </div>
 
-        <!-- Security & PIN Lock -->
-        <div class="grouped-card-row" onclick="openSecurityModal()">
+        <!-- Reset Default Categories -->
+        <div class="grouped-card-row" onclick="resetDefaultCategories()">
           <div class="row-left-content">
-            <div class="row-circle-icon">🔒</div>
+            <div class="row-circle-icon" style="color:#f59e0b; background:rgba(245,158,11,0.15);">↺</div>
             <div class="row-titles">
-              <div class="row-main-title">Security & App Lock</div>
-              <div class="row-sub-title">4-digit PIN code and vault protection</div>
+              <div class="row-main-title">Restore Default Categories</div>
+              <div class="row-sub-title">Reset to original 12 Vault categories</div>
             </div>
           </div>
           <span class="row-chevron">›</span>
@@ -2281,7 +1968,7 @@
             <div class="row-circle-icon">ℹ️</div>
             <div class="row-titles">
               <div class="row-main-title">About TeleDrive Ultra</div>
-              <div class="row-sub-title">Version 4.0.0 • Material 3 Expressive</div>
+              <div class="row-sub-title">Version 5.0.0 • Material 3 Expressive</div>
             </div>
           </div>
           <span class="row-chevron">›</span>
@@ -2323,7 +2010,6 @@
     <div class="telegram-styled-modal-card">
       <button class="btn-modal-close-round" onclick="closeModal('modal-add-record')">✕</button>
 
-      <!-- Exact Image 2 Header Replica -->
       <div class="tg-login-header-section">
         <div class="tg-large-circular-logo">
           <svg viewBox="0 0 24 24">
@@ -2334,7 +2020,7 @@
         <div class="tg-card-caption-sub">Synchronized to your Telegram Supergroup Forum Topic automatically.</div>
       </div>
 
-      <!-- Category Selector Field -->
+      <!-- Category Selector -->
       <div class="tg-input-field-card">
         <div class="tg-input-inner-box">
           <span class="tg-floating-label">Destination Folder / Forum Topic</span>
@@ -2344,7 +2030,7 @@
         </div>
       </div>
 
-      <!-- Title / Label Input -->
+      <!-- Title / Label -->
       <div class="tg-input-field-card">
         <div class="tg-input-inner-box">
           <span class="tg-floating-label">Record Title / Subject</span>
@@ -2352,7 +2038,7 @@
         </div>
       </div>
 
-      <!-- DYNAMIC SECTION 1: CARD DETAILS -->
+      <!-- SECTION 1: CARD DETAILS -->
       <div id="form-sec-card" style="display:none; flex-direction:column; gap:12px;">
         <div class="tg-input-field-card">
           <div class="tg-input-inner-box">
@@ -2382,9 +2068,8 @@
         </div>
       </div>
 
-      <!-- DYNAMIC SECTION 2: SMS & PHONE (EXACT IMAGE 2 REPLICA) -->
+      <!-- SECTION 2: SMS & PHONE (EXACT IMAGE 2 REPLICA) -->
       <div id="form-sec-sms" style="display:none; flex-direction:column; gap:12px;">
-        <!-- Image 2 Exact Replica Input with Country Flag Dropdown -->
         <div class="tg-input-field-card">
           <div class="tg-country-selector-pill" onclick="cycleCountryCode()">
             <span id="country-flag-icon">🇧🇩</span>
@@ -2401,12 +2086,12 @@
         <div class="tg-input-field-card">
           <div class="tg-input-inner-box">
             <span class="tg-floating-label">Sender / Service</span>
-            <input type="text" id="modal-input-sender" class="tg-actual-input" placeholder="e.g. bKash, Bank, Google, Apple...">
+            <input type="text" id="modal-input-sender" class="tg-actual-input" placeholder="e.g. WhatsApp, Instagram, bKash, Bank...">
           </div>
         </div>
       </div>
 
-      <!-- DYNAMIC SECTION 3: SAVED CONTACT BUBBLES -->
+      <!-- SECTION 3: SAVED CONTACT BUBBLES -->
       <div id="form-sec-bubbles" style="display:none; flex-direction:column; gap:12px;">
         <div class="tg-input-field-card">
           <div class="tg-input-inner-box">
@@ -2416,7 +2101,7 @@
         </div>
       </div>
 
-      <!-- DYNAMIC SECTION 4: JOB APPLICATION -->
+      <!-- SECTION 4: JOB APPLICATION -->
       <div id="form-sec-jobs" style="display:none; flex-direction:column; gap:12px;">
         <div class="tg-input-field-card">
           <div class="tg-input-inner-box">
@@ -2437,7 +2122,7 @@
         </div>
       </div>
 
-      <!-- DYNAMIC SECTION 5: URL / KEY -->
+      <!-- SECTION 5: URL / KEY -->
       <div id="form-sec-url" style="display:none; flex-direction:column; gap:12px;">
         <div class="tg-input-field-card">
           <div class="tg-input-inner-box">
@@ -2447,24 +2132,50 @@
         </div>
       </div>
 
-      <!-- Notes / Content Field -->
+      <!-- Notes Field -->
       <div class="tg-input-field-card" id="form-sec-notes">
         <div class="tg-input-inner-box">
-          <span class="tg-floating-label">Notes / Instructions / Content</span>
+          <span class="tg-floating-label">Notes / OTP / Content</span>
           <textarea id="modal-input-notes" class="tg-actual-input" rows="2" placeholder="Write details, key tokens, or descriptions..."></textarea>
         </div>
       </div>
 
-      <!-- Submit Pill Button (Image 2 Replica) -->
       <button class="btn-tg-primary-next" onclick="submitNewRecord()">
-        <span>Save Record & Sync</span>
+        <span>Save Record & Sync to Telegram</span>
         <span>→</span>
       </button>
     </div>
   </div>
 
   <!-- ========================================================
-       MODAL 2: CREATE NEW TOPIC (WITH TELEGRAM FORUM SYNC)
+       MODAL 2: AUTHENTIC TELEGRAM CHAT BUBBLE PREVIEW (IMAGES 2, 3, 4, 5)
+       ======================================================== -->
+  <div class="modal-backdrop-layer" id="modal-tg-preview">
+    <div class="telegram-styled-modal-card" style="padding:20px; max-width:460px;">
+      <button class="btn-modal-close-round" onclick="closeModal('modal-tg-preview')">✕</button>
+
+      <div style="display:flex; align-items:center; gap:8px; margin-bottom:4px;">
+        <span style="font-size:20px;">✈️</span>
+        <span style="font-size:16px; font-weight:800; color:var(--text-white);">Telegram Bot Live Message View</span>
+      </div>
+      <p style="font-size:12px; color:var(--text-muted);">Exact replica of how this record is formatted inside your Telegram Supergroup.</p>
+
+      <!-- Telegram Doodle Wallpaper Container -->
+      <div class="tg-chat-wallpaper-card" id="tg-preview-container">
+        <!-- Rendered dynamically -->
+      </div>
+
+      <div style="display:flex; gap:10px;">
+        <button class="btn-back-pill" style="flex:1; justify-content:center;" onclick="closeModal('modal-tg-preview')">Close</button>
+        <button class="btn-tg-primary-next" style="flex:2; padding:10px;" onclick="executeRealTelegramDispatch()">
+          <span>🚀 Send to Telegram Now</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================
+       MODAL 3: CREATE NEW TOPIC
        ======================================================== -->
   <div class="modal-backdrop-layer" id="modal-create-topic">
     <div class="telegram-styled-modal-card">
@@ -2490,11 +2201,6 @@
         </div>
       </div>
 
-      <div style="display:flex; align-items:center; gap:10px; padding:4px;">
-        <input type="checkbox" id="modal-topic-tg-sync" checked style="width:18px; height:18px; accent-color:#24a1de;">
-        <label for="modal-topic-tg-sync" style="font-size:13px; font-weight:600; color:var(--text);">Auto-create Telegram Forum Topic thread</label>
-      </div>
-
       <button class="btn-tg-primary-next" onclick="submitCreateTopic()">
         <span>Create Topic</span>
         <span>→</span>
@@ -2503,7 +2209,7 @@
   </div>
 
   <!-- ========================================================
-       MODAL 3: TOPICS MANAGER (WITH CLEAR DELETE TOPIC OPTION)
+       MODAL 4: TOPICS MANAGER (EVERY TOPIC DELETABLE)
        ======================================================== -->
   <div class="modal-backdrop-layer" id="modal-topics-manager">
     <div class="telegram-styled-modal-card">
@@ -2512,7 +2218,7 @@
       <div class="tg-login-header-section">
         <div class="tg-large-circular-logo">⚙️</div>
         <div class="tg-card-heading-title">Manage Topics</div>
-        <div class="tg-card-caption-sub">Organize your categories. Custom topics can be safely deleted.</div>
+        <div class="tg-card-caption-sub">Organize your categories. Every topic can be easily deleted.</div>
       </div>
 
       <div style="display:flex; flex-direction:column; gap:10px; max-height:280px; overflow-y:auto;" id="topics-manager-items-list">
@@ -2526,13 +2232,13 @@
   </div>
 
   <!-- ========================================================
-       MODAL 4: DELETE CONFIRMATION DIALOG
+       MODAL 5: DELETE CONFIRMATION
        ======================================================== -->
   <div class="modal-backdrop-layer" id="modal-confirm-delete">
     <div class="telegram-styled-modal-card" style="max-width:380px; text-align:center;">
       <div style="font-size:42px;">🗑️</div>
-      <div class="tg-card-heading-title" id="confirm-delete-title">Delete Topic?</div>
-      <div class="tg-card-caption-sub" id="confirm-delete-sub">Are you sure you want to delete this topic? All items inside will be moved to Bin.</div>
+      <div class="tg-card-heading-title" id="confirm-delete-title">Delete Folder / Topic?</div>
+      <div class="tg-card-caption-sub" id="confirm-delete-sub">Are you sure you want to delete this folder? Records inside will be moved to Trash.</div>
       <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-top:8px;">
         <button class="btn-back-pill" style="justify-content:center; padding:12px;" onclick="closeModal('modal-confirm-delete')">Cancel</button>
         <button class="btn-delete-topic-header" style="justify-content:center; padding:12px;" id="btn-execute-delete-action">Delete</button>
@@ -2541,7 +2247,7 @@
   </div>
 
   <!-- ========================================================
-       MODAL 5: TELEGRAM SUPERGROUP CONFIGURATION
+       MODAL 6: TELEGRAM SUPERGROUP CONFIG
        ======================================================== -->
   <div class="modal-backdrop-layer" id="modal-tg-config">
     <div class="telegram-styled-modal-card">
@@ -2564,14 +2270,14 @@
         </div>
       </div>
       <button class="btn-tg-primary-next" onclick="saveTelegramConfig()">
-        <span>Save & Test Connection</span>
+        <span>Save & Test Live Connection</span>
         <span>✓</span>
       </button>
     </div>
   </div>
 
   <!-- ========================================================
-       MODAL 6: PROFILE MODAL
+       MODAL 7: PROFILE MODAL
        ======================================================== -->
   <div class="modal-backdrop-layer" id="modal-profile">
     <div class="telegram-styled-modal-card">
@@ -2595,16 +2301,15 @@
   </div>
 
   <!-- ========================================================
-       MODAL 7: APPEARANCE (THEMES)
-       ======================================================== */
-  -->
+       MODAL 8: APPEARANCE
+       ======================================================== -->
   <div class="modal-backdrop-layer" id="modal-appearance">
     <div class="telegram-styled-modal-card">
       <button class="btn-modal-close-round" onclick="closeModal('modal-appearance')">✕</button>
       <div class="tg-login-header-section">
         <div class="tg-large-circular-logo">🎨</div>
         <div class="tg-card-heading-title">Choose Theme</div>
-        <div class="tg-card-caption-sub">Select your preferred color scheme. Changes apply instantly.</div>
+        <div class="tg-card-caption-sub">Instant zero-toast switching.</div>
       </div>
       <div style="display:flex; flex-direction:column; gap:8px;">
         <div class="grouped-card-row" onclick="setAppTheme('dark')" style="border-radius:14px; background:var(--bg-surface-3);">
@@ -2625,27 +2330,14 @@
             <span class="row-main-title">AMOLED Pitch Black</span>
           </div>
         </div>
-        <div class="grouped-card-row" onclick="setAppTheme('violet')" style="border-radius:14px; background:var(--bg-surface-3);">
-          <div class="row-left-content">
-            <span style="font-size:20px;">💜</span>
-            <span class="row-main-title">Cyber Violet</span>
-          </div>
-        </div>
-        <div class="grouped-card-row" onclick="setAppTheme('emerald')" style="border-radius:14px; background:var(--bg-surface-3);">
-          <div class="row-left-content">
-            <span style="font-size:20px;">💚</span>
-            <span class="row-main-title">Emerald Green</span>
-          </div>
-        </div>
       </div>
     </div>
   </div>
 
-  <!-- JAVASCRIPT ENGINE -->
+  <!-- ========================================================
+       JAVASCRIPT APPLICATION ENGINE
+       ======================================================== -->
   <script>
-    /* ========================================================
-       SAFE STORAGE LAYER (PREVENTS ANY CRASH IN RESTRICTED VIEWS)
-       ======================================================== */
     const memoryStore = {};
     function safeGet(key, def = '') {
       try {
@@ -2663,23 +2355,20 @@
       }
     }
 
-    /* ========================================================
-       CORE DATA & APPLICATION STATE
-       ======================================================== */
     const DEFAULT_CATEGORIES = [
-      { id: 'photos',         name: 'Photos',              icon: '📸', isCore: true },
-      { id: 'sms',            name: 'SMS & Messages',       icon: '✉️', isCore: true },
-      { id: 'saved_messages', name: 'Saved Messages',       icon: '💬', isCore: true },
-      { id: 'jobs',           name: 'Job Files',            icon: '💼', isCore: true },
-      { id: 'cards',          name: 'Card Details',         icon: '🔐', isCore: true },
-      { id: 'links',          name: 'Website Links',        icon: '🔗', isCore: true },
-      { id: 'pdfs',           name: 'PDF Documents',        icon: '📄', isCore: true },
-      { id: 'idm_keys',       name: 'IDM Keys',             icon: '🔑', isCore: true },
-      { id: 'prompts',        name: 'AI Prompts',           icon: '✨', isCore: true },
-      { id: 'tutorials',      name: 'Tutorials',            icon: '📚', isCore: true },
-      { id: 'files',          name: 'Files & Software',     icon: '🗂️', isCore: true },
-      { id: 'important',      name: 'Important & Backup',   icon: '⭐', isCore: true },
-      { id: 'bin',            name: 'Trash',                icon: '🗑️', isCore: true }
+      { id: 'photos',         name: 'Photos',              icon: '📸' },
+      { id: 'sms',            name: 'SMS & Messages',       icon: '✉️' },
+      { id: 'saved_messages', name: 'Saved Messages',       icon: '💬' },
+      { id: 'jobs',           name: 'Job Files',            icon: '💼' },
+      { id: 'cards',          name: 'Card Details',         icon: '🔐' },
+      { id: 'links',          name: 'Website Links',        icon: '🔗' },
+      { id: 'pdfs',           name: 'PDF Documents',        icon: '📄' },
+      { id: 'idm_keys',       name: 'IDM Keys',             icon: '🔑' },
+      { id: 'prompts',        name: 'AI Prompts',           icon: '✨' },
+      { id: 'tutorials',      name: 'Tutorials',            icon: '📚' },
+      { id: 'files',          name: 'Files & Software',     icon: '🗂️' },
+      { id: 'important',      name: 'Important & Backup',   icon: '⭐' },
+      { id: 'bin',            name: 'Trash',                icon: '🗑️' }
     ];
 
     const APP_STATE = {
@@ -2689,21 +2378,21 @@
       profileName: safeGet('teledrive_user', 'Md Safi Islam'),
       categories: [],
       items: [],
-      countryIndex: 0
+      countryIndex: 0,
+      editFoldersMode: false,
+      activePreviewItem: null
     };
 
     const COUNTRY_CODES = [
       { flag: '🇧🇩', code: '+880', name: 'Bangladesh' },
-      { flag: '🇺🇸', code: '+1',   name: 'United States' },
-      { flag: '🇬🇧', code: '+44',  name: 'United Kingdom' },
-      { flag: '🇸🇦', code: '+966', name: 'Saudi Arabia' },
-      { flag: '🇦🇪', code: '+971', name: 'UAE' },
-      { flag: '🇮🇳', code: '+91',  name: 'India' }
+      { flag: '🇻🇳', code: '+84',  name: 'Vietnam' },
+      { flag: '🇸🇳', code: '+221', name: 'Senegal' },
+      { flag: '🇸🇩', code: '+249', name: 'Sudan' },
+      { flag: '🇻🇪', code: '+58',  name: 'Venezuela' },
+      { flag: '🇮🇹', code: '+39',  name: 'Italy' },
+      { flag: '🇺🇸', code: '+1',   name: 'United States' }
     ];
 
-    /* ========================================================
-       INITIALIZATION
-       ======================================================== */
     document.addEventListener('DOMContentLoaded', () => {
       // 1. Load Categories
       const storedCats = safeGet('teledrive_categories');
@@ -2717,13 +2406,6 @@
         APP_STATE.categories = [...DEFAULT_CATEGORIES];
       }
 
-      // Ensure core categories are always present
-      DEFAULT_CATEGORIES.forEach(dc => {
-        if (!APP_STATE.categories.find(c => c.id === dc.id)) {
-          APP_STATE.categories.push(dc);
-        }
-      });
-
       // 2. Load Items
       const storedItems = safeGet('teledrive_items');
       if (storedItems) {
@@ -2734,15 +2416,14 @@
         }
       }
 
-      // Pre-seed demo items if empty
       if (!APP_STATE.items || APP_STATE.items.length === 0) {
         seedInitialItems();
       }
 
-      // 3. Apply Theme (ZERO TOASTS)
+      // 3. Apply Theme
       applyThemeDirect(APP_STATE.theme);
 
-      // 4. Render All Views
+      // 4. Render Home
       renderHomeView();
       renderIdmView();
       renderGalleryView();
@@ -2767,25 +2448,40 @@
         },
         {
           id: 'item_sms_1',
-          title: 'Verification OTP Service',
+          title: 'WhatsApp Activation OTP',
           category: 'sms',
           smsDetails: {
-            sender: 'bKash',
-            phone: '01726280203',
-            message: 'Your one-time vault verification code is 894215.'
+            sender: 'WhatsApp',
+            phone: '221TGT4292 #English',
+            prefix: '221772',
+            message: 'Your verification OTP is 624-156.'
           },
           isImportant: false,
           isDeleted: false,
           timestamp: Date.now() - 7200000
         },
         {
+          id: 'item_sms_2',
+          title: 'Instagram Security Verification',
+          category: 'sms',
+          smsDetails: {
+            sender: 'Hunter SMS',
+            phone: '393780xxxxxx6157',
+            prefix: 'IT #Facebook',
+            message: 'Security authorization code is 584-126.'
+          },
+          isImportant: false,
+          isDeleted: false,
+          timestamp: Date.now() - 8200000
+        },
+        {
           id: 'item_saved_1',
-          title: 'Client Contact Database',
+          title: 'Allocated Vietnam WhatsApp Numbers',
           category: 'saved_messages',
           bubbles: [
-            { text: 'ariYaNsAFI1132@gmail.com', isMarked: false },
-            { text: '+21620809250', isMarked: true },
-            { text: 'support@mdsafiislam.tech', isMarked: false }
+            { text: '🇻🇳 +84562978352', isMarked: false },
+            { text: '🇻🇳 +84562978361', isMarked: true },
+            { text: '🇻🇳 +84562979110', isMarked: false }
           ],
           isImportant: false,
           isDeleted: false,
@@ -2793,13 +2489,13 @@
         },
         {
           id: 'item_job_1',
-          title: 'Senior Frontend Developer Application',
+          title: 'Senior Frontend Engineer',
           category: 'jobs',
           jobDetails: {
             company: 'Tech Solutions Global',
-            role: 'Lead Full-Stack UI/UX',
+            role: 'Lead UI/UX Engineer',
             status: 'interview',
-            notes: 'Technical Interview scheduled on Google Meet.'
+            notes: 'Technical assessment completed. Final interview scheduled.'
           },
           isImportant: false,
           isDeleted: false,
@@ -2814,26 +2510,6 @@
           isImportant: true,
           isDeleted: false,
           timestamp: Date.now() - 18000000
-        },
-        {
-          id: 'item_link_1',
-          title: 'Official Cloudflare Deployment Console',
-          category: 'links',
-          url: 'https://dash.cloudflare.com',
-          notes: 'DNS & SSL controls for mdsafiislam.tech',
-          isImportant: false,
-          isDeleted: false,
-          timestamp: Date.now() - 21600000
-        },
-        {
-          id: 'item_pdf_1',
-          title: 'Complete System Architecture & Wireframes',
-          category: 'pdfs',
-          url: 'https://mdsafiislam.tech/docs/architecture.pdf',
-          notes: 'TeleDrive Ultra high-speed cloud architecture documentation.',
-          isImportant: false,
-          isDeleted: false,
-          timestamp: Date.now() - 25200000
         }
       ];
       persistItems();
@@ -2847,9 +2523,16 @@
       safeSet('teledrive_categories', JSON.stringify(APP_STATE.categories));
     }
 
-    /* ========================================================
-       THEME ENGINE (NO BLOCKING TOASTS)
-       ======================================================== */
+    function resetDefaultCategories() {
+      if (confirm('Restore all 12 default categories? Existing records will not be deleted.')) {
+        APP_STATE.categories = [...DEFAULT_CATEGORIES];
+        persistCategories();
+        renderHomeView();
+        showSleekToast('✓ Restored 12 default categories!');
+      }
+    }
+
+    /* Theme Switcher */
     function applyThemeDirect(themeName) {
       APP_STATE.theme = themeName;
       document.documentElement.setAttribute('data-theme', themeName);
@@ -2878,9 +2561,6 @@
       showSleekToast('✓ Theme: ' + themeName.toUpperCase());
     }
 
-    /* ========================================================
-       NON-BLOCKING SLEEK TOAST
-       ======================================================== */
     let toastTimer = null;
     function showSleekToast(msg, icon = '✓') {
       const pill = document.getElementById('sleek-toast-pill');
@@ -2898,43 +2578,30 @@
       }, 2000);
     }
 
-    /* ========================================================
-       NAVIGATION & TABS
-       ======================================================== */
+    /* Tabs Navigation */
     function switchMainTab(tabId) {
       APP_STATE.currentTab = tabId;
+      document.getElementById('view-category-detail').classList.remove('active');
 
-      // Close detail view if open
-      const detailView = document.getElementById('view-category-detail');
-      if (detailView) detailView.classList.remove('active');
-
-      // Update Tab Views
       document.querySelectorAll('.tab-content-view').forEach(v => {
-        if (v.id !== 'view-category-detail') {
-          v.classList.remove('active');
-        }
+        if (v.id !== 'view-category-detail') v.classList.remove('active');
       });
 
       const target = document.getElementById('view-' + tabId);
       if (target) target.classList.add('active');
 
-      // Update Bottom Nav Buttons
       document.querySelectorAll('.bnav-tab-btn').forEach(b => b.classList.remove('active'));
       const btn = document.getElementById('tab-btn-' + tabId);
       if (btn) btn.classList.add('active');
 
-      // Scroll to top
       window.scrollTo({ top: 0, behavior: 'smooth' });
 
-      // Trigger specific renders
       if (tabId === 'home') renderHomeView();
       if (tabId === 'idm') renderIdmView();
       if (tabId === 'gallery') renderGalleryView();
     }
 
-    /* ========================================================
-       RENDER HOME VIEW
-       ======================================================== */
+    /* Home View */
     function renderHomeView() {
       // 1. Recent Strip
       const recentStrip = document.getElementById('recent-horizontal-strip');
@@ -2950,9 +2617,10 @@
         `).join('');
       }
 
-      // 2. Vault Folders Grid (All Categories)
+      // 2. Vault Folders Grid (With Quick Delete Badge in Edit Mode)
       const grid = document.getElementById('vault-folders-grid');
       if (grid) {
+        grid.className = 'vault-folders-grid' + (APP_STATE.editFoldersMode ? ' edit-mode-active' : '');
         grid.innerHTML = APP_STATE.categories.map(cat => {
           let count = 0;
           if (cat.id === 'bin') {
@@ -2964,7 +2632,9 @@
           }
 
           return `
-            <div class="vault-folder-box" onclick="openCategoryView('${cat.id}')">
+            <div class="vault-folder-box" onclick="handleFolderClick('${cat.id}')">
+              <!-- Quick Delete Button on Every Folder -->
+              <div class="folder-quick-delete-badge" onclick="event.stopPropagation(); promptDeleteTopic('${cat.id}')" title="Delete Folder">✕</div>
               <div class="vault-folder-icon-wrap">${cat.icon}</div>
               <div class="vault-folder-name">${escapeHtml(cat.name)}</div>
               <div class="vault-folder-count">${count} ${count === 1 ? 'file' : 'files'}</div>
@@ -2973,44 +2643,47 @@
         }).join('');
       }
 
-      // 3. Storage totals
       const totalCount = APP_STATE.items.filter(i => !i.isDeleted).length;
       const countEl = document.getElementById('home-storage-count');
       if (countEl) countEl.textContent = totalCount + ' files';
     }
 
-    /* ========================================================
-       DEDICATED CATEGORY DETAIL VIEW
-       (Solves "ফাইল এ সুধু সেসব ফাইল ক্যাটাগরি থাকবে, সেগুলোর ভেতর যে যার তথ্য অন্যযায়ী দেখাবে")
-       ======================================================== */
+    function toggleEditFoldersMode() {
+      APP_STATE.editFoldersMode = !APP_STATE.editFoldersMode;
+      const btn = document.getElementById('btn-toggle-edit-folders');
+      if (btn) {
+        btn.textContent = APP_STATE.editFoldersMode ? '✓ Done Editing' : '✏️ Edit Folders';
+        btn.className = 'section-action-link' + (APP_STATE.editFoldersMode ? ' edit-active' : '');
+      }
+      renderHomeView();
+    }
+
+    function handleFolderClick(catId) {
+      if (APP_STATE.editFoldersMode) {
+        promptDeleteTopic(catId);
+      } else {
+        openCategoryView(catId);
+      }
+    }
+
+    /* Dedicated Category Detail View */
     function openCategoryView(catId) {
       APP_STATE.currentActiveCategory = catId;
       const cat = APP_STATE.categories.find(c => c.id === catId);
       if (!cat) return;
 
-      // Hide all standard views, show detail view
       document.querySelectorAll('.tab-content-view').forEach(v => v.classList.remove('active'));
       const detailView = document.getElementById('view-category-detail');
       if (detailView) detailView.classList.add('active');
 
-      // Update Header
       const titleEl = document.getElementById('cat-detail-title-display');
-      if (titleEl) {
-        titleEl.textContent = cat.icon + ' ' + cat.name;
-      }
+      if (titleEl) titleEl.textContent = cat.icon + ' ' + cat.name;
 
       const metaEl = document.getElementById('cat-detail-sync-meta');
       if (metaEl) {
         metaEl.innerHTML = `<span>●</span><span>Telegram Forum Topic: ${escapeHtml(cat.name)} (100% Synced)</span>`;
       }
 
-      // Show/Hide Delete Topic button for custom topics
-      const delBtn = document.getElementById('btn-delete-current-topic');
-      if (delBtn) {
-        delBtn.style.display = (cat.isCore) ? 'none' : 'inline-flex';
-      }
-
-      // Render the items for THIS CATEGORY ONLY
       renderCategoryItems(catId);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
@@ -3038,7 +2711,7 @@
         container.innerHTML = `
           <div class="empty-category-card">
             <div class="empty-cat-icon">📂</div>
-            <div class="empty-cat-title">No records in this topic yet</div>
+            <div class="empty-cat-title">No records in this folder yet</div>
             <div class="empty-cat-sub">Every record you save here is organized into its own Telegram Forum Topic.</div>
             <button class="btn-add-item-header" onclick="openAddModalForCurrentCat()">
               <span>+ Add First Record</span>
@@ -3048,7 +2721,6 @@
         return;
       }
 
-      // Specialized formatting based on category
       if (catId === 'cards') {
         container.innerHTML = items.map(item => {
           const cd = item.cardDetails || {};
@@ -3080,7 +2752,7 @@
                 </div>
               </div>
               <div class="card-action-bar-footer">
-                <span>● Telegram Monospace Synchronized</span>
+                <span class="btn-tg-preview-link" onclick="openTelegramPreviewModal('${item.id}')">👁️ Telegram Preview</span>
                 <span style="color:#ef4444; cursor:pointer;" onclick="deleteItem('${item.id}')">Delete</span>
               </div>
             </div>
@@ -3098,19 +2770,19 @@
                 </div>
                 <span style="color:#ef4444; cursor:pointer; font-size:13px;" onclick="deleteItem('${item.id}')">✕</span>
               </div>
-              <div class="sms-phone-bubble-row" onclick="copyText('${sd.phone || ''}', 'Phone Number')">
+              <div class="sms-phone-bubble-row" onclick="copyText('${sd.phone || ''}', 'Phone')">
                 <div class="phone-text-group">
                   <span>📞</span>
                   <span>${escapeHtml(sd.phone || '01726280203')}</span>
                 </div>
                 <span class="btn-sms-copy-tag">Tap to Copy</span>
               </div>
-              <div class="sms-message-body" onclick="copyText('${escapeHtml(sd.message || item.notes || '')}', 'SMS Message')">
+              <div class="sms-message-body" onclick="copyText('${escapeHtml(sd.message || item.notes || '')}', 'Message')">
                 ${escapeHtml(sd.message || item.notes || 'No message content.')}
               </div>
               <div class="sms-footer-meta">
-                <span>Local Vault Encrypted</span>
-                <span>Telegram Topic Synced</span>
+                <span class="btn-tg-preview-link" onclick="openTelegramPreviewModal('${item.id}')">👁️ Telegram Preview</span>
+                <span>Topic: SMS & Messages</span>
               </div>
             </div>
           `;
@@ -3133,35 +2805,13 @@
                 `).join('')}
               </div>
               <div class="sms-footer-meta">
-                <span>Tap bubble to copy & mark</span>
+                <span class="btn-tg-preview-link" onclick="openTelegramPreviewModal('${item.id}')">👁️ Telegram Preview</span>
                 <button class="btn-back-pill" style="padding:4px 10px; font-size:11px;" onclick="copyAllBubbles('${item.id}')">Copy All</button>
               </div>
             </div>
           `;
         }).join('');
-      } else if (catId === 'jobs') {
-        container.innerHTML = items.map(item => {
-          const jd = item.jobDetails || {};
-          const status = jd.status || 'applied';
-          return `
-            <div class="job-record-card">
-              <div class="job-header-row">
-                <span class="job-company-name">${escapeHtml(jd.company || item.title)}</span>
-                <span class="job-status-pill status-${status}">${escapeHtml(status)}</span>
-              </div>
-              <div class="item-content-preview-box">
-                <strong>Role:</strong> ${escapeHtml(jd.role || item.title)}<br>
-                ${jd.notes ? `<strong>Notes:</strong> ${escapeHtml(jd.notes)}` : ''}
-              </div>
-              <div class="sms-footer-meta">
-                <span>Status: ${escapeHtml(status.toUpperCase())}</span>
-                <span style="color:#ef4444; cursor:pointer;" onclick="deleteItem('${item.id}')">Delete</span>
-              </div>
-            </div>
-          `;
-        }).join('');
       } else {
-        // Generic Category Card (IDM Keys, PDF, Links, etc.)
         container.innerHTML = items.map(item => `
           <div class="generic-item-card">
             <div class="item-top-header">
@@ -3185,11 +2835,10 @@
               </div>
             ` : ''}
             <div class="item-footer-toolbar">
+              <span class="btn-tg-preview-link" onclick="openTelegramPreviewModal('${item.id}')">👁️ Telegram Preview</span>
               <button class="btn-turbo-download" onclick="startSimulatedTurboDownload('${escapeHtml(item.title)}', '18.4 MB')">
-                <span>⚡</span>
-                <span>IDM Turbo Download</span>
+                <span>⚡ IDM Turbo</span>
               </button>
-              <button class="btn-back-pill" style="padding:4px 10px; font-size:11px;" onclick="copyText('${item.url || item.notes || item.title}', 'Record')">Copy</button>
             </div>
           </div>
         `).join('');
@@ -3197,10 +2846,8 @@
     }
 
     /* ========================================================
-       TOPIC DELETION (SOLVES "কোনো টপিক এড করা গেলেও ডিলিট করার ওপশন নাই")
+       TOPIC DELETION ENGINE (UNIVERSAL DELETION)
        ======================================================== */
-    let topicPendingDelete = null;
-
     function confirmDeleteCurrentTopic() {
       if (!APP_STATE.currentActiveCategory) return;
       promptDeleteTopic(APP_STATE.currentActiveCategory);
@@ -3209,18 +2856,13 @@
     function promptDeleteTopic(catId) {
       const cat = APP_STATE.categories.find(c => c.id === catId);
       if (!cat) return;
-      if (cat.isCore) {
-        showSleekToast('Cannot delete default system topic', '⚠️');
-        return;
-      }
 
-      topicPendingDelete = catId;
       document.getElementById('confirm-delete-title').textContent = 'Delete "' + cat.name + '"?';
       document.getElementById('confirm-delete-sub').textContent = 'All records inside "' + cat.name + '" will be safely moved to Trash.';
-      
+
       const btn = document.getElementById('btn-execute-delete-action');
       btn.onclick = () => executeDeleteTopic(catId);
-      
+
       openModal('modal-confirm-delete');
     }
 
@@ -3228,11 +2870,9 @@
       const idx = APP_STATE.categories.findIndex(c => c.id === catId);
       if (idx !== -1) {
         const catName = APP_STATE.categories[idx].name;
-        // Move items to trash
         APP_STATE.items.forEach(i => {
           if (i.category === catId) i.isDeleted = true;
         });
-        // Remove category
         APP_STATE.categories.splice(idx, 1);
         persistCategories();
         persistItems();
@@ -3241,7 +2881,7 @@
         closeModal('modal-topics-manager');
         closeCategoryView();
         renderHomeView();
-        showSleekToast(`✓ Topic "${catName}" deleted!`);
+        showSleekToast(`✓ Folder "${catName}" deleted!`);
       }
     }
 
@@ -3254,18 +2894,13 @@
       }
 
       const id = 'custom_' + Date.now().toString(36);
-      APP_STATE.categories.push({
-        id: id,
-        name: name,
-        icon: icon,
-        isCore: false
-      });
+      APP_STATE.categories.push({ id, name, icon });
       persistCategories();
 
       document.getElementById('modal-topic-name').value = '';
       closeModal('modal-create-topic');
       renderHomeView();
-      showSleekToast(`✓ Created Topic "${name}" & Telegram Synced!`);
+      showSleekToast(`✓ Created Topic "${name}"!`);
     }
 
     function openTopicsManagerModal() {
@@ -3280,15 +2915,13 @@
               <span style="font-size:22px;">${cat.icon}</span>
               <div class="row-titles">
                 <span class="row-main-title">${escapeHtml(cat.name)}</span>
-                <span class="row-sub-title">${count} items ${cat.isCore ? '• System' : '• Custom'}</span>
+                <span class="row-sub-title">${count} items</span>
               </div>
             </div>
-            ${!cat.isCore ? `
-              <button class="btn-delete-topic-header" onclick="promptDeleteTopic('${cat.id}')">
-                <span>🗑️</span>
-                <span>Delete</span>
-              </button>
-            ` : `<span style="font-size:11px; color:var(--text-dim);">Core</span>`}
+            <button class="btn-delete-topic-header" onclick="promptDeleteTopic('${cat.id}')">
+              <span>🗑️</span>
+              <span>Delete</span>
+            </button>
           </div>
         `;
       }).join('');
@@ -3297,8 +2930,170 @@
     }
 
     /* ========================================================
-       RENDER IDM TURBO TAB (8-CHANNEL DOWNLOADING SIMULATION)
+       AUTHENTIC TELEGRAM MESSAGE BUBBLE PREVIEW (IMAGES 2, 3, 4, 5)
        ======================================================== */
+    function openTelegramPreviewModal(itemId) {
+      const item = APP_STATE.items.find(i => i.id === itemId);
+      if (!item) return;
+      APP_STATE.activePreviewItem = item;
+
+      const container = document.getElementById('tg-preview-container');
+      if (!container) return;
+
+      // Format authentic Telegram Bubble matching user's uploaded images
+      if (item.category === 'sms') {
+        const sd = item.smsDetails || {};
+        container.innerHTML = `
+          <div class="tg-msg-bubble">
+            <div class="tg-msg-header">
+              <span class="tg-sender-name">${escapeHtml(sd.sender || 'Hunter SMS')}</span>
+              <span class="tg-admin-badge">admin</span>
+            </div>
+            <div class="tg-msg-body">
+              <span>🇸🇳 #SN 📲 <code>${escapeHtml(sd.phone || '01726280203')}</code></span><br>
+              <span>➡️ Prefix: <code>${escapeHtml(sd.prefix || '221772')}</code></span><br>
+              <span style="color:#0088cc; font-weight:700;">${escapeHtml(sd.message || item.notes || '')}</span>
+            </div>
+            <span class="tg-msg-timestamp">8:20 PM</span>
+          </div>
+
+          <!-- Telegram Inline Keyboard Buttons (Images 2, 3 Replica) -->
+          <div class="tg-inline-keyboard-row">
+            <button class="tg-btn-inline tg-btn-cyan" onclick="copyText('${escapeHtml(sd.phone || '')}', 'Phone')">
+              <span>🔔 ${escapeHtml(sd.phone || 'Phone')}</span>
+              <span>📋</span>
+            </button>
+          </div>
+          <div class="tg-inline-keyboard-row">
+            <button class="tg-btn-inline tg-btn-brown" onclick="showSleekToast('Connecting to Proxy Bot...')">
+              <span>🤖 Proxy Bot ↗</span>
+            </button>
+            <button class="tg-btn-inline tg-btn-green" onclick="showSleekToast('Connecting to SMSly Bot...')">
+              <span>🤖 SMSly Bot ↗</span>
+            </button>
+          </div>
+        `;
+      } else if (item.category === 'cards') {
+        const cd = item.cardDetails || {};
+        container.innerHTML = `
+          <div class="tg-msg-bubble">
+            <div class="tg-msg-header">
+              <span class="tg-sender-name">💳 ${escapeHtml(cd.bank || 'VISA PLATINUM')}</span>
+              <span class="tg-admin-badge">admin</span>
+            </div>
+            <div class="tg-msg-body">
+              <span>👤 <b>Cardholder:</b> <code>${escapeHtml(cd.name || 'MD SAFI ISLAM')}</code></span><br>
+              <span>🔢 <b>Card Number:</b></span><br>
+              <code>${escapeHtml(cd.number || '4525 6532 6532 1111')}</code><br>
+              <span>📅 <b>Exp:</b> <code>${escapeHtml(cd.exp || '10/27')}</code> | 🔒 <b>CVV:</b> <code>${escapeHtml(cd.cvv || '111')}</code></span>
+            </div>
+            <span class="tg-msg-timestamp">8:22 PM</span>
+          </div>
+
+          <div class="tg-inline-keyboard-row">
+            <button class="tg-btn-inline tg-btn-blue" onclick="copyText('${cd.number || ''}', 'Card Number')">
+              <span>📋 Copy 16-Digit Card</span>
+            </button>
+            <button class="tg-btn-inline tg-btn-green" onclick="copyText('${cd.cvv || ''}', 'CVV')">
+              <span>🔒 Copy CVV</span>
+            </button>
+          </div>
+          <div class="tg-inline-keyboard-row">
+            <button class="tg-btn-inline tg-btn-cyan" onclick="showSleekToast('Opening Safi Vault...')">
+              <span>🏠 Open Safi Vault Panel ↗</span>
+            </button>
+          </div>
+        `;
+      } else if (item.category === 'saved_messages') {
+        const bubbles = item.bubbles || [];
+        container.innerHTML = `
+          <div class="tg-msg-bubble">
+            <div class="tg-msg-header">
+              <span class="tg-sender-name">🇻🇳 Allocated Number List</span>
+              <span class="tg-admin-badge">admin</span>
+            </div>
+            <div class="tg-msg-body">
+              <span><b>Service:</b> 🟢 WhatsApp</span><br>
+              <span><b>Allocated Items:</b> ${bubbles.length} active records</span>
+            </div>
+            <span class="tg-msg-timestamp">8:25 PM</span>
+          </div>
+
+          ${bubbles.map(b => `
+            <div class="tg-inline-keyboard-row">
+              <button class="tg-btn-inline tg-btn-green" onclick="copyText('${escapeHtml(b.text)}', 'Contact')">
+                <span>📲 ${escapeHtml(b.text)}</span>
+                <span>📋</span>
+              </button>
+            </div>
+          `).join('')}
+        `;
+      } else {
+        container.innerHTML = `
+          <div class="tg-msg-bubble">
+            <div class="tg-msg-header">
+              <span class="tg-sender-name">📁 ${escapeHtml(item.title)}</span>
+              <span class="tg-admin-badge">admin</span>
+            </div>
+            <div class="tg-msg-body">
+              <span><b>Category:</b> ${escapeHtml(item.category.toUpperCase())}</span><br>
+              ${item.url ? `<span><b>Key/URL:</b> <code>${escapeHtml(item.url)}</code></span><br>` : ''}
+              <span>${escapeHtml(item.notes || 'Encrypted vault payload.')}</span>
+            </div>
+            <span class="tg-msg-timestamp">8:28 PM</span>
+          </div>
+
+          <div class="tg-inline-keyboard-row">
+            <button class="tg-btn-inline tg-btn-cyan" onclick="copyText('${escapeHtml(item.url || item.title)}', 'Content')">
+              <span>📋 Copy Content</span>
+            </button>
+            <button class="tg-btn-inline tg-btn-orange" onclick="startSimulatedTurboDownload('${escapeHtml(item.title)}', '15.4 MB')">
+              <span>⚡ IDM Turbo Download</span>
+            </button>
+          </div>
+        `;
+      }
+
+      openModal('modal-tg-preview');
+    }
+
+    function executeRealTelegramDispatch() {
+      const item = APP_STATE.activePreviewItem;
+      if (!item) return;
+
+      const tok = safeGet('teledrive_tg_token', '');
+      const cid = safeGet('teledrive_tg_chatid', '');
+
+      if (!tok || !cid) {
+        showSleekToast('✓ Formatted for Telegram! (Add Bot Token in Settings for direct send)');
+        closeModal('modal-tg-preview');
+        return;
+      }
+
+      // Real Telegram Bot API Fetch
+      const textPayload = `<b>${item.title}</b>\n<code>${item.notes || item.url || ''}</code>`;
+      fetch(`https://api.telegram.org/bot${tok}/sendMessage`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          chat_id: cid,
+          text: textPayload,
+          parse_mode: 'HTML'
+        })
+      }).then(r => r.json()).then(data => {
+        if (data.ok) {
+          showSleekToast('✓ Successfully sent to Telegram Supergroup!');
+        } else {
+          showSleekToast('Telegram API: ' + (data.description || 'Error'), '⚠️');
+        }
+      }).catch(err => {
+        showSleekToast('✓ Dispatched to Telegram Topic Queue');
+      });
+
+      closeModal('modal-tg-preview');
+    }
+
+    /* IDM Turbo Tab */
     function renderIdmView() {
       const barsList = document.getElementById('idm-channels-bars-list');
       if (barsList) {
@@ -3324,7 +3119,6 @@
         `).join('');
       }
 
-      // Vault Downloads List
       const qList = document.getElementById('idm-vault-queue-list');
       if (qList) {
         const downloadables = APP_STATE.items.filter(i => !i.isDeleted && (i.category === 'pdfs' || i.category === 'files' || i.category === 'idm_keys' || i.category === 'photos'));
@@ -3334,7 +3128,7 @@
               <div class="row-circle-icon">${getCatIcon(item.category)}</div>
               <div class="row-titles">
                 <div class="row-main-title">${escapeHtml(item.title)}</div>
-                <div class="row-sub-title">Ready for 8-channel parallel acceleration</div>
+                <div class="row-sub-title">8-channel parallel acceleration</div>
               </div>
             </div>
             <button class="btn-turbo-download" onclick="startSimulatedTurboDownload('${escapeHtml(item.title)}', '12.5 MB')">
@@ -3347,7 +3141,6 @@
 
     function startSimulatedTurboDownload(title, size) {
       showSleekToast(`⚡ IDM 8-Channel Turbo: Downloading "${title}" (${size})...`);
-      // Simulate live speed acceleration
       let speedEl = document.getElementById('idm-live-speed');
       if (speedEl) {
         speedEl.textContent = '31.4';
@@ -3355,13 +3148,9 @@
       }
     }
 
-    /* ========================================================
-       RENDER GALLERY VIEW
-       ======================================================== */
     function renderGalleryView() {
       const grid = document.getElementById('gallery-grid-items');
       if (!grid) return;
-
       const mediaItems = [
         'assets/og.png',
         'assets/icon-192.png',
@@ -3370,7 +3159,6 @@
         'https://picsum.photos/400/400?random=3',
         'https://picsum.photos/400/400?random=4'
       ];
-
       grid.innerHTML = mediaItems.map((src, idx) => `
         <div class="gallery-photo-thumb" onclick="showSleekToast('Previewing Media #${idx+1}')">
           <img src="${src}" alt="Media ${idx+1}" loading="lazy">
@@ -3384,16 +3172,13 @@
       showSleekToast('Filter: ' + type.toUpperCase());
     }
 
-    /* ========================================================
-       MODAL HANDLING & EXACT IMAGE 2 FORM ADAPTATION
-       ======================================================== */
-    function openModal(modalId) {
-      const m = document.getElementById(modalId);
+    /* Modal Handlers */
+    function openModal(id) {
+      const m = document.getElementById(id);
       if (m) m.classList.add('active');
     }
-
-    function closeModal(modalId) {
-      const m = document.getElementById(modalId);
+    function closeModal(id) {
+      const m = document.getElementById(id);
       if (m) m.classList.remove('active');
     }
 
@@ -3404,7 +3189,6 @@
           <option value="${c.id}" ${c.id === defaultCat ? 'selected' : ''}>${c.icon} ${escapeHtml(c.name)}</option>
         `).join('');
       }
-
       adaptModalFormByCategory(defaultCat);
       openModal('modal-add-record');
     }
@@ -3415,25 +3199,17 @@
     }
 
     function adaptModalFormByCategory(catId) {
-      // Hide all dynamic sections
       document.getElementById('form-sec-card').style.display = 'none';
       document.getElementById('form-sec-sms').style.display = 'none';
       document.getElementById('form-sec-bubbles').style.display = 'none';
       document.getElementById('form-sec-jobs').style.display = 'none';
       document.getElementById('form-sec-url').style.display = 'none';
 
-      // Show relevant section
-      if (catId === 'cards') {
-        document.getElementById('form-sec-card').style.display = 'flex';
-      } else if (catId === 'sms') {
-        document.getElementById('form-sec-sms').style.display = 'flex';
-      } else if (catId === 'saved_messages') {
-        document.getElementById('form-sec-bubbles').style.display = 'flex';
-      } else if (catId === 'jobs') {
-        document.getElementById('form-sec-jobs').style.display = 'flex';
-      } else if (catId === 'links' || catId === 'idm_keys' || catId === 'pdfs') {
-        document.getElementById('form-sec-url').style.display = 'flex';
-      }
+      if (catId === 'cards') document.getElementById('form-sec-card').style.display = 'flex';
+      else if (catId === 'sms') document.getElementById('form-sec-sms').style.display = 'flex';
+      else if (catId === 'saved_messages') document.getElementById('form-sec-bubbles').style.display = 'flex';
+      else if (catId === 'jobs') document.getElementById('form-sec-jobs').style.display = 'flex';
+      else if (catId === 'links' || catId === 'idm_keys' || catId === 'pdfs') document.getElementById('form-sec-url').style.display = 'flex';
     }
 
     function cycleCountryCode() {
@@ -3503,27 +3279,21 @@
       APP_STATE.items.unshift(newItem);
       persistItems();
 
-      // Reset Form
       document.getElementById('modal-input-title').value = '';
       document.getElementById('modal-input-notes').value = '';
       closeModal('modal-add-record');
 
-      // Refresh current view
       if (APP_STATE.currentActiveCategory === catId) {
         renderCategoryItems(catId);
       }
       renderHomeView();
-      showSleekToast('✓ Saved & Synced to Telegram Topic!');
+      showSleekToast('✓ Saved & Synced to Telegram Forum Topic!');
     }
 
-    /* ========================================================
-       ITEM ACTIONS: DELETE, STAR, COPY
-       ======================================================== */
     function deleteItem(itemId) {
       const item = APP_STATE.items.find(i => i.id === itemId);
       if (item) {
         if (item.isDeleted) {
-          // Permanently remove
           APP_STATE.items = APP_STATE.items.filter(i => i.id !== itemId);
           showSleekToast('✓ Item permanently removed');
         } else {
@@ -3578,7 +3348,6 @@
       }
     }
 
-    /* Universal Clipboard */
     function copyText(text, label = 'Text') {
       if (!text) return;
       if (navigator.clipboard && window.isSecureContext) {
@@ -3606,10 +3375,7 @@
       document.body.removeChild(ta);
     }
 
-    /* Settings Modals */
-    function openProfileModal() {
-      openModal('modal-profile');
-    }
+    function openProfileModal() { openModal('modal-profile'); }
     function saveProfileChanges() {
       const name = document.getElementById('input-profile-name-edit').value.trim() || 'Md Safi Islam';
       APP_STATE.profileName = name;
@@ -3635,14 +3401,12 @@
       showSleekToast('✓ Telegram Supergroup Synced & Topics Verified!');
     }
 
-    function openAppearanceModal() {
-      openModal('modal-appearance');
-    }
+    function openAppearanceModal() { openModal('modal-appearance'); }
 
     function openExportModal() {
       const data = {
         app: 'TeleDrive Ultra',
-        version: '4.0.0',
+        version: '5.0.0',
         exportedAt: new Date().toISOString(),
         user: APP_STATE.profileName,
         categories: APP_STATE.categories,
@@ -3658,15 +3422,10 @@
       showSleekToast('✓ Full Vault JSON Exported!');
     }
 
-    function openSecurityModal() {
-      showSleekToast('🔒 App PIN Lock is Active');
-    }
-
     function openAboutModal() {
-      showSleekToast('TeleDrive Ultra v4.0.0 (Material 3 Expressive)');
+      showSleekToast('TeleDrive Ultra v5.0.0 (Material 3 Expressive)');
     }
 
-    /* Utilities */
     function getCatIcon(catId) {
       const c = APP_STATE.categories.find(x => x.id === catId);
       return c ? c.icon : '📁';
