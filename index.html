@@ -3,18 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<meta name="theme-color" content="#0b0c16">
+<meta name="theme-color" content="#090a14">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>Safi Telegram Vault</title>
 <link rel="manifest" href="manifest.json">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
 /* ========================================================
-   SAFI TELEGRAM VAULT - ULTRA PREMIUM DESIGN TOKENS
+   SAFI TELEGRAM VAULT - PROFESSIONAL ULTRA-PREMIUM TOKENS
    ======================================================== */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html{height:100%;overflow:hidden;font-size:15px}
@@ -34,9 +34,6 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
 ::-webkit-scrollbar-thumb{background:var(--border);border-radius:6px}
 ::-webkit-scrollbar-thumb:hover{background:var(--text-muted)}
 
-/* ========================================================
-   THEMES (12 THEMES - LIGHT & DARK)
-   ======================================================== */
 :root{
   --header-h:60px;
   --bnav-h:68px;
@@ -49,59 +46,60 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
   --transition:all .2s cubic-bezier(.4,0,.2,1);
 }
 
+/* 12 THEMES */
 [data-theme="dark"]{
-  --bg:#090a12;--surface:#111322;--surface2:#181b30;--surface3:#222642;
+  --bg:#090a14;--surface:#101224;--surface2:#171a33;--surface3:#212547;
   --primary:#6c63ff;--primary-glow:rgba(108,99,255,.35);--primary-text:#fff;
   --accent:#00d2ff;--accent-glow:rgba(0,210,255,.25);
-  --text:#f0f2fd;--text-muted:#8d93b8;--border:#232742;
+  --text:#f0f2fd;--text-muted:#8d93b8;--border:#24284d;
   --danger:#ff4757;--success:#2ed573;--warning:#ffa502;
-  --card-shadow:0 8px 24px rgba(0,0,0,.45);
-  --overlay:rgba(9,10,18,.86);
+  --card-shadow:0 10px 30px rgba(0,0,0,.5);
+  --overlay:rgba(9,10,20,.88);
 }
 [data-theme="amoled"]{
   --bg:#000000;--surface:#0a0a0a;--surface2:#121212;--surface3:#1c1c1c;
-  --primary:#bb86fc;--primary-glow:rgba(187,134,252,.3);--primary-text:#000;
+  --primary:#bb86fc;--primary-glow:rgba(187,134,252,.35);--primary-text:#000;
   --accent:#03dac6;--accent-glow:rgba(3,218,198,.25);
   --text:#f5f5f5;--text-muted:#7c7c7c;--border:#222222;
   --danger:#cf6679;--success:#03dac6;--warning:#ffb74d;
-  --card-shadow:0 8px 24px rgba(0,0,0,.85);
-  --overlay:rgba(0,0,0,.92);
+  --card-shadow:0 10px 30px rgba(0,0,0,.85);
+  --overlay:rgba(0,0,0,.94);
 }
 [data-theme="forest"]{
-  --bg:#06120e;--surface:#0c1f18;--surface2:#122b22;--surface3:#1a3a2e;
+  --bg:#05120e;--surface:#0b2018;--surface2:#112e23;--surface3:#193e30;
   --primary:#10b981;--primary-glow:rgba(16,185,129,.35);--primary-text:#042315;
   --accent:#34d399;--accent-glow:rgba(52,211,153,.25);
-  --text:#ecfdf5;--text-muted:#6ee7b7;--border:#1c4234;
+  --text:#ecfdf5;--text-muted:#6ee7b7;--border:#1b4737;
   --danger:#f87171;--success:#10b981;--warning:#fbbf24;
-  --card-shadow:0 8px 24px rgba(0,0,0,.45);
-  --overlay:rgba(6,18,14,.88);
+  --card-shadow:0 10px 30px rgba(0,0,0,.5);
+  --overlay:rgba(5,18,14,.9);
 }
 [data-theme="aurora"]{
-  --bg:#081024;--surface:#101d3b;--surface2:#172952;--surface3:#20376d;
-  --primary:#38bdf8;--primary-glow:rgba(56,189,248,.35);--primary-text:#081024;
+  --bg:#071024;--surface:#0f1d3b;--surface2:#162a54;--surface3:#1f3972;
+  --primary:#38bdf8;--primary-glow:rgba(56,189,248,.35);--primary-text:#071024;
   --accent:#2dd4bf;--accent-glow:rgba(45,212,191,.25);
-  --text:#e0f2fe;--text-muted:#7dd3fc;--border:#26437d;
+  --text:#e0f2fe;--text-muted:#7dd3fc;--border:#254685;
   --danger:#fb7185;--success:#34d399;--warning:#fde047;
-  --card-shadow:0 8px 24px rgba(0,0,0,.5);
-  --overlay:rgba(8,16,36,.88);
+  --card-shadow:0 10px 30px rgba(0,0,0,.5);
+  --overlay:rgba(7,16,36,.9);
 }
 [data-theme="midnight"]{
-  --bg:#080916;--surface:#0f1128;--surface2:#17193b;--surface3:#202350;
+  --bg:#070817;--surface:#0e102a;--surface2:#161940;--surface3:#202458;
   --primary:#4f46e5;--primary-glow:rgba(79,70,229,.35);--primary-text:#fff;
   --accent:#818cf8;--accent-glow:rgba(129,140,248,.3);
-  --text:#eef2ff;--text-muted:#818cf8;--border:#25295c;
+  --text:#eef2ff;--text-muted:#818cf8;--border:#262a69;
   --danger:#ef4444;--success:#10b981;--warning:#f59e0b;
-  --card-shadow:0 8px 24px rgba(0,0,0,.55);
-  --overlay:rgba(8,9,22,.88);
+  --card-shadow:0 10px 30px rgba(0,0,0,.6);
+  --overlay:rgba(7,8,23,.9);
 }
 [data-theme="sunset"]{
-  --bg:#170c14;--surface:#241320;--surface2:#331a2d;--surface3:#45233d;
+  --bg:#160b13;--surface:#23121f;--surface2:#33182d;--surface3:#46213e;
   --primary:#f43f5e;--primary-glow:rgba(244,63,94,.35);--primary-text:#fff;
   --accent:#f59e0b;--accent-glow:rgba(245,158,11,.3);
-  --text:#fff1f2;--text-muted:#fda4af;--border:#4d2745;
+  --text:#fff1f2;--text-muted:#fda4af;--border:#522649;
   --danger:#f43f5e;--success:#10b981;--warning:#f59e0b;
-  --card-shadow:0 8px 24px rgba(0,0,0,.5);
-  --overlay:rgba(23,12,20,.88);
+  --card-shadow:0 10px 30px rgba(0,0,0,.55);
+  --overlay:rgba(22,11,19,.9);
 }
 [data-theme="rose"]{
   --bg:#fff5f7;--surface:#ffffff;--surface2:#fde8ed;--surface3:#fbcfe8;
@@ -109,8 +107,8 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
   --accent:#db2777;--accent-glow:rgba(219,39,119,.2);
   --text:#3f0713;--text-muted:#9f1239;--border:#f9a8d4;
   --danger:#e11d48;--success:#059669;--warning:#d97706;
-  --card-shadow:0 8px 24px rgba(225,29,72,.08);
-  --overlay:rgba(255,245,247,.88);
+  --card-shadow:0 10px 30px rgba(225,29,72,.08);
+  --overlay:rgba(255,245,247,.9);
 }
 [data-theme="arctic"]{
   --bg:#f0f9ff;--surface:#ffffff;--surface2:#e0f2fe;--surface3:#bae6fd;
@@ -118,26 +116,26 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
   --accent:#0ea5e9;--accent-glow:rgba(14,165,233,.2);
   --text:#082f49;--text-muted:#0369a1;--border:#7dd3fc;
   --danger:#e11d48;--success:#059669;--warning:#d97706;
-  --card-shadow:0 8px 24px rgba(2,132,199,.08);
-  --overlay:rgba(240,249,255,.88);
+  --card-shadow:0 10px 30px rgba(2,132,199,.08);
+  --overlay:rgba(240,249,255,.9);
 }
 [data-theme="mono"]{
-  --bg:#121212;--surface:#1c1c1c;--surface2:#262626;--surface3:#333333;
+  --bg:#101010;--surface:#1a1a1a;--surface2:#242424;--surface3:#303030;
   --primary:#ffffff;--primary-glow:rgba(255,255,255,.2);--primary-text:#000;
   --accent:#d4d4d4;--accent-glow:rgba(255,255,255,.15);
-  --text:#ffffff;--text-muted:#a3a3a3;--border:#383838;
+  --text:#ffffff;--text-muted:#a3a3a3;--border:#3a3a3a;
   --danger:#f87171;--success:#4ade80;--warning:#fbbf24;
-  --card-shadow:0 8px 24px rgba(0,0,0,.6);
-  --overlay:rgba(18,18,18,.9);
+  --card-shadow:0 10px 30px rgba(0,0,0,.65);
+  --overlay:rgba(16,16,16,.92);
 }
 [data-theme="sakura"]{
-  --bg:#161016;--surface:#221822;--surface2:#2e202e;--surface3:#3d2a3d;
+  --bg:#150f15;--surface:#211721;--surface2:#2d1f2d;--surface3:#3c293c;
   --primary:#ec4899;--primary-glow:rgba(236,72,153,.35);--primary-text:#fff;
   --accent:#f472b6;--accent-glow:rgba(244,114,182,.25);
-  --text:#fdf2f8;--text-muted:#fbcfe8;--border:#4b334b;
+  --text:#fdf2f8;--text-muted:#fbcfe8;--border:#4f334f;
   --danger:#fb7185;--success:#34d399;--warning:#fbbf24;
-  --card-shadow:0 8px 24px rgba(0,0,0,.5);
-  --overlay:rgba(22,16,22,.88);
+  --card-shadow:0 10px 30px rgba(0,0,0,.5);
+  --overlay:rgba(21,15,21,.9);
 }
 [data-theme="light"]{
   --bg:#f8fafc;--surface:#ffffff;--surface2:#f1f5f9;--surface3:#e2e8f0;
@@ -145,17 +143,17 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
   --accent:#0284c7;--accent-glow:rgba(2,132,199,.2);
   --text:#0f172a;--text-muted:#64748b;--border:#cbd5e1;
   --danger:#ef4444;--success:#10b981;--warning:#f59e0b;
-  --card-shadow:0 8px 24px rgba(15,23,42,.08);
-  --overlay:rgba(248,250,252,.9);
+  --card-shadow:0 10px 30px rgba(15,23,42,.08);
+  --overlay:rgba(248,250,252,.92);
 }
 [data-theme="ocean"]{
-  --bg:#061720;--surface:#0c2331;--surface2:#123145;--surface3:#19415c;
-  --primary:#06b6d4;--primary-glow:rgba(6,182,212,.35);--primary-text:#061720;
+  --bg:#05151e;--surface:#0b212f;--surface2:#112f43;--surface3:#183f5a;
+  --primary:#06b6d4;--primary-glow:rgba(6,182,212,.35);--primary-text:#05151e;
   --accent:#38bdf8;--accent-glow:rgba(56,189,248,.25);
-  --text:#ecfeff;--text-muted:#67e8f9;--border:#1d4e6f;
+  --text:#ecfeff;--text-muted:#67e8f9;--border:#1f5478;
   --danger:#fb7185;--success:#34d399;--warning:#facc15;
-  --card-shadow:0 8px 24px rgba(0,0,0,.5);
-  --overlay:rgba(6,23,32,.88);
+  --card-shadow:0 10px 30px rgba(0,0,0,.5);
+  --overlay:rgba(5,21,30,.9);
 }
 
 /* ========================================================
@@ -184,7 +182,7 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
 .brand-title{font-size:16px;font-weight:800;letter-spacing:-.2px;line-height:1.2}
 .brand-sub{font-size:11px;color:var(--text-muted);font-weight:600}
 
-/* User Card in Sidebar */
+/* User Card */
 .user-card{
   margin:10px 14px 6px;padding:12px;border-radius:var(--radius-md);
   background:var(--surface2);display:flex;align-items:center;gap:10px;
@@ -201,9 +199,8 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
 .user-name{font-size:13px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .user-status{font-size:11px;color:var(--text-muted);display:flex;align-items:center;gap:5px;font-weight:600}
 .status-dot{width:7px;height:7px;border-radius:50%;background:var(--success)}
-.status-dot.offline{background:var(--text-muted)}
 
-/* Sidebar Categories Nav */
+/* Categories Navigation */
 .sidebar-section-header{
   display:flex;align-items:center;justify-content:space-between;
   padding:12px 18px 6px;font-size:10px;font-weight:800;text-transform:uppercase;
@@ -235,7 +232,6 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
 }
 .nav-item.active .nav-badge{background:rgba(255,255,255,.25);color:var(--primary-text)}
 
-/* Delete Icon for Categories */
 .nav-del-btn{
   width:22px;height:22px;border-radius:50%;display:none;align-items:center;justify-content:center;
   font-size:11px;color:var(--danger);cursor:pointer;margin-left:4px;transition:var(--transition);
@@ -243,7 +239,6 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
 .nav-item:hover .nav-del-btn{display:flex}
 .nav-del-btn:hover{background:rgba(255,71,87,.2)}
 
-/* Sidebar Bottom */
 .sidebar-footer{padding:10px 14px;border-top:1px solid var(--border);display:flex;gap:6px}
 .sbtn{
   flex:1;padding:8px 6px;border-radius:var(--radius-sm);background:var(--surface2);
@@ -253,11 +248,10 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
 .sbtn:hover{background:var(--surface3);color:var(--text)}
 
 /* ========================================================
-   MAIN CONTENT VIEWPORT
+   MAIN VIEWPORT & HEADER
    ======================================================== */
 #main{flex:1;display:flex;flex-direction:column;min-width:0;height:100%;overflow:hidden;position:relative}
 
-/* Header */
 #header{
   height:var(--header-h);padding:0 18px;display:flex;align-items:center;gap:12px;
   background:var(--surface);border-bottom:1px solid var(--border);flex-shrink:0;z-index:20;
@@ -272,7 +266,6 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
 .header-title{font-size:16px;font-weight:800;display:flex;align-items:center;gap:8px;line-height:1.2}
 .header-sub{font-size:11px;color:var(--text-muted);font-weight:600}
 
-/* Header Action Buttons */
 .header-actions{display:flex;align-items:center;gap:6px;flex-shrink:0}
 .hbtn{
   width:36px;height:36px;border-radius:var(--radius-sm);
@@ -282,10 +275,7 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
 }
 .hbtn:hover{background:var(--surface2);color:var(--text)}
 
-/* Quick Search in Header */
-.search-wrapper{
-  position:relative;display:flex;align-items:center;flex:1;max-width:300px;
-}
+.search-wrapper{position:relative;display:flex;align-items:center;flex:1;max-width:300px}
 .search-input{
   width:100%;height:36px;padding:0 12px 0 34px;border-radius:20px;
   background:var(--surface2);border:1px solid var(--border);
@@ -295,7 +285,7 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
 .search-icon{position:absolute;left:11px;color:var(--text-muted);font-size:14px;pointer-events:none}
 .search-clear{position:absolute;right:10px;color:var(--text-muted);font-size:14px;cursor:pointer;display:none}
 
-/* Filter Bar & Chips */
+/* Filter Chips Bar */
 #filter-bar{
   padding:10px 18px;display:flex;align-items:center;gap:8px;
   background:var(--surface);border-bottom:1px solid var(--border);
@@ -315,7 +305,6 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
 }
 .chip-count{font-size:10px;opacity:.85;padding:1px 5px;border-radius:10px;background:rgba(0,0,0,.2)}
 
-/* Content Viewport */
 #content{
   flex:1;overflow-y:auto;padding:16px 18px calc(var(--bnav-h) + 20px);
 }
@@ -323,11 +312,10 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
   #content{padding:20px 24px}
 }
 
-/* Items Grid */
 .items-container{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
 
 /* ========================================================
-   CARDS & COMPONENTS
+   CARDS & MICRO-INTERACTIONS
    ======================================================== */
 .card{
   background:var(--surface);border:1px solid var(--border);
@@ -355,9 +343,33 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
 .card-title{font-size:14px;font-weight:800;line-height:1.4;word-break:break-word}
 .card-desc{font-size:12px;color:var(--text-muted);line-height:1.5;white-space:pre-wrap;word-break:break-word}
 
-/* 1. REALISTIC CREDIT / DEBIT CARD (FULLY VISIBLE AS REQUESTED) */
+/* ========================================================
+   1. COPYABLE ELEMENT CHIP (UNIVERSAL TAP & BUTTON COPY)
+   ======================================================== */
+.copy-pill-btn{
+  padding:4px 9px;border-radius:6px;background:var(--primary);color:var(--primary-text);
+  font-size:11px;font-weight:800;cursor:pointer;transition:var(--transition);
+  display:inline-flex;align-items:center;gap:4px;user-select:none;flex-shrink:0;
+}
+.copy-pill-btn:hover{opacity:.9}
+.copy-pill-btn:active{transform:scale(.95)}
+.copy-pill-btn.copied{background:var(--success) !important;color:#000 !important}
+
+.copy-interactive-row{
+  display:flex;align-items:center;justify-content:space-between;gap:8px;
+  background:var(--surface2);border:1px solid var(--border);border-radius:8px;
+  padding:7px 10px;cursor:pointer;transition:var(--transition);
+}
+.copy-interactive-row:hover{border-color:var(--primary)}
+.copy-interactive-text{
+  font-size:12px;font-weight:700;word-break:break-all;color:var(--text);flex:1;
+}
+
+/* ========================================================
+   2. REALISTIC 3D CREDIT / DEBIT CARD (100% VISIBLE)
+   ======================================================== */
 .credit-card-ui{
-  background:linear-gradient(135deg,#1e1e2f 0%,#2d1b4e 50%,#18233c 100%);
+  background:linear-gradient(135deg,#1c1b2b 0%,#2d1b4e 50%,#18233c 100%);
   border:1px solid rgba(255,255,255,.15);border-radius:var(--radius-md);
   padding:16px;color:#fff;display:flex;flex-direction:column;gap:12px;
   box-shadow:0 10px 25px rgba(0,0,0,.5);position:relative;overflow:hidden;
@@ -379,65 +391,67 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
   font-family:'JetBrains Mono',monospace;font-size:16px;font-weight:800;
   letter-spacing:2px;color:#fff;word-spacing:3px;
 }
-.cc-copy-btn{
-  padding:4px 8px;border-radius:6px;background:rgba(255,255,255,.18);
-  color:#fff;font-size:10px;font-weight:700;cursor:pointer;transition:var(--transition);
-  display:inline-flex;align-items:center;gap:4px;
-}
-.cc-copy-btn:hover{background:rgba(255,255,255,.3)}
-
 .cc-bottom-row{display:flex;justify-content:space-between;align-items:flex-end;margin-top:2px}
 .cc-holder-label{font-size:9px;color:rgba(255,255,255,.6);text-transform:uppercase;font-weight:700}
 .cc-holder-name{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.8px}
 .cc-exp-cvv-box{display:flex;gap:14px;text-align:right}
 .cc-val{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:800}
 
-/* 2. EMAIL / PHONE NUMBER BUBBLE LIST */
-.bubble-scroll-box{
-  max-height:220px;overflow-y:auto;border-radius:var(--radius-sm);
-  background:var(--surface2);padding:8px;display:flex;flex-direction:column;gap:6px;
-  border:1px solid var(--border);
+/* Copy Card Master Row */
+.cc-copy-actions{
+  display:flex;gap:6px;margin-top:4px;flex-wrap:wrap;
 }
-.bubble-item{
-  display:flex;align-items:center;justify-content:space-between;gap:8px;
-  background:var(--surface);border:1px solid var(--border);padding:8px 10px;
-  border-radius:8px;transition:var(--transition);
+.cc-quick-copy{
+  padding:3px 8px;border-radius:6px;background:rgba(255,255,255,.16);color:#fff;
+  font-size:10px;font-weight:700;cursor:pointer;transition:var(--transition);display:inline-flex;align-items:center;gap:3px;
 }
-.bubble-item.marked{border-color:var(--success);background:rgba(46,213,115,.06)}
-.bubble-text{font-size:12px;font-weight:700;word-break:break-all;flex:1}
-.bubble-actions{display:flex;align-items:center;gap:6px;flex-shrink:0}
-.mark-btn{
-  font-size:11px;font-weight:800;padding:4px 8px;border-radius:6px;
-  background:var(--surface2);color:var(--text-muted);display:flex;align-items:center;gap:4px;
-  cursor:pointer;transition:var(--transition);
-}
-.mark-btn.marked{background:var(--success);color:#000}
-.copy-pill{
-  font-size:11px;font-weight:800;padding:4px 8px;border-radius:6px;
-  background:var(--primary);color:var(--primary-text);cursor:pointer;
-  transition:var(--transition);display:flex;align-items:center;gap:4px;
-}
-.copy-pill:hover{opacity:.9}
-
-/* 3. JOB FILE / SMS DETAILS */
-.meta-badge-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:2px}
-.meta-tag{
-  font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px;
-  background:var(--surface2);color:var(--text);border:1px solid var(--border);
-}
-
-/* Empty State */
-.empty-box{
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  padding:60px 20px;text-align:center;gap:14px;color:var(--text-muted);
-}
-.empty-icon{font-size:52px;opacity:.6}
-.empty-title{font-size:16px;font-weight:800;color:var(--text)}
-.empty-desc{font-size:13px;max-width:320px;line-height:1.5}
+.cc-quick-copy:hover{background:rgba(255,255,255,.3)}
+.cc-quick-copy.copied{background:var(--success) !important;color:#000 !important}
 
 /* ========================================================
-   FAB & BOTTOM NAVIGATION (MOBILE)
+   3. INLINE MEDIA & AUDIO/VIDEO PLAYER
    ======================================================== */
+.inline-video-box{
+  width:100%;border-radius:10px;overflow:hidden;background:#000;position:relative;
+}
+.inline-video-box video{width:100%;max-height:220px;display:block}
+
+.inline-audio-player{
+  display:flex;align-items:center;gap:10px;background:var(--surface2);
+  border:1px solid var(--border);border-radius:10px;padding:8px 12px;
+}
+.iap-btn{
+  width:34px;height:34px;border-radius:50%;background:var(--primary);color:var(--primary-text);
+  display:flex;align-items:center;justify-content:center;font-size:14px;cursor:pointer;flex-shrink:0;
+}
+.iap-progress-box{flex:1;min-width:0}
+.iap-title{font-size:11px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.iap-bar-bg{height:5px;border-radius:3px;background:var(--surface3);margin-top:4px;cursor:pointer;overflow:hidden}
+.iap-bar-fill{height:100%;border-radius:3px;background:var(--primary);width:0%}
+
+/* ========================================================
+   4. IDM 8-CHANNEL TURBO DOWNLOAD ACCELERATOR MODAL
+   ======================================================== */
+.idm-box{
+  background:var(--surface);border-radius:var(--radius-md);padding:18px;
+  border:1px solid var(--border);display:flex;flex-direction:column;gap:12px;
+}
+.idm-header{display:flex;align-items:center;gap:12px}
+.idm-header-icon{
+  width:42px;height:42px;border-radius:10px;background:linear-gradient(135deg,var(--primary),var(--accent));
+  display:flex;align-items:center;justify-content:center;font-size:22px;color:#fff;
+}
+.idm-channels-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:6px;margin:4px 0}
+.idm-chan-row{display:flex;align-items:center;gap:6px;font-size:10px}
+.idm-chan-lbl{width:46px;font-weight:700;color:var(--text-muted)}
+.idm-chan-bar-bg{flex:1;height:6px;border-radius:3px;background:var(--surface2);overflow:hidden}
+.idm-chan-bar-fill{height:100%;border-radius:3px;background:var(--primary);width:0%;transition:width .15s}
+
+.idm-master-bar-bg{height:10px;border-radius:5px;background:var(--surface2);overflow:hidden}
+.idm-master-bar-fill{height:100%;border-radius:5px;background:linear-gradient(90deg,var(--primary),var(--accent));width:0%;transition:width .15s}
+.idm-speed-panel{display:flex;justify-content:space-between;font-size:11px;color:var(--text-muted);font-weight:700}
+
+/* FAB & Bottom Nav */
 #fab{
   position:fixed;bottom:calc(var(--bnav-h) + 16px);right:20px;
   width:56px;height:56px;border-radius:18px;
@@ -451,7 +465,6 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
 #fab:active{transform:scale(.92)}
 @media(min-width:768px){#fab{bottom:28px;right:28px}}
 
-/* Bottom Nav */
 #bottom-nav{
   position:fixed;bottom:0;left:0;right:0;height:var(--bnav-h);
   background:var(--surface);border-top:1px solid var(--border);
@@ -477,9 +490,7 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
   #sidebar-backdrop.open{display:block}
 }
 
-/* ========================================================
-   MODALS, SHEETS & PANELS
-   ======================================================== */
+/* Overlays & Modals */
 .overlay{
   position:fixed;inset:0;background:var(--overlay);backdrop-filter:blur(6px);
   z-index:120;display:flex;align-items:flex-end;justify-content:center;
@@ -509,7 +520,6 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
 .modal-title{font-size:17px;font-weight:800;display:flex;align-items:center;gap:8px}
 .modal-close{width:30px;height:30px;border-radius:50%;background:var(--surface2);display:flex;align-items:center;justify-content:center;font-size:14px;cursor:pointer}
 
-/* Action Sheet Grid */
 .action-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
 .action-tile{
   display:flex;flex-direction:column;align-items:center;gap:8px;padding:14px 6px;
@@ -535,7 +545,6 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
 .form-textarea{min-height:90px;resize:vertical}
 .form-row{display:flex;gap:10px}
 
-/* Buttons */
 .btn-primary{
   width:100%;padding:12px;border-radius:var(--radius-sm);
   background:linear-gradient(135deg,var(--primary),var(--accent));
@@ -549,7 +558,7 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
 }
 .btn-secondary:hover{background:var(--surface3)}
 
-/* Profile & Settings Section Tabs inside Settings Modal */
+/* Settings Tabs */
 .settings-nav-tabs{display:flex;gap:6px;border-bottom:1px solid var(--border);padding-bottom:10px;margin-bottom:16px}
 .sttab{
   padding:6px 12px;border-radius:20px;font-size:12px;font-weight:700;cursor:pointer;
@@ -557,7 +566,6 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
 }
 .sttab.active{background:var(--primary);color:var(--primary-text)}
 
-/* Category Manager Table */
 .cat-mgr-item{
   display:flex;align-items:center;justify-content:space-between;padding:10px 12px;
   background:var(--surface2);border-radius:var(--radius-sm);margin-bottom:6px;
@@ -566,22 +574,7 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
 .cat-mgr-del{color:var(--danger);font-size:14px;cursor:pointer;padding:4px 8px;border-radius:6px}
 .cat-mgr-del:hover{background:rgba(255,71,87,.2)}
 
-/* IDM Turbo Modal */
-.idm-box{
-  background:var(--surface);border-radius:var(--radius-md);padding:16px;
-  border:1px solid var(--border);display:flex;flex-direction:column;gap:12px;
-}
-.idm-threads-box{display:flex;flex-direction:column;gap:6px}
-.thread-row{display:flex;align-items:center;gap:8px;font-size:11px}
-.thread-label{width:54px;font-weight:700;color:var(--text-muted)}
-.thread-bar-bg{flex:1;height:8px;border-radius:4px;background:var(--surface2);overflow:hidden}
-.thread-bar-fill{height:100%;border-radius:4px;background:var(--primary);width:0%;transition:width .2s}
-.thread-pct{width:36px;text-align:right;font-weight:700;font-family:'JetBrains Mono',monospace}
-.idm-overall-bar-bg{height:10px;border-radius:5px;background:var(--surface2);overflow:hidden}
-.idm-overall-bar-fill{height:100%;border-radius:5px;background:linear-gradient(90deg,var(--primary),var(--accent));width:0%;transition:width .2s}
-.idm-stats{display:flex;justify-content:space-between;font-size:11px;color:var(--text-muted)}
-
-/* Theme Grid */
+/* Themes Grid */
 .themes-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
 .theme-card{
   padding:12px;border-radius:var(--radius-sm);border:2px solid var(--border);
@@ -595,10 +588,10 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
 /* Toast */
 #toast{
   position:fixed;bottom:calc(var(--bnav-h) + 76px);left:50%;transform:translateX(-50%) translateY(20px);
-  background:rgba(9,10,18,.94);color:#fff;padding:9px 18px;border-radius:24px;
+  background:rgba(9,10,18,.96);color:#fff;padding:10px 20px;border-radius:24px;
   font-size:12px;font-weight:800;z-index:999;opacity:0;pointer-events:none;
   transition:opacity .2s,transform .2s;white-space:nowrap;backdrop-filter:blur(8px);
-  box-shadow:0 8px 24px rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.1);
+  box-shadow:0 8px 24px rgba(0,0,0,.6);border:1px solid rgba(255,255,255,.15);
 }
 #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
@@ -614,7 +607,7 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
 <body>
 
 <div id="app">
-  <!-- Sidebar Backdrop (Mobile) -->
+  <!-- Mobile Sidebar Backdrop -->
   <div id="sidebar-backdrop" onclick="toggleSidebar(false)"></div>
 
   <!-- SIDEBAR -->
@@ -623,7 +616,7 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
       <div class="brand-icon">🔐</div>
       <div>
         <div class="brand-title">Safi Vault</div>
-        <div class="brand-sub">Telegram Digital Archive</div>
+        <div class="brand-sub">Digital Archive OS</div>
       </div>
     </div>
 
@@ -632,14 +625,14 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
       <div class="user-avatar" id="sb-user-avatar">S</div>
       <div class="user-info">
         <div class="user-name" id="sb-user-name">Md Safi Islam</div>
-        <div class="user-status" id="sb-sync-status">
-          <span class="status-dot" id="sb-status-dot"></span>
-          <span id="sb-status-text">Owner Active</span>
+        <div class="user-status">
+          <span class="status-dot"></span>
+          <span>Vault Owner Active</span>
         </div>
       </div>
     </div>
 
-    <!-- Category Nav Section -->
+    <!-- Categories Navigation Header -->
     <div class="sidebar-section-header">
       <span>Categories & Topics</span>
       <span class="sidebar-add-topic-btn" onclick="openCreateCategoryModal()">＋ New Topic</span>
@@ -679,7 +672,7 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
       <!-- Quick Search -->
       <div class="search-wrapper">
         <span class="search-icon">🔍</span>
-        <input type="text" class="search-input" id="global-search-input" placeholder="Search files, numbers, notes..." oninput="handleSearch(this.value)">
+        <input type="text" class="search-input" id="global-search-input" placeholder="Search number, keys, cards..." oninput="handleSearch(this.value)">
         <span class="search-clear" id="search-clear-btn" onclick="clearSearch()">✕</span>
       </div>
 
@@ -732,10 +725,10 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
 </nav>
 
 <!-- ========================================================
-     MODALS & OVERLAYS
+     MODALS & SHEETS
      ======================================================== -->
 
-<!-- 1. ADD NEW ITEM SHEET (NOW INCLUDES ALL 11 ITEM TYPES!) -->
+<!-- 1. ADD NEW ITEM SHEET (ALL 12 ITEM TYPES) -->
 <div class="overlay" id="add-action-overlay" onclick="closeOverlayOnBackdrop(event, 'add-action-overlay')">
   <div class="sheet">
     <div class="sheet-handle"></div>
@@ -753,14 +746,6 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
         <span class="action-tile-icon">💬</span>
         <span>Email / Number</span>
       </div>
-      <div class="action-tile ripple" onclick="openCreateItemModal('links')">
-        <span class="action-tile-icon">🔗</span>
-        <span>Web Link</span>
-      </div>
-      <div class="action-tile ripple" onclick="openCreateItemModal('pdfs')">
-        <span class="action-tile-icon">📄</span>
-        <span>PDF Doc</span>
-      </div>
       <div class="action-tile ripple" onclick="openCreateItemModal('sms')">
         <span class="action-tile-icon">✉️</span>
         <span>SMS & Messages</span>
@@ -772,6 +757,14 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
       <div class="action-tile ripple" onclick="openCreateItemModal('cards')">
         <span class="action-tile-icon">🔐</span>
         <span>Card Details</span>
+      </div>
+      <div class="action-tile ripple" onclick="openCreateItemModal('links')">
+        <span class="action-tile-icon">🔗</span>
+        <span>Web Link</span>
+      </div>
+      <div class="action-tile ripple" onclick="openCreateItemModal('pdfs')">
+        <span class="action-tile-icon">📄</span>
+        <span>PDF Doc</span>
       </div>
       <div class="action-tile ripple" onclick="openCreateItemModal('idm_keys')">
         <span class="action-tile-icon">🔑</span>
@@ -799,7 +792,7 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
   </div>
 </div>
 
-<!-- 2. CREATE / EDIT ITEM MODAL -->
+<!-- 2. CREATE ITEM MODAL -->
 <div class="overlay center" id="create-item-overlay" onclick="closeOverlayOnBackdrop(event, 'create-item-overlay')">
   <div class="modal">
     <div class="modal-header">
@@ -816,30 +809,30 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
 
       <div class="form-group">
         <label class="form-label">Title / Subject</label>
-        <input type="text" class="form-input" id="form-item-title" placeholder="e.g. Visa Platinum, Google Interview CV..." required>
+        <input type="text" class="form-input" id="form-item-title" placeholder="e.g. Visa Platinum, Google Interview CV, OTP..." required>
       </div>
 
-      <!-- Specialized field: URL (for Links) -->
+      <!-- Specialized field: Web Link -->
       <div class="form-group" id="field-url" style="display:none">
         <label class="form-label">Website URL</label>
         <input type="url" class="form-input" id="form-item-url" placeholder="https://example.com">
       </div>
 
-      <!-- Specialized field: SMS Info (Sender & Phone) -->
+      <!-- Specialized field: SMS Info -->
       <div id="field-sms" style="display:none">
         <div class="form-row">
           <div class="form-group" style="flex:1">
             <label class="form-label">Sender / Service</label>
-            <input type="text" class="form-input" id="form-sms-sender" placeholder="e.g. bKash, OTP, Bank">
+            <input type="text" class="form-input" id="form-sms-sender" placeholder="e.g. bKash, Bank, WhatsApp">
           </div>
           <div class="form-group" style="flex:1">
             <label class="form-label">Phone Number</label>
-            <input type="text" class="form-input mono" id="form-sms-phone" placeholder="+8801700000000">
+            <input type="text" class="form-input mono" id="form-sms-phone" placeholder="01726280203">
           </div>
         </div>
       </div>
 
-      <!-- Specialized field: Job Details (Company & Status) -->
+      <!-- Specialized field: Job Details -->
       <div id="field-job" style="display:none">
         <div class="form-row">
           <div class="form-group" style="flex:1">
@@ -858,11 +851,11 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
         </div>
       </div>
 
-      <!-- Specialized field: Card Details (FULLY VISIBLE AS REQUESTED) -->
+      <!-- Specialized field: Card Details (100% VISIBLE) -->
       <div id="field-card" style="display:none">
         <div class="form-group">
           <label class="form-label">Card Number (16 Digits)</label>
-          <input type="text" class="form-input mono" id="form-card-num" placeholder="4532 8910 2345 6789">
+          <input type="text" class="form-input mono" id="form-card-num" placeholder="4525 6532 6532 1234">
         </div>
         <div class="form-row">
           <div class="form-group" style="flex:1">
@@ -871,24 +864,24 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
           </div>
           <div class="form-group" style="flex:1">
             <label class="form-label">Bank / Brand</label>
-            <input type="text" class="form-input" id="form-card-bank" placeholder="Visa / City Bank">
+            <input type="text" class="form-input" id="form-card-bank" placeholder="VISA PLATINUM">
           </div>
         </div>
         <div class="form-row">
           <div class="form-group" style="flex:1">
             <label class="form-label">Expiry (MM/YY)</label>
-            <input type="text" class="form-input mono" id="form-card-exp" placeholder="12/28">
+            <input type="text" class="form-input mono" id="form-card-exp" placeholder="10/27">
           </div>
           <div class="form-group" style="flex:1">
             <label class="form-label">CVV Code</label>
-            <input type="text" class="form-input mono" id="form-card-cvv" placeholder="842" maxlength="4">
+            <input type="text" class="form-input mono" id="form-card-cvv" placeholder="111" maxlength="4">
           </div>
         </div>
       </div>
 
-      <!-- Specialized field: Bulk Emails / Numbers (for Saved Messages) -->
+      <!-- Specialized field: Bulk Emails / Numbers -->
       <div class="form-group" id="field-bubbles" style="display:none">
-        <label class="form-label">Emails / Numbers (One per line with copy & mark)</label>
+        <label class="form-label">Emails / Numbers (One per line)</label>
         <textarea class="form-textarea" id="form-item-bubbles" placeholder="ariYaNsAFI1132@gmail.com&#10;+21620809250"></textarea>
       </div>
 
@@ -900,7 +893,7 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
 
       <!-- File Attachment -->
       <div class="form-group">
-        <label class="form-label">Attachment (Photo, PDF, Job CV, Software File)</label>
+        <label class="form-label">Attachment (Photo, Video, Audio, PDF, Software)</label>
         <input type="file" class="form-input" id="form-item-file" onchange="handleFileSelection(this)">
         <div id="form-file-info" style="font-size:11px;color:var(--text-muted);margin-top:4px"></div>
       </div>
@@ -917,7 +910,7 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
   </div>
 </div>
 
-<!-- 3. CREATE NEW CATEGORY / TOPIC MODAL -->
+<!-- 3. CREATE CATEGORY / TOPIC MODAL -->
 <div class="overlay center" id="create-cat-overlay" onclick="closeOverlayOnBackdrop(event, 'create-cat-overlay')">
   <div class="modal">
     <div class="modal-header">
@@ -927,7 +920,7 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
     <form onsubmit="handleCreateCategory(event)">
       <div class="form-group">
         <label class="form-label">Category Name</label>
-        <input type="text" class="form-input" id="cat-name-input" placeholder="e.g. Bank Statements, Crypto Keys..." required>
+        <input type="text" class="form-input" id="cat-name-input" placeholder="e.g. Bank Statements, Crypto..." required>
       </div>
       <div class="form-group">
         <label class="form-label">Icon (Emoji)</label>
@@ -942,7 +935,7 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
   </div>
 </div>
 
-<!-- 4. PROFILE & SETTINGS FULL MODAL (ALL-IN-ONE CONTROL CENTER) -->
+<!-- 4. PROFILE & SETTINGS FULL CONTROL CENTER -->
 <div class="overlay center" id="profile-settings-overlay" onclick="closeOverlayOnBackdrop(event, 'profile-settings-overlay')">
   <div class="modal" style="max-width:500px">
     <div class="modal-header">
@@ -950,7 +943,7 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
       <button class="modal-close" onclick="closeOverlay('profile-settings-overlay')">✕</button>
     </div>
 
-    <!-- Navigation Tabs -->
+    <!-- Tabs -->
     <div class="settings-nav-tabs">
       <div class="sttab active" onclick="switchSettingsTab('profile', this)">Profile</div>
       <div class="sttab" onclick="switchSettingsTab('telegram', this)">Telegram</div>
@@ -964,16 +957,16 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
         <div class="user-avatar" style="width:52px;height:52px;font-size:20px" id="set-prof-avatar">S</div>
         <div>
           <div style="font-size:15px;font-weight:800" id="set-prof-name">Md Safi Islam</div>
-          <div style="font-size:11px;color:var(--text-muted)">Master Owner • No Auto-Logout</div>
+          <div style="font-size:11px;color:var(--text-muted)">Master Vault Admin • Always Logged In</div>
         </div>
       </div>
 
       <div class="form-group">
-        <label class="form-label">Display Name</label>
+        <label class="form-label">Owner Name</label>
         <input type="text" class="form-input" id="profile-name-input" value="Md Safi Islam">
       </div>
       <div class="form-group">
-        <label class="form-label">Avatar Letter or Emoji</label>
+        <label class="form-label">Avatar Symbol / Emoji</label>
         <input type="text" class="form-input" id="profile-avatar-input" value="S" maxlength="3">
       </div>
       <button class="btn-primary ripple" onclick="saveProfileChanges()">Update Profile</button>
@@ -1001,10 +994,10 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
       </div>
     </div>
 
-    <!-- Tab 3: Topics Manager (DELETE UNWANTED CATEGORIES/TOPICS HERE!) -->
+    <!-- Tab 3: Topics Manager (DELETE CATEGORIES HERE) -->
     <div id="stab-topics" class="stab-content" style="display:none">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
-        <span style="font-size:12px;font-weight:700">Active Categories & Topics</span>
+        <span style="font-size:12px;font-weight:700">Categories & Topics</span>
         <button class="btn-primary ripple" style="width:auto;padding:6px 12px;font-size:11px" onclick="openCreateCategoryModal()">＋ New Topic</button>
       </div>
       <div id="topics-manager-list" style="max-height:260px;overflow-y:auto">
@@ -1012,7 +1005,7 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
       </div>
     </div>
 
-    <!-- Tab 4: Backup & Restore -->
+    <!-- Tab 4: Backup -->
     <div id="stab-backup" class="stab-content" style="display:none">
       <div style="font-size:11px;color:var(--text-muted);margin-bottom:14px">
         Export your complete digital archive into a single JSON file. You can restore it anytime on any device.
@@ -1039,58 +1032,48 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
   </div>
 </div>
 
-<!-- 6. IDM TURBO DOWNLOADER MODAL -->
+<!-- 6. IDM 8-CHANNEL TURBO DOWNLOAD ACCELERATOR MODAL -->
 <div class="overlay center" id="idm-overlay">
-  <div class="modal" style="max-width:460px">
+  <div class="modal" style="max-width:480px">
     <div class="idm-box">
-      <div style="display:flex;align-items:center;gap:10px">
-        <span style="font-size:28px">⚡</span>
+      <div class="idm-header">
+        <div class="idm-header-icon">⚡</div>
         <div>
           <div style="font-size:14px;font-weight:800" id="idm-file-name">Downloading file...</div>
-          <div style="font-size:11px;color:var(--text-muted)" id="idm-file-size">Multi-Threaded Turbo Accelerator</div>
+          <div style="font-size:11px;color:var(--text-muted)" id="idm-file-size">8-Channel Concurrent Turbo Engine</div>
         </div>
       </div>
 
-      <div class="idm-threads-box">
-        <div class="thread-row">
-          <span class="thread-label">Thread 1</span>
-          <div class="thread-bar-bg"><div class="thread-bar-fill" id="idm-t1"></div></div>
-          <span class="thread-pct" id="idm-p1">0%</span>
-        </div>
-        <div class="thread-row">
-          <span class="thread-label">Thread 2</span>
-          <div class="thread-bar-bg"><div class="thread-bar-fill" id="idm-t2"></div></div>
-          <span class="thread-pct" id="idm-p2">0%</span>
-        </div>
-        <div class="thread-row">
-          <span class="thread-label">Thread 3</span>
-          <div class="thread-bar-bg"><div class="thread-bar-fill" id="idm-t3"></div></div>
-          <span class="thread-pct" id="idm-p3">0%</span>
-        </div>
-        <div class="thread-row">
-          <span class="thread-label">Thread 4</span>
-          <div class="thread-bar-bg"><div class="thread-bar-fill" id="idm-t4"></div></div>
-          <span class="thread-pct" id="idm-p4">0%</span>
-        </div>
+      <!-- 8 Streaming Channels -->
+      <div class="idm-channels-grid">
+        <div class="idm-chan-row"><span class="idm-chan-lbl">Ch 1</span><div class="idm-chan-bar-bg"><div class="idm-chan-bar-fill" id="idm-c1"></div></div></div>
+        <div class="idm-chan-row"><span class="idm-chan-lbl">Ch 2</span><div class="idm-chan-bar-bg"><div class="idm-chan-bar-fill" id="idm-c2"></div></div></div>
+        <div class="idm-chan-row"><span class="idm-chan-lbl">Ch 3</span><div class="idm-chan-bar-bg"><div class="idm-chan-bar-fill" id="idm-c3"></div></div></div>
+        <div class="idm-chan-row"><span class="idm-chan-lbl">Ch 4</span><div class="idm-chan-bar-bg"><div class="idm-chan-bar-fill" id="idm-c4"></div></div></div>
+        <div class="idm-chan-row"><span class="idm-chan-lbl">Ch 5</span><div class="idm-chan-bar-bg"><div class="idm-chan-bar-fill" id="idm-c5"></div></div></div>
+        <div class="idm-chan-row"><span class="idm-chan-lbl">Ch 6</span><div class="idm-chan-bar-bg"><div class="idm-chan-bar-fill" id="idm-c6"></div></div></div>
+        <div class="idm-chan-row"><span class="idm-chan-lbl">Ch 7</span><div class="idm-chan-bar-bg"><div class="idm-chan-bar-fill" id="idm-c7"></div></div></div>
+        <div class="idm-chan-row"><span class="idm-chan-lbl">Ch 8</span><div class="idm-chan-bar-bg"><div class="idm-chan-bar-fill" id="idm-c8"></div></div></div>
       </div>
 
-      <div class="idm-overall-bar-bg">
-        <div class="idm-overall-bar-fill" id="idm-overall-fill"></div>
+      <!-- Master Progress Bar -->
+      <div class="idm-master-bar-bg">
+        <div class="idm-master-bar-fill" id="idm-master-fill"></div>
       </div>
 
-      <div class="idm-stats">
-        <span id="idm-speed">Speed: 4.8 MB/s</span>
-        <span id="idm-status">Connecting 4 Streams...</span>
+      <div class="idm-speed-panel">
+        <span id="idm-speed-text">Speed: 14.8 MB/s</span>
+        <span id="idm-status-text">Accelerating 8 Channels...</span>
       </div>
 
-      <button class="btn-secondary ripple" style="margin-top:8px" onclick="closeOverlay('idm-overlay')">Cancel Download</button>
+      <button class="btn-secondary ripple" style="margin-top:6px" onclick="closeOverlay('idm-overlay')">Cancel Download</button>
     </div>
   </div>
 </div>
 
 <!-- 7. MEDIA VIEWER OVERLAY -->
 <div class="overlay center" id="media-viewer-overlay">
-  <div style="position:relative;max-width:90vw;max-height:85vh;display:flex;flex-direction:column;align-items:center">
+  <div style="position:relative;max-width:92vw;max-height:85vh;display:flex;flex-direction:column;align-items:center">
     <button class="modal-close" style="position:absolute;top:-40px;right:0;background:rgba(255,255,255,.2);color:#fff" onclick="closeOverlay('media-viewer-overlay')">✕</button>
     <img id="viewer-img" style="max-width:100%;max-height:75vh;border-radius:12px;display:none" alt="Preview">
     <video id="viewer-video" controls style="max-width:100%;max-height:75vh;border-radius:12px;display:none"></video>
@@ -1098,13 +1081,84 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
   </div>
 </div>
 
-<!-- Toast -->
+<!-- Floating Toast -->
 <div id="toast">Message</div>
 
 <!-- ========================================================
-     APPLICATION JAVASCRIPT LOGIC
+     JAVASCRIPT LOGIC & UNIVERSAL CLIPBOARD ENGINE
      ======================================================== -->
 <script>
+// ========================================================
+// 1. BULLETPROOF UNIVERSAL CLIPBOARD ENGINE (DUAL FALLBACK)
+// ========================================================
+function copyTextSafely(text, label = 'Text', triggerBtn = null) {
+  if (!text) return;
+  const str = String(text).trim();
+
+  // Visual button feedback
+  if (triggerBtn) {
+    const origHtml = triggerBtn.innerHTML;
+    triggerBtn.innerHTML = `✓ Copied!`;
+    triggerBtn.classList.add('copied');
+    setTimeout(() => {
+      triggerBtn.innerHTML = origHtml;
+      triggerBtn.classList.remove('copied');
+    }, 2000);
+  }
+
+  // Haptic feedback
+  if (navigator.vibrate) {
+    try { navigator.vibrate(25); } catch(e) {}
+  }
+
+  // 1. Try modern navigator.clipboard
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(str).then(() => {
+      showToast(`✓ Copied ${label}!`);
+    }).catch(() => {
+      fallbackExecCopy(str, label);
+    });
+  } else {
+    fallbackExecCopy(str, label);
+  }
+}
+
+// Fallback using execCommand for HTTP / Brave / WebViews
+function fallbackExecCopy(text, label) {
+  try {
+    const el = document.createElement('textarea');
+    el.value = text;
+    el.setAttribute('readonly', '');
+    el.style.position = 'fixed';
+    el.style.left = '-9999px';
+    el.style.top = '0';
+    document.body.appendChild(el);
+    el.select();
+    el.setSelectionRange(0, 99999);
+    const successful = document.execCommand('copy');
+    document.body.removeChild(el);
+
+    if (successful) {
+      showToast(`✓ Copied ${label}!`);
+    } else {
+      window.prompt(`Copy ${label}:`, text);
+    }
+  } catch (err) {
+    window.prompt(`Copy ${label}:`, text);
+  }
+}
+
+// Global Event Listener for all [data-copy] elements
+document.addEventListener('click', (e) => {
+  const el = e.target.closest('[data-copy]');
+  if (el) {
+    e.stopPropagation();
+    const text = el.getAttribute('data-copy');
+    const label = el.getAttribute('data-label') || 'Text';
+    copyTextSafely(text, label, el);
+  }
+});
+
 // ========================================================
 // CORE CATEGORIES DEFINITION
 // ========================================================
@@ -1169,13 +1223,11 @@ document.addEventListener('DOMContentLoaded', () => {
   setupRipples();
 });
 
-// Load Data
 function loadVaultData() {
   try {
     const storedCats = localStorage.getItem('safi_categories');
     VAULT.categories = storedCats ? JSON.parse(storedCats) : [...DEFAULT_CATEGORIES];
 
-    // Ensure all base categories are present
     DEFAULT_CATEGORIES.forEach(dc => {
       if(!VAULT.categories.find(c => c.id === dc.id)) {
         VAULT.categories.push(dc);
@@ -1190,7 +1242,6 @@ function loadVaultData() {
   }
 }
 
-// Persist Data
 function saveVaultData() {
   localStorage.setItem('safi_items', JSON.stringify(VAULT.items));
   localStorage.setItem('safi_categories', JSON.stringify(VAULT.categories));
@@ -1201,7 +1252,7 @@ function generateId() {
 }
 
 // ========================================================
-// PROFILE MANAGEMENT (PERSISTENT - NO LOGIN POPUPS)
+// PROFILE MANAGEMENT
 // ========================================================
 function updateProfileUI() {
   document.getElementById('sb-user-name').textContent = VAULT.profileName;
@@ -1238,7 +1289,7 @@ function switchSettingsTab(tabName, btn) {
 }
 
 // ========================================================
-// CATEGORIES & TOPIC MANAGER (WITH DELETE FUNCTIONALITY!)
+// TOPICS MANAGER (WITH DELETE FUNCTIONALITY)
 // ========================================================
 function updateTopicsManagerList() {
   const container = document.getElementById('topics-manager-list');
@@ -1269,9 +1320,8 @@ function deleteCategory(catId) {
   const cat = VAULT.categories.find(c => c.id === catId);
   if(!cat) return;
 
-  if(!confirm(`Are you sure you want to delete category "${cat.name}"? Items inside will remain in "All Items".`)) return;
+  if(!confirm(`Delete category "${cat.name}"? Items inside will remain in "All Items".`)) return;
 
-  // Move items to 'files' or keep them without category
   VAULT.items.forEach(i => {
     if(i.category === catId) i.category = 'files';
   });
@@ -1288,7 +1338,7 @@ function deleteCategory(catId) {
 }
 
 // ========================================================
-// THEME ENGINE
+// THEMES
 // ========================================================
 function applyTheme(themeId) {
   document.documentElement.setAttribute('data-theme', themeId);
@@ -1384,7 +1434,7 @@ function renderFilterChips() {
 }
 
 // ========================================================
-// RENDER ITEMS
+// RENDER ITEMS (FLAWLESS COPY & FULL DETAILS)
 // ========================================================
 function renderItems() {
   const container = document.getElementById('items-container');
@@ -1411,6 +1461,7 @@ function renderItems() {
       (i.notes && i.notes.toLowerCase().includes(q)) ||
       (i.url && i.url.toLowerCase().includes(q)) ||
       (i.cardDetails && JSON.stringify(i.cardDetails).toLowerCase().includes(q)) ||
+      (i.smsDetails && JSON.stringify(i.smsDetails).toLowerCase().includes(q)) ||
       (i.bubbles && i.bubbles.some(b => b.text.toLowerCase().includes(q)))
     );
   }
@@ -1438,40 +1489,55 @@ function renderItemCard(item) {
   const cat = VAULT.categories.find(c => c.id === item.category) || { name: 'Item', icon: '📄' };
   const isBin = item.isDeleted;
 
-  // 1. Photos & Images Thumbnail
+  // 1. Photos / Direct Video Play / Direct Audio Play
   let mediaHtml = '';
   if(item.fileData && (item.fileType?.startsWith('image/') || item.category === 'photos')) {
     mediaHtml = `
       <div style="width:100%;height:150px;border-radius:10px;overflow:hidden;background:var(--surface2);cursor:pointer;position:relative" onclick="openMediaViewer('${item.id}', 'img')">
         <img src="${item.fileData}" style="width:100%;height:100%;object-fit:cover" alt="${escapeHtml(item.title)}">
-        <span style="position:absolute;bottom:6px;right:6px;padding:2px 7px;border-radius:4px;background:rgba(0,0,0,.7);color:#fff;font-size:10px;font-weight:700">
+        <span style="position:absolute;bottom:6px;right:6px;padding:2px 7px;border-radius:4px;background:rgba(0,0,0,.75);color:#fff;font-size:10px;font-weight:700">
           ${formatFileSize(item.fileSize)}
         </span>
       </div>
     `;
   } else if(item.fileData && item.fileType?.startsWith('video/')) {
     mediaHtml = `
-      <div style="width:100%;height:150px;border-radius:10px;overflow:hidden;background:var(--surface2);cursor:pointer;position:relative;display:flex;align-items:center;justify-content:center" onclick="openMediaViewer('${item.id}', 'video')">
-        <video src="${item.fileData}" style="width:100%;height:100%;object-fit:cover"></video>
-        <span style="position:absolute;font-size:32px;color:#fff">▶</span>
+      <div class="inline-video-box">
+        <video src="${item.fileData}" controls preload="metadata"></video>
+      </div>
+    `;
+  } else if(item.fileData && item.fileType?.startsWith('audio/')) {
+    mediaHtml = `
+      <div class="inline-audio-player">
+        <button class="iap-btn" onclick="playInlineAudio(this, '${item.fileData}')">▶</button>
+        <div class="iap-progress-box">
+          <div class="iap-title">${escapeHtml(item.fileName || item.title)}</div>
+          <div class="iap-bar-bg" onclick="seekInlineAudio(event, this)"><div class="iap-bar-fill"></div></div>
+        </div>
       </div>
     `;
   }
 
-  // 2. REALISTIC CREDIT / DEBIT CARD DETAILS (FULLY VISIBLE & EASY TO COPY)
+  // 2. REALISTIC 3D CREDIT / DEBIT CARD (100% VISIBLE + WORKING COPY BUTTONS)
   let cardHtml = '';
   if(item.cardDetails) {
     const cd = item.cardDetails;
+    const numClean = (cd.number || '').replace(/\s+/g, '');
+    const numFormatted = numClean.replace(/(\d{4})/g, '$1 ').trim();
+    const allCardDetails = `Card: ${numClean}\nHolder: ${cd.name}\nBank: ${cd.bank}\nEXP: ${cd.exp}\nCVV: ${cd.cvv}`;
+
     cardHtml = `
       <div class="credit-card-ui">
         <div class="cc-top-row">
           <div class="cc-chip"></div>
-          <span class="cc-bank">${escapeHtml(cd.bank || 'DEBIT CARD')}</span>
+          <span class="cc-bank">${escapeHtml(cd.bank || 'VISA PLATINUM')}</span>
         </div>
 
         <div class="cc-number-row">
-          <span class="cc-number">${escapeHtml(cd.number || '•••• •••• •••• ••••')}</span>
-          <button class="cc-copy-btn" onclick="copyToClipboard('${escapeAttr(cd.number)}')">Copy</button>
+          <span class="cc-number">${escapeHtml(numFormatted || '•••• •••• •••• ••••')}</span>
+          <button class="copy-pill-btn ripple" data-copy="${escapeHtml(numClean)}" data-label="Card Number">
+            📋 Copy
+          </button>
         </div>
 
         <div class="cc-bottom-row">
@@ -1482,25 +1548,47 @@ function renderItemCard(item) {
           <div class="cc-exp-cvv-box">
             <div>
               <div class="cc-holder-label">EXP</div>
-              <div class="cc-val" style="cursor:pointer" onclick="copyToClipboard('${escapeAttr(cd.exp)}')">${escapeHtml(cd.exp || '••/••')}</div>
+              <div class="cc-val" style="cursor:pointer" data-copy="${escapeHtml(cd.exp)}" data-label="Expiry Date">${escapeHtml(cd.exp || '10/27')}</div>
             </div>
             <div>
               <div class="cc-holder-label">CVV</div>
-              <div class="cc-val" style="cursor:pointer" onclick="copyToClipboard('${escapeAttr(cd.cvv)}')">${escapeHtml(cd.cvv || '•••')}</div>
+              <div class="cc-val" style="cursor:pointer" data-copy="${escapeHtml(cd.cvv)}" data-label="CVV Code">${escapeHtml(cd.cvv || '111')}</div>
             </div>
           </div>
+        </div>
+
+        <div class="cc-copy-actions">
+          <button class="cc-quick-copy ripple" data-copy="${escapeHtml(numClean)}" data-label="Card Number">📋 Number</button>
+          <button class="cc-quick-copy ripple" data-copy="${escapeHtml(cd.exp)}" data-label="Expiry Date">📅 Exp (${escapeHtml(cd.exp)})</button>
+          <button class="cc-quick-copy ripple" data-copy="${escapeHtml(cd.cvv)}" data-label="CVV Code">🔒 CVV (${escapeHtml(cd.cvv)})</button>
+          <button class="cc-quick-copy ripple" data-copy="${escapeHtml(allCardDetails)}" data-label="Full Card Details">📄 Copy All</button>
         </div>
       </div>
     `;
   }
 
-  // 3. SMS & Messages
+  // 3. SMS & MESSAGES (WITH WORKING PHONE COPY & TAP-TO-COPY)
   let smsHtml = '';
   if(item.smsDetails) {
+    const s = item.smsDetails;
     smsHtml = `
-      <div class="meta-badge-row">
-        ${item.smsDetails.sender ? `<span class="meta-tag">From: ${escapeHtml(item.smsDetails.sender)}</span>` : ''}
-        ${item.smsDetails.phone ? `<span class="meta-tag">Phone: ${escapeHtml(item.smsDetails.phone)}</span>` : ''}
+      <div style="display:flex;flex-direction:column;gap:6px">
+        ${s.phone ? `
+          <div class="copy-interactive-row" data-copy="${escapeHtml(s.phone)}" data-label="Phone Number" title="Click to copy phone number">
+            <div style="display:flex;align-items:center;gap:6px">
+              <span>📞</span>
+              <span class="copy-interactive-text">Phone: <b>${escapeHtml(s.phone)}</b></span>
+            </div>
+            <button class="copy-pill-btn ripple" data-copy="${escapeHtml(s.phone)}" data-label="Phone Number">
+              📋 Copy
+            </button>
+          </div>
+        ` : ''}
+        ${s.sender ? `
+          <div style="font-size:11px;font-weight:700;color:var(--text-muted);display:flex;align-items:center;gap:4px">
+            <span>👤 Sender:</span> <span style="color:var(--text)">${escapeHtml(s.sender)}</span>
+          </div>
+        ` : ''}
       </div>
     `;
   }
@@ -1509,26 +1597,28 @@ function renderItemCard(item) {
   let jobHtml = '';
   if(item.jobDetails) {
     jobHtml = `
-      <div class="meta-badge-row">
-        ${item.jobDetails.company ? `<span class="meta-tag">💼 ${escapeHtml(item.jobDetails.company)}</span>` : ''}
-        ${item.jobDetails.status ? `<span class="meta-tag" style="background:var(--primary);color:var(--primary-text)">${escapeHtml(item.jobDetails.status)}</span>` : ''}
+      <div style="display:flex;gap:6px;flex-wrap:wrap">
+        ${item.jobDetails.company ? `<span class="meta-tag" style="padding:4px 9px;border-radius:6px;background:var(--surface2);font-size:11px;font-weight:700;border:1px solid var(--border)">💼 ${escapeHtml(item.jobDetails.company)}</span>` : ''}
+        ${item.jobDetails.status ? `<span class="meta-tag" style="padding:4px 9px;border-radius:6px;background:var(--primary);color:var(--primary-text);font-size:11px;font-weight:800">${escapeHtml(item.jobDetails.status)}</span>` : ''}
       </div>
     `;
   }
 
-  // 5. Emails / Numbers Bubble List
+  // 5. Emails / Numbers Bubble List (With dedicated working copy buttons)
   let bubblesHtml = '';
   if(item.bubbles && item.bubbles.length > 0) {
     bubblesHtml = `
-      <div class="bubble-scroll-box">
+      <div style="max-height:220px;overflow-y:auto;border-radius:10px;background:var(--surface2);padding:8px;display:flex;flex-direction:column;gap:6px;border:1px solid var(--border)">
         ${item.bubbles.map((b, idx) => `
           <div class="bubble-item ${b.isMarked ? 'marked' : ''}" id="bubble-${item.id}-${idx}">
-            <span class="bubble-text">${escapeHtml(b.text)}</span>
-            <div class="bubble-actions">
+            <span class="bubble-text" style="cursor:pointer" data-copy="${escapeHtml(b.text)}" data-label="Email/Number" title="Click to copy">${escapeHtml(b.text)}</span>
+            <div style="display:flex;align-items:center;gap:6px">
               <button class="mark-btn ${b.isMarked ? 'marked' : ''}" onclick="toggleBubbleMark('${item.id}', ${idx})">
                 ${b.isMarked ? '✓ Marked' : '○ Not marked'}
               </button>
-              <button class="copy-pill" onclick="copyToClipboard('${escapeAttr(b.text)}')">Copy</button>
+              <button class="copy-pill-btn ripple" data-copy="${escapeHtml(b.text)}" data-label="Email/Number">
+                Copy
+              </button>
             </div>
           </div>
         `).join('')}
@@ -1540,10 +1630,13 @@ function renderItemCard(item) {
   let linkHtml = '';
   if(item.url) {
     linkHtml = `
-      <div>
-        <a href="${item.url}" target="_blank" rel="noopener" style="color:var(--accent);font-size:12px;font-weight:700;word-break:break-all">
+      <div class="copy-interactive-row" data-copy="${escapeHtml(item.url)}" data-label="URL">
+        <a href="${item.url}" target="_blank" rel="noopener" style="color:var(--accent);font-size:12px;font-weight:700;word-break:break-all;text-decoration:none" onclick="event.stopPropagation()">
           🔗 ${escapeHtml(item.url)}
         </a>
+        <button class="copy-pill-btn ripple" data-copy="${escapeHtml(item.url)}" data-label="URL">
+          Copy
+        </button>
       </div>
     `;
   }
@@ -1552,9 +1645,11 @@ function renderItemCard(item) {
   let keyPromptHtml = '';
   if((item.category === 'idm_keys' || item.category === 'prompts') && item.notes) {
     keyPromptHtml = `
-      <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;background:var(--surface2);padding:8px 12px;border-radius:8px;border:1px solid var(--border)">
+      <div class="copy-interactive-row" data-copy="${escapeHtml(item.notes)}" data-label="${item.category === 'idm_keys' ? 'Key' : 'Prompt'}">
         <span class="mono" style="font-size:12px;font-weight:700;word-break:break-all">${escapeHtml(item.notes)}</span>
-        <button class="copy-pill" onclick="copyToClipboard('${escapeAttr(item.notes)}')">Copy</button>
+        <button class="copy-pill-btn ripple" data-copy="${escapeHtml(item.notes)}" data-label="${item.category === 'idm_keys' ? 'Key' : 'Prompt'}">
+          Copy
+        </button>
       </div>
     `;
   }
@@ -1575,7 +1670,7 @@ function renderItemCard(item) {
             <button class="cbtn ripple" onclick="restoreFromBin('${item.id}')" title="Restore">↩️</button>
             <button class="cbtn danger ripple" onclick="permanentlyDeleteItem('${item.id}')" title="Permanent Delete">✕</button>
           ` : `
-            ${item.fileData ? `<button class="cbtn ripple" onclick="triggerTurboDownload('${item.id}')" title="IDM Turbo Download">⬇️</button>` : ''}
+            ${item.fileData ? `<button class="cbtn ripple" onclick="triggerTurboDownload('${item.id}')" title="IDM 8-Channel Turbo Download">⬇️</button>` : ''}
             <button class="cbtn danger ripple" onclick="moveToBin('${item.id}')" title="Move to Bin">🗑️</button>
           `}
         </div>
@@ -1586,7 +1681,10 @@ function renderItemCard(item) {
       <div class="card-title">${escapeHtml(item.title)}</div>
 
       ${item.category !== 'prompts' && item.category !== 'idm_keys' && item.notes ? `
-        <div class="card-desc">${escapeHtml(item.notes)}</div>
+        <div class="card-desc" style="position:relative">
+          ${escapeHtml(item.notes)}
+          <button class="copy-pill-btn ripple" style="float:right;margin-top:-20px;padding:2px 7px;font-size:10px" data-copy="${escapeHtml(item.notes)}" data-label="Notes">Copy</button>
+        </div>
       ` : ''}
 
       ${linkHtml}
@@ -1659,7 +1757,7 @@ async function handleSaveItem(e) {
   
   const submitBtn = document.getElementById('btn-save-submit');
   submitBtn.disabled = true;
-  submitBtn.innerHTML = `<span>⏳</span> Syncing to Telegram...`;
+  submitBtn.innerHTML = `<span>⏳</span> Saving & Syncing...`;
 
   const category = document.getElementById('form-item-category').value;
   const title = document.getElementById('form-item-title').value.trim();
@@ -1667,7 +1765,6 @@ async function handleSaveItem(e) {
   const url = document.getElementById('form-item-url').value.trim();
   const isImportant = document.getElementById('form-item-important').checked;
 
-  // SMS Details
   let smsDetails = null;
   if(category === 'sms') {
     smsDetails = {
@@ -1676,7 +1773,6 @@ async function handleSaveItem(e) {
     };
   }
 
-  // Job Details
   let jobDetails = null;
   if(category === 'jobs') {
     jobDetails = {
@@ -1685,19 +1781,17 @@ async function handleSaveItem(e) {
     };
   }
 
-  // Card Details (Fully visible as requested)
   let cardDetails = null;
   if(category === 'cards') {
     cardDetails = {
       number: document.getElementById('form-card-num').value.trim(),
       name: document.getElementById('form-card-name').value.trim() || 'MD SAFI ISLAM',
       bank: document.getElementById('form-card-bank').value.trim() || 'VISA PLATINUM',
-      exp: document.getElementById('form-card-exp').value.trim() || '12/28',
-      cvv: document.getElementById('form-card-cvv').value.trim() || '842'
+      exp: document.getElementById('form-card-exp').value.trim() || '10/27',
+      cvv: document.getElementById('form-card-cvv').value.trim() || '111'
     };
   }
 
-  // Email / Phone Bubbles
   let bubbles = [];
   const bubbleRaw = document.getElementById('form-item-bubbles').value.trim();
   if(bubbleRaw) {
@@ -1727,13 +1821,12 @@ async function handleSaveItem(e) {
     tgMsgId: null
   };
 
-  // Telegram Sync
   if(VAULT.tgToken && VAULT.tgChatId) {
     try {
       const tgRes = await sendToTelegram(newItem);
       if(tgRes && tgRes.ok) {
         newItem.tgMsgId = tgRes.result.message_id;
-        showToast('✅ Saved & Synced to Telegram Topic!');
+        showToast('✅ Saved & Synced to Telegram!');
       } else {
         showToast('💾 Saved locally to Vault');
       }
@@ -1753,7 +1846,6 @@ async function handleSaveItem(e) {
   submitBtn.innerHTML = `<span>💾</span> Save to Vault & Sync Telegram`;
 }
 
-// Toggle Bubble Mark
 function toggleBubbleMark(itemId, index) {
   const item = VAULT.items.find(i => i.id === itemId);
   if(!item || !item.bubbles || !item.bubbles[index]) return;
@@ -1832,6 +1924,9 @@ async function sendToTelegram(item) {
   let caption = `<b>${escapeHtml(item.title)}</b>\n`;
   if(item.notes) caption += `\n${escapeHtml(item.notes)}`;
   if(item.url) caption += `\n🔗 <a href="${item.url}">${item.url}</a>`;
+  if(item.smsDetails) {
+    caption += `\n✉️ <b>PHONE:</b> <code>${item.smsDetails.phone}</code> | SENDER: <code>${item.smsDetails.sender}</code>`;
+  }
   if(item.cardDetails) {
     caption += `\n💳 <b>CARD:</b> <code>${item.cardDetails.number}</code> | EXP: <code>${item.cardDetails.exp}</code> | CVV: <code>${item.cardDetails.cvv}</code>`;
   }
@@ -1870,29 +1965,15 @@ async function sendToTelegram(item) {
 }
 
 async function checkTelegramStatus() {
-  const dot = document.getElementById('sb-status-dot');
-  const txt = document.getElementById('sb-status-text');
-
-  if(!VAULT.tgToken || !VAULT.tgChatId) {
-    dot.className = 'status-dot offline';
-    txt.textContent = 'Local Vault (No TG)';
-    return;
-  }
-
+  if(!VAULT.tgToken || !VAULT.tgChatId) return;
   try {
     const res = await fetch(`https://api.telegram.org/bot${VAULT.tgToken}/getMe`);
     const data = await res.json();
     if(data.ok) {
-      dot.className = 'status-dot';
-      txt.textContent = `@${data.result.username} (Connected)`;
-    } else {
-      dot.className = 'status-dot offline';
-      txt.textContent = 'Token Invalid';
+      document.getElementById('settings-tg-token').value = VAULT.tgToken;
+      document.getElementById('settings-tg-chatid').value = VAULT.tgChatId;
     }
-  } catch(e) {
-    dot.className = 'status-dot offline';
-    txt.textContent = 'Offline Mode';
-  }
+  } catch(e) {}
 }
 
 function saveTelegramSettings() {
@@ -1968,7 +2049,7 @@ function openCreateCategoryModal() {
 }
 
 // ========================================================
-// IDM TURBO ACCELERATED DOWNLOADER
+// IDM 8-CHANNEL TURBO DOWNLOAD ACCELERATOR
 // ========================================================
 function triggerTurboDownload(itemId) {
   const item = VAULT.items.find(i => i.id === itemId);
@@ -1979,29 +2060,22 @@ function triggerTurboDownload(itemId) {
   
   openOverlay('idm-overlay');
   
-  let p1 = 0, p2 = 0, p3 = 0, p4 = 0;
+  // 8 Channels progress animation
+  const channels = [0,0,0,0,0,0,0,0];
   const interval = setInterval(() => {
-    p1 = Math.min(100, p1 + Math.random() * 20);
-    p2 = Math.min(100, p2 + Math.random() * 25);
-    p3 = Math.min(100, p3 + Math.random() * 18);
-    p4 = Math.min(100, p4 + Math.random() * 22);
+    for (let c = 0; c < 8; c++) {
+      channels[c] = Math.min(100, channels[c] + Math.random() * 22);
+      const el = document.getElementById('idm-c' + (c+1));
+      if (el) el.style.width = channels[c] + '%';
+    }
 
-    document.getElementById('idm-t1').style.width = p1 + '%';
-    document.getElementById('idm-p1').textContent = Math.round(p1) + '%';
-    document.getElementById('idm-t2').style.width = p2 + '%';
-    document.getElementById('idm-p2').textContent = Math.round(p2) + '%';
-    document.getElementById('idm-t3').style.width = p3 + '%';
-    document.getElementById('idm-p3').textContent = Math.round(p3) + '%';
-    document.getElementById('idm-t4').style.width = p4 + '%';
-    document.getElementById('idm-p4').textContent = Math.round(p4) + '%';
-
-    const overall = (p1 + p2 + p3 + p4) / 4;
-    document.getElementById('idm-overall-fill').style.width = overall + '%';
-    document.getElementById('idm-speed').textContent = `Speed: ${(Math.random() * 3 + 7).toFixed(1)} MB/s`;
+    const overall = channels.reduce((a, b) => a + b, 0) / 8;
+    document.getElementById('idm-master-fill').style.width = overall + '%';
+    document.getElementById('idm-speed-text').textContent = `Speed: ${(Math.random() * 4 + 14).toFixed(1)} MB/s`;
 
     if(overall >= 100) {
       clearInterval(interval);
-      document.getElementById('idm-status').textContent = '✅ Stitched 4 streams! Saving...';
+      document.getElementById('idm-status-text').textContent = '✅ Stitched 8 Channels! Saving...';
       setTimeout(() => {
         const a = document.createElement('a');
         a.href = item.fileData;
@@ -2017,8 +2091,39 @@ function triggerTurboDownload(itemId) {
 }
 
 // ========================================================
-// MEDIA VIEWER
+// MEDIA VIEWER & INLINE AUDIO
 // ========================================================
+let activeAudio = null;
+function playInlineAudio(btn, dataUrl) {
+  if (activeAudio && !activeAudio.paused) {
+    activeAudio.pause();
+    activeAudio = null;
+    btn.textContent = '▶';
+    return;
+  }
+  const audio = new Audio(dataUrl);
+  activeAudio = audio;
+  btn.textContent = '⏸';
+  const barFill = btn.parentElement.querySelector('.iap-bar-fill');
+  audio.ontimeupdate = () => {
+    if (audio.duration) {
+      barFill.style.width = (audio.currentTime / audio.duration * 100) + '%';
+    }
+  };
+  audio.onended = () => {
+    btn.textContent = '▶';
+    barFill.style.width = '0%';
+  };
+  audio.play();
+}
+
+function seekInlineAudio(e, bgEl) {
+  if (!activeAudio || !activeAudio.duration) return;
+  const rect = bgEl.getBoundingClientRect();
+  const pct = (e.clientX - rect.left) / rect.width;
+  activeAudio.currentTime = pct * activeAudio.duration;
+}
+
 function openMediaViewer(itemId, type) {
   const item = VAULT.items.find(i => i.id === itemId);
   if(!item || !item.fileData) return;
@@ -2049,7 +2154,7 @@ function openMediaViewer(itemId, type) {
 // ========================================================
 function exportVaultBackup() {
   const data = {
-    version: '2.5',
+    version: '3.0',
     exportedAt: new Date().toISOString(),
     profile: { name: VAULT.profileName, avatar: VAULT.profileAvatar },
     categories: VAULT.categories,
@@ -2093,7 +2198,7 @@ function importVaultBackup(input) {
 }
 
 // ========================================================
-// SEARCH & UTILS
+// SEARCH & UTILITIES
 // ========================================================
 function handleSearch(q) {
   VAULT.searchQuery = q.trim();
@@ -2105,14 +2210,6 @@ function handleSearch(q) {
 function clearSearch() {
   document.getElementById('global-search-input').value = '';
   handleSearch('');
-}
-
-function copyToClipboard(text) {
-  navigator.clipboard.writeText(text).then(() => {
-    showToast('✓ Copied to Clipboard!');
-  }).catch(() => {
-    showToast('Failed to copy');
-  });
 }
 
 let toastTimeout;
@@ -2140,14 +2237,9 @@ function formatDate(isoStr) {
 
 function escapeHtml(str) {
   if(!str) return '';
-  return str.replace(/[&<>'"]/g, tag => ({
+  return String(str).replace(/[&<>'"]/g, tag => ({
     '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'
   }[tag] || tag));
-}
-
-function escapeAttr(str) {
-  if(!str) return '';
-  return str.replace(/'/g, "\\'").replace(/"/g, '&quot;');
 }
 
 function toggleSidebar(open) {
