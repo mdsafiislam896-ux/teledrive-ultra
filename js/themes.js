@@ -1,85 +1,87 @@
 /**
- * TeleDrive Ultra - Expanded 6-Theme Visual Engine
- * Instant hot-swapping, ambient glow accents, and custom theme overrides.
+ * TeleDrive Ultra - Theme Engine (Material 3 Light & Dark Ecosystem)
+ * Features crisp Google Drive-style Light themes and premium Dark themes.
  */
 
 const ThemeEngine = {
     themes: [
         {
+            id: 'm3-light',
+            name: 'Material Clean Light',
+            mode: 'light',
+            subtitle: 'Official Google Drive style crisp white & soft surfaces',
+            primaryColor: '#0b57d0',
+            bgPreview: '#f8fafd'
+        },
+        {
+            id: 'nordic-light',
+            name: 'Nordic Sky Light',
+            mode: 'light',
+            subtitle: 'Minimalist white with refreshing sky blue accents',
+            primaryColor: '#0284c7',
+            bgPreview: '#f0f9ff'
+        },
+        {
+            id: 'm3-dark',
+            name: 'Material 3 Dark',
+            mode: 'dark',
+            subtitle: 'Subtle charcoal and modern Android 15 dark mode',
+            primaryColor: '#a8c7fa',
+            bgPreview: '#1e1f20'
+        },
+        {
             id: 'oled',
-            name: 'OLED Obsidian',
-            subtitle: 'Pure AMOLED black with cyan laser glow (Zero Battery Drain)',
+            name: 'OLED Pure Black',
+            mode: 'dark',
+            subtitle: 'Pitch-black AMOLED with cyan laser accents',
             primaryColor: '#00f2fe',
-            accentColor: '#4facfe',
-            bgPreview: '#030712'
+            bgPreview: '#000000'
         },
         {
             id: 'cyberpunk',
-            name: 'Cyberpunk Neon 2077',
-            subtitle: 'High-tech dark violet with neon magenta & electric cyan',
+            name: 'Cyberpunk Neon',
+            mode: 'dark',
+            subtitle: 'Dark violet with neon pink and electric cyan',
             primaryColor: '#ff007f',
-            accentColor: '#00ffff',
             bgPreview: '#090615'
-        },
-        {
-            id: 'nordic',
-            name: 'Nordic Frosted Glass',
-            subtitle: 'Hyper-realistic frosted sapphire glass with soft blur',
-            primaryColor: '#38bdf8',
-            accentColor: '#818cf8',
-            bgPreview: '#0b1329'
-        },
-        {
-            id: 'luxury',
-            name: 'Royal Champagne & Emerald',
-            subtitle: 'Prestige 24K gold accents on deep velvet emerald',
-            primaryColor: '#d4af37',
-            accentColor: '#10b981',
-            bgPreview: '#06130e'
-        },
-        {
-            id: 'titanium',
-            name: 'Liquid Titanium Pro',
-            subtitle: 'Sleek metallic space gray with Apple Pro aesthetics',
-            primaryColor: '#e2e8f0',
-            accentColor: '#94a3b8',
-            bgPreview: '#0f172a'
-        },
-        {
-            id: 'tokyo',
-            name: 'Tokyo Neon Sunset',
-            subtitle: 'Warm sunset gradients on midnight indigo',
-            primaryColor: '#fb923c',
-            accentColor: '#ec4899',
-            bgPreview: '#180d1e'
         }
     ],
 
-    currentTheme: 'oled',
+    currentTheme: 'm3-light',
 
     init() {
-        const savedTheme = localStorage.getItem('teledrive_theme') || 'oled';
-        this.setTheme(savedTheme);
-        this.renderThemePickerList();
+        const savedTheme = localStorage.getItem('teledrive_theme') || 'm3-light';
+        this.setTheme(savedTheme, false);
     },
 
-    setTheme(themeId) {
+    setTheme(themeId, playSound = true) {
         const theme = this.themes.find(t => t.id === themeId) || this.themes[0];
         this.currentTheme = theme.id;
         document.documentElement.setAttribute('data-theme', theme.id);
         localStorage.setItem('teledrive_theme', theme.id);
 
-        const nameLabel = document.getElementById('currentThemeName');
-        if (nameLabel) {
-            nameLabel.textContent = theme.name.split(' ')[0];
+        // Update Theme Switcher Icon (Sun/Moon)
+        const toggleIcon = document.getElementById('quickThemeIcon');
+        if (toggleIcon) {
+            toggleIcon.setAttribute('data-lucide', theme.mode === 'light' ? 'moon' : 'sun');
+            if (window.lucide) lucide.createIcons();
         }
 
-        if (window.FX) {
+        if (playSound && window.FX) {
             FX.playSuccess();
             FX.haptic('medium');
         }
 
         this.renderThemePickerList();
+    },
+
+    toggleQuickMode() {
+        const current = this.themes.find(t => t.id === this.currentTheme);
+        if (current && current.mode === 'light') {
+            this.setTheme('m3-dark');
+        } else {
+            this.setTheme('m3-light');
+        }
     },
 
     toggleThemePicker() {
@@ -97,16 +99,17 @@ const ThemeEngine = {
             const isSelected = t.id === this.currentTheme;
             return `
                 <div onclick="ThemeEngine.setTheme('${t.id}')" class="p-3.5 rounded-2xl border cursor-pointer transition-all flex items-center justify-between group ${
-                    isSelected ? 'border-theme-primary bg-theme-primary/10 shadow-lg shadow-theme-primary/15' : 'border-theme-border bg-theme-bg/60 hover:border-theme-border/80'
+                    isSelected ? 'border-theme-primary bg-theme-primary/10 shadow-sm' : 'border-theme-border bg-theme-surface hover:border-theme-border/80'
                 }">
                     <div class="flex items-center gap-3">
-                        <div class="w-9 h-9 rounded-xl flex items-center justify-center border border-white/10 relative overflow-hidden" style="background-color: ${t.bgPreview};">
-                            <span class="w-4 h-4 rounded-full" style="background-color: ${t.primaryColor}; box-shadow: 0 0 10px ${t.primaryColor};"></span>
+                        <div class="w-9 h-9 rounded-xl flex items-center justify-center border border-black/10 dark:border-white/10" style="background-color: ${t.bgPreview};">
+                            <span class="w-4 h-4 rounded-full" style="background-color: ${t.primaryColor};"></span>
                         </div>
                         <div>
-                            <div class="text-xs font-bold text-white flex items-center gap-1.5">
+                            <div class="text-xs font-bold text-theme-text flex items-center gap-1.5">
                                 ${t.name}
-                                ${isSelected ? '<span class="text-[9px] bg-theme-primary text-black px-1.5 py-0.2 rounded-full font-extrabold uppercase">Active</span>' : ''}
+                                <span class="text-[9px] uppercase px-1.5 py-0.2 rounded font-extrabold ${t.mode === 'light' ? 'bg-amber-100 text-amber-800' : 'bg-slate-700 text-slate-200'}">${t.mode}</span>
+                                ${isSelected ? '<span class="text-[9px] bg-theme-primary text-white dark:text-black px-1.5 py-0.2 rounded font-bold">Active</span>' : ''}
                             </div>
                             <div class="text-[10px] text-theme-muted">${t.subtitle}</div>
                         </div>
@@ -116,9 +119,7 @@ const ThemeEngine = {
             `;
         }).join('');
 
-        if (window.lucide) {
-            lucide.createIcons();
-        }
+        if (window.lucide) lucide.createIcons();
     }
 };
 
