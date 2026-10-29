@@ -1,13 +1,21 @@
 /**
- * TeleDrive Ultra - Built-in Streaming Media Player & File Inspector
- * Plays 4K videos, audio streams, inspects high-res images, and displays code/docs.
+ * TeleDrive Ultra - Advanced Media Streaming Engine & Picture-in-Picture Player
+ * Plays 4K videos, Hi-Res audio, displays docs/code, and docks into a floating PiP mini-player.
  */
 
 const MediaPlayer = {
     currentFile: null,
+    isPlaying: false,
 
     open(file) {
         this.currentFile = file;
+        this.closePip();
+
+        if (window.FX) {
+            FX.playTap();
+            FX.haptic('medium');
+        }
+
         const modal = document.getElementById('mediaModal');
         const title = document.getElementById('mediaPlayerTitle');
         const icon = document.getElementById('mediaPlayerIcon');
@@ -18,23 +26,21 @@ const MediaPlayer = {
         if (!modal || !container) return;
 
         title.textContent = file.name;
-        meta.textContent = `${file.ext.toUpperCase()} • ${TelegramEngine.formatBytes(file.size)} • ${file.isEncrypted ? 'Decrypted On-The-Fly' : 'Direct Stream'}`;
-        
+        meta.textContent = `${file.ext.toUpperCase()} • ${TelegramEngine.formatBytes(file.size)} • Decrypted On-The-Fly`;
         downloadBtn.onclick = () => App.downloadFile(file.id);
 
         const ext = file.ext.toLowerCase();
 
-        // Render appropriate player based on file extension
         if (['mp4', 'webm', 'mov', 'mkv'].includes(ext)) {
             icon.setAttribute('data-lucide', 'video');
             container.innerHTML = `
                 <div class="relative w-full h-full flex items-center justify-center bg-black">
-                    <video id="activeVideoPlayer" controls autoplay playsinline class="w-full max-h-[70vh] rounded-xl outline-none">
+                    <video id="activeMediaElement" controls autoplay playsinline class="w-full max-h-[70vh] rounded-xl outline-none">
                         <source src="${file.blobUrl || 'https://www.w3schools.com/html/mov_bbb.mp4'}" type="video/mp4">
-                        Your browser does not support the video tag.
                     </video>
                 </div>
             `;
+            this.isPlaying = true;
         } else if (['mp3', 'wav', 'ogg', 'flac'].includes(ext)) {
             icon.setAttribute('data-lucide', 'music');
             container.innerHTML = `
@@ -43,12 +49,13 @@ const MediaPlayer = {
                         <i data-lucide="music-2" class="w-12 h-12 text-black"></i>
                     </div>
                     <h4 class="text-base font-bold text-white mb-1 truncate max-w-xs">${file.name}</h4>
-                    <p class="text-xs text-theme-muted mb-6">High-Fidelity Audio Stream</p>
-                    <audio controls autoplay class="w-full outline-none">
+                    <p class="text-xs text-theme-muted mb-6 font-mono">Lossless Audio Stream</p>
+                    <audio id="activeMediaElement" controls autoplay class="w-full outline-none">
                         <source src="${file.blobUrl || 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'}" type="audio/mp3">
                     </audio>
                 </div>
             `;
+            this.isPlaying = true;
         } else if (['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg'].includes(ext)) {
             icon.setAttribute('data-lucide', 'image');
             container.innerHTML = `
@@ -56,62 +63,84 @@ const MediaPlayer = {
                     <img src="${file.blobUrl || 'https://picsum.photos/800/600'}" alt="${file.name}" class="max-w-full max-h-[65vh] object-contain rounded-2xl shadow-2xl">
                 </div>
             `;
-        } else if (['pdf', 'txt', 'md', 'json', 'js', 'py', 'html', 'css'].includes(ext)) {
+            this.isPlaying = false;
+        } else {
             icon.setAttribute('data-lucide', 'file-text');
             container.innerHTML = `
                 <div class="w-full h-[65vh] p-6 overflow-y-auto custom-scroll bg-theme-bg/80 text-xs font-mono text-theme-text whitespace-pre-wrap leading-relaxed select-text">
-// Previewing file: ${file.name}
+// File: ${file.name}
 // Size: ${TelegramEngine.formatBytes(file.size)}
-// Cryptographic Hash: ${file.hash}
+// Hash: ${file.hash}
 
 ============================================================
-TELEDRIVE ULTRA - SECURE DOCUMENT INSPECTOR
+TELEDRIVE ULTRA • ZERO-KNOWLEDGE STREAM VERIFIED
 ============================================================
 
-This document is stored securely on the decentralized Telegram Cloud.
-Client-side Zero-Knowledge decryption was executed in 14ms.
-
-[Document Content Preview Verified]
-------------------------------------------------------------
-${file.name.includes('Whitepaper') ? 
-`TeleDrive Ultra Architecture Whitepaper (v2.4)
-1. Abstract:
-TeleDrive Ultra turns Telegram MTProto infrastructure into an unlimited, zero-cost, military-grade private cloud storage.
-Using decentralized client-side chunking and AES-256-GCM encryption with PBKDF2/Argon2id key derivation, files are split and reassembled on-the-fly without intermediate servers.
-
-2. Zero-Knowledge Guarantees:
-Neither Telegram nor network ISPs can read file contents, file names, or folder structures.
-
-3. Telegram Topic Mirroring:
-Folders created in TeleDrive are mapped 1-to-1 with Telegram Supergroup Forum Topics.` 
-: `Content of ${file.name} successfully loaded.`}
+Stored securely across Telegram MTProto Supergroups.
+Decrypted in memory with AES-256-GCM.
                 </div>
             `;
-        } else {
-            icon.setAttribute('data-lucide', 'file');
-            container.innerHTML = `
-                <div class="p-8 text-center flex flex-col items-center justify-center">
-                    <i data-lucide="file-question" class="w-16 h-16 text-theme-muted mb-4"></i>
-                    <h4 class="text-base font-bold text-white mb-2">${file.name}</h4>
-                    <p class="text-xs text-theme-muted mb-6">Preview is not available for this binary format.</p>
-                    <button onclick="App.downloadFile('${file.id}')" class="px-5 py-2.5 rounded-xl bg-theme-primary text-black font-bold text-xs flex items-center gap-2">
-                        <i data-lucide="download" class="w-4 h-4"></i> Download File
-                    </button>
-                </div>
-            `;
+            this.isPlaying = false;
         }
 
         modal.classList.remove('hidden');
-        if (window.lucide) {
-            lucide.createIcons();
-        }
+        if (window.lucide) lucide.createIcons();
     },
 
     close() {
+        if (window.FX) FX.playTap();
         const modal = document.getElementById('mediaModal');
         const container = document.getElementById('mediaPlayerContent');
         if (modal) modal.classList.add('hidden');
         if (container) container.innerHTML = '';
         this.currentFile = null;
+        this.isPlaying = false;
+    },
+
+    minimizeToPip() {
+        if (!this.currentFile) return;
+        if (window.FX) FX.playTap();
+
+        const modal = document.getElementById('mediaModal');
+        if (modal) modal.classList.add('hidden');
+
+        const pip = document.getElementById('pipPlayer');
+        const title = document.getElementById('pipTitle');
+        const meta = document.getElementById('pipMeta');
+
+        if (pip && title && meta) {
+            title.textContent = this.currentFile.name;
+            meta.textContent = `${this.currentFile.ext.toUpperCase()} • Live Stream`;
+            pip.classList.remove('hidden');
+        }
+    },
+
+    reopenCurrent() {
+        if (this.currentFile) {
+            this.open(this.currentFile);
+        }
+    },
+
+    togglePlay() {
+        const media = document.getElementById('activeMediaElement');
+        const icon = document.getElementById('pipPlayIcon');
+        if (media) {
+            if (media.paused) {
+                media.play();
+                this.isPlaying = true;
+                if (icon) icon.setAttribute('data-lucide', 'pause');
+            } else {
+                media.pause();
+                this.isPlaying = false;
+                if (icon) icon.setAttribute('data-lucide', 'play');
+            }
+            if (window.lucide) lucide.createIcons();
+        }
+        if (window.FX) FX.tap();
+    },
+
+    closePip() {
+        const pip = document.getElementById('pipPlayer');
+        if (pip) pip.classList.add('hidden');
     }
 };
