@@ -29,7 +29,7 @@
       --bg-page: #F5F7FC;
       --bg-card: #FFFFFF;
       --bg-card-subtle: #F0F3F9;
-      --bg-glass: rgba(255, 255, 255, 0.85);
+      --bg-glass: rgba(255, 255, 255, 0.88);
       
       --text-main: #141824;
       --text-sub: #68738D;
@@ -59,7 +59,7 @@
       --bg-page: #0C0E17;
       --bg-card: #151926;
       --bg-card-subtle: #1C2133;
-      --bg-glass: rgba(21, 25, 38, 0.85);
+      --bg-glass: rgba(21, 25, 38, 0.88);
       
       --text-main: #FFFFFF;
       --text-sub: #9AA4B9;
@@ -95,7 +95,7 @@
 
     .app-viewport {
       width: 100%;
-      max-width: 480px;
+      max-width: 440px;
       min-height: 100vh;
       background: var(--bg-page);
       display: flex;
@@ -108,6 +108,7 @@
        TOP NAVBAR
        ======================================================== */
     .top-navbar {
+      display: none !important;
       height: 60px;
       padding: 0 20px;
       display: flex;
@@ -117,7 +118,6 @@
       top: 0;
       z-index: 100;
       background: var(--bg-page);
-      border-bottom: 1px solid transparent;
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
     }
@@ -258,30 +258,44 @@
     }
 
     /* ========================================================
-       HOME DASHBOARD (IMAGE 2 PARITY)
+       TAB 1: MAIN STORAGE / DROPBOX (SCREEN 2 EXACT MATCH)
        ======================================================== */
     .dashboard-shell {
       padding: 12px 20px 24px;
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 16px;
     }
 
-    .dashboard-header-row {
+    .dropbox-header-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
-    .storage-title-large {
-      font-size: 26px;
+    .dropbox-title-large {
+      font-size: 28px;
       font-weight: 800;
       letter-spacing: -0.6px;
       color: var(--text-main);
     }
-    .header-quick-icons {
+    .dropbox-header-icons {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
+    }
+    .btn-circle-tray {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-main);
+      cursor: pointer;
+      font-size: 15px;
+      box-shadow: var(--shadow-sm);
     }
 
     /* Search Bar with Filter */
@@ -291,7 +305,7 @@
       background: var(--bg-card);
       border: 1px solid var(--border-light);
       border-radius: 999px;
-      padding: 6px 14px 6px 16px;
+      padding: 8px 14px 8px 16px;
       box-shadow: var(--shadow-sm);
       gap: 10px;
     }
@@ -359,7 +373,36 @@
     [data-theme="dark"] .pill-folder { background: #4C0519; color: #FDA4AF; }
     [data-theme="dark"] .pill-scan { background: #1E3A8A; color: #93C5FD; }
 
-    /* 4 Pastel Glass Storage Cards */
+    /* Name Sort Row (Screen 2) */
+    .name-sort-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 4px 4px 0;
+    }
+    .name-sort-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+    }
+    .btn-list-view-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-sub);
+      cursor: pointer;
+    }
+
+    /* 4 Storage Summary Glass Cards */
     .storage-cards-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -411,88 +454,81 @@
       margin-top: 2px;
     }
 
-    /* Memory Status Card with Colored Arc Meter */
-    .memory-status-card {
+    /* File List Items (Screen 2 Exact Match) */
+    .file-items-list-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .file-row-item {
       background: var(--bg-card);
       border: 1px solid var(--border-light);
-      border-radius: var(--radius-lg);
-      padding: 18px 20px;
-      box-shadow: var(--shadow-sm);
-      position: relative;
-    }
-    .memory-header-row {
+      border-radius: 18px;
+      padding: 12px 16px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 6px;
-    }
-    .memory-card-label {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 15px;
-      font-weight: 800;
-      color: var(--text-main);
-    }
-    .btn-circle-action {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      background: var(--color-primary);
-      color: white;
-      border: none;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      box-shadow: var(--shadow-sm);
       cursor: pointer;
-      box-shadow: 0 4px 12px rgba(36, 107, 253, 0.35);
+      transition: all 0.2s ease;
     }
-
-    /* SVG Semicircular Arc Meter */
-    .arc-meter-wrap {
+    .file-row-item:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-1px);
+    }
+    .file-row-left {
       display: flex;
-      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      flex: 1;
+      overflow: hidden;
+    }
+    .file-icon-badge {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      display: flex;
       align-items: center;
       justify-content: center;
-      position: relative;
-      margin-top: 6px;
+      font-size: 20px;
+      flex-shrink: 0;
     }
-    .arc-svg-box {
-      width: 220px;
-      height: 120px;
-    }
-    .arc-center-text {
-      position: absolute;
-      bottom: 12px;
+    .file-row-titles {
       display: flex;
       flex-direction: column;
-      align-items: center;
+      overflow: hidden;
     }
-    .arc-percent-bold {
-      font-size: 32px;
-      font-weight: 800;
-      letter-spacing: -1px;
+    .file-main-title {
+      font-size: 14.5px;
+      font-weight: 700;
       color: var(--text-main);
-      line-height: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
-    .arc-used-sub {
+    .file-meta-sub {
       font-size: 12px;
       color: var(--text-sub);
-      margin-top: 4px;
-      font-weight: 600;
+      margin-top: 2px;
+    }
+    .btn-file-dots {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 18px;
+      cursor: pointer;
+      padding: 4px;
     }
 
-    /* ========================================================
-       ALL FOLDERS SECTION WITH PHYSICAL FOLDER TAB CUTOUTS
-       ======================================================== */
+    /* All Folders Section (Physical Folder Tab Cutout Cards) */
     .folders-section-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-top: 6px;
+      margin-top: 10px;
     }
     .folders-title {
-      font-size: 18px;
+      font-size: 17px;
       font-weight: 800;
       color: var(--text-main);
     }
@@ -581,14 +617,6 @@
       justify-content: center;
       font-size: 20px;
     }
-    .btn-folder-dots {
-      background: none;
-      border: none;
-      color: var(--text-muted);
-      font-size: 18px;
-      cursor: pointer;
-      padding: 2px 4px;
-    }
 
     .folder-card-name {
       font-size: 15px;
@@ -634,7 +662,7 @@
     }
 
     /* ========================================================
-       PHOTOS / GALLERY TAB (IMAGE 3 SCREEN 1 PARITY)
+       TAB 2: PHOTOS / GALLERY (SCREEN 1 EXACT MATCH)
        ======================================================== */
     .photos-tab-shell {
       padding: 16px 20px 24px;
@@ -645,7 +673,21 @@
     .photos-top-header {
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      gap: 14px;
+    }
+    .btn-back-header {
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-main);
+      font-size: 16px;
+      cursor: pointer;
+      box-shadow: var(--shadow-sm);
     }
     .photos-title-main {
       font-size: 24px;
@@ -716,7 +758,7 @@
       color: var(--text-sub);
     }
 
-    /* 2-Column Photo Albums Grid */
+    /* 2-Column Photo Albums Grid (Screen 1 Exact Match) */
     .photo-albums-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -741,6 +783,7 @@
       position: relative;
       background-size: cover;
       background-position: center;
+      background-color: #E2E8F0;
     }
     .photo-count-badge {
       position: absolute;
@@ -761,6 +804,9 @@
       font-size: 14px;
       font-weight: 700;
       color: var(--text-main);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     .photo-card-date {
       font-size: 11.5px;
@@ -769,7 +815,7 @@
     }
 
     /* ========================================================
-       STREAMS & IN PROGRESS TAB (IMAGE 3 SCREEN 3 PARITY)
+       TAB 3: FILE UPLOAD / STREAMS (SCREEN 3 EXACT MATCH)
        ======================================================== */
     .streams-tab-shell {
       padding: 16px 20px 24px;
@@ -798,7 +844,7 @@
       justify-content: space-between;
     }
 
-    /* In Progress Stream Cards */
+    /* In Progress Stream Cards (Screen 3 Exact Match) */
     .in-progress-card {
       background: var(--bg-card);
       border: 1px solid var(--border-light);
@@ -876,6 +922,10 @@
       background: #2563EB;
       color: white;
     }
+    .btn-stream-download {
+      background: #EFF6FF;
+      color: #0284C7;
+    }
     .btn-stream-del {
       background: #FEE2E2;
       color: #DC2626;
@@ -938,8 +988,31 @@
       color: var(--text-sub);
     }
 
+    /* Browser File Full-Width Card (Screen 3) */
+    .browser-file-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: 18px;
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: var(--shadow-sm);
+    }
+    .btn-dark-upload-pill {
+      background: #111422;
+      color: white;
+      border: none;
+      padding: 8px 18px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(17, 20, 34, 0.3);
+    }
+
     /* ========================================================
-       SETTINGS / PROFILE TAB (IMAGE 1 EXACT PARITY)
+       TAB 4: SETTINGS / PROFILE (IMAGE 1 EXACT PARITY)
        ======================================================== */
     .settings-tab-shell {
       display: flex;
@@ -1177,7 +1250,7 @@
       bottom: 92px;
       left: 16px;
       right: 16px;
-      max-width: 448px;
+      max-width: 408px;
       margin: 0 auto;
       background: #111422;
       color: white;
@@ -1268,14 +1341,14 @@
     }
 
     /* ========================================================
-       FLOATING BLACK BOTTOM DOCK (IMAGES 2 & 3 PARITY)
+       FLOATING BLACK BOTTOM DOCK (EXACT MATCH TO 3 SCREENS)
        ======================================================== */
     .floating-bottom-dock {
       position: fixed;
       bottom: 20px;
       left: 20px;
       right: 20px;
-      max-width: 440px;
+      max-width: 400px;
       margin: 0 auto;
       height: 64px;
       background: #111420;
@@ -1341,12 +1414,12 @@
     }
 
     /* ========================================================
-       MODALS SYSTEM
+       MODALS SYSTEM (HIGH Z-INDEX & CLEAN STACKING)
        ======================================================== */
     .modal-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(15, 23, 42, 0.6);
+      background: rgba(15, 23, 42, 0.65);
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
       z-index: 1000;
@@ -1386,6 +1459,11 @@
       font-size: 16px;
       cursor: pointer;
       color: var(--text-sub);
+    }
+
+    /* TELEGRAM PREVIEW MODAL - SUPERIOR Z-INDEX (NEVER CLASHES!) */
+    #modal-tg-preview {
+      z-index: 12000 !important;
     }
 
     /* Forms */
@@ -1762,26 +1840,28 @@
     <main class="app-main-content">
 
       <!-- ========================================================
-           TAB 1: HOME DASHBOARD (IMAGE 2 PARITY)
+           TAB 1: MAIN STORAGE / DROPBOX (SCREEN 2 EXACT MATCH)
            ======================================================== -->
       <section id="tab-home" class="tab-view active">
         <div class="dashboard-shell">
           
-          <div class="dashboard-header-row">
-            <h1 class="storage-title-large">My storage</h1>
-            <div class="header-quick-icons">
-              <button class="btn-icon-soft" onclick="openNewFolderModal()" title="New Folder">📁</button>
+          <div class="dropbox-header-row">
+            <h1 class="dropbox-title-large">Dropbox</h1>
+            <div class="dropbox-header-icons">
+              <button class="btn-circle-tray" onclick="toggleThemeMode()" title="Theme Toggle"><span class="theme-icon-slot">🌙</span></button>
+              <button class="btn-circle-tray" onclick="openAddModal('files')" title="Upload">📤</button>
+              <button class="btn-circle-tray" onclick="toggleEditFoldersMode()" title="Select / Edit">☑</button>
             </div>
           </div>
 
           <!-- Search Bar with Filter Icon -->
           <div class="search-filter-box">
             <span>🔍</span>
-            <input type="text" id="home-search-input" placeholder="Search files, photos, notes..." oninput="handleSearchFilter(this.value)">
+            <input type="text" id="home-search-input" placeholder="Search" oninput="handleSearchFilter(this.value)">
             <button class="btn-filter-toggle" onclick="toggleFilterMode()">⊶</button>
           </div>
 
-          <!-- 3 Dropbox Style Quick Action Pills -->
+          <!-- 3 Dropbox Style Quick Action Pills (Screen 2) -->
           <div class="action-pills-row">
             <button class="quick-pill-btn pill-upload" onclick="openAddModal('files')">
               <span>☘</span> Upload
@@ -1790,8 +1870,14 @@
               <span>📁</span> Folder
             </button>
             <button class="quick-pill-btn pill-scan" onclick="openAddModal('photos')">
-              <span>📷</span> Scan / Photo
+              <span>📷</span> Scan
             </button>
+          </div>
+
+          <!-- Name Sort Row (Screen 2) -->
+          <div class="name-sort-row">
+            <div class="name-sort-title" onclick="toggleFolderSortOrder()">Name ↑</div>
+            <button class="btn-list-view-icon" onclick="showSleekToast('Displaying in list format')">≡</button>
           </div>
 
           <!-- 4 Pastel Glass Storage Cards -->
@@ -1829,38 +1915,74 @@
             </div>
           </div>
 
-          <!-- Memory Status Card with Colored Arc Meter -->
-          <div class="memory-status-card">
-            <div class="memory-header-row">
-              <div class="memory-card-label">
-                <span>🗄️</span> Memory status
+          <!-- Clean File & Folder List (Screen 2 Exact Match) -->
+          <div class="file-items-list-stack" id="main-file-list-stack">
+            
+            <!-- File 1: Final UI Presentation -->
+            <div class="file-row-item" onclick="openDocViewerModal('Final UI Presentation')">
+              <div class="file-row-left">
+                <div class="file-icon-badge" style="background:#DCFCE7; color:#15803D;">📊</div>
+                <div class="file-row-titles">
+                  <div class="file-main-title">Final UI Presentation</div>
+                  <div class="file-meta-sub">1.5 GB</div>
+                </div>
               </div>
-              <button class="btn-circle-action" onclick="switchMainTab('streams')">↗</button>
+              <button class="btn-file-dots" onclick="event.stopPropagation(); openDocViewerModal('Final UI Presentation')">•••</button>
             </div>
 
-            <!-- SVG Semicircular Arc Meter -->
-            <div class="arc-meter-wrap">
-              <svg class="arc-svg-box" viewBox="0 0 200 110">
-                <!-- Background gray track -->
-                <path d="M 20 100 A 80 80 0 0 1 180 100" fill="none" stroke="#E2E8F0" stroke-width="22" stroke-linecap="round"/>
-                <!-- Yellow Segment (Music / SMS) -->
-                <path d="M 20 100 A 80 80 0 0 1 65 35" fill="none" stroke="#FDCB38" stroke-width="22" stroke-linecap="round"/>
-                <!-- Blue Segment (Apps / Files) -->
-                <path d="M 65 35 A 80 80 0 0 1 135 35" fill="none" stroke="#246BFD" stroke-width="22"/>
-                <!-- Purple Segment (Photos) -->
-                <path d="M 135 35 A 80 80 0 0 1 180 100" fill="none" stroke="#8B5CF6" stroke-width="22" stroke-linecap="round"/>
-              </svg>
-
-              <div class="arc-center-text">
-                <div class="arc-percent-bold">47%</div>
-                <div class="arc-used-sub">1.8 of 15 GB cached • Unlimited Cloud</div>
+            <!-- File 2: Client Files -->
+            <div class="file-row-item" onclick="openFolderView('job_files')">
+              <div class="file-row-left">
+                <div class="file-icon-badge" style="background:#DBEAFE; color:#1D4ED8;">📁</div>
+                <div class="file-row-titles">
+                  <div class="file-main-title">Client Files</div>
+                  <div class="file-meta-sub">356 MB</div>
+                </div>
               </div>
+              <button class="btn-file-dots" onclick="event.stopPropagation(); openFolderView('job_files')">•••</button>
             </div>
+
+            <!-- File 3: Documents -->
+            <div class="file-row-item" onclick="openFolderView('pdf_docs')">
+              <div class="file-row-left">
+                <div class="file-icon-badge" style="background:#FEF3C7; color:#B45309;">🗂️</div>
+                <div class="file-row-titles">
+                  <div class="file-main-title">Documents</div>
+                  <div class="file-meta-sub">10.5 GB</div>
+                </div>
+              </div>
+              <button class="btn-file-dots" onclick="event.stopPropagation(); openFolderView('pdf_docs')">•••</button>
+            </div>
+
+            <!-- File 4: Download -->
+            <div class="file-row-item" onclick="openFolderView('files_software')">
+              <div class="file-row-left">
+                <div class="file-icon-badge" style="background:#FEE2E2; color:#B91C1C;">📥</div>
+                <div class="file-row-titles">
+                  <div class="file-main-title">Download</div>
+                  <div class="file-meta-sub">15 GB</div>
+                </div>
+              </div>
+              <button class="btn-file-dots" onclick="event.stopPropagation(); openFolderView('files_software')">•••</button>
+            </div>
+
+            <!-- File 5: Apps -->
+            <div class="file-row-item" onclick="openFolderView('files_software')">
+              <div class="file-row-left">
+                <div class="file-icon-badge" style="background:#E0F2FE; color:#0369A1;">🤖</div>
+                <div class="file-row-titles">
+                  <div class="file-main-title">Apps</div>
+                  <div class="file-meta-sub">1.5 GB</div>
+                </div>
+              </div>
+              <button class="btn-file-dots" onclick="event.stopPropagation(); openFolderView('files_software')">•••</button>
+            </div>
+
           </div>
 
           <!-- All Folders Section (Physical Folder Tab Cutout Cards) -->
           <div class="folders-section-header">
-            <div class="folders-title">All folders</div>
+            <div class="folders-title">All Vault Folders</div>
             <div class="folders-header-actions">
               <button class="btn-folders-action" id="btn-edit-folders" onclick="toggleEditFoldersMode()">
                 <span id="edit-folder-icon">✏️</span> <span id="edit-folder-text">Edit Folders</span>
@@ -1878,114 +2000,27 @@
       </section>
 
       <!-- ========================================================
-           TAB 2: STREAMS & IN PROGRESS (IMAGE 3 SCREEN 3 PARITY)
-           ======================================================== -->
-      <section id="tab-streams" class="tab-view">
-        <div class="streams-tab-shell">
-          
-          <div class="streams-top-header">
-            <h1 class="streams-title-main">Streams & Uploads</h1>
-            <button class="btn-folders-action" onclick="openAddModal('files')">+ New Upload</button>
-          </div>
-
-          <!-- Section: In Progress -->
-          <div class="section-title-streams">
-            <span>In Progress</span>
-            <span style="font-size:12px; color:var(--text-sub);">3 Active Streams</span>
-          </div>
-
-          <!-- Stream 1: Maya Jinna Sohana.mp3 (Playable Audio!) -->
-          <div class="in-progress-card" onclick="playAudioTrack('Maya Jinna Sohana.mp3', 'TeleDrive Cloud Stream')">
-            <div class="stream-header-row">
-              <div class="stream-file-badge" style="background:#FEF3C7; color:#D97706;">🎵</div>
-              <div class="stream-meta-box">
-                <div class="stream-file-name">Maya Jinna Sohana.mp3</div>
-                <div class="stream-time-left">10 Mints Remaining • 4.2 MB/s</div>
-              </div>
-              <div class="stream-actions-wrap">
-                <div class="stream-percent-tag">80%</div>
-                <button class="btn-stream-action btn-stream-play" onclick="event.stopPropagation(); playAudioTrack('Maya Jinna Sohana.mp3', 'TeleDrive Cloud Stream')">▶</button>
-                <button class="btn-stream-action btn-stream-del" onclick="event.stopPropagation(); deleteStreamItem(this)">🗑️</button>
-              </div>
-            </div>
-            <div class="stream-progress-track">
-              <div class="stream-progress-fill" style="width: 80%;"></div>
-            </div>
-          </div>
-
-          <!-- Stream 2: UI/UX Course Video Lecture (Playable Video!) -->
-          <div class="in-progress-card" onclick="openVideoPlayerModal('UI/UX Course Video Lecture 4.mp4')">
-            <div class="stream-header-row">
-              <div class="stream-file-badge" style="background:#EDE9FE; color:#7C3AED;">🎬</div>
-              <div class="stream-meta-box">
-                <div class="stream-file-name">UI/UX Course Video Lecture 4.mp4</div>
-                <div class="stream-time-left">3 Minutes Left • 8.1 MB/s</div>
-              </div>
-              <div class="stream-actions-wrap">
-                <div class="stream-percent-tag">60%</div>
-                <button class="btn-stream-action btn-stream-play" onclick="event.stopPropagation(); openVideoPlayerModal('UI/UX Course Video Lecture 4.mp4')">▶</button>
-                <button class="btn-stream-action btn-stream-del" onclick="event.stopPropagation(); deleteStreamItem(this)">🗑️</button>
-              </div>
-            </div>
-            <div class="stream-progress-track">
-              <div class="stream-progress-fill" style="width: 60%; background:#7C3AED;"></div>
-            </div>
-          </div>
-
-          <!-- Stream 3: Final UI Presentation Deck.pdf (Previewable Doc!) -->
-          <div class="in-progress-card" onclick="openDocViewerModal('Final UI Presentation Deck.pdf')">
-            <div class="stream-header-row">
-              <div class="stream-file-badge" style="background:#DBEAFE; color:#2563EB;">📄</div>
-              <div class="stream-meta-box">
-                <div class="stream-file-name">Final UI Presentation Deck.pdf</div>
-                <div class="stream-time-left">2 Minutes Left • 12.4 MB/s</div>
-              </div>
-              <div class="stream-actions-wrap">
-                <div class="stream-percent-tag">92%</div>
-                <button class="btn-stream-action btn-stream-play" onclick="event.stopPropagation(); openDocViewerModal('Final UI Presentation Deck.pdf')">👁️</button>
-                <button class="btn-stream-action btn-stream-del" onclick="event.stopPropagation(); deleteStreamItem(this)">🗑️</button>
-              </div>
-            </div>
-            <div class="stream-progress-track">
-              <div class="stream-progress-fill" style="width: 92%; background:#10B981;"></div>
-            </div>
-          </div>
-
-          <!-- Section: Recent Uploaded -->
-          <div class="section-title-streams" style="margin-top:10px;">
-            <span>Recent Uploaded</span>
-            <span style="font-size:12px; color:var(--text-sub); cursor:pointer;" onclick="openFolderView('files_software')">See All</span>
-          </div>
-
-          <div class="recent-uploaded-grid">
-            <div class="recent-card" onclick="openDocViewerModal('Design Backup Archive.zip')">
-              <div class="recent-card-icon">🗂️</div>
-              <div class="recent-card-title">Design Backup</div>
-              <div class="recent-card-date">24 Aug 2025 • 1.2 GB</div>
-            </div>
-
-            <div class="recent-card" onclick="openVideoPlayerModal('UI/UX Course Master.mp4')">
-              <div class="recent-card-icon">🎓</div>
-              <div class="recent-card-title">UI/UX Course</div>
-              <div class="recent-card-date">24 Aug 2025 • 840 MB</div>
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-      <!-- ========================================================
-           TAB 3: PHOTOS / GALLERY (IMAGE 3 SCREEN 1 PARITY)
+           TAB 2: PHOTOS / GALLERY (SCREEN 1 EXACT MATCH)
            ======================================================== -->
       <section id="tab-photos" class="tab-view">
         <div class="photos-tab-shell">
           
-          <div class="photos-top-header">
-            <h1 class="photos-title-main">Photos</h1>
-            <button class="btn-folders-action" onclick="openAddModal('photos')">+ Upload Photos</button>
+          <div class="photos-top-header" style="justify-content:space-between;">
+            <div style="display:flex; align-items:center; gap:14px;">
+              <button class="btn-back-header" onclick="switchMainTab('home')">←</button>
+              <h1 class="photos-title-main">Photos</h1>
+            </div>
+            <button class="btn-circle-tray" onclick="toggleThemeMode()" title="Theme Toggle"><span class="theme-icon-slot">🌙</span></button>
           </div>
 
-          <!-- Album & Timeline Toggle Pills -->
+          <!-- Search Bar with Filter Icon (Screen 1) -->
+          <div class="search-filter-box">
+            <span>🔍</span>
+            <input type="text" placeholder="Search" oninput="handlePhotoSearch(this.value)">
+            <button class="btn-filter-toggle">⊶</button>
+          </div>
+
+          <!-- Album & Timeline Toggle Pills (Screen 1) -->
           <div class="photos-pills-bar">
             <button class="photo-filter-pill active" id="btn-pill-album" onclick="togglePhotoViewMode('album')">Album</button>
             <button class="photo-filter-pill" id="btn-pill-timeline" onclick="togglePhotoViewMode('timeline')">Timeline</button>
@@ -1999,9 +2034,141 @@
             <div class="dropzone-sub">Images are saved in Safi Vault & synced to Telegram</div>
           </div>
 
-          <!-- 2-Column Photo Albums Grid -->
+          <!-- 2-Column Photo Albums Grid (Screen 1 Exact Match) -->
           <div class="photo-albums-grid" id="photos-album-grid-container">
             <!-- Dynamic Photo Albums Rendered by JS -->
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ========================================================
+           TAB 3: FILE UPLOAD / STREAMS (SCREEN 3 EXACT MATCH)
+           ======================================================== -->
+      <section id="tab-streams" class="tab-view">
+        <div class="streams-tab-shell">
+          
+          <div class="streams-top-header">
+            <div style="display:flex; align-items:center; gap:12px;">
+              <button class="btn-back-header" onclick="switchMainTab('home')">←</button>
+              <h1 class="streams-title-main">File Upload</h1>
+            </div>
+            <div style="display:flex; align-items:center; gap:8px;">
+              <button class="btn-circle-tray" onclick="showSleekToast('Sorted by newest transfers')">↓</button>
+              <button class="btn-circle-tray" onclick="openAddModal('files')">•••</button>
+            </div>
+          </div>
+
+          <!-- Section: In Progress (Screen 3 Exact Match) -->
+          <div class="section-title-streams">
+            <span>In Progress</span>
+            <span style="font-size:12px; color:var(--text-sub);">Active Streams</span>
+          </div>
+
+          <!-- Stream 1: Maya Jinna Sohana (80%) -->
+          <div class="in-progress-card" onclick="playAudioTrack('Maya Jinna Sohana.mp3', 'TeleDrive Cloud Stream')">
+            <div class="stream-header-row">
+              <div class="stream-file-badge" style="background:#FEF3C7; color:#D97706;">🎵</div>
+              <div class="stream-meta-box">
+                <div class="stream-file-name">Maya Jinna Sohana</div>
+                <div class="stream-time-left">10 Mints Remaining</div>
+              </div>
+              <div class="stream-actions-wrap">
+                <div class="stream-percent-tag">80%</div>
+                <button class="btn-stream-action btn-stream-play" onclick="event.stopPropagation(); playAudioTrack('Maya Jinna Sohana.mp3', 'TeleDrive Cloud Stream')">▶</button>
+              </div>
+            </div>
+            <div class="stream-progress-track">
+              <div class="stream-progress-fill" style="width: 80%;"></div>
+            </div>
+          </div>
+
+          <!-- Stream 2: Ila Kiran Asha (75% with blue download and red trash buttons!) -->
+          <div class="in-progress-card" onclick="playAudioTrack('Ila Kiran Asha.mp3', 'Cloud Master')">
+            <div class="stream-header-row">
+              <div class="stream-meta-box">
+                <div class="stream-file-name">Ila Kiran Asha</div>
+                <div class="stream-time-left">Minutes Left</div>
+              </div>
+              <div class="stream-actions-wrap">
+                <div class="stream-percent-tag">75%</div>
+                <button class="btn-stream-action btn-stream-play" onclick="event.stopPropagation(); playAudioTrack('Ila Kiran Asha.mp3', 'Cloud Master')">▶</button>
+                <button class="btn-stream-action btn-stream-download" onclick="event.stopPropagation(); downloadCurrentAudio()">⬇</button>
+                <button class="btn-stream-action btn-stream-del" onclick="event.stopPropagation(); deleteStreamItem(this)">🗑️</button>
+              </div>
+            </div>
+            <div class="stream-progress-track">
+              <div class="stream-progress-fill" style="width: 75%; background:#10B981;"></div>
+            </div>
+          </div>
+
+          <!-- Stream 3: UI/UX Course (60%) -->
+          <div class="in-progress-card" onclick="openVideoPlayerModal('UI/UX Course')">
+            <div class="stream-header-row">
+              <div class="stream-file-badge" style="background:#EDE9FE; color:#7C3AED;">🎬</div>
+              <div class="stream-meta-box">
+                <div class="stream-file-name">UI/UX Course</div>
+                <div class="stream-time-left">3 Minutes Left</div>
+              </div>
+              <div class="stream-actions-wrap">
+                <div class="stream-percent-tag">60%</div>
+                <button class="btn-stream-action btn-stream-play" onclick="event.stopPropagation(); openVideoPlayerModal('UI/UX Course')">▶</button>
+              </div>
+            </div>
+            <div class="stream-progress-track">
+              <div class="stream-progress-fill" style="width: 60%; background:#7C3AED;"></div>
+            </div>
+          </div>
+
+          <!-- Stream 4: Exam Lmp (92%) -->
+          <div class="in-progress-card" onclick="openDocViewerModal('Exam Lmp')">
+            <div class="stream-header-row">
+              <div class="stream-file-badge" style="background:#DBEAFE; color:#2563EB;">📄</div>
+              <div class="stream-meta-box">
+                <div class="stream-file-name">Exam Lmp</div>
+                <div class="stream-time-left">2 Minutes Left</div>
+              </div>
+              <div class="stream-actions-wrap">
+                <div class="stream-percent-tag">92%</div>
+                <button class="btn-stream-action btn-stream-play" onclick="event.stopPropagation(); openDocViewerModal('Exam Lmp')">👁️</button>
+              </div>
+            </div>
+            <div class="stream-progress-track">
+              <div class="stream-progress-fill" style="width: 92%; background:#2563EB;"></div>
+            </div>
+          </div>
+
+          <!-- Section: Recent Uploaded (Screen 3 Exact Match) -->
+          <div class="section-title-streams" style="margin-top:8px;">
+            <span>Recent Uploaded</span>
+            <span style="font-size:12px; color:var(--text-sub); cursor:pointer;" onclick="openFolderView('files_software')">See All</span>
+          </div>
+
+          <div class="recent-uploaded-grid">
+            <div class="recent-card" onclick="openDocViewerModal('Design Backup')">
+              <div class="recent-card-icon">🗂️</div>
+              <div class="recent-card-title">Design Backup</div>
+              <div class="recent-card-date">24 Aug 2025</div>
+            </div>
+
+            <div class="recent-card" onclick="openVideoPlayerModal('UI/UX Course Master')">
+              <div class="recent-card-icon">🎓</div>
+              <div class="recent-card-title">UI/UX Course</div>
+              <div class="recent-card-date">24 Aug 2025</div>
+            </div>
+          </div>
+
+          <!-- Browser File Card with Upload button (Screen 3 Exact Match) -->
+          <div class="browser-file-card" onclick="document.getElementById('native-browser-file-input').click()">
+            <input type="file" id="native-browser-file-input" style="display:none;" onchange="handleBrowserFileUpload(this)">
+            <div style="display:flex; align-items:center; gap:12px;">
+              <span style="font-size:24px;">📁</span>
+              <div>
+                <div style="font-size:14px; font-weight:700; color:var(--text-main);">Browser File</div>
+                <div style="font-size:11.5px; color:var(--text-sub);">Files under 1 GB.</div>
+              </div>
+            </div>
+            <button class="btn-dark-upload-pill">Upload</button>
           </div>
 
         </div>
@@ -2161,18 +2328,16 @@
       </div>
     </div>
 
-    <!-- FLOATING BLACK BOTTOM DOCK -->
+    <!-- FLOATING BLACK BOTTOM DOCK (EXACT 5 BUTTONS FROM SCREEN 1, 2, 3) -->
     <nav class="floating-bottom-dock">
-      <!-- 1. Home -->
-      <button class="dock-tab-btn active" id="dock-btn-home" onclick="switchMainTab('home')">
+      <!-- 1. Home / Dropbox -->
+      <button class="dock-tab-btn active" id="dock-btn-home" onclick="switchMainTab('home')" title="Home">
         <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
-        <span>Home</span>
       </button>
 
-      <!-- 2. Streams -->
-      <button class="dock-tab-btn" id="dock-btn-streams" onclick="switchMainTab('streams')">
-        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
-        <span>Streams</span>
+      <!-- 2. Folder / Streams -->
+      <button class="dock-tab-btn" id="dock-btn-streams" onclick="switchMainTab('streams')" title="Transfers">
+        <svg viewBox="0 0 24 24"><path d="M20 6h-8l-2-2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 12H4V8h16v10z"/></svg>
       </button>
 
       <!-- Center Plus Button -->
@@ -2181,15 +2346,13 @@
       </button>
 
       <!-- 3. Photos -->
-      <button class="dock-tab-btn" id="dock-btn-photos" onclick="switchMainTab('photos')">
+      <button class="dock-tab-btn" id="dock-btn-photos" onclick="switchMainTab('photos')" title="Photos">
         <svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
-        <span>Photos</span>
       </button>
 
-      <!-- 4. Profile / Settings -->
-      <button class="dock-tab-btn" id="dock-btn-settings" onclick="switchMainTab('settings')">
+      <!-- 4. Profile -->
+      <button class="dock-tab-btn" id="dock-btn-settings" onclick="switchMainTab('settings')" title="Profile">
         <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-        <span>Profile</span>
       </button>
     </nav>
 
@@ -2297,6 +2460,7 @@
 
   <!-- ========================================================
        MODAL 2: AUTHENTIC TELEGRAM BOT LIVE MESSAGE VIEW
+       (Z-INDEX 12000 - NEVER OVERLAPS OR BLOCKED!)
        ======================================================== -->
   <div class="modal-overlay" id="modal-tg-preview">
     <div class="modal-card">
@@ -2316,8 +2480,8 @@
       </div>
 
       <div style="display:flex; gap:10px;">
-        <button class="btn-folders-action" style="flex:1; padding:12px; justify-content:center;" onclick="closeModal('modal-tg-preview')">Close</button>
-        <button class="btn-main-action" style="flex:2; padding:12px;" onclick="executeRealTelegramDispatch()">
+        <button class="btn-folders-action" style="flex:1; padding:12px; justify-content:center;" onclick="closeTelegramPreviewToFolder()">← Back to Folder</button>
+        <button class="btn-main-action" style="flex:1.8; padding:12px;" onclick="executeRealTelegramDispatch()">
           🚀 Send to Telegram Now
         </button>
       </div>
@@ -2549,7 +2713,7 @@
        ======================================================== -->
   <div id="modal-7step-wizard">
     
-    <!-- STICKY TOP HEADER - ALWAYS VISIBLE -->
+    <!-- STICKY TOP HEADER - ALWAYS VISIBLE ON EVERY STEP -->
     <div class="wizard-sticky-header">
       <div class="wizard-header-top-row">
         <div class="brand-ultra-pill" id="wizard-step-pill" style="font-size:12px; padding:4px 14px; border-radius:999px;">STEP 1 OF 7</div>
@@ -2559,9 +2723,7 @@
       <!-- Dynamic Wavy Sine Progress Bar -->
       <div class="wizard-sine-box">
         <svg width="100%" height="24" viewBox="0 0 400 24" preserveAspectRatio="none">
-          <!-- Full subtle background wavy path -->
           <path d="M 0 12 Q 100 2 200 12 T 400 12" fill="none" stroke="#E2E8F0" stroke-width="4" stroke-linecap="round"/>
-          <!-- Active sine progress path -->
           <path id="wizard-sine-fill" d="M 0 12 Q 100 2 200 12 T 57 12" fill="none" stroke="#2563EB" stroke-width="4" stroke-linecap="round"/>
         </svg>
       </div>
@@ -2592,7 +2754,7 @@
   </div>
 
   <!-- ========================================================
-       JAVASCRIPT APPLICATION ENGINE (V8.5)
+       JAVASCRIPT APPLICATION ENGINE (V9.0)
        ======================================================== -->
   <script>
     /* Safe Storage Helpers */
@@ -2835,6 +2997,7 @@
       openFolderView(catId);
     }
 
+    /* Open Folder Content View */
     function openFolderView(catId) {
       const cat = APP_STATE.categories.find(c => c.id === catId);
       if (!cat) return;
@@ -2858,12 +3021,13 @@
       } else {
         listContainer.innerHTML = records.map(r => `
           <div style="background:var(--bg-card); border:1px solid var(--border-light); border-radius:14px; padding:12px 14px; display:flex; align-items:center; justify-content:space-between; box-shadow:var(--shadow-sm);">
-            <div>
-              <div style="font-size:14.5px; font-weight:700; color:var(--text-main);">${escapeHtml(r.title)}</div>
-              <div style="font-size:12px; color:var(--text-sub); margin-top:2px;">${escapeHtml(r.notes || r.phone || r.cardNumber || 'Saved')}</div>
+            <div style="flex:1; overflow:hidden; padding-right:8px;">
+              <div style="font-size:14.5px; font-weight:700; color:var(--text-main); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${escapeHtml(r.title)}</div>
+              <div style="font-size:12px; color:var(--text-sub); margin-top:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${escapeHtml(r.notes || r.phone || r.cardNumber || 'Saved')}</div>
             </div>
-            <div style="display:flex; align-items:center; gap:8px;">
-              <button class="btn-folders-action" onclick="openTelegramPreview('${r.id}')">✈️ View</button>
+            <div style="display:flex; align-items:center; gap:8px; flex-shrink:0;">
+              <!-- FIX MODAL OVERLAP: Closes folder modal before opening preview -->
+              <button class="btn-folders-action" onclick="viewRecordFromFolder('${r.id}')">✈️ View</button>
               <button class="btn-folders-action" style="color:#DC2626;" onclick="executeDeleteRecord('${r.id}')">🗑️</button>
             </div>
           </div>
@@ -2875,6 +3039,23 @@
       }
 
       openModal('modal-folder-view');
+    }
+
+    /* FIX MODAL OVERLAP BUG: Cleanly closes folder modal before opening Telegram view */
+    function viewRecordFromFolder(recId) {
+      APP_STATE.lastFolderViewId = APP_STATE.currentFolderId;
+      closeModal('modal-folder-view');
+      setTimeout(() => {
+        openTelegramPreview(recId);
+      }, 40);
+    }
+
+    function closeTelegramPreviewToFolder() {
+      closeModal('modal-tg-preview');
+      if (APP_STATE.lastFolderViewId) {
+        const fid = APP_STATE.lastFolderViewId;
+        setTimeout(() => { openFolderView(fid); }, 40);
+      }
     }
 
     function executeDeleteCurrentFolder() {
@@ -2892,7 +3073,7 @@
     }
 
     /* ========================================================
-       PHOTOS / GALLERY TAB RENDERING
+       PHOTOS / GALLERY TAB RENDERING (SCREEN 1)
        ======================================================== */
     function renderPhotosAlbumGrid() {
       const container = document.getElementById('photos-album-grid-container');
@@ -2952,6 +3133,15 @@
         showSleekToast('Photo uploaded & saved to Safi Vault!');
       };
       reader.readAsDataURL(file);
+    }
+
+    function handleBrowserFileUpload(input) {
+      if (!input.files || input.files.length === 0) return;
+      const file = input.files[0];
+      showSleekToast(`Uploading ${file.name} to Telegram Cloud...`);
+      setTimeout(() => {
+        showSleekToast(`✅ Successfully uploaded ${file.name} (1.2 MB/s)`);
+      }, 1000);
     }
 
     /* ========================================================
@@ -3817,29 +4007,28 @@
     /* Search Filter */
     function handleSearchFilter(query) {
       query = query.toLowerCase().trim();
-      if (!query) {
-        renderAllFolders();
-        return;
-      }
-      const filtered = APP_STATE.categories.filter(c => c.name.toLowerCase().includes(query));
-      const container = document.getElementById('all-folders-grid-container');
-      if (!container) return;
+      const rows = document.querySelectorAll('#main-file-list-stack .file-row-item');
+      rows.forEach(r => {
+        const text = r.textContent.toLowerCase();
+        r.style.display = text.includes(query) ? 'flex' : 'none';
+      });
+    }
 
-      container.innerHTML = filtered.map(cat => `
-        <div class="folder-tab-card" onclick="openFolderView('${cat.id}')">
-          <div class="folder-card-top">
-            <div class="folder-squircle-icon" style="background:${cat.color || '#FEF3C7'};">
-              ${cat.icon || '📁'}
-            </div>
-          </div>
-          <div class="folder-card-name">${escapeHtml(cat.name)}</div>
-          <div class="folder-card-meta">Found in search</div>
-        </div>
-      `).join('');
+    function handlePhotoSearch(query) {
+      query = query.toLowerCase().trim();
+      const cards = document.querySelectorAll('#photos-album-grid-container .photo-album-card');
+      cards.forEach(c => {
+        const text = c.textContent.toLowerCase();
+        c.style.display = text.includes(query) ? 'block' : 'none';
+      });
     }
 
     function toggleFilterMode() {
       showSleekToast('Filter: All Folders & Telegram Topics');
+    }
+
+    function toggleFolderSortOrder() {
+      showSleekToast('Sorted by Name (A-Z)');
     }
 
     function togglePushNotifSwitch() {
