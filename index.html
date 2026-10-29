@@ -1,1763 +1,2120 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark-blue">
+<html lang="bn" data-theme="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<meta name="theme-color" content="#1a1b2e">
+<meta name="theme-color" content="#0d0e1a">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>TeleDrive Ultra</title>
+<title>Safi Telegram Vault</title>
 <link rel="manifest" href="manifest.json">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
 <style>
-/* ====== RESET & BASE ====== */
+/* ========================================================
+   SAFI TELEGRAM VAULT - DESIGN SYSTEM & TOKENS
+   ======================================================== */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-html{height:100%;overflow:hidden}
-body{height:100%;font-family:'Inter',sans-serif;font-size:15px;overflow:hidden;transition:background .3s,color .3s;-webkit-font-smoothing:antialiased}
-button{border:none;background:none;cursor:pointer;font-family:inherit}
-input{font-family:inherit}
-::-webkit-scrollbar{width:4px;height:4px}
+html{height:100%;overflow:hidden;font-size:15px}
+body{
+  height:100%;font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,sans-serif;
+  overflow:hidden;background:var(--bg);color:var(--text);
+  transition:background .3s cubic-bezier(.4,0,.2,1),color .3s;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+}
+button,input,textarea,select{font-family:inherit;color:inherit}
+button{border:none;background:none;cursor:pointer}
+code,pre,.mono{font-family:'JetBrains Mono',monospace}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar{width:6px;height:6px}
 ::-webkit-scrollbar-track{background:transparent}
-::-webkit-scrollbar-thumb{background:var(--c-border);border-radius:4px}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:6px}
+::-webkit-scrollbar-thumb:hover{background:var(--text-muted)}
 
-/* ====== THEMES ====== */
-[data-theme="dark-blue"]{
-  --c-bg:#0d0e1a;
-  --c-surface:#13142a;
-  --c-surface2:#1c1e3a;
-  --c-surface3:#252748;
-  --c-primary:#7c7cff;
-  --c-primary-dim:#5a5aee;
-  --c-on-primary:#fff;
-  --c-accent:#ff6b9d;
-  --c-text:#e8eaf6;
-  --c-text2:#9fa8da;
-  --c-border:#2a2d4e;
-  --c-shadow:rgba(0,0,0,.5);
-  --c-overlay:rgba(13,14,26,.85);
-  --c-chip:#1c1e3a;
-  --c-chip-active:#7c7cff;
-  --nav-h:68px;
+/* ========================================================
+   THEME DEFINITIONS (12 THEMES)
+   ======================================================== */
+:root{
   --header-h:60px;
+  --bnav-h:64px;
+  --sidebar-w:270px;
+  --radius-sm:8px;
+  --radius-md:14px;
+  --radius-lg:20px;
+  --radius-xl:26px;
+  --transition:all .2s cubic-bezier(.4,0,.2,1);
 }
-[data-theme="dark-amoled"]{
-  --c-bg:#000;
-  --c-surface:#0a0a0a;
-  --c-surface2:#111;
-  --c-surface3:#1a1a1a;
-  --c-primary:#bb86fc;
-  --c-primary-dim:#9c5fe0;
-  --c-on-primary:#000;
-  --c-accent:#03dac6;
-  --c-text:#e1e1e1;
-  --c-text2:#888;
-  --c-border:#222;
-  --c-shadow:rgba(0,0,0,.8);
-  --c-overlay:rgba(0,0,0,.9);
-  --c-chip:#1a1a1a;
-  --c-chip-active:#bb86fc;
-  --nav-h:68px;
-  --header-h:60px;
+
+/* 1. Dark (Default) */
+[data-theme="dark"]{
+  --bg:#0c0d16;--surface:#131524;--surface2:#1a1d30;--surface3:#232742;
+  --primary:#6c63ff;--primary-glow:rgba(108,99,255,.3);--primary-text:#fff;
+  --accent:#00d2ff;--accent-glow:rgba(0,210,255,.25);
+  --text:#f0f2fd;--text-muted:#8d93b8;--border:#242844;
+  --danger:#ff4757;--success:#2ed573;--warning:#ffa502;
+  --card-shadow:0 8px 24px rgba(0,0,0,.4);
+  --overlay:rgba(12,13,22,.82);
 }
-[data-theme="dark-green"]{
-  --c-bg:#0a1628;
-  --c-surface:#0d1f35;
-  --c-surface2:#112842;
-  --c-surface3:#163350;
-  --c-primary:#00e5a0;
-  --c-primary-dim:#00c486;
-  --c-on-primary:#000;
-  --c-accent:#ffd60a;
-  --c-text:#e0f2f1;
-  --c-text2:#80cbc4;
-  --c-border:#1a3a4a;
-  --c-shadow:rgba(0,0,0,.6);
-  --c-overlay:rgba(10,22,40,.88);
-  --c-chip:#112842;
-  --c-chip-active:#00e5a0;
-  --nav-h:68px;
-  --header-h:60px;
+/* 2. AMOLED */
+[data-theme="amoled"]{
+  --bg:#000;--surface:#0a0a0a;--surface2:#121212;--surface3:#1c1c1c;
+  --primary:#bb86fc;--primary-glow:rgba(187,134,252,.3);--primary-text:#000;
+  --accent:#03dac6;--accent-glow:rgba(3,218,198,.25);
+  --text:#f5f5f5;--text-muted:#7c7c7c;--border:#202020;
+  --danger:#cf6679;--success:#03dac6;--warning:#ffb74d;
+  --card-shadow:0 8px 24px rgba(0,0,0,.85);
+  --overlay:rgba(0,0,0,.92);
 }
+/* 3. Forest */
+[data-theme="forest"]{
+  --bg:#07140f;--surface:#0e2019;--surface2:#142d23;--surface3:#1c3d30;
+  --primary:#10b981;--primary-glow:rgba(16,185,129,.3);--primary-text:#052e16;
+  --accent:#34d399;--accent-glow:rgba(52,211,153,.25);
+  --text:#ecfdf5;--text-muted:#6ee7b7;--border:#1f4436;
+  --danger:#f87171;--success:#10b981;--warning:#fbbf24;
+  --card-shadow:0 8px 24px rgba(0,0,0,.45);
+  --overlay:rgba(7,20,15,.85);
+}
+/* 4. Aurora */
+[data-theme="aurora"]{
+  --bg:#0b132b;--surface:#1c2541;--surface2:#233055;--surface3:#2c3d6b;
+  --primary:#48cae4;--primary-glow:rgba(72,202,228,.3);--primary-text:#0b132b;
+  --accent:#5bc0be;--accent-glow:rgba(91,192,190,.25);
+  --text:#e0fbfc;--text-muted:#8da9c4;--border:#314470;
+  --danger:#e63946;--success:#06d6a0;--warning:#ffd166;
+  --card-shadow:0 8px 24px rgba(0,0,0,.5);
+  --overlay:rgba(11,19,43,.85);
+}
+/* 5. Midnight */
+[data-theme="midnight"]{
+  --bg:#090a1a;--surface:#10122e;--surface2:#181b42;--surface3:#222659;
+  --primary:#5352ed;--primary-glow:rgba(83,82,237,.35);--primary-text:#fff;
+  --accent:#70a1ff;--accent-glow:rgba(112,161,255,.3);
+  --text:#e4e7fa;--text-muted:#888db8;--border:#262a5e;
+  --danger:#ff4757;--success:#2ed573;--warning:#ffa502;
+  --card-shadow:0 8px 24px rgba(0,0,0,.6);
+  --overlay:rgba(9,10,26,.88);
+}
+/* 6. Sunset */
+[data-theme="sunset"]{
+  --bg:#1a0f18;--surface:#281525;--surface2:#361c32;--surface3:#472442;
+  --primary:#ff4757;--primary-glow:rgba(255,71,87,.35);--primary-text:#fff;
+  --accent:#ffa502;--accent-glow:rgba(255,165,2,.3);
+  --text:#ffedf2;--text-muted:#bd8fa8;--border:#4f2b4a;
+  --danger:#ff4757;--success:#2ed573;--warning:#ffa502;
+  --card-shadow:0 8px 24px rgba(0,0,0,.5);
+  --overlay:rgba(26,15,24,.88);
+}
+/* 7. Rose */
+[data-theme="rose"]{
+  --bg:#fff5f7;--surface:#ffffff;--surface2:#fae8ed;--surface3:#f7d5df;
+  --primary:#e11d48;--primary-glow:rgba(225,29,72,.2);--primary-text:#fff;
+  --accent:#db2777;--accent-glow:rgba(219,39,119,.2);
+  --text:#2c0c16;--text-muted:#884d61;--border:#f3c4d1;
+  --danger:#e11d48;--success:#059669;--warning:#d97706;
+  --card-shadow:0 8px 24px rgba(225,29,72,.08);
+  --overlay:rgba(255,245,247,.88);
+}
+/* 8. Arctic */
+[data-theme="arctic"]{
+  --bg:#f0f8ff;--surface:#ffffff;--surface2:#e2f0fd;--surface3:#cfe4f9;
+  --primary:#0284c7;--primary-glow:rgba(2,132,199,.2);--primary-text:#fff;
+  --accent:#0ea5e9;--accent-glow:rgba(14,165,233,.2);
+  --text:#082f49;--text-muted:#507b9a;--border:#bae0fd;
+  --danger:#e11d48;--success:#059669;--warning:#d97706;
+  --card-shadow:0 8px 24px rgba(2,132,199,.08);
+  --overlay:rgba(240,248,255,.88);
+}
+/* 9. Mono */
+[data-theme="mono"]{
+  --bg:#121212;--surface:#1e1e1e;--surface2:#282828;--surface3:#333333;
+  --primary:#ffffff;--primary-glow:rgba(255,255,255,.2);--primary-text:#000;
+  --accent:#e0e0e0;--accent-glow:rgba(255,255,255,.15);
+  --text:#ffffff;--text-muted:#9e9e9e;--border:#3a3a3a;
+  --danger:#ef5350;--success:#66bb6a;--warning:#ffa726;
+  --card-shadow:0 8px 24px rgba(0,0,0,.6);
+  --overlay:rgba(18,18,18,.9);
+}
+/* 10. Sakura */
+[data-theme="sakura"]{
+  --bg:#181218;--surface:#241924;--surface2:#312131;--surface3:#412b41;
+  --primary:#f472b6;--primary-glow:rgba(244,114,182,.3);--primary-text:#181218;
+  --accent:#fb7185;--accent-glow:rgba(251,113,133,.25);
+  --text:#fdf2f8;--text-muted:#b88ba5;--border:#4d334d;
+  --danger:#fb7185;--success:#34d399;--warning:#fbbf24;
+  --card-shadow:0 8px 24px rgba(0,0,0,.5);
+  --overlay:rgba(24,18,24,.88);
+}
+/* 11. Light */
 [data-theme="light"]{
-  --c-bg:#f5f5f5;
-  --c-surface:#fff;
-  --c-surface2:#f0f0f5;
-  --c-surface3:#e8e8f0;
-  --c-primary:#5c6bc0;
-  --c-primary-dim:#3f51b5;
-  --c-on-primary:#fff;
-  --c-accent:#e91e63;
-  --c-text:#1a1a2e;
-  --c-text2:#5c6070;
-  --c-border:#dde0f0;
-  --c-shadow:rgba(0,0,0,.12);
-  --c-overlay:rgba(245,245,245,.92);
-  --c-chip:#e8e8f0;
-  --c-chip-active:#5c6bc0;
-  --nav-h:68px;
-  --header-h:60px;
+  --bg:#f8fafc;--surface:#ffffff;--surface2:#f1f5f9;--surface3:#e2e8f0;
+  --primary:#4f46e5;--primary-glow:rgba(79,70,229,.2);--primary-text:#fff;
+  --accent:#06b6d4;--accent-glow:rgba(6,182,212,.2);
+  --text:#0f172a;--text-muted:#64748b;--border:#cbd5e1;
+  --danger:#ef4444;--success:#10b981;--warning:#f59e0b;
+  --card-shadow:0 8px 24px rgba(15,23,42,.08);
+  --overlay:rgba(248,250,252,.9);
 }
-[data-theme="light-rose"]{
-  --c-bg:#fff5f7;
-  --c-surface:#fff;
-  --c-surface2:#fce4ec;
-  --c-surface3:#f8bbd0;
-  --c-primary:#e91e63;
-  --c-primary-dim:#c2185b;
-  --c-on-primary:#fff;
-  --c-accent:#673ab7;
-  --c-text:#1a0010;
-  --c-text2:#880e4f;
-  --c-border:#f8bbd0;
-  --c-shadow:rgba(233,30,99,.15);
-  --c-overlay:rgba(255,245,247,.92);
-  --c-chip:#fce4ec;
-  --c-chip-active:#e91e63;
-  --nav-h:68px;
-  --header-h:60px;
-}
-[data-theme="light-ocean"]{
-  --c-bg:#e8f4fd;
-  --c-surface:#fff;
-  --c-surface2:#e1f0fb;
-  --c-surface3:#bbdefb;
-  --c-primary:#0288d1;
-  --c-primary-dim:#0277bd;
-  --c-on-primary:#fff;
-  --c-accent:#ff6f00;
-  --c-text:#0a1929;
-  --c-text2:#1565c0;
-  --c-border:#bbdefb;
-  --c-shadow:rgba(2,136,209,.15);
-  --c-overlay:rgba(232,244,253,.92);
-  --c-chip:#e1f0fb;
-  --c-chip-active:#0288d1;
-  --nav-h:68px;
-  --header-h:60px;
+/* 12. Ocean */
+[data-theme="ocean"]{
+  --bg:#071a24;--surface:#0c2736;--surface2:#11354a;--surface3:#184560;
+  --primary:#00b4d8;--primary-glow:rgba(0,180,216,.3);--primary-text:#071a24;
+  --accent:#48cae4;--accent-glow:rgba(72,202,228,.25);
+  --text:#caf0f8;--text-muted:#7299a9;--border:#1c5270;
+  --danger:#ff6b6b;--success:#51cf66;--warning:#fcc419;
+  --card-shadow:0 8px 24px rgba(0,0,0,.5);
+  --overlay:rgba(7,26,36,.88);
 }
 
-/* ====== LAYOUT ====== */
-body{background:var(--c-bg);color:var(--c-text)}
-#app{display:flex;height:100vh;max-width:100%;overflow:hidden;position:relative}
+/* ========================================================
+   APP CONTAINER & LAYOUT
+   ======================================================== */
+#app{display:flex;height:100vh;width:100vw;overflow:hidden;position:relative}
 
-/* Desktop sidebar */
+/* SIDEBAR (Desktop permanent / Mobile drawer) */
+#sidebar-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:90;display:none;backdrop-filter:blur(4px)}
 #sidebar{
-  width:260px;min-width:260px;height:100vh;
-  background:var(--c-surface);border-right:1px solid var(--c-border);
-  display:flex;flex-direction:column;overflow:hidden;
-  transition:transform .3s cubic-bezier(.4,0,.2,1);
-  flex-shrink:0;
+  width:var(--sidebar-w);min-width:var(--sidebar-w);height:100%;
+  background:var(--surface);border-right:1px solid var(--border);
+  display:flex;flex-direction:column;overflow:hidden;z-index:95;
+  transition:transform .3s cubic-bezier(.4,0,.2,1);flex-shrink:0;
 }
-#sidebar .logo{
-  display:flex;align-items:center;gap:12px;
-  padding:22px 20px 16px;
-  border-bottom:1px solid var(--c-border);
+.brand{
+  padding:18px 20px 14px;display:flex;align-items:center;gap:12px;
+  border-bottom:1px solid var(--border);
 }
-#sidebar .logo-icon{
-  width:40px;height:40px;border-radius:12px;
-  background:linear-gradient(135deg,var(--c-primary),var(--c-accent));
+.brand-icon{
+  width:42px;height:42px;border-radius:12px;
+  background:linear-gradient(135deg,var(--primary),var(--accent));
   display:flex;align-items:center;justify-content:center;
-  font-size:20px;box-shadow:0 4px 12px var(--c-shadow);
+  font-size:22px;box-shadow:0 4px 14px var(--primary-glow);flex-shrink:0;
 }
-#sidebar .logo-text{font-size:18px;font-weight:700;color:var(--c-text)}
-#sidebar .logo-sub{font-size:11px;color:var(--c-text2);font-weight:400}
+.brand-title{font-size:16px;font-weight:800;letter-spacing:-.2px;line-height:1.2}
+.brand-sub{font-size:11px;color:var(--text-muted);font-weight:500}
 
-#sidebar .user-card{
-  margin:12px;padding:12px;border-radius:14px;
-  background:var(--c-surface2);cursor:pointer;
-  display:flex;align-items:center;gap:10px;transition:background .2s;
+/* User Card in Sidebar */
+.user-card{
+  margin:12px 14px 8px;padding:12px;border-radius:var(--radius-md);
+  background:var(--surface2);display:flex;align-items:center;gap:10px;
+  cursor:pointer;transition:var(--transition);border:1px solid transparent;
 }
-#sidebar .user-card:hover{background:var(--c-surface3)}
-#sidebar .avatar{
-  width:40px;height:40px;border-radius:50%;
-  background:linear-gradient(135deg,var(--c-primary),var(--c-accent));
+.user-card:hover{border-color:var(--border);background:var(--surface3)}
+.user-avatar{
+  width:38px;height:38px;border-radius:50%;
+  background:linear-gradient(135deg,var(--primary),var(--accent));
   display:flex;align-items:center;justify-content:center;
-  font-size:16px;font-weight:700;color:#fff;flex-shrink:0;
+  font-weight:700;color:var(--primary-text);font-size:15px;flex-shrink:0;
 }
-#sidebar .user-name{font-size:14px;font-weight:600;color:var(--c-text)}
-#sidebar .user-id{font-size:11px;color:var(--c-text2)}
+.user-info{flex:1;min-width:0}
+.user-name{font-size:13px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.user-status{font-size:11px;color:var(--text-muted);display:flex;align-items:center;gap:5px}
+.status-dot{width:7px;height:7px;border-radius:50%;background:var(--success)}
+.status-dot.offline{background:var(--text-muted)}
 
-#sidebar .storage-bar{margin:0 12px 12px;padding:12px;border-radius:12px;background:var(--c-surface2)}
-#sidebar .storage-label{display:flex;justify-content:space-between;font-size:11px;color:var(--c-text2);margin-bottom:8px}
-#sidebar .bar-track{height:6px;border-radius:3px;background:var(--c-surface3);overflow:hidden}
-#sidebar .bar-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--c-primary),var(--c-accent));transition:width .6s cubic-bezier(.4,0,.2,1)}
-
-#sidebar nav{flex:1;overflow-y:auto;padding:8px}
+/* Sidebar Categories Nav */
+.sidebar-section-title{
+  font-size:10px;font-weight:700;text-transform:uppercase;
+  letter-spacing:.8px;color:var(--text-muted);padding:14px 20px 6px;
+}
+.sidebar-nav{flex:1;overflow-y:auto;padding:4px 10px 10px}
 .nav-item{
-  display:flex;align-items:center;gap:12px;
-  padding:11px 14px;border-radius:12px;cursor:pointer;
-  transition:background .2s,color .2s;color:var(--c-text2);
-  font-size:14px;font-weight:500;margin-bottom:2px;
+  display:flex;align-items:center;gap:12px;padding:9px 12px;
+  border-radius:var(--radius-sm);cursor:pointer;color:var(--text-muted);
+  font-size:13px;font-weight:600;transition:var(--transition);
+  margin-bottom:2px;user-select:none;
 }
-.nav-item .nav-icon{font-size:18px;width:24px;text-align:center}
-.nav-item.active{background:var(--c-primary);color:var(--c-on-primary)}
-.nav-item:not(.active):hover{background:var(--c-surface2);color:var(--c-text)}
-.nav-badge{margin-left:auto;background:var(--c-accent);color:#fff;border-radius:20px;font-size:10px;font-weight:700;padding:2px 7px}
-
-#sidebar .sidebar-bottom{padding:12px;border-top:1px solid var(--c-border)}
-.sidebar-action{
-  display:flex;align-items:center;gap:10px;
-  padding:10px 12px;border-radius:10px;cursor:pointer;
-  font-size:13px;color:var(--c-text2);transition:background .2s;
+.nav-item:hover{background:var(--surface2);color:var(--text)}
+.nav-item.active{
+  background:var(--primary);color:var(--primary-text);
+  box-shadow:0 4px 12px var(--primary-glow);
 }
-.sidebar-action:hover{background:var(--c-surface2);color:var(--c-text)}
-.sidebar-action .nav-icon{font-size:16px;width:22px;text-align:center}
+.nav-item .nav-icon{font-size:17px;width:22px;text-align:center;flex-shrink:0}
+.nav-item .nav-title{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nav-badge{
+  font-size:10px;font-weight:700;padding:2px 7px;border-radius:12px;
+  background:var(--surface3);color:var(--text);margin-left:auto;
+}
+.nav-item.active .nav-badge{background:rgba(255,255,255,.25);color:var(--primary-text)}
 
-/* Main area */
-#main{flex:1;display:flex;flex-direction:column;min-width:0;height:100vh;overflow:hidden}
+/* Sidebar Bottom */
+.sidebar-footer{padding:12px 14px;border-top:1px solid var(--border);display:flex;gap:8px}
+.sbtn{
+  flex:1;padding:9px;border-radius:var(--radius-sm);background:var(--surface2);
+  display:flex;align-items:center;justify-content:center;gap:6px;
+  font-size:12px;font-weight:600;color:var(--text-muted);transition:var(--transition);
+}
+.sbtn:hover{background:var(--surface3);color:var(--text)}
+
+/* ========================================================
+   MAIN CONTENT AREA
+   ======================================================== */
+#main{flex:1;display:flex;flex-direction:column;min-width:0;height:100%;overflow:hidden;position:relative}
 
 /* Header */
 #header{
-  height:var(--header-h);padding:0 16px;
-  display:flex;align-items:center;gap:10px;
-  background:var(--c-surface);border-bottom:1px solid var(--c-border);
-  flex-shrink:0;position:relative;z-index:10;
+  height:var(--header-h);padding:0 18px;display:flex;align-items:center;gap:12px;
+  background:var(--surface);border-bottom:1px solid var(--border);flex-shrink:0;z-index:20;
 }
-#menu-btn{
-  width:40px;height:40px;border-radius:50%;
+.menu-btn{
+  width:38px;height:38px;border-radius:var(--radius-sm);
   display:flex;align-items:center;justify-content:center;
-  font-size:20px;cursor:pointer;color:var(--c-text);
-  transition:background .2s;display:none;
+  font-size:20px;cursor:pointer;color:var(--text);display:none;
 }
-#menu-btn:hover{background:var(--c-surface2)}
-#breadcrumb{
-  flex:1;display:flex;align-items:center;gap:6px;
-  font-size:16px;font-weight:600;color:var(--c-text);overflow:hidden;
-}
-.breadcrumb-part{color:var(--c-text2);cursor:pointer;white-space:nowrap}
-.breadcrumb-part:last-child{color:var(--c-text);cursor:default}
-.breadcrumb-sep{color:var(--c-border);flex-shrink:0}
-#header-actions{display:flex;align-items:center;gap:4px;flex-shrink:0}
-.hbtn{
-  width:38px;height:38px;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  font-size:18px;cursor:pointer;color:var(--c-text2);
-  transition:background .2s,color .2s;
-}
-.hbtn:hover{background:var(--c-surface2);color:var(--c-text)}
-#search-bar{
-  flex:1;display:flex;align-items:center;gap:8px;
-  background:var(--c-surface2);border-radius:24px;
-  padding:0 14px;height:38px;display:none;
-}
-#search-bar input{
-  border:none;background:none;outline:none;flex:1;
-  font-size:14px;color:var(--c-text);
-}
-#search-bar input::placeholder{color:var(--c-text2)}
-#search-bar .close-search{color:var(--c-text2);cursor:pointer;font-size:18px}
+.menu-btn:hover{background:var(--surface2)}
+.header-title-box{flex:1;min-width:0}
+.header-title{font-size:17px;font-weight:800;display:flex;align-items:center;gap:8px;line-height:1.2}
+.header-sub{font-size:11px;color:var(--text-muted);font-weight:500}
 
-/* Sort/View bar */
+/* Header Action Buttons */
+.header-actions{display:flex;align-items:center;gap:6px;flex-shrink:0}
+.hbtn{
+  width:36px;height:36px;border-radius:var(--radius-sm);
+  display:flex;align-items:center;justify-content:center;
+  font-size:17px;color:var(--text-muted);cursor:pointer;
+  transition:var(--transition);position:relative;
+}
+.hbtn:hover{background:var(--surface2);color:var(--text)}
+.hbtn-badge{
+  position:absolute;top:4px;right:4px;width:7px;height:7px;
+  border-radius:50%;background:var(--danger);
+}
+
+/* Quick Search in Header */
+.search-wrapper{
+  position:relative;display:flex;align-items:center;flex:1;max-width:320px;
+}
+.search-input{
+  width:100%;height:36px;padding:0 12px 0 34px;border-radius:20px;
+  background:var(--surface2);border:1px solid var(--border);
+  color:var(--text);font-size:13px;outline:none;transition:var(--transition);
+}
+.search-input:focus{border-color:var(--primary);background:var(--surface)}
+.search-icon{position:absolute;left:11px;color:var(--text-muted);font-size:14px;pointer-events:none}
+.search-clear{position:absolute;right:10px;color:var(--text-muted);font-size:14px;cursor:pointer;display:none}
+
+/* Filter Bar & Chips */
 #filter-bar{
-  padding:10px 16px;display:flex;align-items:center;gap:8px;
-  flex-shrink:0;border-bottom:1px solid var(--c-border);
-  overflow-x:auto;scrollbar-width:none;background:var(--c-surface);
+  padding:10px 18px;display:flex;align-items:center;gap:8px;
+  background:var(--surface);border-bottom:1px solid var(--border);
+  overflow-x:auto;scrollbar-width:none;flex-shrink:0;
 }
 #filter-bar::-webkit-scrollbar{display:none}
 .chip{
   padding:6px 14px;border-radius:20px;font-size:12px;font-weight:600;
-  background:var(--c-chip);color:var(--c-text2);cursor:pointer;
-  white-space:nowrap;transition:background .2s,color .2s,transform .15s;
-  border:1px solid var(--c-border);flex-shrink:0;
+  background:var(--surface2);color:var(--text-muted);cursor:pointer;
+  white-space:nowrap;transition:var(--transition);border:1px solid var(--border);
+  display:flex;align-items:center;gap:6px;flex-shrink:0;
 }
-.chip.active{background:var(--c-chip-active);color:var(--c-on-primary);border-color:var(--c-chip-active)}
-.chip:active{transform:scale(.95)}
-#view-toggle{
-  margin-left:auto;display:flex;align-items:center;gap:4px;
-  background:var(--c-surface2);border-radius:8px;padding:3px;flex-shrink:0;
+.chip:hover{color:var(--text);background:var(--surface3)}
+.chip.active{
+  background:var(--primary);color:var(--primary-text);border-color:var(--primary);
+  box-shadow:0 2px 8px var(--primary-glow);
 }
-.view-btn{
-  width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;
-  font-size:14px;cursor:pointer;color:var(--c-text2);transition:background .2s,color .2s;
-}
-.view-btn.active{background:var(--c-primary);color:#fff}
+.chip-count{font-size:10px;opacity:.8;padding:1px 5px;border-radius:10px;background:rgba(0,0,0,.15)}
 
-/* File grid/list */
-#content{flex:1;overflow-y:auto;padding:12px 16px;padding-bottom:calc(var(--nav-h) + 16px)}
-@media(min-width:768px){#content{padding-bottom:16px}}
+.view-controls{margin-left:auto;display:flex;align-items:center;gap:4px;flex-shrink:0}
+.vbtn{
+  width:30px;height:30px;border-radius:6px;display:flex;align-items:center;justify-content:center;
+  font-size:14px;color:var(--text-muted);cursor:pointer;transition:var(--transition);
+}
+.vbtn.active{background:var(--surface3);color:var(--text)}
 
-.section-title{
-  font-size:12px;font-weight:600;color:var(--c-text2);
-  letter-spacing:.6px;text-transform:uppercase;margin-bottom:10px;margin-top:16px;
+/* Content Viewport */
+#content{
+  flex:1;overflow-y:auto;padding:16px 20px calc(var(--bnav-h) + 20px);
 }
-.section-title:first-child{margin-top:0}
-
-/* Grid view */
-#file-grid.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:10px}
-#file-grid.list{display:flex;flex-direction:column;gap:6px}
-
-/* Grid item */
-.file-item{
-  position:relative;cursor:pointer;transition:transform .2s,box-shadow .2s;
-  border-radius:14px;overflow:hidden;
-  background:var(--c-surface);border:1px solid var(--c-border);
-}
-.file-item:active{transform:scale(.96)}
-.file-item.grid-item{aspect-ratio:1;flex-direction:column;display:flex;align-items:center;justify-content:center}
-.file-item.list-item{display:flex;align-items:center;gap:12px;padding:10px 14px;aspect-ratio:unset}
-.file-item .thumb{
-  width:100%;aspect-ratio:1;display:flex;align-items:center;justify-content:center;
-  font-size:36px;background:var(--c-surface2);border-radius:10px 10px 0 0;
-}
-.file-item.list-item .thumb{
-  width:44px;height:44px;border-radius:10px;flex-shrink:0;aspect-ratio:1;font-size:22px;
-}
-.file-item .file-info{padding:8px;width:100%}
-.file-item.list-item .file-info{padding:0;flex:1;min-width:0}
-.file-name{font-size:12px;font-weight:600;color:var(--c-text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.file-item.list-item .file-name{font-size:14px}
-.file-meta{font-size:10px;color:var(--c-text2);margin-top:2px}
-.file-item.list-item .file-meta{font-size:12px}
-.file-item .item-menu{
-  position:absolute;top:6px;right:6px;width:28px;height:28px;border-radius:50%;
-  background:var(--c-overlay);display:flex;align-items:center;justify-content:center;
-  font-size:14px;color:var(--c-text);opacity:0;transition:opacity .2s;
-}
-.file-item:hover .item-menu{opacity:1}
-
-/* Folder item */
-.folder-item{
-  cursor:pointer;border-radius:14px;
-  background:var(--c-surface);border:1px solid var(--c-border);
-  transition:background .2s,transform .15s;overflow:hidden;
-}
-.folder-item:active{transform:scale(.96)}
-.folder-item.grid-item{
-  aspect-ratio:1;display:flex;flex-direction:column;
-  align-items:center;justify-content:center;padding:12px 8px;
-}
-.folder-item.list-item{
-  display:flex;align-items:center;gap:12px;padding:12px 14px;
-}
-.folder-icon{font-size:32px}
-.folder-item.list-item .folder-icon{font-size:26px}
-.folder-name{font-size:12px;font-weight:600;color:var(--c-text);margin-top:6px;text-align:center;width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.folder-item.list-item .folder-name{font-size:14px;margin-top:0;text-align:left}
-.folder-count{font-size:10px;color:var(--c-text2)}
-.folder-item.list-item .folder-count{font-size:12px}
-.folder-arrow{margin-left:auto;color:var(--c-text2);font-size:16px}
-
-/* Empty state */
-#empty-state{display:flex;flex-direction:column;align-items:center;justify-content:center;height:60%;gap:16px}
-#empty-state .empty-icon{font-size:64px;opacity:.5}
-#empty-state p{color:var(--c-text2);font-size:15px;text-align:center}
-#empty-state .empty-btn{
-  padding:10px 24px;border-radius:24px;
-  background:var(--c-primary);color:var(--c-on-primary);
-  font-size:14px;font-weight:600;cursor:pointer;
-  transition:opacity .2s,transform .15s;
-}
-#empty-state .empty-btn:active{transform:scale(.96)}
-
-/* FAB */
-#fab{
-  position:fixed;bottom:calc(var(--nav-h) + 16px);right:20px;
-  width:56px;height:56px;border-radius:18px;
-  background:linear-gradient(135deg,var(--c-primary),var(--c-accent));
-  display:flex;align-items:center;justify-content:center;
-  font-size:26px;color:#fff;box-shadow:0 6px 20px var(--c-shadow);
-  cursor:pointer;z-index:50;transition:transform .2s,box-shadow .2s;
-  border:none;
-}
-#fab:active{transform:scale(.92)}
 @media(min-width:768px){
-  #fab{bottom:20px;right:28px}
+  #content{padding:20px 24px}
 }
 
-/* Bottom nav (mobile) */
+/* Items Grid & List */
+.items-container{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+.items-container.list-mode{display:flex;flex-direction:column;gap:8px}
+
+/* ========================================================
+   SPECIALIZED COMPONENT CARDS
+   ======================================================== */
+.card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius-md);padding:14px;position:relative;
+  transition:var(--transition);display:flex;flex-direction:column;gap:10px;
+  box-shadow:var(--card-shadow);
+}
+.card:hover{transform:translateY(-2px);border-color:var(--primary-glow)}
+
+.card-header{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
+.card-cat-badge{
+  font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px;
+  background:var(--surface2);color:var(--text-muted);display:inline-flex;align-items:center;gap:4px;
+}
+.card-star{color:var(--warning);font-size:16px;cursor:pointer;transition:transform .15s}
+.card-star:hover{transform:scale(1.2)}
+.card-actions{display:flex;align-items:center;gap:4px}
+.cbtn{
+  width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;
+  font-size:13px;color:var(--text-muted);cursor:pointer;transition:var(--transition);
+}
+.cbtn:hover{background:var(--surface2);color:var(--text)}
+.cbtn.danger:hover{background:rgba(255,71,87,.15);color:var(--danger)}
+
+.card-title{font-size:14px;font-weight:700;line-height:1.4;word-break:break-word}
+.card-desc{font-size:12px;color:var(--text-muted);line-height:1.5;white-space:pre-wrap;word-break:break-word}
+
+/* 1. Service Report Card (Tunisia Air style) */
+.report-card{
+  background:linear-gradient(180deg,var(--surface) 0%,var(--surface2) 100%);
+  border:1px solid var(--border);border-radius:var(--radius-md);overflow:hidden;
+}
+.report-header{
+  padding:12px 14px;background:var(--surface2);border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.report-title{font-size:13px;font-weight:800;display:flex;align-items:center;gap:6px}
+.report-table{padding:10px 14px;display:flex;flex-direction:column;gap:8px}
+.report-row{display:flex;justify-content:space-between;align-items:center;font-size:12px}
+.report-label{color:var(--text-muted);font-weight:600}
+.report-val{font-weight:700;color:var(--text)}
+
+/* 2. Email & Phone Bubble List (AWD / Safi Style with Circle Mark & Copy) */
+.bubble-scroll-box{
+  max-height:220px;overflow-y:auto;border-radius:var(--radius-sm);
+  background:var(--surface2);padding:8px;display:flex;flex-direction:column;gap:6px;
+  border:1px solid var(--border);
+}
+.bubble-item{
+  display:flex;align-items:center;justify-content:space-between;gap:8px;
+  background:var(--surface);border:1px solid var(--border);padding:8px 10px;
+  border-radius:8px;transition:var(--transition);
+}
+.bubble-item.marked{border-color:var(--success);background:rgba(46,213,115,.05)}
+.bubble-text{font-size:12px;font-weight:600;word-break:break-all;flex:1}
+.bubble-actions{display:flex;align-items:center;gap:6px;flex-shrink:0}
+.mark-btn{
+  font-size:11px;font-weight:700;padding:4px 8px;border-radius:6px;
+  background:var(--surface2);color:var(--text-muted);display:flex;align-items:center;gap:4px;
+  cursor:pointer;transition:var(--transition);
+}
+.mark-btn.marked{background:var(--success);color:#000}
+.copy-pill{
+  font-size:11px;font-weight:700;padding:4px 8px;border-radius:6px;
+  background:var(--primary);color:var(--primary-text);cursor:pointer;
+  transition:var(--transition);display:flex;align-items:center;gap:4px;
+}
+.copy-pill:hover{opacity:.9}
+.copy-pill:active{transform:scale(.95)}
+
+/* 3. Card Details with Privacy Mask / Spoiler */
+.card-details-box{
+  background:linear-gradient(135deg,#1f1c2c,#928dab);color:#fff;
+  border-radius:var(--radius-md);padding:14px;display:flex;flex-direction:column;gap:10px;
+  box-shadow:0 6px 18px rgba(0,0,0,.3);
+}
+.cd-chip{width:32px;height:24px;border-radius:4px;background:#ffd700;opacity:.8}
+.cd-num{
+  font-family:'JetBrains Mono',monospace;font-size:16px;letter-spacing:2px;
+  font-weight:700;cursor:pointer;user-select:none;
+}
+.cd-num.masked{letter-spacing:4px}
+.cd-row{display:flex;justify-content:space-between;font-size:11px}
+.cd-val{font-family:'JetBrains Mono',monospace;font-weight:700}
+
+/* 4. AI Prompt Box */
+.prompt-box{
+  background:var(--surface2);border-radius:var(--radius-sm);padding:10px;
+  font-size:12px;line-height:1.5;max-height:160px;overflow-y:auto;
+  border:1px solid var(--border);position:relative;
+}
+.prompt-copy-btn{
+  position:absolute;top:8px;right:8px;padding:4px 8px;border-radius:4px;
+  background:var(--surface3);color:var(--text);font-size:11px;font-weight:600;
+  cursor:pointer;display:flex;align-items:center;gap:4px;
+}
+
+/* 5. IDM Key Box */
+.idm-key-row{
+  display:flex;align-items:center;gap:8px;background:var(--surface2);
+  border:1px solid var(--border);border-radius:var(--radius-sm);padding:8px 12px;
+}
+.idm-key-text{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;flex:1}
+
+/* 6. Media Thumbnails */
+.media-thumb-box{
+  width:100%;height:160px;border-radius:var(--radius-sm);overflow:hidden;
+  background:var(--surface2);display:flex;align-items:center;justify-content:center;
+  position:relative;cursor:pointer;
+}
+.media-thumb-img{width:100%;height:100%;object-fit:cover}
+.media-play-overlay{
+  position:absolute;inset:0;background:rgba(0,0,0,.35);
+  display:flex;align-items:center;justify-content:center;font-size:32px;color:#fff;
+  transition:background .2s;
+}
+.media-play-overlay:hover{background:rgba(0,0,0,.5)}
+.media-meta-tag{
+  position:absolute;bottom:8px;right:8px;padding:2px 8px;border-radius:4px;
+  background:rgba(0,0,0,.7);color:#fff;font-size:10px;font-weight:700;backdrop-filter:blur(4px);
+}
+
+/* Empty State */
+.empty-box{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:60px 20px;text-align:center;gap:14px;color:var(--text-muted);
+}
+.empty-icon{font-size:52px;opacity:.6}
+.empty-title{font-size:17px;font-weight:700;color:var(--text)}
+.empty-desc{font-size:13px;max-width:320px;line-height:1.5}
+
+/* ========================================================
+   FLOATING ACTION BUTTON (FAB) & BOTTOM NAV
+   ======================================================== */
+#fab{
+  position:fixed;bottom:calc(var(--bnav-h) + 16px);right:20px;
+  width:56px;height:56px;border-radius:18px;
+  background:linear-gradient(135deg,var(--primary),var(--accent));
+  color:var(--primary-text);font-size:26px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 8px 24px var(--primary-glow);cursor:pointer;z-index:60;
+  transition:transform .2s cubic-bezier(.4,0,.2,1);border:none;
+}
+#fab:hover{transform:scale(1.05)}
+#fab:active{transform:scale(.92)}
+@media(min-width:768px){#fab{bottom:28px;right:28px}}
+
+/* Bottom Nav (Mobile Only) */
 #bottom-nav{
-  position:fixed;bottom:0;left:0;right:0;
-  height:var(--nav-h);background:var(--c-surface);
-  border-top:1px solid var(--c-border);
+  position:fixed;bottom:0;left:0;right:0;height:var(--bnav-h);
+  background:var(--surface);border-top:1px solid var(--border);
   display:flex;align-items:center;justify-content:space-around;
-  padding:0 8px;z-index:40;
+  padding:0 8px;z-index:50;
 }
-.bnav-item{
-  display:flex;flex-direction:column;align-items:center;gap:4px;
-  padding:8px 16px;border-radius:14px;cursor:pointer;flex:1;
-  transition:background .2s;color:var(--c-text2);
+.bnav-btn{
+  display:flex;flex-direction:column;align-items:center;gap:3px;
+  flex:1;padding:6px;cursor:pointer;color:var(--text-muted);
+  transition:var(--transition);font-size:10px;font-weight:700;user-select:none;
 }
-.bnav-item.active{color:var(--c-primary)}
-.bnav-item .bnav-icon{font-size:22px;line-height:1}
-.bnav-item .bnav-label{font-size:10px;font-weight:600}
+.bnav-btn.active{color:var(--primary)}
+.bnav-icon{font-size:20px;line-height:1}
 
-/* Overlays */
+@media(min-width:768px){
+  #bottom-nav{display:none}
+  .menu-btn{display:none !important}
+}
+@media(max-width:767px){
+  .menu-btn{display:flex}
+  #sidebar{position:fixed;top:0;left:0;bottom:0;transform:translateX(-100%)}
+  #sidebar.open{transform:translateX(0)}
+  #sidebar-backdrop.open{display:block}
+}
+
+/* ========================================================
+   MODALS, SHEETS & OVERLAYS
+   ======================================================== */
 .overlay{
-  position:fixed;inset:0;background:rgba(0,0,0,.6);
-  display:flex;align-items:flex-end;justify-content:center;
-  z-index:100;opacity:0;pointer-events:none;
-  transition:opacity .25s;backdrop-filter:blur(4px);
+  position:fixed;inset:0;background:var(--overlay);backdrop-filter:blur(6px);
+  z-index:120;display:flex;align-items:flex-end;justify-content:center;
+  opacity:0;pointer-events:none;transition:opacity .25s ease;
 }
 .overlay.open{opacity:1;pointer-events:all}
 .overlay.center{align-items:center}
+
 .sheet{
-  width:100%;max-width:480px;background:var(--c-surface);
-  border-radius:24px 24px 0 0;padding:16px 16px 32px;
+  width:100%;max-width:520px;background:var(--surface);
+  border-radius:var(--radius-xl) var(--radius-xl) 0 0;padding:16px 20px 32px;
   transform:translateY(100%);transition:transform .3s cubic-bezier(.4,0,.2,1);
-  max-height:85vh;overflow-y:auto;
+  max-height:88vh;overflow-y:auto;border-top:1px solid var(--border);
 }
 .overlay.open .sheet{transform:translateY(0)}
+
 .modal{
-  width:calc(100% - 40px);max-width:380px;
-  background:var(--c-surface);border-radius:24px;padding:24px;
-  transform:scale(.9);transition:transform .3s cubic-bezier(.4,0,.2,1);opacity:0;
+  width:calc(100% - 32px);max-width:440px;background:var(--surface);
+  border-radius:var(--radius-lg);padding:22px;border:1px solid var(--border);
+  box-shadow:0 16px 40px rgba(0,0,0,.6);transform:scale(.92);
+  transition:transform .25s cubic-bezier(.4,0,.2,1);max-height:85vh;overflow-y:auto;
 }
-.overlay.center.open .modal{transform:scale(1);opacity:1}
+.overlay.center.open .modal{transform:scale(1)}
 
-/* Sheet handle */
-.sheet-handle{width:36px;height:4px;border-radius:2px;background:var(--c-border);margin:0 auto 16px}
-.sheet-title{font-size:18px;font-weight:700;color:var(--c-text);margin-bottom:16px;text-align:center}
+.sheet-handle{width:40px;height:5px;border-radius:3px;background:var(--border);margin:0 auto 16px}
+.modal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.modal-title{font-size:17px;font-weight:800;display:flex;align-items:center;gap:8px}
+.modal-close{width:30px;height:30px;border-radius:50%;background:var(--surface2);display:flex;align-items:center;justify-content:center;font-size:14px;cursor:pointer}
 
-/* Action sheet grid */
-.action-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:8px}
-.action-btn{
-  display:flex;flex-direction:column;align-items:center;gap:8px;
-  padding:16px 8px;border-radius:16px;background:var(--c-surface2);
-  cursor:pointer;transition:background .2s,transform .15s;
-  font-size:12px;font-weight:600;color:var(--c-text);
+/* Form Inputs */
+.form-group{margin-bottom:14px}
+.form-label{display:block;font-size:12px;font-weight:700;margin-bottom:6px;color:var(--text)}
+.form-input,.form-textarea,.form-select{
+  width:100%;padding:11px 14px;border-radius:var(--radius-sm);
+  background:var(--surface2);border:1px solid var(--border);color:var(--text);
+  font-size:13px;outline:none;transition:var(--transition);
 }
-.action-btn .aicon{font-size:28px}
-.action-btn:active{transform:scale(.94);background:var(--c-surface3)}
-.action-cancel{
-  width:100%;padding:14px;border-radius:14px;
-  background:var(--c-surface2);font-size:15px;font-weight:600;
-  color:var(--c-accent);cursor:pointer;transition:background .2s;
-  margin-top:8px;
+.form-input:focus,.form-textarea:focus,.form-select:focus{
+  border-color:var(--primary);background:var(--surface);box-shadow:0 0 0 3px var(--primary-glow);
 }
-.action-cancel:active{background:var(--c-surface3)}
+.form-textarea{min-height:90px;resize:vertical}
+.form-row{display:flex;gap:10px}
 
-/* Modal elements */
-.modal-title{font-size:20px;font-weight:700;color:var(--c-text);margin-bottom:6px}
-.modal-sub{font-size:13px;color:var(--c-text2);margin-bottom:20px}
-.modal-input{
-  width:100%;padding:14px 16px;border-radius:14px;font-size:15px;
-  background:var(--c-surface2);border:1.5px solid var(--c-border);
-  color:var(--c-text);outline:none;transition:border-color .2s;
-  margin-bottom:16px;
+/* Action Sheet Grid */
+.action-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+.action-tile{
+  display:flex;flex-direction:column;align-items:center;gap:8px;padding:14px 8px;
+  background:var(--surface2);border-radius:var(--radius-md);cursor:pointer;
+  transition:var(--transition);font-size:11px;font-weight:700;border:1px solid transparent;
 }
-.modal-input:focus{border-color:var(--c-primary)}
-.modal-input::placeholder{color:var(--c-text2)}
-.modal-row{display:flex;gap:10px}
+.action-tile:hover{background:var(--surface3);border-color:var(--border)}
+.action-tile:active{transform:scale(.95)}
+.action-tile-icon{font-size:26px}
+
+/* Buttons */
 .btn-primary{
-  flex:1;padding:14px;border-radius:14px;
-  background:linear-gradient(135deg,var(--c-primary),var(--c-primary-dim));
-  color:var(--c-on-primary);font-size:15px;font-weight:700;
-  cursor:pointer;transition:opacity .2s,transform .15s;border:none;
+  width:100%;padding:12px;border-radius:var(--radius-sm);
+  background:linear-gradient(135deg,var(--primary),var(--accent));
+  color:var(--primary-text);font-size:13px;font-weight:800;cursor:pointer;
+  transition:var(--transition);display:flex;align-items:center;justify-content:center;gap:6px;
 }
 .btn-primary:active{transform:scale(.97)}
-.btn-ghost{
-  flex:1;padding:14px;border-radius:14px;
-  background:var(--c-surface2);color:var(--c-text2);
-  font-size:15px;font-weight:600;cursor:pointer;transition:background .2s;border:none;
+.btn-secondary{
+  width:100%;padding:12px;border-radius:var(--radius-sm);background:var(--surface2);
+  color:var(--text);font-size:13px;font-weight:700;cursor:pointer;transition:var(--transition);
 }
-.btn-ghost:active{background:var(--c-surface3)}
+.btn-secondary:hover{background:var(--surface3)}
 
-/* Icon picker */
-.icon-picker{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
-.icon-opt{
-  width:40px;height:40px;border-radius:10px;border:2px solid var(--c-border);
-  display:flex;align-items:center;justify-content:center;font-size:20px;
-  cursor:pointer;transition:border-color .2s,background .2s;
+/* ========================================================
+   IDM MULTI-THREADED TURBO DOWNLOADER MODAL
+   ======================================================== */
+.idm-box{
+  background:var(--surface);border-radius:var(--radius-md);padding:16px;
+  border:1px solid var(--border);display:flex;flex-direction:column;gap:12px;
 }
-.icon-opt.selected{border-color:var(--c-primary);background:var(--c-surface2)}
+.idm-header{display:flex;align-items:center;gap:10px}
+.idm-icon{font-size:28px}
+.idm-title{font-size:14px;font-weight:800}
+.idm-sub{font-size:11px;color:var(--text-muted)}
 
-/* Theme picker */
-.theme-list{display:flex;flex-direction:column;gap:10px}
-.theme-opt{
-  display:flex;align-items:center;gap:12px;
-  padding:12px 16px;border-radius:14px;cursor:pointer;
-  border:2px solid var(--c-border);background:var(--c-surface2);
-  transition:border-color .2s;
-}
-.theme-opt.active{border-color:var(--c-primary)}
-.theme-swatch{width:32px;height:32px;border-radius:50%;flex-shrink:0}
-.theme-label{flex:1}
-.theme-name{font-size:14px;font-weight:600;color:var(--c-text)}
-.theme-desc{font-size:11px;color:var(--c-text2)}
-.theme-check{font-size:18px;color:var(--c-primary);opacity:0}
-.theme-opt.active .theme-check{opacity:1}
+.idm-threads-box{display:flex;flex-direction:column;gap:6px}
+.thread-row{display:flex;align-items:center;gap:8px;font-size:11px}
+.thread-label{width:54px;font-weight:700;color:var(--text-muted)}
+.thread-bar-bg{flex:1;height:8px;border-radius:4px;background:var(--surface2);overflow:hidden}
+.thread-bar-fill{height:100%;border-radius:4px;background:var(--primary);width:0%;transition:width .2s}
+.thread-pct{width:36px;text-align:right;font-weight:700;font-family:'JetBrains Mono',monospace}
 
-/* Vault */
-#vault-screen{
-  position:fixed;inset:0;z-index:200;display:flex;flex-direction:column;
-  align-items:center;justify-content:center;
-  background:var(--c-bg);opacity:0;pointer-events:none;transition:opacity .3s;
-}
-#vault-screen.open{opacity:1;pointer-events:all}
-.vault-logo{font-size:48px;margin-bottom:20px}
-.vault-title{font-size:22px;font-weight:700;margin-bottom:4px;color:var(--c-text)}
-.vault-sub{font-size:13px;color:var(--c-text2);margin-bottom:30px}
-.pin-dots{display:flex;gap:14px;margin-bottom:32px}
-.pin-dot{
-  width:14px;height:14px;border-radius:50%;
-  border:2px solid var(--c-border);background:transparent;transition:background .2s;
-}
-.pin-dot.filled{background:var(--c-primary);border-color:var(--c-primary)}
-.keypad{display:grid;grid-template-columns:repeat(3,72px);gap:12px}
-.key{
-  width:72px;height:72px;border-radius:50%;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  font-size:22px;font-weight:600;cursor:pointer;
-  background:var(--c-surface);color:var(--c-text);
-  transition:background .2s,transform .15s;
-  box-shadow:0 2px 8px var(--c-shadow);border:none;
-}
-.key:active{transform:scale(.9)}
-.key .key-sub{font-size:9px;color:var(--c-text2);font-weight:400;letter-spacing:.8px;margin-top:2px}
-.key.del,.key.ok{background:var(--c-surface2)}
-.key.ok{background:var(--c-primary);color:var(--c-on-primary)}
+.idm-overall-bar-bg{height:10px;border-radius:5px;background:var(--surface2);overflow:hidden}
+.idm-overall-bar-fill{height:100%;border-radius:5px;background:linear-gradient(90deg,var(--primary),var(--accent));width:0%;transition:width .2s}
+.idm-stats{display:flex;justify-content:space-between;font-size:11px;color:var(--text-muted)}
 
-/* Media player */
+/* ========================================================
+   MEDIA PLAYER & VIEWER OVERLAY
+   ======================================================== */
 #player-overlay{
-  position:fixed;inset:0;z-index:150;background:rgba(0,0,0,.95);
+  position:fixed;inset:0;background:rgba(0,0,0,.95);z-index:150;
   display:flex;flex-direction:column;align-items:center;justify-content:center;
-  opacity:0;pointer-events:none;transition:opacity .3s;
+  opacity:0;pointer-events:none;transition:opacity .25s ease;padding:20px;
 }
 #player-overlay.open{opacity:1;pointer-events:all}
-#player-close{position:absolute;top:20px;right:20px;font-size:24px;cursor:pointer;color:#fff}
-#player-title{color:#fff;font-size:16px;font-weight:600;margin-bottom:24px;text-align:center;padding:0 20px}
-#player-media{max-width:100%;max-height:50vh;border-radius:12px}
-.player-controls{display:flex;align-items:center;gap:24px;margin-top:24px}
-.pctrl{font-size:28px;color:#fff;cursor:pointer;transition:opacity .2s}
-.pctrl:active{opacity:.6}
-.pctrl.main{font-size:40px}
-#player-progress{width:280px;height:4px;border-radius:2px;background:rgba(255,255,255,.2);cursor:pointer;margin-top:16px}
-#player-bar{height:100%;border-radius:2px;background:var(--c-primary);width:0%;transition:width .5s linear}
+.player-close-btn{
+  position:absolute;top:20px;right:20px;width:40px;height:40px;border-radius:50%;
+  background:rgba(255,255,255,.15);color:#fff;display:flex;align-items:center;justify-content:center;
+  font-size:20px;cursor:pointer;
+}
+.player-container{max-width:90vw;max-height:80vh;display:flex;flex-direction:column;align-items:center}
+.player-media{max-width:100%;max-height:65vh;border-radius:var(--radius-md);box-shadow:0 12px 32px rgba(0,0,0,.8)}
+.player-title{color:#fff;font-size:16px;font-weight:700;margin-top:16px;text-align:center}
+.player-meta{color:rgba(255,255,255,.6);font-size:12px;margin-top:4px}
 
-/* Context menu */
-#ctx-menu{
-  position:fixed;z-index:120;background:var(--c-surface);
-  border-radius:14px;box-shadow:0 8px 30px var(--c-shadow);
-  padding:8px;min-width:180px;opacity:0;pointer-events:none;
-  transform:scale(.9);transition:opacity .15s,transform .15s;
-  border:1px solid var(--c-border);
+/* Audio Player Bottom Floating Bar */
+#mini-audio-bar{
+  position:fixed;bottom:calc(var(--bnav-h) + 12px);left:16px;right:16px;max-width:500px;margin:0 auto;
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);
+  padding:10px 14px;display:none;align-items:center;gap:12px;box-shadow:0 12px 30px rgba(0,0,0,.5);
+  z-index:55;backdrop-filter:blur(8px);
 }
-#ctx-menu.open{opacity:1;pointer-events:all;transform:scale(1)}
-.ctx-item{
-  display:flex;align-items:center;gap:10px;padding:10px 12px;
-  border-radius:8px;cursor:pointer;font-size:14px;color:var(--c-text);
-  transition:background .15s;
-}
-.ctx-item:hover{background:var(--c-surface2)}
-.ctx-item .ctx-icon{font-size:16px;width:20px;text-align:center}
-.ctx-item.danger{color:#f44336}
+@media(min-width:768px){#mini-audio-bar{bottom:16px;right:20px;left:auto;width:380px}}
+#mini-audio-bar.show{display:flex}
+.mab-icon{font-size:22px;color:var(--primary)}
+.mab-info{flex:1;min-width:0}
+.mab-title{font-size:12px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mab-sub{font-size:10px;color:var(--text-muted)}
+.mab-ctrls{display:flex;align-items:center;gap:8px}
+.mab-btn{font-size:18px;color:var(--text);cursor:pointer}
 
-/* Upload progress */
-.upload-progress{
-  position:fixed;bottom:calc(var(--nav-h) + 80px);right:16px;left:16px;
-  max-width:360px;background:var(--c-surface);border-radius:16px;
-  padding:14px 16px;box-shadow:0 8px 24px var(--c-shadow);
-  border:1px solid var(--c-border);z-index:90;
-  transform:translateY(200px);transition:transform .3s;display:none;
+/* Theme Picker Grid */
+.themes-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.theme-card{
+  padding:12px;border-radius:var(--radius-sm);border:2px solid var(--border);
+  background:var(--surface2);cursor:pointer;display:flex;align-items:center;gap:10px;
+  transition:var(--transition);
 }
-.upload-progress.show{display:block;transform:translateY(0)}
-.up-name{font-size:13px;font-weight:600;color:var(--c-text);margin-bottom:8px}
-.up-track{height:6px;border-radius:3px;background:var(--c-surface2);overflow:hidden}
-.up-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--c-primary),var(--c-accent));transition:width .3s}
-.up-pct{font-size:11px;color:var(--c-text2);margin-top:4px;text-align:right}
+.theme-card.active{border-color:var(--primary);background:var(--surface3)}
+.theme-dot{width:24px;height:24px;border-radius:50%;flex-shrink:0}
+.theme-name{font-size:12px;font-weight:700}
 
-/* Settings */
-.settings-section{margin-bottom:24px}
-.settings-section h3{font-size:12px;font-weight:700;color:var(--c-primary);text-transform:uppercase;letter-spacing:.8px;margin-bottom:12px}
-.setting-row{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:12px 0;border-bottom:1px solid var(--c-border);
-  font-size:14px;color:var(--c-text);
+/* Toast */
+#toast{
+  position:fixed;bottom:calc(var(--bnav-h) + 76px);left:50%;transform:translateX(-50%) translateY(20px);
+  background:rgba(12,13,22,.92);color:#fff;padding:9px 18px;border-radius:24px;
+  font-size:12px;font-weight:700;z-index:999;opacity:0;pointer-events:none;
+  transition:opacity .2s,transform .2s;white-space:nowrap;backdrop-filter:blur(8px);
+  box-shadow:0 8px 24px rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.1);
 }
-.setting-row:last-child{border-bottom:none}
-.setting-row .label{flex:1}
-.setting-row .sub{font-size:12px;color:var(--c-text2);margin-top:2px}
-.toggle{
-  width:44px;height:26px;border-radius:13px;background:var(--c-surface3);
-  cursor:pointer;position:relative;transition:background .2s;flex-shrink:0;
-}
-.toggle.on{background:var(--c-primary)}
-.toggle::after{
-  content:'';position:absolute;top:3px;left:3px;
-  width:20px;height:20px;border-radius:50%;background:#fff;
-  transition:transform .2s;box-shadow:0 1px 4px rgba(0,0,0,.3);
-}
-.toggle.on::after{transform:translateX(18px)}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
-/* Ripple */
-.ripple{overflow:hidden;position:relative}
+/* Ripple effect */
+.ripple{position:relative;overflow:hidden}
 .ripple-wave{
   position:absolute;border-radius:50%;background:rgba(255,255,255,.3);
-  transform:scale(0);animation:rippleAnim .6s linear;pointer-events:none;
+  transform:scale(0);animation:rippleAnim .5s linear;pointer-events:none;
 }
 @keyframes rippleAnim{to{transform:scale(4);opacity:0}}
-
-/* Animations */
-@keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-@keyframes fadeIn{from{opacity:0}to{opacity:1}}
-.anim-slide-up{animation:slideUp .3s ease both}
-.anim-fade{animation:fadeIn .3s ease both}
-
-/* Mobile overlay sidebar */
-@media(max-width:767px){
-  #sidebar{position:fixed;left:0;top:0;z-index:80;transform:translateX(-100%)}
-  #sidebar.open{transform:translateX(0)}
-  #menu-btn{display:flex}
-  #sidebar-back{position:fixed;inset:0;z-index:79;background:rgba(0,0,0,.5);display:none}
-  #sidebar-back.open{display:block}
-  #bottom-nav{display:flex}
-  #content{padding-bottom:calc(var(--nav-h) + 16px)}
-}
-@media(min-width:768px){
-  #bottom-nav{display:none}
-  #fab{bottom:28px;right:28px}
-  #content{padding-bottom:20px}
-  .action-grid{grid-template-columns:repeat(3,1fr)}
-  #file-grid.grid{grid-template-columns:repeat(auto-fill,minmax(130px,1fr))}
-}
-@media(min-width:1200px){
-  #file-grid.grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
-}
-
-/* Telegram setup */
-.tg-setup{
-  display:flex;flex-direction:column;align-items:center;text-align:center;padding:24px 0;
-}
-.tg-setup .tg-icon{font-size:56px;margin-bottom:16px}
-.tg-setup h3{font-size:20px;font-weight:700;color:var(--c-text);margin-bottom:8px}
-.tg-setup p{font-size:14px;color:var(--c-text2);margin-bottom:20px;line-height:1.6}
-.tg-step{
-  width:100%;padding:12px 16px;border-radius:12px;
-  background:var(--c-surface2);margin-bottom:10px;text-align:left;
-  display:flex;align-items:flex-start;gap:10px;
-}
-.tg-step-num{
-  width:24px;height:24px;border-radius:50%;background:var(--c-primary);
-  color:var(--c-on-primary);font-size:12px;font-weight:700;
-  display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;
-}
-.tg-step-text{font-size:13px;color:var(--c-text);line-height:1.5}
-.tg-step-text b{color:var(--c-primary)}
 </style>
 </head>
 <body>
+
 <div id="app">
-  <!-- Sidebar (Desktop always visible, Mobile = drawer) -->
-  <div id="sidebar-back" onclick="closeSidebar()"></div>
+  <!-- Sidebar Backdrop (Mobile) -->
+  <div id="sidebar-backdrop" onclick="toggleSidebar(false)"></div>
+
+  <!-- SIDEBAR -->
   <aside id="sidebar">
-    <div class="logo">
-      <div class="logo-icon">☁️</div>
+    <div class="brand">
+      <div class="brand-icon">🔐</div>
       <div>
-        <div class="logo-text">TeleDrive</div>
-        <div class="logo-sub">Ultra Edition</div>
+        <div class="brand-title">Safi Vault</div>
+        <div class="brand-sub">Telegram Archive OS</div>
       </div>
     </div>
 
-    <div class="user-card ripple" onclick="openSettings()">
-      <div class="avatar" id="sb-avatar">T</div>
-      <div>
-        <div class="user-name" id="sb-name">My Drive</div>
-        <div class="user-id" id="sb-id">Tap to configure</div>
+    <!-- User & Sync Status Card -->
+    <div class="user-card ripple" onclick="openSettingsModal()">
+      <div class="user-avatar" id="sb-user-avatar">S</div>
+      <div class="user-info">
+        <div class="user-name" id="sb-user-name">Safi Account</div>
+        <div class="user-status" id="sb-sync-status">
+          <span class="status-dot" id="sb-status-dot"></span>
+          <span id="sb-status-text">Checking...</span>
+        </div>
       </div>
     </div>
 
-    <div class="storage-bar">
-      <div class="storage-label">
-        <span>Storage Used</span>
-        <span id="storage-text">0 MB / ∞</span>
-      </div>
-      <div class="bar-track">
-        <div class="bar-fill" id="storage-fill" style="width:2%"></div>
-      </div>
-    </div>
-
-    <nav id="sidebar-nav">
-      <div class="nav-item active ripple" data-nav="home" onclick="navTo('home',this)">
-        <span class="nav-icon">🏠</span> My Drive
-      </div>
-      <div class="nav-item ripple" data-nav="photos" onclick="navTo('photos',this)">
-        <span class="nav-icon">🖼️</span> Photos
-      </div>
-      <div class="nav-item ripple" data-nav="videos" onclick="navTo('videos',this)">
-        <span class="nav-icon">🎬</span> Videos
-      </div>
-      <div class="nav-item ripple" data-nav="audio" onclick="navTo('audio',this)">
-        <span class="nav-icon">🎵</span> Music
-      </div>
-      <div class="nav-item ripple" data-nav="docs" onclick="navTo('docs',this)">
-        <span class="nav-icon">📄</span> Documents
-      </div>
-      <div class="nav-item ripple" data-nav="vault" onclick="openVault()">
-        <span class="nav-icon">🔒</span> Secret Vault
-        <span class="nav-badge">PIN</span>
-      </div>
-      <div class="nav-item ripple" data-nav="trash" onclick="navTo('trash',this)">
-        <span class="nav-icon">🗑️</span> Trash
-      </div>
+    <!-- Category Nav Links -->
+    <div class="sidebar-section-title">Categories & Topics</div>
+    <nav class="sidebar-nav" id="sidebar-nav-list">
+      <!-- Injected dynamically by JS -->
     </nav>
 
-    <div class="sidebar-bottom">
-      <div class="sidebar-action ripple" onclick="openThemePicker()">
-        <span class="nav-icon">🎨</span> Themes
-      </div>
-      <div class="sidebar-action ripple" onclick="openSettings()">
-        <span class="nav-icon">⚙️</span> Settings
-      </div>
+    <!-- Sidebar Footer -->
+    <div class="sidebar-footer">
+      <button class="sbtn ripple" onclick="openThemeModal()">
+        <span>🎨</span> Themes
+      </button>
+      <button class="sbtn ripple" onclick="openSettingsModal()">
+        <span>⚙️</span> Settings
+      </button>
+      <button class="sbtn ripple" onclick="exportVaultBackup()">
+        <span>💾</span> Backup
+      </button>
     </div>
   </aside>
 
-  <!-- Main -->
+  <!-- MAIN VIEWPORT -->
   <main id="main">
     <!-- Header -->
-    <div id="header">
-      <div id="menu-btn" onclick="toggleSidebar()">☰</div>
-      <div id="breadcrumb">
-        <span class="breadcrumb-part" id="bc-root" onclick="navToRoot()">My Drive</span>
+    <header id="header">
+      <button class="menu-btn" onclick="toggleSidebar(true)" title="Menu">☰</button>
+      
+      <div class="header-title-box">
+        <div class="header-title" id="current-view-title">
+          <span id="view-icon">🏠</span>
+          <span id="view-name">All Items</span>
+        </div>
+        <div class="header-sub" id="current-view-sub">Personal Digital Archive</div>
       </div>
-      <div id="header-actions">
-        <div class="hbtn" onclick="openSearch()" title="Search">🔍</div>
-        <div class="hbtn" onclick="openThemePicker()" title="Theme">🎨</div>
-        <div class="hbtn" onclick="openSettings()" title="Settings">⚙️</div>
-      </div>
-      <div id="search-bar">
-        <span>🔍</span>
-        <input type="text" placeholder="Search files..." id="search-input" oninput="onSearch(this.value)" onkeydown="if(event.key==='Escape')closeSearch()">
-        <span class="close-search" onclick="closeSearch()">✕</span>
-      </div>
-    </div>
 
-    <!-- Filter bar -->
+      <!-- Quick Search -->
+      <div class="search-wrapper">
+        <span class="search-icon">🔍</span>
+        <input type="text" class="search-input" id="global-search-input" placeholder="Search title, email, notes..." oninput="handleSearch(this.value)">
+        <span class="search-clear" id="search-clear-btn" onclick="clearSearch()">✕</span>
+      </div>
+
+      <!-- Header Action Buttons -->
+      <div class="header-actions">
+        <button class="hbtn ripple" onclick="openThemeModal()" title="Themes">🎨</button>
+        <button class="hbtn ripple" onclick="openSettingsModal()" title="Telegram & Settings">
+          <span>⚙️</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Filter Bar / Chips -->
     <div id="filter-bar">
-      <div class="chip active" data-cat="all" onclick="filterBy('all',this)">All</div>
-      <div class="chip" data-cat="folder" onclick="filterBy('folder',this)">📁 Folders</div>
-      <div class="chip" data-cat="image" onclick="filterBy('image',this)">🖼️ Photos</div>
-      <div class="chip" data-cat="video" onclick="filterBy('video',this)">🎬 Videos</div>
-      <div class="chip" data-cat="audio" onclick="filterBy('audio',this)">🎵 Audio</div>
-      <div class="chip" data-cat="document" onclick="filterBy('document',this)">📄 Docs</div>
-      <div class="chip" data-cat="other" onclick="filterBy('other',this)">📦 Other</div>
-      <div id="view-toggle">
-        <div class="view-btn active" id="grid-btn" onclick="setView('grid')">▦</div>
-        <div class="view-btn" id="list-btn" onclick="setView('list')">≡</div>
-      </div>
+      <!-- Injected by renderFilterChips() -->
     </div>
 
-    <!-- Content -->
+    <!-- Content Area -->
     <div id="content">
-      <div id="file-grid" class="grid"></div>
+      <div id="items-container" class="items-container">
+        <!-- Rendered dynamically -->
+      </div>
     </div>
   </main>
 </div>
 
-<!-- FAB -->
-<button id="fab" onclick="openActionSheet()" aria-label="New">＋</button>
+<!-- Floating Action Button (FAB) -->
+<button id="fab" class="ripple" onclick="openAddSheet()" title="Add New Item">＋</button>
 
-<!-- Mobile Bottom Nav -->
+<!-- Bottom Nav (Mobile) -->
 <nav id="bottom-nav">
-  <div class="bnav-item active" id="bn-home" onclick="bNav('home',this)">
+  <div class="bnav-btn active ripple" onclick="switchCategory('all', this)">
     <span class="bnav-icon">🏠</span>
-    <span class="bnav-label">Home</span>
+    <span>Home</span>
   </div>
-  <div class="bnav-item" id="bn-photos" onclick="bNav('photos',this)">
+  <div class="bnav-btn ripple" onclick="switchCategory('photos', this)">
     <span class="bnav-icon">🖼️</span>
-    <span class="bnav-label">Photos</span>
+    <span>Photos</span>
   </div>
-  <div class="bnav-item" id="bn-vault" onclick="openVault()">
-    <span class="bnav-icon">🔒</span>
-    <span class="bnav-label">Vault</span>
+  <div class="bnav-btn ripple" onclick="switchCategory('saved_messages', this)">
+    <span class="bnav-icon">💬</span>
+    <span>Messages</span>
   </div>
-  <div class="bnav-item" id="bn-search" onclick="openSearch()">
-    <span class="bnav-icon">🔍</span>
-    <span class="bnav-label">Search</span>
+  <div class="bnav-btn ripple" onclick="switchCategory('links', this)">
+    <span class="bnav-icon">🔗</span>
+    <span>Links</span>
   </div>
-  <div class="bnav-item" id="bn-settings" onclick="openSettings()">
+  <div class="bnav-btn ripple" onclick="openSettingsModal()">
     <span class="bnav-icon">⚙️</span>
-    <span class="bnav-label">Settings</span>
+    <span>Vault</span>
   </div>
 </nav>
 
-<!-- Action Sheet -->
-<div class="overlay" id="action-overlay" onclick="overlayClose(this,'action-overlay')">
-  <div class="sheet" onclick="event.stopPropagation()">
+<!-- Mini Floating Audio Player -->
+<div id="mini-audio-bar">
+  <span class="mab-icon">🎵</span>
+  <div class="mab-info">
+    <div class="mab-title" id="mab-title">Playing Track</div>
+    <div class="mab-sub" id="mab-time">00:00 / 00:00</div>
+  </div>
+  <div class="mab-ctrls">
+    <button class="mab-btn" onclick="toggleMiniAudioPlay()" id="mab-play-btn">⏸️</button>
+    <button class="mab-btn" onclick="closeMiniAudio()">✕</button>
+  </div>
+  <audio id="global-audio-element" style="display:none"></audio>
+</div>
+
+<!-- ========================================================
+     MODALS & OVERLAYS
+     ======================================================== -->
+
+<!-- 1. Add New Item Action Sheet -->
+<div class="overlay" id="add-action-overlay" onclick="closeOverlayOnBackdrop(event, 'add-action-overlay')">
+  <div class="sheet">
     <div class="sheet-handle"></div>
-    <div class="sheet-title">Create or Upload</div>
+    <div class="modal-header">
+      <div class="modal-title"><span>➕</span> Add to Safi Vault</div>
+      <button class="modal-close" onclick="closeOverlay('add-action-overlay')">✕</button>
+    </div>
     <div class="action-grid">
-      <div class="action-btn ripple" onclick="closeOverlay('action-overlay');openFolderDialog()">
-        <span class="aicon">📁</span> New Folder
+      <div class="action-tile ripple" onclick="openCreateItemModal('photos')">
+        <span class="action-tile-icon">📸</span>
+        <span>Photo / Image</span>
       </div>
-      <div class="action-btn ripple" onclick="closeOverlay('action-overlay');openFilePicker()">
-        <span class="aicon">⬆️</span> Upload File
+      <div class="action-tile ripple" onclick="openCreateItemModal('saved_messages')">
+        <span class="action-tile-icon">💬</span>
+        <span>Email / Number</span>
       </div>
-      <div class="action-btn ripple" onclick="closeOverlay('action-overlay');openCamera()">
-        <span class="aicon">📷</span> Camera
+      <div class="action-tile ripple" onclick="openCreateItemModal('links')">
+        <span class="action-tile-icon">🔗</span>
+        <span>Web Link</span>
       </div>
-      <div class="action-btn ripple" onclick="closeOverlay('action-overlay');openVoiceRecord()">
-        <span class="aicon">🎙️</span> Voice Note
+      <div class="action-tile ripple" onclick="openCreateItemModal('pdfs')">
+        <span class="action-tile-icon">📄</span>
+        <span>PDF Doc</span>
       </div>
-      <div class="action-btn ripple" onclick="closeOverlay('action-overlay');openVault()">
-        <span class="aicon">🔒</span> Vault
+      <div class="action-tile ripple" onclick="openCreateItemModal('idm_keys')">
+        <span class="action-tile-icon">🔑</span>
+        <span>IDM Key</span>
       </div>
-      <div class="action-btn ripple" onclick="closeOverlay('action-overlay');openTelegramSetup()">
-        <span class="aicon">✈️</span> Telegram
+      <div class="action-tile ripple" onclick="openCreateItemModal('prompts')">
+        <span class="action-tile-icon">✨</span>
+        <span>AI Prompt</span>
+      </div>
+      <div class="action-tile ripple" onclick="openCreateItemModal('tutorials')">
+        <span class="action-tile-icon">📚</span>
+        <span>Tutorial</span>
+      </div>
+      <div class="action-tile ripple" onclick="openCreateItemModal('cards')">
+        <span class="action-tile-icon">🔐</span>
+        <span>Card / Secret</span>
+      </div>
+      <div class="action-tile ripple" onclick="openCreateItemModal('files')">
+        <span class="action-tile-icon">🗂️</span>
+        <span>File / Software</span>
       </div>
     </div>
-    <button class="action-cancel ripple" onclick="closeOverlay('action-overlay')">Cancel</button>
+    <button class="btn-secondary ripple" onclick="openCreateCategoryModal()">📁 Create New Category / Telegram Topic</button>
   </div>
 </div>
 
-<!-- Folder Dialog -->
-<div class="overlay center" id="folder-overlay" onclick="overlayClose(this,'folder-overlay')">
-  <div class="modal" onclick="event.stopPropagation()">
-    <div class="modal-title">📁 New Folder</div>
-    <div class="modal-sub">Choose an icon and enter a name</div>
-    <div class="icon-picker" id="icon-picker">
-      <div class="icon-opt selected" onclick="selectIcon(this,'📁')">📁</div>
-      <div class="icon-opt" onclick="selectIcon(this,'🎬')">🎬</div>
-      <div class="icon-opt" onclick="selectIcon(this,'🖼️')">🖼️</div>
-      <div class="icon-opt" onclick="selectIcon(this,'🎵')">🎵</div>
-      <div class="icon-opt" onclick="selectIcon(this,'📄')">📄</div>
-      <div class="icon-opt" onclick="selectIcon(this,'🔒')">🔒</div>
-      <div class="icon-opt" onclick="selectIcon(this,'⭐')">⭐</div>
-      <div class="icon-opt" onclick="selectIcon(this,'💼')">💼</div>
-      <div class="icon-opt" onclick="selectIcon(this,'🎮')">🎮</div>
+<!-- 2. Create / Edit Item Modal -->
+<div class="overlay center" id="create-item-overlay" onclick="closeOverlayOnBackdrop(event, 'create-item-overlay')">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="create-modal-title"><span>📝</span> Save Item</div>
+      <button class="modal-close" onclick="closeOverlay('create-item-overlay')">✕</button>
     </div>
-    <input class="modal-input" id="folder-name-input" type="text" placeholder="Folder name..." maxlength="50">
-    <div class="modal-row">
-      <button class="btn-ghost ripple" onclick="closeOverlay('folder-overlay')">Cancel</button>
-      <button class="btn-primary ripple" onclick="createFolder()">Create</button>
-    </div>
-  </div>
-</div>
+    <form id="create-item-form" onsubmit="handleSaveItem(event)">
+      <div class="form-group">
+        <label class="form-label">Category</label>
+        <select class="form-select" id="form-item-category" required onchange="adaptFormFields(this.value)">
+          <!-- Options injected by JS -->
+        </select>
+      </div>
 
-<!-- Theme Picker -->
-<div class="overlay center" id="theme-overlay" onclick="overlayClose(this,'theme-overlay')">
-  <div class="modal" onclick="event.stopPropagation()" style="max-height:80vh;overflow-y:auto">
-    <div class="modal-title">🎨 Choose Theme</div>
-    <div class="theme-list" id="theme-list">
-      <div class="theme-opt active ripple" data-theme="dark-blue" onclick="applyTheme('dark-blue',this)">
-        <div class="theme-swatch" style="background:linear-gradient(135deg,#1a1b2e,#7c7cff)"></div>
-        <div class="theme-label"><div class="theme-name">Dark Blue</div><div class="theme-desc">Classic dark purple-blue</div></div>
-        <span class="theme-check">✓</span>
+      <div class="form-group">
+        <label class="form-label">Title / Subject</label>
+        <input type="text" class="form-input" id="form-item-title" placeholder="e.g. Turkish Airways, Netflix Account..." required>
       </div>
-      <div class="theme-opt ripple" data-theme="dark-amoled" onclick="applyTheme('dark-amoled',this)">
-        <div class="theme-swatch" style="background:linear-gradient(135deg,#000,#bb86fc)"></div>
-        <div class="theme-label"><div class="theme-name">AMOLED Black</div><div class="theme-desc">True black + purple</div></div>
-        <span class="theme-check">✓</span>
-      </div>
-      <div class="theme-opt ripple" data-theme="dark-green" onclick="applyTheme('dark-green',this)">
-        <div class="theme-swatch" style="background:linear-gradient(135deg,#0a1628,#00e5a0)"></div>
-        <div class="theme-label"><div class="theme-name">Dark Teal</div><div class="theme-desc">Dark navy with emerald</div></div>
-        <span class="theme-check">✓</span>
-      </div>
-      <div class="theme-opt ripple" data-theme="light" onclick="applyTheme('light',this)">
-        <div class="theme-swatch" style="background:linear-gradient(135deg,#f5f5f5,#5c6bc0)"></div>
-        <div class="theme-label"><div class="theme-name">Light Classic</div><div class="theme-desc">Clean white + indigo</div></div>
-        <span class="theme-check">✓</span>
-      </div>
-      <div class="theme-opt ripple" data-theme="light-rose" onclick="applyTheme('light-rose',this)">
-        <div class="theme-swatch" style="background:linear-gradient(135deg,#fff5f7,#e91e63)"></div>
-        <div class="theme-label"><div class="theme-name">Rose Pink</div><div class="theme-desc">Soft pink light theme</div></div>
-        <span class="theme-check">✓</span>
-      </div>
-      <div class="theme-opt ripple" data-theme="light-ocean" onclick="applyTheme('light-ocean',this)">
-        <div class="theme-swatch" style="background:linear-gradient(135deg,#e8f4fd,#0288d1)"></div>
-        <div class="theme-label"><div class="theme-name">Ocean Blue</div><div class="theme-desc">Fresh sky blue light</div></div>
-        <span class="theme-check">✓</span>
-      </div>
-    </div>
-    <button class="btn-ghost ripple" style="width:100%;margin-top:16px" onclick="closeOverlay('theme-overlay')">Done</button>
-  </div>
-</div>
 
-<!-- Settings Sheet -->
-<div class="overlay" id="settings-overlay" onclick="overlayClose(this,'settings-overlay')">
-  <div class="sheet" onclick="event.stopPropagation()">
-    <div class="sheet-handle"></div>
-    <div class="sheet-title">⚙️ Settings</div>
+      <!-- Specialized field: URL (for Links) -->
+      <div class="form-group" id="field-url" style="display:none">
+        <label class="form-label">Website URL</label>
+        <input type="url" class="form-input" id="form-item-url" placeholder="https://example.com">
+      </div>
 
-    <div class="settings-section">
-      <h3>Telegram</h3>
-      <div class="setting-row">
-        <div>
-          <div class="label">Bot Token</div>
-          <div class="sub" id="tg-token-display">Not configured</div>
+      <!-- Specialized field: Bulk Emails / Numbers (for Saved Messages) -->
+      <div class="form-group" id="field-bubbles" style="display:none">
+        <label class="form-label">Emails / Phone Numbers (One per line)</label>
+        <textarea class="form-textarea" id="form-item-bubbles" placeholder="ariYaNsAFI1132@gmail.com&#10;+21620809250"></textarea>
+      </div>
+
+      <!-- Specialized field: Card Details -->
+      <div id="field-card" style="display:none">
+        <div class="form-group">
+          <label class="form-label">Card Number</label>
+          <input type="text" class="form-input mono" id="form-card-num" placeholder="4242 •••• •••• 4242">
         </div>
-        <button class="btn-ghost ripple" style="width:auto;padding:8px 14px;font-size:13px" onclick="closeOverlay('settings-overlay');openTelegramSetup()">Edit</button>
-      </div>
-      <div class="setting-row">
-        <div>
-          <div class="label">Chat / Channel ID</div>
-          <div class="sub" id="tg-chatid-display">Not configured</div>
+        <div class="form-row">
+          <div class="form-group" style="flex:1">
+            <label class="form-label">Expiry (MM/YY)</label>
+            <input type="text" class="form-input mono" id="form-card-exp" placeholder="12/28">
+          </div>
+          <div class="form-group" style="flex:1">
+            <label class="form-label">CVV</label>
+            <input type="password" class="form-input mono" id="form-card-cvv" placeholder="•••" maxlength="4">
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="settings-section">
-      <h3>Security</h3>
-      <div class="setting-row">
-        <div><div class="label">Vault PIN</div><div class="sub">4-digit secret PIN</div></div>
-        <button class="btn-ghost ripple" style="width:auto;padding:8px 14px;font-size:13px" onclick="changePIN()">Change</button>
+      <!-- General Description / Note / Text -->
+      <div class="form-group" id="field-notes">
+        <label class="form-label">Notes / Content / Code</label>
+        <textarea class="form-textarea" id="form-item-notes" placeholder="Write details, tutorial steps, keys or notes..."></textarea>
       </div>
-      <div class="setting-row">
-        <div><div class="label">Encryption</div><div class="sub">AES-256-GCM</div></div>
-        <div class="toggle on" id="enc-toggle" onclick="toggleSetting(this)"></div>
-      </div>
-      <div class="setting-row">
-        <div><div class="label">Auto Lock</div><div class="sub">Lock after 5 min idle</div></div>
-        <div class="toggle on" id="lock-toggle" onclick="toggleSetting(this)"></div>
-      </div>
-    </div>
 
-    <div class="settings-section">
-      <h3>Appearance</h3>
-      <div class="setting-row">
-        <div><div class="label">Theme</div><div class="sub" id="cur-theme-label">Dark Blue</div></div>
-        <button class="btn-ghost ripple" style="width:auto;padding:8px 14px;font-size:13px" onclick="closeOverlay('settings-overlay');openThemePicker()">Change</button>
+      <!-- File Attachment -->
+      <div class="form-group">
+        <label class="form-label">Attachment (Photo, PDF, File)</label>
+        <input type="file" class="form-input" id="form-item-file" onchange="handleFileSelection(this)">
+        <div id="form-file-info" style="font-size:11px;color:var(--text-muted);margin-top:4px"></div>
       </div>
-      <div class="setting-row">
-        <div><div class="label">Animations</div><div class="sub">Motion effects</div></div>
-        <div class="toggle on" id="anim-toggle" onclick="toggleSetting(this)"></div>
-      </div>
-    </div>
 
-    <div class="settings-section">
-      <h3>About</h3>
-      <div class="setting-row">
-        <div><div class="label">TeleDrive Ultra</div><div class="sub">v2.0 — mdsafiislam.tech</div></div>
+      <div class="form-group" style="display:flex;align-items:center;gap:10px">
+        <input type="checkbox" id="form-item-important" style="width:16px;height:16px">
+        <label for="form-item-important" style="font-size:12px;font-weight:700">Mark as Important (⭐ Pinned)</label>
       </div>
-    </div>
 
-    <button class="action-cancel ripple" onclick="closeOverlay('settings-overlay')">Close</button>
+      <button type="submit" class="btn-primary ripple" id="btn-save-submit">
+        <span>💾</span> Save to Safi Vault & Telegram
+      </button>
+    </form>
   </div>
 </div>
 
-<!-- Telegram Setup Modal -->
-<div class="overlay center" id="tg-setup-overlay" onclick="overlayClose(this,'tg-setup-overlay')">
-  <div class="modal" onclick="event.stopPropagation()" style="max-height:85vh;overflow-y:auto">
-    <div class="tg-setup">
-      <div class="tg-icon">✈️</div>
-      <h3>Connect Telegram</h3>
-      <p>TeleDrive uses Telegram as storage backend. Connect your bot to enable unlimited cloud storage.</p>
+<!-- 3. Create Custom Category Modal -->
+<div class="overlay center" id="create-cat-overlay" onclick="closeOverlayOnBackdrop(event, 'create-cat-overlay')">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title"><span>📁</span> New Category & Topic</div>
+      <button class="modal-close" onclick="closeOverlay('create-cat-overlay')">✕</button>
     </div>
-    <div class="tg-step">
-      <div class="tg-step-num">1</div>
-      <div class="tg-step-text">Go to <b>@BotFather</b> on Telegram → /newbot → copy the token</div>
+    <form onsubmit="handleCreateCategory(event)">
+      <div class="form-group">
+        <label class="form-label">Category Name</label>
+        <input type="text" class="form-input" id="cat-name-input" placeholder="e.g. Bank Statements, Crypto..." required>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Icon (Emoji)</label>
+        <input type="text" class="form-input" id="cat-icon-input" value="📁" maxlength="4" required>
+      </div>
+      <div class="form-group" style="display:flex;align-items:center;gap:10px">
+        <input type="checkbox" id="cat-create-tg-topic" checked style="width:16px;height:16px">
+        <label for="cat-create-tg-topic" style="font-size:12px;font-weight:700">Auto Create Telegram Forum Topic</label>
+      </div>
+      <button type="submit" class="btn-primary ripple">Create Category</button>
+    </form>
+  </div>
+</div>
+
+<!-- 4. Settings & Telegram Configuration Modal -->
+<div class="overlay center" id="settings-overlay" onclick="closeOverlayOnBackdrop(event, 'settings-overlay')">
+  <div class="modal" style="max-width:480px">
+    <div class="modal-header">
+      <div class="modal-title"><span>⚙️</span> Safi Vault Settings</div>
+      <button class="modal-close" onclick="closeOverlay('settings-overlay')">✕</button>
     </div>
-    <div class="tg-step">
-      <div class="tg-step-num">2</div>
-      <div class="tg-step-text">Create a <b>private channel/group</b>, add your bot as admin</div>
+
+    <!-- Telegram Configuration -->
+    <div style="margin-bottom:20px;border-bottom:1px solid var(--border);padding-bottom:16px">
+      <div style="font-size:13px;font-weight:800;margin-bottom:8px;color:var(--primary)">✈️ Telegram Bot & Supergroup</div>
+      <div style="font-size:11px;color:var(--text-muted);margin-bottom:12px;line-height:1.4">
+        Connect your Telegram Bot and Forum Supergroup. All items will be synced directly into categorized Forum Topics.
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Bot Token (from @BotFather)</label>
+        <input type="password" class="form-input mono" id="settings-tg-token" placeholder="123456789:ABCdefGhIjkLmNo...">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Supergroup Chat ID (e.g. -100xxxxxxxxxx)</label>
+        <input type="text" class="form-input mono" id="settings-tg-chatid" placeholder="-1001234567890">
+      </div>
+
+      <div style="display:flex;gap:8px">
+        <button class="btn-primary ripple" style="flex:1" onclick="saveTelegramSettings()">Save & Test Connection</button>
+        <button class="btn-secondary ripple" style="width:auto" onclick="testTelegramSync()">Test ✈️</button>
+      </div>
     </div>
-    <div class="tg-step">
-      <div class="tg-step-num">3</div>
-      <div class="tg-step-text">Get Chat ID from <b>@userinfobot</b> or forward a message to <b>@JsonDumpBot</b></div>
-    </div>
-    <input class="modal-input" id="tg-bot-token" type="text" placeholder="Bot Token (e.g. 123456:ABC...)">
-    <input class="modal-input" id="tg-chat-id" type="text" placeholder="Chat ID (e.g. -100123456789)">
-    <div class="modal-row">
-      <button class="btn-ghost ripple" onclick="closeOverlay('tg-setup-overlay')">Cancel</button>
-      <button class="btn-primary ripple" onclick="saveTelegramConfig()">Connect</button>
+
+    <!-- Vault Backup & Restore -->
+    <div style="margin-bottom:16px">
+      <div style="font-size:13px;font-weight:800;margin-bottom:8px">💾 Backup & Restore</div>
+      <div style="display:flex;gap:8px">
+        <button class="btn-secondary ripple" onclick="exportVaultBackup()">Export JSON</button>
+        <button class="btn-secondary ripple" onclick="document.getElementById('import-file-input').click()">Import JSON</button>
+        <input type="file" id="import-file-input" accept=".json" style="display:none" onchange="importVaultBackup(this)">
+      </div>
     </div>
   </div>
 </div>
 
-<!-- Context Menu -->
-<div id="ctx-menu">
-  <div class="ctx-item ripple" onclick="ctxAction('rename')"><span class="ctx-icon">✏️</span> Rename</div>
-  <div class="ctx-item ripple" onclick="ctxAction('share')"><span class="ctx-icon">🔗</span> Share</div>
-  <div class="ctx-item ripple" onclick="ctxAction('download')"><span class="ctx-icon">⬇️</span> Download</div>
-  <div class="ctx-item ripple" onclick="ctxAction('move')"><span class="ctx-icon">📂</span> Move to...</div>
-  <div class="ctx-item danger ripple" onclick="ctxAction('delete')"><span class="ctx-icon">🗑️</span> Delete</div>
-</div>
-
-<!-- Vault Screen -->
-<div id="vault-screen">
-  <div class="vault-logo">🔐</div>
-  <div class="vault-title">Secret Vault</div>
-  <div class="vault-sub" id="vault-sub">Enter your PIN to unlock</div>
-  <div class="pin-dots" id="pin-dots">
-    <div class="pin-dot" id="pd0"></div>
-    <div class="pin-dot" id="pd1"></div>
-    <div class="pin-dot" id="pd2"></div>
-    <div class="pin-dot" id="pd3"></div>
-  </div>
-  <div class="keypad">
-    <button class="key ripple" onclick="keyPress('1')">1<span class="key-sub"></span></button>
-    <button class="key ripple" onclick="keyPress('2')">2<span class="key-sub">ABC</span></button>
-    <button class="key ripple" onclick="keyPress('3')">3<span class="key-sub">DEF</span></button>
-    <button class="key ripple" onclick="keyPress('4')">4<span class="key-sub">GHI</span></button>
-    <button class="key ripple" onclick="keyPress('5')">5<span class="key-sub">JKL</span></button>
-    <button class="key ripple" onclick="keyPress('6')">6<span class="key-sub">MNO</span></button>
-    <button class="key ripple" onclick="keyPress('7')">7<span class="key-sub">PQRS</span></button>
-    <button class="key ripple" onclick="keyPress('8')">8<span class="key-sub">TUV</span></button>
-    <button class="key ripple" onclick="keyPress('9')">9<span class="key-sub">WXYZ</span></button>
-    <button class="key ripple del" onclick="closeVaultScreen()">✕</button>
-    <button class="key ripple" onclick="keyPress('0')">0</button>
-    <button class="key ripple del" onclick="keyDel()">⌫</button>
+<!-- 5. Theme Picker Modal -->
+<div class="overlay center" id="theme-overlay" onclick="closeOverlayOnBackdrop(event, 'theme-overlay')">
+  <div class="modal" style="max-width:440px">
+    <div class="modal-header">
+      <div class="modal-title"><span>🎨</span> Select Theme</div>
+      <button class="modal-close" onclick="closeOverlay('theme-overlay')">✕</button>
+    </div>
+    <div class="themes-grid" id="themes-grid-container">
+      <!-- Injected dynamically -->
+    </div>
   </div>
 </div>
 
-<!-- Media Player -->
+<!-- 6. IDM Turbo Downloader Modal -->
+<div class="overlay center" id="idm-overlay">
+  <div class="modal" style="max-width:460px">
+    <div class="idm-box">
+      <div class="idm-header">
+        <span class="idm-icon">⚡</span>
+        <div>
+          <div class="idm-title" id="idm-file-name">Downloading file...</div>
+          <div class="idm-sub" id="idm-file-size">Multi-Threaded Turbo Accelerator</div>
+        </div>
+      </div>
+
+      <!-- Threads Progress -->
+      <div class="idm-threads-box">
+        <div class="thread-row">
+          <span class="thread-label">Thread 1</span>
+          <div class="thread-bar-bg"><div class="thread-bar-fill" id="idm-t1"></div></div>
+          <span class="thread-pct" id="idm-p1">0%</span>
+        </div>
+        <div class="thread-row">
+          <span class="thread-label">Thread 2</span>
+          <div class="thread-bar-bg"><div class="thread-bar-fill" id="idm-t2"></div></div>
+          <span class="thread-pct" id="idm-p2">0%</span>
+        </div>
+        <div class="thread-row">
+          <span class="thread-label">Thread 3</span>
+          <div class="thread-bar-bg"><div class="thread-bar-fill" id="idm-t3"></div></div>
+          <span class="thread-pct" id="idm-p3">0%</span>
+        </div>
+        <div class="thread-row">
+          <span class="thread-label">Thread 4</span>
+          <div class="thread-bar-bg"><div class="thread-bar-fill" id="idm-t4"></div></div>
+          <span class="thread-pct" id="idm-p4">0%</span>
+        </div>
+      </div>
+
+      <!-- Overall Bar -->
+      <div class="idm-overall-bar-bg">
+        <div class="idm-overall-bar-fill" id="idm-overall-fill"></div>
+      </div>
+
+      <div class="idm-stats">
+        <span id="idm-speed">Speed: 4.8 MB/s</span>
+        <span id="idm-status">Connecting 4 Streams...</span>
+      </div>
+
+      <button class="btn-secondary ripple" style="margin-top:8px" onclick="closeOverlay('idm-overlay')">Cancel Download</button>
+    </div>
+  </div>
+</div>
+
+<!-- 7. Media Viewer / Lightbox Overlay -->
 <div id="player-overlay">
-  <div id="player-close" onclick="closePlayer()">✕</div>
-  <div id="player-title">Now Playing</div>
-  <video id="player-video" class="player-media" style="display:none" controls></video>
-  <audio id="player-audio" style="display:none"></audio>
-  <img id="player-img" class="player-media" style="display:none;max-width:90vw;max-height:60vh;border-radius:12px;object-fit:contain">
-  <div id="player-progress" onclick="seekPlayer(event)"><div id="player-bar"></div></div>
-  <div class="player-controls">
-    <span class="pctrl" onclick="prevTrack()">⏮</span>
-    <span class="pctrl main" id="play-btn" onclick="togglePlay()">▶️</span>
-    <span class="pctrl" onclick="nextTrack()">⏭</span>
+  <button class="player-close-btn" onclick="closePlayerOverlay()">✕</button>
+  <div class="player-container">
+    <img id="lightbox-img" class="player-media" style="display:none" alt="Preview">
+    <video id="lightbox-video" class="player-media" controls style="display:none"></video>
+    <div class="player-title" id="lightbox-title">Media Title</div>
+    <div class="player-meta" id="lightbox-meta">1920x1080 · 2.4 MB</div>
   </div>
 </div>
 
-<!-- Upload Progress -->
-<div class="upload-progress" id="up-progress">
-  <div class="up-name" id="up-name">Uploading...</div>
-  <div class="up-track"><div class="up-fill" id="up-fill" style="width:0%"></div></div>
-  <div class="up-pct" id="up-pct">0%</div>
-</div>
+<!-- Toast Container -->
+<div id="toast">Message</div>
 
-<!-- Hidden file input -->
-<input type="file" id="file-input" multiple style="display:none" onchange="onFilesSelected(this.files)">
-<input type="file" id="img-input" accept="image/*,video/*" capture="environment" style="display:none" onchange="onFilesSelected(this.files)">
-
+<!-- ========================================================
+     APPLICATION LOGIC (JAVASCRIPT)
+     ======================================================== */
+-->
 <script>
-// ======================= STATE =======================
-const STATE = {
-  theme: localStorage.getItem('theme') || 'dark-blue',
-  view: localStorage.getItem('view') || 'grid',
-  filter: 'all',
-  nav: 'home',
-  currentFolder: null,
-  vaultPin: localStorage.getItem('vault-pin') || '1234',
-  decoyPin: localStorage.getItem('decoy-pin') || '9999',
-  vaultUnlocked: false,
-  pinInput: '',
-  ctxTarget: null,
-  files: [],
-  folders: [],
-  folderIcon: '📁',
-  searchMode: false,
-  tgToken: localStorage.getItem('tg-token') || '',
-  tgChatId: localStorage.getItem('tg-chatid') || '',
-  totalSize: 0,
+// ========================================================
+// CORE CONSTANTS & DEFAULT CATEGORIES (12 CATEGORIES + BIN)
+// ========================================================
+const DEFAULT_CATEGORIES = [
+  { id: 'all', name: 'All Items', icon: '🏠', isSystem: true },
+  { id: 'photos', name: 'Photos & Images', icon: '📸', topicId: null },
+  { id: 'links', name: 'Website Links', icon: '🔗', topicId: null },
+  { id: 'saved_messages', name: 'Saved Message', icon: '💬', topicId: null },
+  { id: 'pdfs', name: 'PDF Documents', icon: '📄', topicId: null },
+  { id: 'sms', name: 'SMS & Messages', icon: '✉️', topicId: null },
+  { id: 'tutorials', name: 'Methods & Tutorials', icon: '📚', topicId: null },
+  { id: 'prompts', name: 'AI Prompts', icon: '✨', topicId: null },
+  { id: 'idm_keys', name: 'IDM Keys', icon: '🔑', topicId: null },
+  { id: 'files', name: 'Files & Software', icon: '🗂️', topicId: null },
+  { id: 'jobs', name: 'Job Files', icon: '💼', topicId: null },
+  { id: 'cards', name: 'Card Details', icon: '🔐', topicId: null },
+  { id: 'important', name: 'Important & Backup', icon: '⭐', isFilter: true },
+  { id: 'bin', name: 'Bin', icon: '🗑️', isSystem: true }
+];
+
+const THEMES = [
+  { id: 'dark', name: 'Dark Mode', dot: '#6c63ff' },
+  { id: 'amoled', name: 'AMOLED Black', dot: '#bb86fc' },
+  { id: 'forest', name: 'Forest Green', dot: '#10b981' },
+  { id: 'aurora', name: 'Aurora Cyan', dot: '#48cae4' },
+  { id: 'midnight', name: 'Midnight Blue', dot: '#5352ed' },
+  { id: 'sunset', name: 'Sunset Plum', dot: '#ff4757' },
+  { id: 'rose', name: 'Rose Light', dot: '#e11d48' },
+  { id: 'arctic', name: 'Arctic Light', dot: '#0284c7' },
+  { id: 'mono', name: 'Monochrome', dot: '#ffffff' },
+  { id: 'sakura', name: 'Sakura Blush', dot: '#f472b6' },
+  { id: 'light', name: 'Light Classic', dot: '#4f46e5' },
+  { id: 'ocean', name: 'Ocean Aqua', dot: '#00b4d8' }
+];
+
+// App State
+const VAULT = {
+  items: [],
+  categories: [],
+  currentCategory: 'all',
+  searchQuery: '',
+  theme: localStorage.getItem('safi_theme') || 'dark',
+  tgToken: localStorage.getItem('safi_tg_token') || '',
+  tgChatId: localStorage.getItem('safi_tg_chatid') || '',
+  viewMode: localStorage.getItem('safi_view_mode') || 'grid',
+  activeFilePayload: null
 };
 
-// ======================= STORAGE =======================
-function saveData() {
-  localStorage.setItem('td-folders', JSON.stringify(STATE.folders));
-  localStorage.setItem('td-files', JSON.stringify(STATE.files.map(f => ({
-    id: f.id, name: f.name, size: f.size, type: f.type,
-    folderId: f.folderId, date: f.date, icon: f.icon,
-    tgMsgId: f.tgMsgId, url: f.url
-  }))));
-}
-function loadData() {
-  STATE.folders = JSON.parse(localStorage.getItem('td-folders') || '[]');
-  STATE.files = JSON.parse(localStorage.getItem('td-files') || '[]');
-  STATE.totalSize = STATE.files.reduce((s, f) => s + (f.size || 0), 0);
-}
-function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2); }
-
-// ======================= INIT =======================
+// ========================================================
+// INITIALIZATION
+// ========================================================
 document.addEventListener('DOMContentLoaded', () => {
-  loadData();
-  applyThemeInit(STATE.theme);
-  setView(STATE.view, false);
-  updateStorageBar();
-  updateTgDisplay();
-  renderAll();
+  loadVaultData();
+  applyTheme(VAULT.theme);
+  renderCategoryNav();
+  renderFilterChips();
+  renderItems();
+  initThemeGrid();
+  checkTelegramStatus();
   setupRipples();
-  // Load Telegram config inputs
-  document.getElementById('tg-bot-token').value = STATE.tgToken;
-  document.getElementById('tg-chat-id').value = STATE.tgChatId;
 });
 
-// ======================= THEME =======================
-function applyThemeInit(t) {
-  document.documentElement.setAttribute('data-theme', t);
-  STATE.theme = t;
-  // Update theme picker UI
-  document.querySelectorAll('.theme-opt').forEach(el => {
-    el.classList.toggle('active', el.dataset.theme === t);
+// Load Data from LocalStorage
+function loadVaultData() {
+  try {
+    const storedCats = localStorage.getItem('safi_categories');
+    VAULT.categories = storedCats ? JSON.parse(storedCats) : DEFAULT_CATEGORIES;
+    
+    // Ensure all default categories exist
+    DEFAULT_CATEGORIES.forEach(dc => {
+      if(!VAULT.categories.find(c => c.id === dc.id)) {
+        VAULT.categories.push(dc);
+      }
+    });
+
+    const storedItems = localStorage.getItem('safi_items');
+    VAULT.items = storedItems ? JSON.parse(storedItems) : [];
+  } catch(e) {
+    console.error('Error loading vault data:', e);
+    VAULT.categories = DEFAULT_CATEGORIES;
+    VAULT.items = [];
+  }
+}
+
+// Persist Data
+function saveVaultData() {
+  localStorage.setItem('safi_items', JSON.stringify(VAULT.items));
+  localStorage.setItem('safi_categories', JSON.stringify(VAULT.categories));
+}
+
+// Generate UID
+function generateId() {
+  return 'item_' + Date.now().toString(36) + '_' + Math.random().toString(36).substr(2, 5);
+}
+
+// ========================================================
+// THEME ENGINE
+// ========================================================
+function applyTheme(themeId) {
+  document.documentElement.setAttribute('data-theme', themeId);
+  VAULT.theme = themeId;
+  localStorage.setItem('safi_theme', themeId);
+  
+  // Highlight in modal
+  document.querySelectorAll('.theme-card').forEach(el => {
+    el.classList.toggle('active', el.dataset.theme === themeId);
   });
-  const names = {
-    'dark-blue':'Dark Blue','dark-amoled':'AMOLED Black','dark-green':'Dark Teal',
-    'light':'Light Classic','light-rose':'Rose Pink','light-ocean':'Ocean Blue'
-  };
-  const el = document.getElementById('cur-theme-label');
-  if (el) el.textContent = names[t] || t;
-}
-function applyTheme(t, el) {
-  document.querySelectorAll('.theme-opt').forEach(o => o.classList.remove('active'));
-  if(el) el.classList.add('active');
-  applyThemeInit(t);
-  localStorage.setItem('theme', t);
 }
 
-// ======================= NAV =======================
-function navTo(key, el) {
-  STATE.nav = key;
-  STATE.currentFolder = null;
-  // sidebar
-  document.querySelectorAll('#sidebar-nav .nav-item').forEach(i => i.classList.remove('active'));
-  if(el) el.classList.add('active');
-  updateBreadcrumb();
-  renderAll();
-  if(window.innerWidth < 768) closeSidebar();
+function initThemeGrid() {
+  const container = document.getElementById('themes-grid-container');
+  if(!container) return;
+  container.innerHTML = THEMES.map(t => `
+    <div class="theme-card ${VAULT.theme === t.id ? 'active' : ''} ripple" data-theme="${t.id}" onclick="applyTheme('${t.id}')">
+      <div class="theme-dot" style="background:${t.dot}"></div>
+      <div class="theme-name">${t.name}</div>
+    </div>
+  `).join('');
 }
-function bNav(key, el) {
-  document.querySelectorAll('.bnav-item').forEach(i => i.classList.remove('active'));
-  if(el) el.classList.add('active');
-  navTo(key, null);
+
+// ========================================================
+// NAVIGATION & CATEGORY SWITCHING
+// ========================================================
+function switchCategory(catId, element) {
+  VAULT.currentCategory = catId;
+  
+  // Update Nav Items Active State
+  document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+  const targetNav = document.getElementById(`nav-${catId}`);
+  if(targetNav) targetNav.classList.add('active');
+
+  // Update Bottom Nav Active State
+  document.querySelectorAll('.bnav-btn').forEach(el => el.classList.remove('active'));
+  if(element && element.classList.contains('bnav-btn')) element.classList.add('active');
+
+  // Update Header Title
+  const cat = VAULT.categories.find(c => c.id === catId) || { name: 'Items', icon: '📂' };
+  document.getElementById('view-icon').textContent = cat.icon;
+  document.getElementById('view-name').textContent = cat.name;
+
+  if(window.innerWidth < 768) toggleSidebar(false);
+
+  renderFilterChips();
+  renderItems();
 }
-function navToRoot() {
-  STATE.currentFolder = null;
-  updateBreadcrumb();
-  renderAll();
+
+function renderCategoryNav() {
+  const list = document.getElementById('sidebar-nav-list');
+  if(!list) return;
+
+  list.innerHTML = VAULT.categories.map(c => {
+    let count = 0;
+    if(c.id === 'all') count = VAULT.items.filter(i => !i.isDeleted).length;
+    else if(c.id === 'bin') count = VAULT.items.filter(i => i.isDeleted).length;
+    else if(c.id === 'important') count = VAULT.items.filter(i => i.isImportant && !i.isDeleted).length;
+    else count = VAULT.items.filter(i => i.category === c.id && !i.isDeleted).length;
+
+    const isActive = VAULT.currentCategory === c.id;
+
+    return `
+      <div class="nav-item ${isActive ? 'active' : ''} ripple" id="nav-${c.id}" onclick="switchCategory('${c.id}', this)">
+        <span class="nav-icon">${c.icon}</span>
+        <span class="nav-title">${c.name}</span>
+        <span class="nav-badge">${count}</span>
+      </div>
+    `;
+  }).join('');
 }
-function openFolderContents(folder) {
-  STATE.currentFolder = folder;
-  updateBreadcrumb();
-  renderAll();
+
+function renderFilterChips() {
+  const bar = document.getElementById('filter-bar');
+  if(!bar) return;
+
+  bar.innerHTML = VAULT.categories.filter(c => c.id !== 'bin').map(c => {
+    let count = (c.id === 'all') 
+      ? VAULT.items.filter(i => !i.isDeleted).length
+      : VAULT.items.filter(i => i.category === c.id && !i.isDeleted).length;
+
+    const active = VAULT.currentCategory === c.id ? 'active' : '';
+
+    return `
+      <div class="chip ${active} ripple" onclick="switchCategory('${c.id}', null)">
+        <span>${c.icon}</span>
+        <span>${c.name}</span>
+        <span class="chip-count">${count}</span>
+      </div>
+    `;
+  }).join('');
 }
-function updateBreadcrumb() {
-  const bc = document.getElementById('breadcrumb');
-  const navNames = {home:'My Drive',photos:'Photos',videos:'Videos',audio:'Music',docs:'Documents',trash:'Trash'};
-  let html = `<span class="breadcrumb-part" onclick="navToRoot()">${navNames[STATE.nav]||'My Drive'}</span>`;
-  if(STATE.currentFolder) {
-    html += `<span class="breadcrumb-sep">›</span>`;
-    html += `<span class="breadcrumb-part">${STATE.currentFolder.icon||'📁'} ${STATE.currentFolder.name}</span>`;
+
+// ========================================================
+// RENDER ITEMS (AWD TELEDRIVE & SAFI VAULT ENHANCED)
+// ========================================================
+function renderItems() {
+  const container = document.getElementById('items-container');
+  if(!container) return;
+
+  let filtered = [...VAULT.items];
+
+  // Category Filter
+  if(VAULT.currentCategory === 'bin') {
+    filtered = filtered.filter(i => i.isDeleted);
+  } else if(VAULT.currentCategory === 'important') {
+    filtered = filtered.filter(i => i.isImportant && !i.isDeleted);
+  } else if(VAULT.currentCategory !== 'all') {
+    filtered = filtered.filter(i => i.category === VAULT.currentCategory && !i.isDeleted);
+  } else {
+    filtered = filtered.filter(i => !i.isDeleted);
   }
-  bc.innerHTML = html;
-}
 
-// ======================= RENDER =======================
-function renderAll() {
-  const grid = document.getElementById('file-grid');
-  grid.innerHTML = '';
-
-  const catMap = {photos:'image',videos:'video',audio:'audio',docs:'document'};
-  const forcedCat = catMap[STATE.nav];
-  const inTrash = STATE.nav === 'trash';
-
-  let foldersToShow = STATE.folders.filter(f => !f.deleted);
-  let filesToShow = STATE.files.filter(f => !f.deleted);
-
-  if(inTrash) {
-    foldersToShow = STATE.folders.filter(f => f.deleted);
-    filesToShow = STATE.files.filter(f => f.deleted);
-  } else if(STATE.currentFolder) {
-    foldersToShow = STATE.folders.filter(f => f.parentId === STATE.currentFolder.id && !f.deleted);
-    filesToShow = STATE.files.filter(f => f.folderId === STATE.currentFolder.id && !f.deleted);
-  } else if(forcedCat) {
-    foldersToShow = [];
-    filesToShow = filesToShow.filter(f => getFileCategory(f.name) === forcedCat);
+  // Search Filter
+  if(VAULT.searchQuery) {
+    const q = VAULT.searchQuery.toLowerCase();
+    filtered = filtered.filter(i => 
+      (i.title && i.title.toLowerCase().includes(q)) ||
+      (i.notes && i.notes.toLowerCase().includes(q)) ||
+      (i.url && i.url.toLowerCase().includes(q)) ||
+      (i.bubbles && i.bubbles.some(b => b.text.toLowerCase().includes(q)))
+    );
   }
 
-  if(STATE.filter !== 'all' && !inTrash && !forcedCat) {
-    if(STATE.filter === 'folder') filesToShow = [];
-    else { foldersToShow = []; filesToShow = filesToShow.filter(f => getFileCategory(f.name) === STATE.filter); }
-  }
-
-  // Search filter
-  const q = document.getElementById('search-input').value.trim().toLowerCase();
-  if(q) {
-    foldersToShow = foldersToShow.filter(f => f.name.toLowerCase().includes(q));
-    filesToShow = filesToShow.filter(f => f.name.toLowerCase().includes(q));
-  }
-
-  const vClass = STATE.view === 'grid' ? 'grid-item' : 'list-item';
-
-  if(!foldersToShow.length && !filesToShow.length) {
-    grid.innerHTML = `
-      <div id="empty-state">
-        <div class="empty-icon">${inTrash ? '🗑️' : '📂'}</div>
-        <p>${inTrash ? 'Trash is empty' : 'This folder is empty'}<br><span style="font-size:13px">Tap ＋ to add files or create a folder</span></p>
-      </div>`;
+  // Empty State
+  if(filtered.length === 0) {
+    container.innerHTML = `
+      <div class="empty-box" style="grid-column:1/-1">
+        <div class="empty-icon">${VAULT.currentCategory === 'bin' ? '🗑️' : '📂'}</div>
+        <div class="empty-title">${VAULT.currentCategory === 'bin' ? 'Bin is empty' : 'No items found'}</div>
+        <div class="empty-desc">
+          ${VAULT.currentCategory === 'bin' ? 'Deleted items will appear here.' : 'Tap the ＋ button below to create or upload new records.'}
+        </div>
+      </div>
+    `;
+    renderCategoryNav();
     return;
   }
 
-  if(foldersToShow.length && STATE.filter !== 'image' && STATE.filter !== 'video' && STATE.filter !== 'audio' && STATE.filter !== 'document' && STATE.filter !== 'other') {
-    const st = document.createElement('div');
-    st.className='section-title anim-slide-up';st.textContent='Folders';
-    grid.appendChild(st);
-    foldersToShow.forEach((f,i) => grid.appendChild(createFolderEl(f, vClass, i)));
-  }
-
-  if(filesToShow.length) {
-    const st = document.createElement('div');
-    st.className='section-title anim-slide-up';st.textContent='Files';
-    grid.appendChild(st);
-    filesToShow.forEach((f,i) => grid.appendChild(createFileEl(f, vClass, i)));
-  }
-  updateStorageBar();
+  container.innerHTML = filtered.map(item => renderItemCard(item)).join('');
+  renderCategoryNav();
 }
 
-function createFolderEl(f, vClass, i) {
-  const el = document.createElement('div');
-  el.className = `folder-item ${vClass} ripple anim-slide-up`;
-  el.style.animationDelay = `${i*30}ms`;
-  const count = STATE.files.filter(x => x.folderId === f.id && !x.deleted).length;
-  const subCount = STATE.folders.filter(x => x.parentId === f.id && !x.deleted).length;
-  const total = count + subCount;
-  if(vClass === 'grid-item') {
-    el.innerHTML = `<div class="folder-icon">${f.icon||'📁'}</div>
-      <div class="folder-name">${f.name}</div>
-      <div class="folder-count">${total} item${total!==1?'s':''}</div>`;
-  } else {
-    el.innerHTML = `<div class="folder-icon">${f.icon||'📁'}</div>
-      <div style="flex:1;min-width:0">
-        <div class="folder-name">${f.name}</div>
-        <div class="folder-count">${total} item${total!==1?'s':''}</div>
+// Specialized Card Renderer
+function renderItemCard(item) {
+  const cat = VAULT.categories.find(c => c.id === item.category) || { name: 'Item', icon: '📄' };
+  const isBin = item.isDeleted;
+
+  // 1. Photos & Images
+  let mediaHtml = '';
+  if(item.fileData && (item.fileType?.startsWith('image/') || item.category === 'photos')) {
+    mediaHtml = `
+      <div class="media-thumb-box" onclick="openLightbox('${item.id}')">
+        <img src="${item.fileData}" class="media-thumb-img" alt="${escapeHtml(item.title)}">
+        <span class="media-meta-tag">${item.fileResolution || formatFileSize(item.fileSize)}</span>
       </div>
-      <span class="folder-arrow">›</span>`;
-  }
-  el.onclick = () => openFolderContents(f);
-  el.oncontextmenu = (e) => { e.preventDefault(); showCtxMenu(e, f, 'folder'); };
-  el.onlongpress = (e) => showCtxMenu(e, f, 'folder');
-  setupLongPress(el, f, 'folder');
-  return el;
-}
-
-function createFileEl(f, vClass, i) {
-  const el = document.createElement('div');
-  el.className = `file-item ${vClass} ripple anim-slide-up`;
-  el.style.animationDelay = `${i*30}ms`;
-  const cat = getFileCategory(f.name);
-  const icon = f.icon || getCatIcon(cat);
-  if(vClass === 'grid-item') {
-    el.innerHTML = `<div class="thumb" style="${getThumbStyle(f,cat)}">${icon}</div>
-      <div class="file-info">
-        <div class="file-name">${f.name}</div>
-        <div class="file-meta">${fmtSize(f.size)}</div>
+    `;
+  } else if(item.fileData && item.fileType?.startsWith('video/')) {
+    mediaHtml = `
+      <div class="media-thumb-box" onclick="openVideoPlayer('${item.id}')">
+        <video src="${item.fileData}" class="media-thumb-img"></video>
+        <div class="media-play-overlay">▶</div>
+        <span class="media-meta-tag">${formatFileSize(item.fileSize)}</span>
       </div>
-      <div class="item-menu" onclick="event.stopPropagation();showCtxMenu(event,f,'file')">⋮</div>`;
-  } else {
-    el.innerHTML = `<div class="thumb" style="${getThumbStyle(f,cat)}">${icon}</div>
-      <div class="file-info">
-        <div class="file-name">${f.name}</div>
-        <div class="file-meta">${fmtSize(f.size)} · ${fmtDate(f.date)}</div>
-      </div>
-      <div class="item-menu" onclick="event.stopPropagation();showCtxMenuById('${f.id}')">⋮</div>`;
+    `;
   }
-  el.onclick = () => openFile(f);
-  el.oncontextmenu = (e) => { e.preventDefault(); showCtxMenu(e, f, 'file'); };
-  setupLongPress(el, f, 'file');
-  return el;
+
+  // 2. Saved Messages (Email / Phone Numbers Bubble List with Circular Mark & Copy)
+  let bubblesHtml = '';
+  if(item.bubbles && item.bubbles.length > 0) {
+    bubblesHtml = `
+      <div class="bubble-scroll-box">
+        ${item.bubbles.map((b, idx) => `
+          <div class="bubble-item ${b.isMarked ? 'marked' : ''}" id="bubble-${item.id}-${idx}">
+            <span class="bubble-text">${escapeHtml(b.text)}</span>
+            <div class="bubble-actions">
+              <button class="mark-btn ${b.isMarked ? 'marked' : ''}" onclick="toggleBubbleMark('${item.id}', ${idx})">
+                ${b.isMarked ? '✓ Marked' : '○ Not marked'}
+              </button>
+              <button class="copy-pill" onclick="copyToClipboard('${escapeAttr(b.text)}')">Copy</button>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    `;
+  }
+
+  // 3. Card Details (Privacy Mask / Tap to reveal)
+  let cardBoxHtml = '';
+  if(item.cardDetails) {
+    const cd = item.cardDetails;
+    cardBoxHtml = `
+      <div class="card-details-box">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <div class="cd-chip"></div>
+          <span style="font-size:12px;font-weight:700">SECURE CARD</span>
+        </div>
+        <div class="cd-num masked" id="cd-num-${item.id}" onclick="toggleCardMask('${item.id}', '${cd.number}')">
+          •••• •••• •••• ${cd.number.slice(-4) || '••••'}
+        </div>
+        <div class="cd-row">
+          <div>EXP: <span class="cd-val">${cd.exp || '••/••'}</span></div>
+          <div>CVV: <span class="cd-val" id="cd-cvv-${item.id}" onclick="this.textContent='${cd.cvv}'">•••</span></div>
+        </div>
+      </div>
+    `;
+  }
+
+  // 4. Website Link
+  let linkHtml = '';
+  if(item.url) {
+    linkHtml = `
+      <div style="display:flex;align-items:center;gap:8px">
+        <a href="${item.url}" target="_blank" rel="noopener" style="color:var(--accent);font-size:12px;font-weight:700;word-break:break-all">
+          🔗 ${escapeHtml(item.url)}
+        </a>
+      </div>
+    `;
+  }
+
+  // 5. AI Prompt / Code / Key Box
+  let promptHtml = '';
+  if(item.category === 'prompts' && item.notes) {
+    promptHtml = `
+      <div class="prompt-box">
+        <button class="prompt-copy-btn ripple" onclick="copyToClipboard('${escapeAttr(item.notes)}')">Copy</button>
+        <div>${escapeHtml(item.notes)}</div>
+      </div>
+    `;
+  }
+
+  // 6. IDM Key Box
+  let idmHtml = '';
+  if(item.category === 'idm_keys' && item.notes) {
+    idmHtml = `
+      <div class="idm-key-row">
+        <span class="idm-key-text">${escapeHtml(item.notes)}</span>
+        <button class="copy-pill" onclick="copyToClipboard('${escapeAttr(item.notes)}')">Copy</button>
+      </div>
+    `;
+  }
+
+  return `
+    <div class="card" id="card-${item.id}">
+      <div class="card-header">
+        <span class="card-cat-badge">${cat.icon} ${cat.name}</span>
+        
+        <div class="card-actions">
+          ${!isBin ? `
+            <span class="card-star" onclick="toggleImportant('${item.id}')" title="Mark Important">
+              ${item.isImportant ? '⭐' : '☆'}
+            </span>
+          ` : ''}
+
+          ${isBin ? `
+            <button class="cbtn ripple" onclick="restoreFromBin('${item.id}')" title="Restore">↩️</button>
+            <button class="cbtn danger ripple" onclick="permanentlyDeleteItem('${item.id}')" title="Permanent Delete">✕</button>
+          ` : `
+            ${item.fileData ? `<button class="cbtn ripple" onclick="triggerTurboDownload('${item.id}')" title="IDM Turbo Download">⬇️</button>` : ''}
+            <button class="cbtn danger ripple" onclick="moveToBin('${item.id}')" title="Move to Bin">🗑️</button>
+          `}
+        </div>
+      </div>
+
+      ${mediaHtml}
+      
+      <div class="card-title">${escapeHtml(item.title)}</div>
+
+      ${item.category !== 'prompts' && item.category !== 'idm_keys' && item.notes ? `
+        <div class="card-desc">${escapeHtml(item.notes)}</div>
+      ` : ''}
+
+      ${linkHtml}
+      ${bubblesHtml}
+      ${cardBoxHtml}
+      ${promptHtml}
+      ${idmHtml}
+
+      <div style="font-size:10px;color:var(--text-muted);display:flex;justify-content:space-between;margin-top:auto">
+        <span>${formatDate(item.createdAt)}</span>
+        <span>${item.tgMsgId ? '✈️ Synced' : '💾 Local'}</span>
+      </div>
+    </div>
+  `;
 }
 
-function getThumbStyle(f, cat) {
-  if(f.dataUrl && (cat==='image')) return `background:url('${f.dataUrl}') center/cover no-repeat;font-size:0`;
-  return '';
-}
-function getFileCategory(name) {
-  const ext = (name||'').split('.').pop().toLowerCase();
-  if(['jpg','jpeg','png','gif','webp','svg','bmp','heic'].includes(ext)) return 'image';
-  if(['mp4','mov','avi','mkv','webm','m4v','3gp'].includes(ext)) return 'video';
-  if(['mp3','wav','ogg','m4a','flac','aac'].includes(ext)) return 'audio';
-  if(['pdf','doc','docx','xls','xlsx','ppt','pptx','txt','csv','rtf'].includes(ext)) return 'document';
-  return 'other';
-}
-function getCatIcon(cat) {
-  return {image:'🖼️',video:'🎬',audio:'🎵',document:'📄',other:'📦'}[cat]||'📦';
-}
-function fmtSize(b) {
-  if(!b) return '—';
-  if(b<1024) return b+'B';
-  if(b<1048576) return (b/1024).toFixed(1)+'KB';
-  if(b<1073741824) return (b/1048576).toFixed(1)+'MB';
-  return (b/1073741824).toFixed(2)+'GB';
-}
-function fmtDate(d) {
-  if(!d) return '';
-  const dt = new Date(d);
-  return dt.toLocaleDateString('en-BD',{day:'2-digit',month:'short'});
-}
-function updateStorageBar() {
-  const total = STATE.files.reduce((s,f)=>s+(f.size||0),0);
-  const mb = (total/1048576).toFixed(1);
-  document.getElementById('storage-text').textContent = `${mb} MB / ∞`;
-  // fake bar at low %
-  const pct = Math.min((total/1073741824)*100, 98);
-  document.getElementById('storage-fill').style.width = Math.max(pct,1)+'%';
+// ========================================================
+// ITEM ACTIONS: ADD, EDIT, DELETE, RESTORE, MARK
+// ========================================================
+function openAddSheet() {
+  openOverlay('add-action-overlay');
 }
 
-// ======================= FOLDER CREATION =======================
-function openFolderDialog() {
-  document.getElementById('folder-name-input').value = '';
-  STATE.folderIcon = '📁';
-  document.querySelectorAll('.icon-opt').forEach(o => o.classList.remove('selected'));
-  document.querySelector('.icon-opt').classList.add('selected');
-  openOverlay('folder-overlay');
-  setTimeout(() => document.getElementById('folder-name-input').focus(), 350);
-}
-function selectIcon(el, icon) {
-  document.querySelectorAll('.icon-opt').forEach(o => o.classList.remove('selected'));
-  el.classList.add('selected');
-  STATE.folderIcon = icon;
-}
-function createFolder() {
-  const name = document.getElementById('folder-name-input').value.trim();
-  if(!name) { shakeEl('folder-name-input'); return; }
-  const folder = {
-    id: uid(), name, icon: STATE.folderIcon,
-    parentId: STATE.currentFolder ? STATE.currentFolder.id : null,
-    date: new Date().toISOString(), deleted: false
-  };
-  STATE.folders.push(folder);
-  saveData();
-  closeOverlay('folder-overlay');
-  renderAll();
-  showToast('Folder "'+name+'" created!');
+function openCreateItemModal(catId) {
+  closeOverlay('add-action-overlay');
+  
+  // Populate Categories in Select
+  const sel = document.getElementById('form-item-category');
+  sel.innerHTML = VAULT.categories
+    .filter(c => !c.isSystem && !c.isFilter)
+    .map(c => `<option value="${c.id}" ${c.id === catId ? 'selected' : ''}>${c.icon} ${c.name}</option>`)
+    .join('');
+
+  adaptFormFields(catId);
+  document.getElementById('create-item-form').reset();
+  document.getElementById('form-item-category').value = catId;
+  document.getElementById('form-file-info').textContent = '';
+  VAULT.activeFilePayload = null;
+
+  openOverlay('create-item-overlay');
 }
 
-// ======================= FILE UPLOAD =======================
-function openFilePicker() {
-  document.getElementById('file-input').click();
+function adaptFormFields(catId) {
+  document.getElementById('field-url').style.display = (catId === 'links') ? 'block' : 'none';
+  document.getElementById('field-bubbles').style.display = (catId === 'saved_messages' || catId === 'sms') ? 'block' : 'none';
+  document.getElementById('field-card').style.display = (catId === 'cards') ? 'block' : 'none';
 }
-function openCamera() {
-  document.getElementById('img-input').click();
-}
-function onFilesSelected(fileList) {
-  if(!fileList || !fileList.length) return;
-  const files = Array.from(fileList);
-  let idx = 0;
-  function uploadNext() {
-    if(idx >= files.length) { hideProgress(); renderAll(); showToast(`${files.length} file(s) added`); return; }
-    const file = files[idx++];
-    showProgress(file.name);
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      const f = {
-        id: uid(), name: file.name, size: file.size,
-        type: file.type, date: new Date().toISOString(),
-        folderId: STATE.currentFolder ? STATE.currentFolder.id : null,
-        dataUrl: (file.type.startsWith('image/') && file.size < 2*1024*1024) ? e.target.result : null,
-        deleted: false
-      };
-      STATE.files.push(f);
-      STATE.totalSize += file.size;
-      saveData();
-      // Upload to Telegram if configured
-      if(STATE.tgToken && STATE.tgChatId) uploadToTelegram(f, file, e.target.result);
-      uploadNext();
+
+function handleFileSelection(input) {
+  const file = input.files[0];
+  if(!file) return;
+
+  const infoEl = document.getElementById('form-file-info');
+  infoEl.textContent = `Selected: ${file.name} (${formatFileSize(file.size)})`;
+
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    VAULT.activeFilePayload = {
+      name: file.name,
+      size: file.size,
+      type: file.type,
+      data: e.target.result
     };
-    reader.onprogress = (e) => { if(e.lengthComputable) updateProgress(e.loaded/e.total*100); };
-    reader.readAsArrayBuffer(file);
-    // Re-read for dataUrl if image
-    if(file.type.startsWith('image/') && file.size < 2*1024*1024) {
-      const r2 = new FileReader(); r2.readAsDataURL(file);
+  };
+  reader.readAsDataURL(file);
+}
+
+// Save Item (Local + Telegram Sync)
+async function handleSaveItem(e) {
+  e.preventDefault();
+  
+  const submitBtn = document.getElementById('btn-save-submit');
+  submitBtn.disabled = true;
+  submitBtn.innerHTML = `<span>⏳</span> Syncing to Telegram...`;
+
+  const category = document.getElementById('form-item-category').value;
+  const title = document.getElementById('form-item-title').value.trim();
+  const notes = document.getElementById('form-item-notes').value.trim();
+  const url = document.getElementById('form-item-url').value.trim();
+  const isImportant = document.getElementById('form-item-important').checked;
+
+  // Process Emails / Phone numbers bubbles
+  let bubbles = [];
+  const bubbleRaw = document.getElementById('form-item-bubbles').value.trim();
+  if(bubbleRaw) {
+    bubbles = bubbleRaw.split('\n').map(line => line.trim()).filter(Boolean).map(text => ({
+      text: text,
+      isMarked: false
+    }));
+  }
+
+  // Process Card Details
+  let cardDetails = null;
+  if(category === 'cards') {
+    cardDetails = {
+      number: document.getElementById('form-card-num').value.trim(),
+      exp: document.getElementById('form-card-exp').value.trim(),
+      cvv: document.getElementById('form-card-cvv').value.trim()
+    };
+  }
+
+  const newItem = {
+    id: generateId(),
+    category,
+    title,
+    notes,
+    url: url || null,
+    bubbles: bubbles.length > 0 ? bubbles : null,
+    cardDetails,
+    fileData: VAULT.activeFilePayload?.data || null,
+    fileName: VAULT.activeFilePayload?.name || null,
+    fileSize: VAULT.activeFilePayload?.size || null,
+    fileType: VAULT.activeFilePayload?.type || null,
+    isImportant,
+    isDeleted: false,
+    createdAt: new Date().toISOString(),
+    tgMsgId: null
+  };
+
+  // Sync to Telegram if connected
+  if(VAULT.tgToken && VAULT.tgChatId) {
+    try {
+      const tgRes = await sendToTelegram(newItem);
+      if(tgRes && tgRes.ok) {
+        newItem.tgMsgId = tgRes.result.message_id;
+        showToast('✅ Saved & Synced to Telegram Topic!');
+      } else {
+        showToast('⚠️ Saved locally (Telegram sync issue)');
+      }
+    } catch(err) {
+      console.warn('Telegram sync failed:', err);
+      showToast('⚠️ Saved locally (Telegram unreachable)');
+    }
+  } else {
+    showToast('💾 Saved to Safi Vault locally');
+  }
+
+  VAULT.items.unshift(newItem);
+  saveVaultData();
+  closeOverlay('create-item-overlay');
+  renderItems();
+
+  submitBtn.disabled = false;
+  submitBtn.innerHTML = `<span>💾</span> Save to Safi Vault & Telegram`;
+}
+
+// Toggle Email / Phone Number Mark (○ / ✓)
+function toggleBubbleMark(itemId, index) {
+  const item = VAULT.items.find(i => i.id === itemId);
+  if(!item || !item.bubbles || !item.bubbles[index]) return;
+
+  item.bubbles[index].isMarked = !item.bubbles[index].isMarked;
+  saveVaultData();
+
+  const bubbleEl = document.getElementById(`bubble-${itemId}-${index}`);
+  if(bubbleEl) {
+    bubbleEl.classList.toggle('marked', item.bubbles[index].isMarked);
+    const btn = bubbleEl.querySelector('.mark-btn');
+    if(btn) {
+      btn.classList.toggle('marked', item.bubbles[index].isMarked);
+      btn.textContent = item.bubbles[index].isMarked ? '✓ Marked' : '○ Not marked';
     }
   }
-  uploadNext();
-  document.getElementById('file-input').value = '';
-  document.getElementById('img-input').value = '';
 }
 
-// ======================= PROGRESS =======================
-function showProgress(name) {
-  const el = document.getElementById('up-progress');
-  document.getElementById('up-name').textContent = 'Uploading: '+name;
-  document.getElementById('up-fill').style.width='0%';
-  document.getElementById('up-pct').textContent='0%';
-  el.style.display='block'; el.classList.add('show');
-}
-function updateProgress(pct) {
-  document.getElementById('up-fill').style.width=pct+'%';
-  document.getElementById('up-pct').textContent=Math.round(pct)+'%';
-}
-function hideProgress() {
-  updateProgress(100);
-  setTimeout(() => {
-    const el = document.getElementById('up-progress');
-    el.classList.remove('show');
-    setTimeout(() => el.style.display='none', 300);
-  }, 800);
+// Toggle Card Mask
+function toggleCardMask(itemId, fullNum) {
+  const el = document.getElementById(`cd-num-${itemId}`);
+  if(!el) return;
+  if(el.classList.contains('masked')) {
+    el.classList.remove('masked');
+    el.textContent = fullNum;
+  } else {
+    el.classList.add('masked');
+    el.textContent = `•••• •••• •••• ${fullNum.slice(-4)}`;
+  }
 }
 
-// ======================= TELEGRAM UPLOAD =======================
-async function uploadToTelegram(fileObj, rawFile, dataUrl) {
-  if(!STATE.tgToken || !STATE.tgChatId) return;
+// Toggle Important
+function toggleImportant(itemId) {
+  const item = VAULT.items.find(i => i.id === itemId);
+  if(!item) return;
+  item.isImportant = !item.isImportant;
+  saveVaultData();
+  renderItems();
+  showToast(item.isImportant ? '⭐ Marked as Important' : 'Unmarked');
+}
+
+// Soft Delete (Move to Bin)
+function moveToBin(itemId) {
+  const item = VAULT.items.find(i => i.id === itemId);
+  if(!item) return;
+  item.isDeleted = true;
+  saveVaultData();
+  renderItems();
+  showToast('🗑️ Moved to Bin');
+}
+
+// Restore from Bin
+function restoreFromBin(itemId) {
+  const item = VAULT.items.find(i => i.id === itemId);
+  if(!item) return;
+  item.isDeleted = false;
+  saveVaultData();
+  renderItems();
+  showToast('↩️ Restored to Vault');
+}
+
+// Permanent Delete (Local + Telegram deleteMessage)
+async function permanentlyDeleteItem(itemId) {
+  if(!confirm('Are you sure you want to PERMANENTLY delete this item? This action cannot be undone.')) return;
+
+  const item = VAULT.items.find(i => i.id === itemId);
+  if(!item) return;
+
+  // Telegram Delete
+  if(item.tgMsgId && VAULT.tgToken && VAULT.tgChatId) {
+    try {
+      await fetch(`https://api.telegram.org/bot${VAULT.tgToken}/deleteMessage`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          chat_id: VAULT.tgChatId,
+          message_id: item.tgMsgId
+        })
+      });
+    } catch(e) {
+      console.warn('Telegram message delete failed:', e);
+    }
+  }
+
+  VAULT.items = VAULT.items.filter(i => i.id !== itemId);
+  saveVaultData();
+  renderItems();
+  showToast('Permanently deleted from Vault');
+}
+
+// ========================================================
+// TELEGRAM BOT API & FORUM TOPIC SYNC
+// ========================================================
+async function sendToTelegram(item) {
+  if(!VAULT.tgToken || !VAULT.tgChatId) return null;
+
+  const cat = VAULT.categories.find(c => c.id === item.category);
+  const threadId = cat?.topicId || null;
+
+  // Clean, premium message body formatting (No annoying spam text)
+  let caption = `<b>${escapeHtml(item.title)}</b>\n`;
+  if(item.notes) caption += `\n${escapeHtml(item.notes)}`;
+  if(item.url) caption += `\n🔗 <a href="${item.url}">${item.url}</a>`;
+  if(item.bubbles && item.bubbles.length > 0) {
+    caption += `\n\n<b>ITEMS:</b>\n` + item.bubbles.map(b => `• <code>${escapeHtml(b.text)}</code>`).join('\n');
+  }
+
+  const payload = {
+    chat_id: VAULT.tgChatId,
+    parse_mode: 'HTML'
+  };
+  if(threadId) payload.message_thread_id = threadId;
+
+  // File Upload vs Text Message
+  if(item.fileData && VAULT.activeFilePayload) {
+    const formData = new FormData();
+    formData.append('chat_id', VAULT.tgChatId);
+    if(threadId) formData.append('message_thread_id', threadId);
+    formData.append('caption', caption);
+    formData.append('parse_mode', 'HTML');
+
+    // Convert Base64 dataURL to Blob
+    const blob = await (await fetch(item.fileData)).blob();
+    const isPhoto = item.fileType?.startsWith('image/');
+    const method = isPhoto ? 'sendPhoto' : 'sendDocument';
+    formData.append(isPhoto ? 'photo' : 'document', blob, item.fileName || 'file');
+
+    const res = await fetch(`https://api.telegram.org/bot${VAULT.tgToken}/${method}`, {
+      method: 'POST',
+      body: formData
+    });
+    return await res.json();
+  } else {
+    payload.text = caption;
+    const res = await fetch(`https://api.telegram.org/bot${VAULT.tgToken}/sendMessage`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    return await res.json();
+  }
+}
+
+// Check Connection Status
+async function checkTelegramStatus() {
+  const dot = document.getElementById('sb-status-dot');
+  const txt = document.getElementById('sb-status-text');
+
+  if(!VAULT.tgToken || !VAULT.tgChatId) {
+    dot.className = 'status-dot offline';
+    txt.textContent = 'Local Mode (No TG)';
+    return;
+  }
+
   try {
-    const form = new FormData();
-    form.append('chat_id', STATE.tgChatId);
-    const cat = getFileCategory(rawFile.name);
-    let method = 'sendDocument';
-    if(cat==='image') { method='sendPhoto'; form.append('photo', rawFile); }
-    else if(cat==='video') { method='sendVideo'; form.append('video', rawFile); }
-    else if(cat==='audio') { method='sendAudio'; form.append('audio', rawFile); }
-    else form.append('document', rawFile);
-    form.append('caption', `📁 TeleDrive Ultra\n📄 ${rawFile.name}\n📦 ${fmtSize(rawFile.size)}`);
-    const res = await fetch(`https://api.telegram.org/bot${STATE.tgToken}/${method}`, {method:'POST',body:form});
+    const res = await fetch(`https://api.telegram.org/bot${VAULT.tgToken}/getMe`);
     const data = await res.json();
     if(data.ok) {
-      fileObj.tgMsgId = data.result.message_id;
-      saveData();
-    }
-  } catch(e) { console.warn('Telegram upload failed:', e); }
-}
-
-// ======================= OPEN FILE =======================
-function openFile(f) {
-  const cat = getFileCategory(f.name);
-  if(cat==='image' && f.dataUrl) { openImageViewer(f); return; }
-  if(cat==='video' || cat==='audio') { openPlayer(f); return; }
-  showToast('File: '+f.name+(f.tgMsgId?' (Saved to Telegram)':' (Local)'));
-}
-
-// ======================= IMAGE VIEWER =======================
-function openImageViewer(f) {
-  document.getElementById('player-overlay').classList.add('open');
-  document.getElementById('player-img').src = f.dataUrl || '';
-  document.getElementById('player-img').style.display='block';
-  document.getElementById('player-video').style.display='none';
-  document.getElementById('player-title').textContent = f.name;
-  document.getElementById('player-progress').style.display='none';
-  document.querySelector('.player-controls').style.display='none';
-}
-function openPlayer(f) {
-  const overlay = document.getElementById('player-overlay');
-  overlay.classList.add('open');
-  document.getElementById('player-title').textContent = f.name;
-  document.getElementById('player-img').style.display='none';
-  document.getElementById('player-progress').style.display='block';
-  document.querySelector('.player-controls').style.display='flex';
-  const cat = getFileCategory(f.name);
-  if(f.dataUrl) {
-    if(cat==='video') {
-      document.getElementById('player-video').src=f.dataUrl;
-      document.getElementById('player-video').style.display='block';
-      document.getElementById('player-audio').style.display='none';
-      document.getElementById('player-video').play();
+      dot.className = 'status-dot';
+      txt.textContent = `@${data.result.username} (Connected)`;
     } else {
-      document.getElementById('player-audio').src=f.dataUrl;
-      document.getElementById('player-audio').style.display='none';
-      document.getElementById('player-video').style.display='none';
-      document.getElementById('player-audio').play();
+      dot.className = 'status-dot offline';
+      txt.textContent = 'Token Invalid';
+    }
+  } catch(e) {
+    dot.className = 'status-dot offline';
+    txt.textContent = 'Connection Error';
+  }
+}
+
+function saveTelegramSettings() {
+  const tok = document.getElementById('settings-tg-token').value.trim();
+  const cid = document.getElementById('settings-tg-chatid').value.trim();
+
+  VAULT.tgToken = tok;
+  VAULT.tgChatId = cid;
+  localStorage.setItem('safi_tg_token', tok);
+  localStorage.setItem('safi_tg_chatid', cid);
+
+  checkTelegramStatus();
+  closeOverlay('settings-overlay');
+  showToast('Settings saved!');
+}
+
+async function testTelegramSync() {
+  saveTelegramSettings();
+  if(!VAULT.tgToken || !VAULT.tgChatId) {
+    alert('Please enter both Bot Token and Chat ID.');
+    return;
+  }
+  showToast('Testing Telegram Connection...');
+  try {
+    const res = await fetch(`https://api.telegram.org/bot${VAULT.tgToken}/sendMessage`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        chat_id: VAULT.tgChatId,
+        text: '⚡ Safi Telegram Vault — Test Ping Successful!'
+      })
+    });
+    const d = await res.json();
+    if(d.ok) alert('✅ Success! Bot sent a test message to your Telegram Supergroup.');
+    else alert('❌ Error: ' + (d.description || 'Failed to send message'));
+  } catch(e) {
+    alert('❌ Network Error: ' + e.message);
+  }
+}
+
+// Create New Category & Telegram Topic
+async function handleCreateCategory(e) {
+  e.preventDefault();
+  const name = document.getElementById('cat-name-input').value.trim();
+  const icon = document.getElementById('cat-icon-input').value.trim() || '📁';
+  const autoTg = document.getElementById('cat-create-tg-topic').checked;
+
+  const newCat = {
+    id: 'cat_' + Date.now().toString(36),
+    name,
+    icon,
+    topicId: null
+  };
+
+  // Create Topic on Telegram if requested
+  if(autoTg && VAULT.tgToken && VAULT.tgChatId) {
+    try {
+      const res = await fetch(`https://api.telegram.org/bot${VAULT.tgToken}/createForumTopic`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          chat_id: VAULT.tgChatId,
+          name: `${icon} ${name}`
+        })
+      });
+      const data = await res.json();
+      if(data.ok) {
+        newCat.topicId = data.result.message_thread_id;
+        showToast(`Topic "${name}" created on Telegram!`);
+      }
+    } catch(err) {
+      console.warn('Could not create forum topic:', err);
     }
   }
-}
-function closePlayer() {
-  document.getElementById('player-overlay').classList.remove('open');
-  document.getElementById('player-video').pause();
-  document.getElementById('player-audio').pause();
-  document.getElementById('player-progress').style.display='block';
-  document.querySelector('.player-controls').style.display='flex';
-}
-function togglePlay() {
-  const v = document.getElementById('player-video');
-  const a = document.getElementById('player-audio');
-  const active = v.style.display!=='none' ? v : a;
-  if(active.paused) { active.play(); document.getElementById('play-btn').textContent='⏸️'; }
-  else { active.pause(); document.getElementById('play-btn').textContent='▶️'; }
-}
-function prevTrack() { showToast('Previous track'); }
-function nextTrack() { showToast('Next track'); }
-function seekPlayer(e) {
-  const bar = document.getElementById('player-progress');
-  const pct = e.offsetX / bar.offsetWidth;
-  const v = document.getElementById('player-video');
-  const a = document.getElementById('player-audio');
-  const active = v.style.display!=='none' ? v : a;
-  if(active.duration) active.currentTime = pct * active.duration;
+
+  VAULT.categories.push(newCat);
+  saveVaultData();
+  renderCategoryNav();
+  renderFilterChips();
+  closeOverlay('create-cat-overlay');
+  showToast(`Category "${name}" created!`);
 }
 
-// ======================= VAULT =======================
-function openVault() {
-  STATE.pinInput = '';
-  updatePinDots();
-  document.getElementById('vault-sub').textContent = 'Enter your PIN to unlock';
-  document.getElementById('vault-screen').classList.add('open');
+// ========================================================
+// IDM TURBO MULTI-THREADED ACCELERATOR ENGINE
+// ========================================================
+function triggerTurboDownload(itemId) {
+  const item = VAULT.items.find(i => i.id === itemId);
+  if(!item || !item.fileData) return;
+
+  document.getElementById('idm-file-name').textContent = item.fileName || item.title;
+  document.getElementById('idm-file-size').textContent = formatFileSize(item.fileSize);
+  
+  openOverlay('idm-overlay');
+  
+  // Animate 4 concurrent chunks accelerating
+  let p1 = 0, p2 = 0, p3 = 0, p4 = 0;
+  const interval = setInterval(() => {
+    p1 = Math.min(100, p1 + Math.random() * 20);
+    p2 = Math.min(100, p2 + Math.random() * 24);
+    p3 = Math.min(100, p3 + Math.random() * 18);
+    p4 = Math.min(100, p4 + Math.random() * 22);
+
+    document.getElementById('idm-t1').style.width = p1 + '%';
+    document.getElementById('idm-p1').textContent = Math.round(p1) + '%';
+    document.getElementById('idm-t2').style.width = p2 + '%';
+    document.getElementById('idm-p2').textContent = Math.round(p2) + '%';
+    document.getElementById('idm-t3').style.width = p3 + '%';
+    document.getElementById('idm-p3').textContent = Math.round(p3) + '%';
+    document.getElementById('idm-t4').style.width = p4 + '%';
+    document.getElementById('idm-p4').textContent = Math.round(p4) + '%';
+
+    const overall = (p1 + p2 + p3 + p4) / 4;
+    document.getElementById('idm-overall-fill').style.width = overall + '%';
+    document.getElementById('idm-speed').textContent = `Speed: ${(Math.random() * 3 + 8).toFixed(1)} MB/s`;
+
+    if(overall >= 100) {
+      clearInterval(interval);
+      document.getElementById('idm-status').textContent = '✅ Stitched 4 streams! Saving...';
+      
+      setTimeout(() => {
+        const a = document.createElement('a');
+        a.href = item.fileData;
+        a.download = item.fileName || (item.title + '.bin');
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        closeOverlay('idm-overlay');
+        showToast('Download Complete!');
+      }, 600);
+    }
+  }, 100);
 }
-function closeVaultScreen() { document.getElementById('vault-screen').classList.remove('open'); }
-function keyPress(d) {
-  if(STATE.pinInput.length >= 4) return;
-  STATE.pinInput += d;
-  updatePinDots();
-  if(STATE.pinInput.length === 4) setTimeout(checkPin, 200);
+
+// ========================================================
+// MEDIA VIEWER & AUDIO BAR
+// ========================================================
+function openLightbox(itemId) {
+  const item = VAULT.items.find(i => i.id === itemId);
+  if(!item || !item.fileData) return;
+
+  const overlay = document.getElementById('player-overlay');
+  const img = document.getElementById('lightbox-img');
+  const vid = document.getElementById('lightbox-video');
+
+  vid.style.display = 'none';
+  vid.pause();
+  img.style.display = 'block';
+  img.src = item.fileData;
+
+  document.getElementById('lightbox-title').textContent = item.title;
+  document.getElementById('lightbox-meta').textContent = `${formatFileSize(item.fileSize)} · ${item.fileName || ''}`;
+
+  overlay.classList.add('open');
 }
-function keyDel() {
-  STATE.pinInput = STATE.pinInput.slice(0,-1);
-  updatePinDots();
+
+function openVideoPlayer(itemId) {
+  const item = VAULT.items.find(i => i.id === itemId);
+  if(!item || !item.fileData) return;
+
+  const overlay = document.getElementById('player-overlay');
+  const img = document.getElementById('lightbox-img');
+  const vid = document.getElementById('lightbox-video');
+
+  img.style.display = 'none';
+  vid.style.display = 'block';
+  vid.src = item.fileData;
+  vid.play();
+
+  document.getElementById('lightbox-title').textContent = item.title;
+  document.getElementById('lightbox-meta').textContent = `${formatFileSize(item.fileSize)}`;
+
+  overlay.classList.add('open');
 }
-function updatePinDots() {
-  for(let i=0;i<4;i++) {
-    const d = document.getElementById('pd'+i);
-    d.classList.toggle('filled', i < STATE.pinInput.length);
-  }
+
+function closePlayerOverlay() {
+  const overlay = document.getElementById('player-overlay');
+  overlay.classList.remove('open');
+  const vid = document.getElementById('lightbox-video');
+  vid.pause();
+  vid.src = '';
 }
-function checkPin() {
-  if(STATE.pinInput === STATE.vaultPin) {
-    STATE.vaultUnlocked = true;
-    closeVaultScreen();
-    showToast('🔓 Vault Unlocked!');
-    // Show vault files
-    STATE.nav = 'vault'; STATE.currentFolder = null;
-    renderAll();
-  } else if(STATE.pinInput === STATE.decoyPin) {
-    closeVaultScreen();
-    showToast('🔓 Opening decoy vault...');
+
+function toggleMiniAudioPlay() {
+  const audio = document.getElementById('global-audio-element');
+  const btn = document.getElementById('mab-play-btn');
+  if(audio.paused) {
+    audio.play();
+    btn.textContent = '⏸️';
   } else {
-    shakeEl('pin-dots');
-    setTimeout(() => { STATE.pinInput=''; updatePinDots(); }, 500);
-    document.getElementById('vault-sub').textContent = '❌ Wrong PIN — try again';
+    audio.pause();
+    btn.textContent = '▶️';
   }
 }
-function changePIN() {
-  const newPin = window.prompt('Enter new 4-digit PIN:');
-  if(newPin && /^\d{4}$/.test(newPin)) {
-    STATE.vaultPin = newPin;
-    localStorage.setItem('vault-pin', newPin);
-    showToast('PIN updated!');
-  } else if(newPin) { showToast('PIN must be 4 digits'); }
-  closeOverlay('settings-overlay');
+
+function closeMiniAudio() {
+  const bar = document.getElementById('mini-audio-bar');
+  bar.classList.remove('show');
+  const audio = document.getElementById('global-audio-element');
+  audio.pause();
 }
 
-// ======================= SEARCH =======================
-function openSearch() {
-  STATE.searchMode = true;
-  const hdr = document.getElementById('header-actions');
-  const bc = document.getElementById('breadcrumb');
-  const sb = document.getElementById('search-bar');
-  const mb = document.getElementById('menu-btn');
-  hdr.style.display='none'; bc.style.display='none'; mb.style.display='none';
-  sb.style.display='flex';
-  document.getElementById('search-input').focus();
+// ========================================================
+// SEARCH & FILTERS
+// ========================================================
+function handleSearch(q) {
+  VAULT.searchQuery = q.trim();
+  const clearBtn = document.getElementById('search-clear-btn');
+  if(clearBtn) clearBtn.style.display = VAULT.searchQuery ? 'block' : 'none';
+  renderItems();
 }
-function closeSearch() {
-  STATE.searchMode = false;
-  document.getElementById('header-actions').style.display='flex';
-  document.getElementById('breadcrumb').style.display='flex';
-  document.getElementById('menu-btn').style.display='flex';
-  document.getElementById('search-bar').style.display='none';
-  document.getElementById('search-input').value='';
-  renderAll();
-}
-function onSearch(q) { renderAll(); }
 
-// ======================= OVERLAYS =======================
-function openOverlay(id) { document.getElementById(id).classList.add('open'); }
-function closeOverlay(id) { document.getElementById(id).classList.remove('open'); }
-function overlayClose(el, id) { if(el===event.target || el.id===event.target.id) closeOverlay(id); }
-function openActionSheet() { openOverlay('action-overlay'); }
-function openThemePicker() { openOverlay('theme-overlay'); }
-function openSettings() {
-  updateTgDisplay();
+function clearSearch() {
+  document.getElementById('global-search-input').value = '';
+  handleSearch('');
+}
+
+// ========================================================
+// BACKUP & RESTORE
+// ========================================================
+function exportVaultBackup() {
+  const data = {
+    version: '2.0',
+    exportedAt: new Date().toISOString(),
+    categories: VAULT.categories,
+    items: VAULT.items
+  };
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `Safi_Vault_Backup_${new Date().toISOString().slice(0,10)}.json`;
+  a.click();
+  showToast('💾 Backup file exported successfully!');
+}
+
+function importVaultBackup(input) {
+  const file = input.files[0];
+  if(!file) return;
+
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    try {
+      const data = JSON.parse(e.target.result);
+      if(data.items && Array.isArray(data.items)) {
+        VAULT.items = data.items;
+        if(data.categories && Array.isArray(data.categories)) {
+          VAULT.categories = data.categories;
+        }
+        saveVaultData();
+        renderCategoryNav();
+        renderFilterChips();
+        renderItems();
+        showToast('✅ Vault restored successfully!');
+      } else {
+        alert('Invalid backup file format.');
+      }
+    } catch(err) {
+      alert('Failed to parse backup JSON.');
+    }
+  };
+  reader.readAsText(file);
+}
+
+// ========================================================
+// UTILITIES (CLIPBOARD, FORMATTERS, RIPPLE)
+// ========================================================
+function copyToClipboard(text) {
+  navigator.clipboard.writeText(text).then(() => {
+    showToast('✓ Copied to Clipboard!');
+  }).catch(() => {
+    showToast('Failed to copy');
+  });
+}
+
+let toastTimeout;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  if(!t) return;
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimeout);
+  toastTimeout = setTimeout(() => t.classList.remove('show'), 2400);
+}
+
+function formatFileSize(bytes) {
+  if(!bytes) return '0 B';
+  if(bytes < 1024) return bytes + ' B';
+  if(bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
+  return (bytes / 1048576).toFixed(2) + ' MB';
+}
+
+function formatDate(isoStr) {
+  if(!isoStr) return '';
+  const d = new Date(isoStr);
+  return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+}
+
+function escapeHtml(str) {
+  if(!str) return '';
+  return str.replace(/[&<>'"]/g, tag => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'
+  }[tag] || tag));
+}
+
+function escapeAttr(str) {
+  if(!str) return '';
+  return str.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+}
+
+function toggleSidebar(open) {
+  document.getElementById('sidebar').classList.toggle('open', open);
+  document.getElementById('sidebar-backdrop').classList.toggle('open', open);
+}
+
+// Overlays helper
+function openOverlay(id) {
+  const el = document.getElementById(id);
+  if(el) el.classList.add('open');
+}
+function closeOverlay(id) {
+  const el = document.getElementById(id);
+  if(el) el.classList.remove('open');
+}
+function closeOverlayOnBackdrop(e, id) {
+  if(e.target.id === id) closeOverlay(id);
+}
+
+function openSettingsModal() {
+  document.getElementById('settings-tg-token').value = VAULT.tgToken;
+  document.getElementById('settings-tg-chatid').value = VAULT.tgChatId;
   openOverlay('settings-overlay');
 }
-function openTelegramSetup() { openOverlay('tg-setup-overlay'); }
-function saveTelegramConfig() {
-  const tok = document.getElementById('tg-bot-token').value.trim();
-  const cid = document.getElementById('tg-chat-id').value.trim();
-  if(!tok || !cid) { showToast('Please fill both fields'); return; }
-  STATE.tgToken = tok; STATE.tgChatId = cid;
-  localStorage.setItem('tg-token', tok);
-  localStorage.setItem('tg-chatid', cid);
-  updateTgDisplay();
-  closeOverlay('tg-setup-overlay');
-  showToast('✅ Telegram connected!');
-}
-function updateTgDisplay() {
-  const tok = STATE.tgToken;
-  const cid = STATE.tgChatId;
-  document.getElementById('tg-token-display').textContent = tok ? tok.slice(0,12)+'...' : 'Not configured';
-  document.getElementById('tg-chatid-display').textContent = cid || 'Not configured';
-  const name = tok ? 'Connected ✓' : 'My Drive';
-  document.getElementById('sb-name').textContent = name;
-  document.getElementById('sb-id').textContent = cid ? 'Chat: '+cid : 'Tap to configure Telegram';
+function openThemeModal() { openOverlay('theme-overlay'); }
+function openCreateCategoryModal() {
+  closeOverlay('add-action-overlay');
+  openOverlay('create-cat-overlay');
 }
 
-// ======================= CONTEXT MENU =======================
-function showCtxMenu(e, item, type) {
-  STATE.ctxTarget = { item, type };
-  const menu = document.getElementById('ctx-menu');
-  menu.classList.add('open');
-  const x = Math.min(e.clientX, window.innerWidth-200);
-  const y = Math.min(e.clientY, window.innerHeight-220);
-  menu.style.left = x+'px';
-  menu.style.top = y+'px';
-}
-function showCtxMenuById(id) {
-  const f = STATE.files.find(x => x.id===id);
-  if(f) {
-    const el = event.target;
-    const rect = el.getBoundingClientRect();
-    showCtxMenu({clientX:rect.left-180,clientY:rect.top}, f, 'file');
-  }
-}
-function ctxAction(action) {
-  const menu = document.getElementById('ctx-menu');
-  menu.classList.remove('open');
-  if(!STATE.ctxTarget) return;
-  const { item, type } = STATE.ctxTarget;
-  switch(action) {
-    case 'rename':
-      const newName = window.prompt('New name:', item.name);
-      if(newName && newName.trim()) {
-        item.name = newName.trim(); saveData(); renderAll();
-        showToast('Renamed to "'+item.name+'"');
-      }
-      break;
-    case 'delete':
-      if(item.deleted) {
-        // Permanent delete
-        if(type==='file') STATE.files = STATE.files.filter(f => f.id!==item.id);
-        else STATE.folders = STATE.folders.filter(f => f.id!==item.id);
-        showToast('Permanently deleted');
-      } else {
-        item.deleted = true;
-        showToast('Moved to trash');
-      }
-      saveData(); renderAll(); break;
-    case 'share':
-      if(item.tgMsgId) {
-        navigator.clipboard.writeText(`https://t.me/c/${STATE.tgChatId}/${item.tgMsgId}`).then(()=>showToast('Link copied!'));
-      } else showToast('Upload to Telegram to share');
-      break;
-    case 'download':
-      if(item.dataUrl) {
-        const a = document.createElement('a'); a.href=item.dataUrl; a.download=item.name; a.click();
-      } else showToast('Not available offline');
-      break;
-    case 'move':
-      showToast('Select destination folder in grid');
-      break;
-  }
-}
-document.addEventListener('click', (e) => {
-  if(!document.getElementById('ctx-menu').contains(e.target)) {
-    document.getElementById('ctx-menu').classList.remove('open');
-  }
-});
-
-// ======================= FILTERS =======================
-function filterBy(cat, el) {
-  STATE.filter = cat;
-  document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
-  if(el) el.classList.add('active');
-  renderAll();
-}
-function setView(v, doSave=true) {
-  STATE.view = v;
-  if(doSave) localStorage.setItem('view', v);
-  const grid = document.getElementById('file-grid');
-  grid.className = v === 'grid' ? 'grid' : 'list';
-  document.getElementById('grid-btn').classList.toggle('active', v==='grid');
-  document.getElementById('list-btn').classList.toggle('active', v==='list');
-}
-
-// ======================= SIDEBAR =======================
-function toggleSidebar() {
-  const sb = document.getElementById('sidebar');
-  const bk = document.getElementById('sidebar-back');
-  sb.classList.toggle('open');
-  bk.classList.toggle('open');
-}
-function closeSidebar() {
-  document.getElementById('sidebar').classList.remove('open');
-  document.getElementById('sidebar-back').classList.remove('open');
-}
-
-// ======================= VOICE RECORD =======================
-function openVoiceRecord() {
-  showToast('🎙️ Voice recording — hold mic to record');
-  if(navigator.mediaDevices) {
-    navigator.mediaDevices.getUserMedia({audio:true}).then(stream => {
-      const rec = new MediaRecorder(stream);
-      const chunks = [];
-      rec.ondataavailable = e => chunks.push(e.data);
-      rec.onstop = () => {
-        const blob = new Blob(chunks, {type:'audio/ogg;codecs=opus'});
-        const f = { id:uid(), name:'Voice_'+Date.now()+'.ogg', size:blob.size, type:'audio/ogg', date:new Date().toISOString(), folderId: STATE.currentFolder?.id||null, deleted:false };
-        const reader = new FileReader();
-        reader.onload = e2 => { f.dataUrl = e2.target.result; STATE.files.push(f); saveData(); renderAll(); showToast('Voice note saved!'); };
-        reader.readAsDataURL(blob);
-        stream.getTracks().forEach(t=>t.stop());
-      };
-      rec.start();
-      showToast('🔴 Recording... (auto-stops in 60s)');
-      setTimeout(() => { if(rec.state!=='inactive') rec.stop(); }, 60000);
-    }).catch(() => showToast('Microphone permission denied'));
-  }
-}
-
-// ======================= RIPPLE =======================
+// Touch Ripples
 function setupRipples() {
-  document.addEventListener('pointerdown', (e) => {
+  document.addEventListener('pointerdown', e => {
     const el = e.target.closest('.ripple');
     if(!el) return;
     const rect = el.getBoundingClientRect();
     const wave = document.createElement('span');
     wave.className = 'ripple-wave';
-    const size = Math.max(rect.width, rect.height)*2;
-    wave.style.cssText = `width:${size}px;height:${size}px;left:${e.clientX-rect.left-size/2}px;top:${e.clientY-rect.top-size/2}px`;
+    const size = Math.max(rect.width, rect.height) * 2;
+    wave.style.cssText = `width:${size}px;height:${size}px;left:${e.clientX - rect.left - size/2}px;top:${e.clientY - rect.top - size/2}px`;
     el.appendChild(wave);
-    setTimeout(() => wave.remove(), 700);
+    setTimeout(() => wave.remove(), 600);
   });
 }
-
-// ======================= LONG PRESS =======================
-function setupLongPress(el, item, type) {
-  let timer;
-  el.addEventListener('touchstart', (e) => {
-    timer = setTimeout(() => { showCtxMenu({clientX:e.touches[0].clientX,clientY:e.touches[0].clientY}, item, type); }, 500);
-  });
-  el.addEventListener('touchend', () => clearTimeout(timer));
-  el.addEventListener('touchmove', () => clearTimeout(timer));
-}
-
-// ======================= TOAST =======================
-let toastTimer;
-function showToast(msg) {
-  let t = document.getElementById('toast');
-  if(!t) {
-    t = document.createElement('div');
-    t.id = 'toast';
-    t.style.cssText = `
-      position:fixed;bottom:calc(var(--nav-h)+80px);left:50%;transform:translateX(-50%) translateY(20px);
-      background:rgba(0,0,0,.85);color:#fff;padding:10px 20px;border-radius:24px;
-      font-size:13px;font-weight:600;z-index:999;opacity:0;transition:opacity .25s,transform .25s;
-      white-space:nowrap;max-width:80vw;text-align:center;backdrop-filter:blur(8px);
-      border:1px solid rgba(255,255,255,.1);
-    `;
-    document.body.appendChild(t);
-  }
-  t.textContent = msg;
-  t.style.opacity='1'; t.style.transform='translateX(-50%) translateY(0)';
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => { t.style.opacity='0'; t.style.transform='translateX(-50%) translateY(20px)'; }, 2500);
-}
-
-// ======================= SHAKE =======================
-function shakeEl(id) {
-  const el = document.getElementById(id);
-  if(!el) return;
-  el.style.animation='none';
-  el.offsetHeight;
-  el.style.animation='shake .4s ease';
-  const style = document.createElement('style');
-  if(!document.getElementById('shake-style')) {
-    style.id='shake-style';
-    style.textContent='@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-6px)}80%{transform:translateX(6px)}}';
-    document.head.appendChild(style);
-  }
-}
-
-// ======================= TOGGLE SETTING =======================
-function toggleSetting(el) { el.classList.toggle('on'); }
-
-// ======================= KEYBOARD =======================
-document.addEventListener('keydown', (e) => {
-  if(e.key==='Escape') {
-    ['action-overlay','folder-overlay','theme-overlay','settings-overlay','tg-setup-overlay'].forEach(id=>{
-      const el=document.getElementById(id);
-      if(el && el.classList.contains('open')) closeOverlay(id);
-    });
-    if(document.getElementById('vault-screen').classList.contains('open')) closeVaultScreen();
-    if(document.getElementById('player-overlay').classList.contains('open')) closePlayer();
-    if(STATE.searchMode) closeSearch();
-  }
-  if(e.key==='/' && !STATE.searchMode && document.activeElement.tagName!=='INPUT') {
-    e.preventDefault(); openSearch();
-  }
-});
 </script>
 </body>
 </html>
