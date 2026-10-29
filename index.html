@@ -3,18 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<meta name="theme-color" content="#0d0e1a">
+<meta name="theme-color" content="#0b0c16">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>Safi Telegram Vault</title>
 <link rel="manifest" href="manifest.json">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
 /* ========================================================
-   SAFI TELEGRAM VAULT - DESIGN SYSTEM & TOKENS
+   SAFI TELEGRAM VAULT - ULTRA PREMIUM DESIGN TOKENS
    ======================================================== */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html{height:100%;overflow:hidden;font-size:15px}
@@ -29,144 +29,133 @@ button{border:none;background:none;cursor:pointer}
 code,pre,.mono{font-family:'JetBrains Mono',monospace}
 
 /* Custom Scrollbars */
-::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar{width:5px;height:5px}
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:var(--border);border-radius:6px}
 ::-webkit-scrollbar-thumb:hover{background:var(--text-muted)}
 
 /* ========================================================
-   THEME DEFINITIONS (12 THEMES)
+   THEMES (12 THEMES - LIGHT & DARK)
    ======================================================== */
 :root{
   --header-h:60px;
-  --bnav-h:64px;
-  --sidebar-w:270px;
-  --radius-sm:8px;
-  --radius-md:14px;
-  --radius-lg:20px;
-  --radius-xl:26px;
+  --bnav-h:68px;
+  --sidebar-w:280px;
+  --radius-xs:6px;
+  --radius-sm:10px;
+  --radius-md:16px;
+  --radius-lg:22px;
+  --radius-xl:28px;
   --transition:all .2s cubic-bezier(.4,0,.2,1);
 }
 
-/* 1. Dark (Default) */
 [data-theme="dark"]{
-  --bg:#0c0d16;--surface:#131524;--surface2:#1a1d30;--surface3:#232742;
-  --primary:#6c63ff;--primary-glow:rgba(108,99,255,.3);--primary-text:#fff;
+  --bg:#090a12;--surface:#111322;--surface2:#181b30;--surface3:#222642;
+  --primary:#6c63ff;--primary-glow:rgba(108,99,255,.35);--primary-text:#fff;
   --accent:#00d2ff;--accent-glow:rgba(0,210,255,.25);
-  --text:#f0f2fd;--text-muted:#8d93b8;--border:#242844;
+  --text:#f0f2fd;--text-muted:#8d93b8;--border:#232742;
   --danger:#ff4757;--success:#2ed573;--warning:#ffa502;
-  --card-shadow:0 8px 24px rgba(0,0,0,.4);
-  --overlay:rgba(12,13,22,.82);
+  --card-shadow:0 8px 24px rgba(0,0,0,.45);
+  --overlay:rgba(9,10,18,.86);
 }
-/* 2. AMOLED */
 [data-theme="amoled"]{
-  --bg:#000;--surface:#0a0a0a;--surface2:#121212;--surface3:#1c1c1c;
+  --bg:#000000;--surface:#0a0a0a;--surface2:#121212;--surface3:#1c1c1c;
   --primary:#bb86fc;--primary-glow:rgba(187,134,252,.3);--primary-text:#000;
   --accent:#03dac6;--accent-glow:rgba(3,218,198,.25);
-  --text:#f5f5f5;--text-muted:#7c7c7c;--border:#202020;
+  --text:#f5f5f5;--text-muted:#7c7c7c;--border:#222222;
   --danger:#cf6679;--success:#03dac6;--warning:#ffb74d;
   --card-shadow:0 8px 24px rgba(0,0,0,.85);
   --overlay:rgba(0,0,0,.92);
 }
-/* 3. Forest */
 [data-theme="forest"]{
-  --bg:#07140f;--surface:#0e2019;--surface2:#142d23;--surface3:#1c3d30;
-  --primary:#10b981;--primary-glow:rgba(16,185,129,.3);--primary-text:#052e16;
+  --bg:#06120e;--surface:#0c1f18;--surface2:#122b22;--surface3:#1a3a2e;
+  --primary:#10b981;--primary-glow:rgba(16,185,129,.35);--primary-text:#042315;
   --accent:#34d399;--accent-glow:rgba(52,211,153,.25);
-  --text:#ecfdf5;--text-muted:#6ee7b7;--border:#1f4436;
+  --text:#ecfdf5;--text-muted:#6ee7b7;--border:#1c4234;
   --danger:#f87171;--success:#10b981;--warning:#fbbf24;
   --card-shadow:0 8px 24px rgba(0,0,0,.45);
-  --overlay:rgba(7,20,15,.85);
+  --overlay:rgba(6,18,14,.88);
 }
-/* 4. Aurora */
 [data-theme="aurora"]{
-  --bg:#0b132b;--surface:#1c2541;--surface2:#233055;--surface3:#2c3d6b;
-  --primary:#48cae4;--primary-glow:rgba(72,202,228,.3);--primary-text:#0b132b;
-  --accent:#5bc0be;--accent-glow:rgba(91,192,190,.25);
-  --text:#e0fbfc;--text-muted:#8da9c4;--border:#314470;
-  --danger:#e63946;--success:#06d6a0;--warning:#ffd166;
+  --bg:#081024;--surface:#101d3b;--surface2:#172952;--surface3:#20376d;
+  --primary:#38bdf8;--primary-glow:rgba(56,189,248,.35);--primary-text:#081024;
+  --accent:#2dd4bf;--accent-glow:rgba(45,212,191,.25);
+  --text:#e0f2fe;--text-muted:#7dd3fc;--border:#26437d;
+  --danger:#fb7185;--success:#34d399;--warning:#fde047;
   --card-shadow:0 8px 24px rgba(0,0,0,.5);
-  --overlay:rgba(11,19,43,.85);
+  --overlay:rgba(8,16,36,.88);
 }
-/* 5. Midnight */
 [data-theme="midnight"]{
-  --bg:#090a1a;--surface:#10122e;--surface2:#181b42;--surface3:#222659;
-  --primary:#5352ed;--primary-glow:rgba(83,82,237,.35);--primary-text:#fff;
-  --accent:#70a1ff;--accent-glow:rgba(112,161,255,.3);
-  --text:#e4e7fa;--text-muted:#888db8;--border:#262a5e;
-  --danger:#ff4757;--success:#2ed573;--warning:#ffa502;
-  --card-shadow:0 8px 24px rgba(0,0,0,.6);
-  --overlay:rgba(9,10,26,.88);
+  --bg:#080916;--surface:#0f1128;--surface2:#17193b;--surface3:#202350;
+  --primary:#4f46e5;--primary-glow:rgba(79,70,229,.35);--primary-text:#fff;
+  --accent:#818cf8;--accent-glow:rgba(129,140,248,.3);
+  --text:#eef2ff;--text-muted:#818cf8;--border:#25295c;
+  --danger:#ef4444;--success:#10b981;--warning:#f59e0b;
+  --card-shadow:0 8px 24px rgba(0,0,0,.55);
+  --overlay:rgba(8,9,22,.88);
 }
-/* 6. Sunset */
 [data-theme="sunset"]{
-  --bg:#1a0f18;--surface:#281525;--surface2:#361c32;--surface3:#472442;
-  --primary:#ff4757;--primary-glow:rgba(255,71,87,.35);--primary-text:#fff;
-  --accent:#ffa502;--accent-glow:rgba(255,165,2,.3);
-  --text:#ffedf2;--text-muted:#bd8fa8;--border:#4f2b4a;
-  --danger:#ff4757;--success:#2ed573;--warning:#ffa502;
+  --bg:#170c14;--surface:#241320;--surface2:#331a2d;--surface3:#45233d;
+  --primary:#f43f5e;--primary-glow:rgba(244,63,94,.35);--primary-text:#fff;
+  --accent:#f59e0b;--accent-glow:rgba(245,158,11,.3);
+  --text:#fff1f2;--text-muted:#fda4af;--border:#4d2745;
+  --danger:#f43f5e;--success:#10b981;--warning:#f59e0b;
   --card-shadow:0 8px 24px rgba(0,0,0,.5);
-  --overlay:rgba(26,15,24,.88);
+  --overlay:rgba(23,12,20,.88);
 }
-/* 7. Rose */
 [data-theme="rose"]{
-  --bg:#fff5f7;--surface:#ffffff;--surface2:#fae8ed;--surface3:#f7d5df;
+  --bg:#fff5f7;--surface:#ffffff;--surface2:#fde8ed;--surface3:#fbcfe8;
   --primary:#e11d48;--primary-glow:rgba(225,29,72,.2);--primary-text:#fff;
   --accent:#db2777;--accent-glow:rgba(219,39,119,.2);
-  --text:#2c0c16;--text-muted:#884d61;--border:#f3c4d1;
+  --text:#3f0713;--text-muted:#9f1239;--border:#f9a8d4;
   --danger:#e11d48;--success:#059669;--warning:#d97706;
   --card-shadow:0 8px 24px rgba(225,29,72,.08);
   --overlay:rgba(255,245,247,.88);
 }
-/* 8. Arctic */
 [data-theme="arctic"]{
-  --bg:#f0f8ff;--surface:#ffffff;--surface2:#e2f0fd;--surface3:#cfe4f9;
+  --bg:#f0f9ff;--surface:#ffffff;--surface2:#e0f2fe;--surface3:#bae6fd;
   --primary:#0284c7;--primary-glow:rgba(2,132,199,.2);--primary-text:#fff;
   --accent:#0ea5e9;--accent-glow:rgba(14,165,233,.2);
-  --text:#082f49;--text-muted:#507b9a;--border:#bae0fd;
+  --text:#082f49;--text-muted:#0369a1;--border:#7dd3fc;
   --danger:#e11d48;--success:#059669;--warning:#d97706;
   --card-shadow:0 8px 24px rgba(2,132,199,.08);
-  --overlay:rgba(240,248,255,.88);
+  --overlay:rgba(240,249,255,.88);
 }
-/* 9. Mono */
 [data-theme="mono"]{
-  --bg:#121212;--surface:#1e1e1e;--surface2:#282828;--surface3:#333333;
+  --bg:#121212;--surface:#1c1c1c;--surface2:#262626;--surface3:#333333;
   --primary:#ffffff;--primary-glow:rgba(255,255,255,.2);--primary-text:#000;
-  --accent:#e0e0e0;--accent-glow:rgba(255,255,255,.15);
-  --text:#ffffff;--text-muted:#9e9e9e;--border:#3a3a3a;
-  --danger:#ef5350;--success:#66bb6a;--warning:#ffa726;
+  --accent:#d4d4d4;--accent-glow:rgba(255,255,255,.15);
+  --text:#ffffff;--text-muted:#a3a3a3;--border:#383838;
+  --danger:#f87171;--success:#4ade80;--warning:#fbbf24;
   --card-shadow:0 8px 24px rgba(0,0,0,.6);
   --overlay:rgba(18,18,18,.9);
 }
-/* 10. Sakura */
 [data-theme="sakura"]{
-  --bg:#181218;--surface:#241924;--surface2:#312131;--surface3:#412b41;
-  --primary:#f472b6;--primary-glow:rgba(244,114,182,.3);--primary-text:#181218;
-  --accent:#fb7185;--accent-glow:rgba(251,113,133,.25);
-  --text:#fdf2f8;--text-muted:#b88ba5;--border:#4d334d;
+  --bg:#161016;--surface:#221822;--surface2:#2e202e;--surface3:#3d2a3d;
+  --primary:#ec4899;--primary-glow:rgba(236,72,153,.35);--primary-text:#fff;
+  --accent:#f472b6;--accent-glow:rgba(244,114,182,.25);
+  --text:#fdf2f8;--text-muted:#fbcfe8;--border:#4b334b;
   --danger:#fb7185;--success:#34d399;--warning:#fbbf24;
   --card-shadow:0 8px 24px rgba(0,0,0,.5);
-  --overlay:rgba(24,18,24,.88);
+  --overlay:rgba(22,16,22,.88);
 }
-/* 11. Light */
 [data-theme="light"]{
   --bg:#f8fafc;--surface:#ffffff;--surface2:#f1f5f9;--surface3:#e2e8f0;
   --primary:#4f46e5;--primary-glow:rgba(79,70,229,.2);--primary-text:#fff;
-  --accent:#06b6d4;--accent-glow:rgba(6,182,212,.2);
+  --accent:#0284c7;--accent-glow:rgba(2,132,199,.2);
   --text:#0f172a;--text-muted:#64748b;--border:#cbd5e1;
   --danger:#ef4444;--success:#10b981;--warning:#f59e0b;
   --card-shadow:0 8px 24px rgba(15,23,42,.08);
   --overlay:rgba(248,250,252,.9);
 }
-/* 12. Ocean */
 [data-theme="ocean"]{
-  --bg:#071a24;--surface:#0c2736;--surface2:#11354a;--surface3:#184560;
-  --primary:#00b4d8;--primary-glow:rgba(0,180,216,.3);--primary-text:#071a24;
-  --accent:#48cae4;--accent-glow:rgba(72,202,228,.25);
-  --text:#caf0f8;--text-muted:#7299a9;--border:#1c5270;
-  --danger:#ff6b6b;--success:#51cf66;--warning:#fcc419;
+  --bg:#061720;--surface:#0c2331;--surface2:#123145;--surface3:#19415c;
+  --primary:#06b6d4;--primary-glow:rgba(6,182,212,.35);--primary-text:#061720;
+  --accent:#38bdf8;--accent-glow:rgba(56,189,248,.25);
+  --text:#ecfeff;--text-muted:#67e8f9;--border:#1d4e6f;
+  --danger:#fb7185;--success:#34d399;--warning:#facc15;
   --card-shadow:0 8px 24px rgba(0,0,0,.5);
-  --overlay:rgba(7,26,36,.88);
+  --overlay:rgba(6,23,32,.88);
 }
 
 /* ========================================================
@@ -174,8 +163,8 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
    ======================================================== */
 #app{display:flex;height:100vh;width:100vw;overflow:hidden;position:relative}
 
-/* SIDEBAR (Desktop permanent / Mobile drawer) */
-#sidebar-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:90;display:none;backdrop-filter:blur(4px)}
+/* SIDEBAR */
+#sidebar-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:90;display:none;backdrop-filter:blur(4px)}
 #sidebar{
   width:var(--sidebar-w);min-width:var(--sidebar-w);height:100%;
   background:var(--surface);border-right:1px solid var(--border);
@@ -183,7 +172,7 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
   transition:transform .3s cubic-bezier(.4,0,.2,1);flex-shrink:0;
 }
 .brand{
-  padding:18px 20px 14px;display:flex;align-items:center;gap:12px;
+  padding:16px 18px 12px;display:flex;align-items:center;gap:12px;
   border-bottom:1px solid var(--border);
 }
 .brand-icon{
@@ -193,38 +182,45 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
   font-size:22px;box-shadow:0 4px 14px var(--primary-glow);flex-shrink:0;
 }
 .brand-title{font-size:16px;font-weight:800;letter-spacing:-.2px;line-height:1.2}
-.brand-sub{font-size:11px;color:var(--text-muted);font-weight:500}
+.brand-sub{font-size:11px;color:var(--text-muted);font-weight:600}
 
 /* User Card in Sidebar */
 .user-card{
-  margin:12px 14px 8px;padding:12px;border-radius:var(--radius-md);
+  margin:10px 14px 6px;padding:12px;border-radius:var(--radius-md);
   background:var(--surface2);display:flex;align-items:center;gap:10px;
   cursor:pointer;transition:var(--transition);border:1px solid transparent;
 }
 .user-card:hover{border-color:var(--border);background:var(--surface3)}
 .user-avatar{
-  width:38px;height:38px;border-radius:50%;
+  width:40px;height:40px;border-radius:50%;
   background:linear-gradient(135deg,var(--primary),var(--accent));
   display:flex;align-items:center;justify-content:center;
-  font-weight:700;color:var(--primary-text);font-size:15px;flex-shrink:0;
+  font-weight:800;color:var(--primary-text);font-size:16px;flex-shrink:0;
 }
 .user-info{flex:1;min-width:0}
-.user-name{font-size:13px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.user-status{font-size:11px;color:var(--text-muted);display:flex;align-items:center;gap:5px}
+.user-name{font-size:13px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.user-status{font-size:11px;color:var(--text-muted);display:flex;align-items:center;gap:5px;font-weight:600}
 .status-dot{width:7px;height:7px;border-radius:50%;background:var(--success)}
 .status-dot.offline{background:var(--text-muted)}
 
 /* Sidebar Categories Nav */
-.sidebar-section-title{
-  font-size:10px;font-weight:700;text-transform:uppercase;
-  letter-spacing:.8px;color:var(--text-muted);padding:14px 20px 6px;
+.sidebar-section-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:12px 18px 6px;font-size:10px;font-weight:800;text-transform:uppercase;
+  letter-spacing:.8px;color:var(--text-muted);
 }
+.sidebar-add-topic-btn{
+  font-size:11px;color:var(--primary);cursor:pointer;font-weight:700;
+  display:flex;align-items:center;gap:4px;
+}
+.sidebar-add-topic-btn:hover{text-decoration:underline}
+
 .sidebar-nav{flex:1;overflow-y:auto;padding:4px 10px 10px}
 .nav-item{
-  display:flex;align-items:center;gap:12px;padding:9px 12px;
+  display:flex;align-items:center;gap:10px;padding:8px 12px;
   border-radius:var(--radius-sm);cursor:pointer;color:var(--text-muted);
   font-size:13px;font-weight:600;transition:var(--transition);
-  margin-bottom:2px;user-select:none;
+  margin-bottom:2px;user-select:none;position:relative;
 }
 .nav-item:hover{background:var(--surface2);color:var(--text)}
 .nav-item.active{
@@ -239,17 +235,25 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
 }
 .nav-item.active .nav-badge{background:rgba(255,255,255,.25);color:var(--primary-text)}
 
+/* Delete Icon for Categories */
+.nav-del-btn{
+  width:22px;height:22px;border-radius:50%;display:none;align-items:center;justify-content:center;
+  font-size:11px;color:var(--danger);cursor:pointer;margin-left:4px;transition:var(--transition);
+}
+.nav-item:hover .nav-del-btn{display:flex}
+.nav-del-btn:hover{background:rgba(255,71,87,.2)}
+
 /* Sidebar Bottom */
-.sidebar-footer{padding:12px 14px;border-top:1px solid var(--border);display:flex;gap:8px}
+.sidebar-footer{padding:10px 14px;border-top:1px solid var(--border);display:flex;gap:6px}
 .sbtn{
-  flex:1;padding:9px;border-radius:var(--radius-sm);background:var(--surface2);
-  display:flex;align-items:center;justify-content:center;gap:6px;
-  font-size:12px;font-weight:600;color:var(--text-muted);transition:var(--transition);
+  flex:1;padding:8px 6px;border-radius:var(--radius-sm);background:var(--surface2);
+  display:flex;align-items:center;justify-content:center;gap:5px;
+  font-size:11px;font-weight:700;color:var(--text-muted);transition:var(--transition);
 }
 .sbtn:hover{background:var(--surface3);color:var(--text)}
 
 /* ========================================================
-   MAIN CONTENT AREA
+   MAIN CONTENT VIEWPORT
    ======================================================== */
 #main{flex:1;display:flex;flex-direction:column;min-width:0;height:100%;overflow:hidden;position:relative}
 
@@ -265,26 +269,22 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
 }
 .menu-btn:hover{background:var(--surface2)}
 .header-title-box{flex:1;min-width:0}
-.header-title{font-size:17px;font-weight:800;display:flex;align-items:center;gap:8px;line-height:1.2}
-.header-sub{font-size:11px;color:var(--text-muted);font-weight:500}
+.header-title{font-size:16px;font-weight:800;display:flex;align-items:center;gap:8px;line-height:1.2}
+.header-sub{font-size:11px;color:var(--text-muted);font-weight:600}
 
 /* Header Action Buttons */
 .header-actions{display:flex;align-items:center;gap:6px;flex-shrink:0}
 .hbtn{
   width:36px;height:36px;border-radius:var(--radius-sm);
   display:flex;align-items:center;justify-content:center;
-  font-size:17px;color:var(--text-muted);cursor:pointer;
+  font-size:16px;color:var(--text-muted);cursor:pointer;
   transition:var(--transition);position:relative;
 }
 .hbtn:hover{background:var(--surface2);color:var(--text)}
-.hbtn-badge{
-  position:absolute;top:4px;right:4px;width:7px;height:7px;
-  border-radius:50%;background:var(--danger);
-}
 
 /* Quick Search in Header */
 .search-wrapper{
-  position:relative;display:flex;align-items:center;flex:1;max-width:320px;
+  position:relative;display:flex;align-items:center;flex:1;max-width:300px;
 }
 .search-input{
   width:100%;height:36px;padding:0 12px 0 34px;border-radius:20px;
@@ -303,7 +303,7 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
 }
 #filter-bar::-webkit-scrollbar{display:none}
 .chip{
-  padding:6px 14px;border-radius:20px;font-size:12px;font-weight:600;
+  padding:6px 14px;border-radius:20px;font-size:12px;font-weight:700;
   background:var(--surface2);color:var(--text-muted);cursor:pointer;
   white-space:nowrap;transition:var(--transition);border:1px solid var(--border);
   display:flex;align-items:center;gap:6px;flex-shrink:0;
@@ -313,29 +313,21 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
   background:var(--primary);color:var(--primary-text);border-color:var(--primary);
   box-shadow:0 2px 8px var(--primary-glow);
 }
-.chip-count{font-size:10px;opacity:.8;padding:1px 5px;border-radius:10px;background:rgba(0,0,0,.15)}
-
-.view-controls{margin-left:auto;display:flex;align-items:center;gap:4px;flex-shrink:0}
-.vbtn{
-  width:30px;height:30px;border-radius:6px;display:flex;align-items:center;justify-content:center;
-  font-size:14px;color:var(--text-muted);cursor:pointer;transition:var(--transition);
-}
-.vbtn.active{background:var(--surface3);color:var(--text)}
+.chip-count{font-size:10px;opacity:.85;padding:1px 5px;border-radius:10px;background:rgba(0,0,0,.2)}
 
 /* Content Viewport */
 #content{
-  flex:1;overflow-y:auto;padding:16px 20px calc(var(--bnav-h) + 20px);
+  flex:1;overflow-y:auto;padding:16px 18px calc(var(--bnav-h) + 20px);
 }
 @media(min-width:768px){
   #content{padding:20px 24px}
 }
 
-/* Items Grid & List */
+/* Items Grid */
 .items-container{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
-.items-container.list-mode{display:flex;flex-direction:column;gap:8px}
 
 /* ========================================================
-   SPECIALIZED COMPONENT CARDS
+   CARDS & COMPONENTS
    ======================================================== */
 .card{
   background:var(--surface);border:1px solid var(--border);
@@ -347,10 +339,10 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
 
 .card-header{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
 .card-cat-badge{
-  font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px;
+  font-size:11px;font-weight:800;padding:3px 8px;border-radius:6px;
   background:var(--surface2);color:var(--text-muted);display:inline-flex;align-items:center;gap:4px;
 }
-.card-star{color:var(--warning);font-size:16px;cursor:pointer;transition:transform .15s}
+.card-star{color:var(--warning);font-size:17px;cursor:pointer;transition:transform .15s}
 .card-star:hover{transform:scale(1.2)}
 .card-actions{display:flex;align-items:center;gap:4px}
 .cbtn{
@@ -360,25 +352,47 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
 .cbtn:hover{background:var(--surface2);color:var(--text)}
 .cbtn.danger:hover{background:rgba(255,71,87,.15);color:var(--danger)}
 
-.card-title{font-size:14px;font-weight:700;line-height:1.4;word-break:break-word}
+.card-title{font-size:14px;font-weight:800;line-height:1.4;word-break:break-word}
 .card-desc{font-size:12px;color:var(--text-muted);line-height:1.5;white-space:pre-wrap;word-break:break-word}
 
-/* 1. Service Report Card (Tunisia Air style) */
-.report-card{
-  background:linear-gradient(180deg,var(--surface) 0%,var(--surface2) 100%);
-  border:1px solid var(--border);border-radius:var(--radius-md);overflow:hidden;
+/* 1. REALISTIC CREDIT / DEBIT CARD (FULLY VISIBLE AS REQUESTED) */
+.credit-card-ui{
+  background:linear-gradient(135deg,#1e1e2f 0%,#2d1b4e 50%,#18233c 100%);
+  border:1px solid rgba(255,255,255,.15);border-radius:var(--radius-md);
+  padding:16px;color:#fff;display:flex;flex-direction:column;gap:12px;
+  box-shadow:0 10px 25px rgba(0,0,0,.5);position:relative;overflow:hidden;
 }
-.report-header{
-  padding:12px 14px;background:var(--surface2);border-bottom:1px solid var(--border);
-  display:flex;align-items:center;justify-content:space-between;
+.credit-card-ui::before{
+  content:'';position:absolute;top:-50%;right:-30%;width:180px;height:180px;
+  background:radial-gradient(circle,rgba(255,255,255,.12) 0%,transparent 70%);border-radius:50%;
 }
-.report-title{font-size:13px;font-weight:800;display:flex;align-items:center;gap:6px}
-.report-table{padding:10px 14px;display:flex;flex-direction:column;gap:8px}
-.report-row{display:flex;justify-content:space-between;align-items:center;font-size:12px}
-.report-label{color:var(--text-muted);font-weight:600}
-.report-val{font-weight:700;color:var(--text)}
+.cc-top-row{display:flex;justify-content:space-between;align-items:center}
+.cc-chip{
+  width:36px;height:26px;border-radius:6px;background:linear-gradient(135deg,#e6c875,#d4af37);
+  box-shadow:inset 0 1px 3px rgba(0,0,0,.3);position:relative;display:flex;align-items:center;justify-content:center;
+}
+.cc-chip::after{content:'';width:18px;height:12px;border:1px solid rgba(0,0,0,.25);border-radius:2px}
+.cc-bank{font-size:13px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:#f0f2fd}
 
-/* 2. Email & Phone Bubble List (AWD / Safi Style with Circle Mark & Copy) */
+.cc-number-row{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.cc-number{
+  font-family:'JetBrains Mono',monospace;font-size:16px;font-weight:800;
+  letter-spacing:2px;color:#fff;word-spacing:3px;
+}
+.cc-copy-btn{
+  padding:4px 8px;border-radius:6px;background:rgba(255,255,255,.18);
+  color:#fff;font-size:10px;font-weight:700;cursor:pointer;transition:var(--transition);
+  display:inline-flex;align-items:center;gap:4px;
+}
+.cc-copy-btn:hover{background:rgba(255,255,255,.3)}
+
+.cc-bottom-row{display:flex;justify-content:space-between;align-items:flex-end;margin-top:2px}
+.cc-holder-label{font-size:9px;color:rgba(255,255,255,.6);text-transform:uppercase;font-weight:700}
+.cc-holder-name{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.8px}
+.cc-exp-cvv-box{display:flex;gap:14px;text-align:right}
+.cc-val{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:800}
+
+/* 2. EMAIL / PHONE NUMBER BUBBLE LIST */
 .bubble-scroll-box{
   max-height:220px;overflow-y:auto;border-radius:var(--radius-sm);
   background:var(--surface2);padding:8px;display:flex;flex-direction:column;gap:6px;
@@ -389,73 +403,27 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
   background:var(--surface);border:1px solid var(--border);padding:8px 10px;
   border-radius:8px;transition:var(--transition);
 }
-.bubble-item.marked{border-color:var(--success);background:rgba(46,213,115,.05)}
-.bubble-text{font-size:12px;font-weight:600;word-break:break-all;flex:1}
+.bubble-item.marked{border-color:var(--success);background:rgba(46,213,115,.06)}
+.bubble-text{font-size:12px;font-weight:700;word-break:break-all;flex:1}
 .bubble-actions{display:flex;align-items:center;gap:6px;flex-shrink:0}
 .mark-btn{
-  font-size:11px;font-weight:700;padding:4px 8px;border-radius:6px;
+  font-size:11px;font-weight:800;padding:4px 8px;border-radius:6px;
   background:var(--surface2);color:var(--text-muted);display:flex;align-items:center;gap:4px;
   cursor:pointer;transition:var(--transition);
 }
 .mark-btn.marked{background:var(--success);color:#000}
 .copy-pill{
-  font-size:11px;font-weight:700;padding:4px 8px;border-radius:6px;
+  font-size:11px;font-weight:800;padding:4px 8px;border-radius:6px;
   background:var(--primary);color:var(--primary-text);cursor:pointer;
   transition:var(--transition);display:flex;align-items:center;gap:4px;
 }
 .copy-pill:hover{opacity:.9}
-.copy-pill:active{transform:scale(.95)}
 
-/* 3. Card Details with Privacy Mask / Spoiler */
-.card-details-box{
-  background:linear-gradient(135deg,#1f1c2c,#928dab);color:#fff;
-  border-radius:var(--radius-md);padding:14px;display:flex;flex-direction:column;gap:10px;
-  box-shadow:0 6px 18px rgba(0,0,0,.3);
-}
-.cd-chip{width:32px;height:24px;border-radius:4px;background:#ffd700;opacity:.8}
-.cd-num{
-  font-family:'JetBrains Mono',monospace;font-size:16px;letter-spacing:2px;
-  font-weight:700;cursor:pointer;user-select:none;
-}
-.cd-num.masked{letter-spacing:4px}
-.cd-row{display:flex;justify-content:space-between;font-size:11px}
-.cd-val{font-family:'JetBrains Mono',monospace;font-weight:700}
-
-/* 4. AI Prompt Box */
-.prompt-box{
-  background:var(--surface2);border-radius:var(--radius-sm);padding:10px;
-  font-size:12px;line-height:1.5;max-height:160px;overflow-y:auto;
-  border:1px solid var(--border);position:relative;
-}
-.prompt-copy-btn{
-  position:absolute;top:8px;right:8px;padding:4px 8px;border-radius:4px;
-  background:var(--surface3);color:var(--text);font-size:11px;font-weight:600;
-  cursor:pointer;display:flex;align-items:center;gap:4px;
-}
-
-/* 5. IDM Key Box */
-.idm-key-row{
-  display:flex;align-items:center;gap:8px;background:var(--surface2);
-  border:1px solid var(--border);border-radius:var(--radius-sm);padding:8px 12px;
-}
-.idm-key-text{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;flex:1}
-
-/* 6. Media Thumbnails */
-.media-thumb-box{
-  width:100%;height:160px;border-radius:var(--radius-sm);overflow:hidden;
-  background:var(--surface2);display:flex;align-items:center;justify-content:center;
-  position:relative;cursor:pointer;
-}
-.media-thumb-img{width:100%;height:100%;object-fit:cover}
-.media-play-overlay{
-  position:absolute;inset:0;background:rgba(0,0,0,.35);
-  display:flex;align-items:center;justify-content:center;font-size:32px;color:#fff;
-  transition:background .2s;
-}
-.media-play-overlay:hover{background:rgba(0,0,0,.5)}
-.media-meta-tag{
-  position:absolute;bottom:8px;right:8px;padding:2px 8px;border-radius:4px;
-  background:rgba(0,0,0,.7);color:#fff;font-size:10px;font-weight:700;backdrop-filter:blur(4px);
+/* 3. JOB FILE / SMS DETAILS */
+.meta-badge-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:2px}
+.meta-tag{
+  font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px;
+  background:var(--surface2);color:var(--text);border:1px solid var(--border);
 }
 
 /* Empty State */
@@ -464,17 +432,17 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
   padding:60px 20px;text-align:center;gap:14px;color:var(--text-muted);
 }
 .empty-icon{font-size:52px;opacity:.6}
-.empty-title{font-size:17px;font-weight:700;color:var(--text)}
+.empty-title{font-size:16px;font-weight:800;color:var(--text)}
 .empty-desc{font-size:13px;max-width:320px;line-height:1.5}
 
 /* ========================================================
-   FLOATING ACTION BUTTON (FAB) & BOTTOM NAV
+   FAB & BOTTOM NAVIGATION (MOBILE)
    ======================================================== */
 #fab{
   position:fixed;bottom:calc(var(--bnav-h) + 16px);right:20px;
   width:56px;height:56px;border-radius:18px;
   background:linear-gradient(135deg,var(--primary),var(--accent));
-  color:var(--primary-text);font-size:26px;font-weight:700;
+  color:var(--primary-text);font-size:26px;font-weight:800;
   display:flex;align-items:center;justify-content:center;
   box-shadow:0 8px 24px var(--primary-glow);cursor:pointer;z-index:60;
   transition:transform .2s cubic-bezier(.4,0,.2,1);border:none;
@@ -483,17 +451,17 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
 #fab:active{transform:scale(.92)}
 @media(min-width:768px){#fab{bottom:28px;right:28px}}
 
-/* Bottom Nav (Mobile Only) */
+/* Bottom Nav */
 #bottom-nav{
   position:fixed;bottom:0;left:0;right:0;height:var(--bnav-h);
   background:var(--surface);border-top:1px solid var(--border);
   display:flex;align-items:center;justify-content:space-around;
-  padding:0 8px;z-index:50;
+  padding:0 6px;z-index:50;
 }
 .bnav-btn{
   display:flex;flex-direction:column;align-items:center;gap:3px;
   flex:1;padding:6px;cursor:pointer;color:var(--text-muted);
-  transition:var(--transition);font-size:10px;font-weight:700;user-select:none;
+  transition:var(--transition);font-size:10px;font-weight:800;user-select:none;
 }
 .bnav-btn.active{color:var(--primary)}
 .bnav-icon{font-size:20px;line-height:1}
@@ -510,7 +478,7 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
 }
 
 /* ========================================================
-   MODALS, SHEETS & OVERLAYS
+   MODALS, SHEETS & PANELS
    ======================================================== */
 .overlay{
   position:fixed;inset:0;background:var(--overlay);backdrop-filter:blur(6px);
@@ -521,7 +489,7 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
 .overlay.center{align-items:center}
 
 .sheet{
-  width:100%;max-width:520px;background:var(--surface);
+  width:100%;max-width:540px;background:var(--surface);
   border-radius:var(--radius-xl) var(--radius-xl) 0 0;padding:16px 20px 32px;
   transform:translateY(100%);transition:transform .3s cubic-bezier(.4,0,.2,1);
   max-height:88vh;overflow-y:auto;border-top:1px solid var(--border);
@@ -529,10 +497,10 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
 .overlay.open .sheet{transform:translateY(0)}
 
 .modal{
-  width:calc(100% - 32px);max-width:440px;background:var(--surface);
+  width:calc(100% - 32px);max-width:480px;background:var(--surface);
   border-radius:var(--radius-lg);padding:22px;border:1px solid var(--border);
   box-shadow:0 16px 40px rgba(0,0,0,.6);transform:scale(.92);
-  transition:transform .25s cubic-bezier(.4,0,.2,1);max-height:85vh;overflow-y:auto;
+  transition:transform .25s cubic-bezier(.4,0,.2,1);max-height:86vh;overflow-y:auto;
 }
 .overlay.center.open .modal{transform:scale(1)}
 
@@ -541,9 +509,21 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
 .modal-title{font-size:17px;font-weight:800;display:flex;align-items:center;gap:8px}
 .modal-close{width:30px;height:30px;border-radius:50%;background:var(--surface2);display:flex;align-items:center;justify-content:center;font-size:14px;cursor:pointer}
 
-/* Form Inputs */
+/* Action Sheet Grid */
+.action-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+.action-tile{
+  display:flex;flex-direction:column;align-items:center;gap:8px;padding:14px 6px;
+  background:var(--surface2);border-radius:var(--radius-md);cursor:pointer;
+  transition:var(--transition);font-size:11px;font-weight:800;border:1px solid transparent;
+  text-align:center;
+}
+.action-tile:hover{background:var(--surface3);border-color:var(--border)}
+.action-tile:active{transform:scale(.95)}
+.action-tile-icon{font-size:26px}
+
+/* Forms */
 .form-group{margin-bottom:14px}
-.form-label{display:block;font-size:12px;font-weight:700;margin-bottom:6px;color:var(--text)}
+.form-label{display:block;font-size:12px;font-weight:800;margin-bottom:6px;color:var(--text)}
 .form-input,.form-textarea,.form-select{
   width:100%;padding:11px 14px;border-radius:var(--radius-sm);
   background:var(--surface2);border:1px solid var(--border);color:var(--text);
@@ -554,17 +534,6 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
 }
 .form-textarea{min-height:90px;resize:vertical}
 .form-row{display:flex;gap:10px}
-
-/* Action Sheet Grid */
-.action-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
-.action-tile{
-  display:flex;flex-direction:column;align-items:center;gap:8px;padding:14px 8px;
-  background:var(--surface2);border-radius:var(--radius-md);cursor:pointer;
-  transition:var(--transition);font-size:11px;font-weight:700;border:1px solid transparent;
-}
-.action-tile:hover{background:var(--surface3);border-color:var(--border)}
-.action-tile:active{transform:scale(.95)}
-.action-tile-icon{font-size:26px}
 
 /* Buttons */
 .btn-primary{
@@ -580,65 +549,39 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
 }
 .btn-secondary:hover{background:var(--surface3)}
 
-/* ========================================================
-   IDM MULTI-THREADED TURBO DOWNLOADER MODAL
-   ======================================================== */
+/* Profile & Settings Section Tabs inside Settings Modal */
+.settings-nav-tabs{display:flex;gap:6px;border-bottom:1px solid var(--border);padding-bottom:10px;margin-bottom:16px}
+.sttab{
+  padding:6px 12px;border-radius:20px;font-size:12px;font-weight:700;cursor:pointer;
+  background:var(--surface2);color:var(--text-muted);transition:var(--transition);
+}
+.sttab.active{background:var(--primary);color:var(--primary-text)}
+
+/* Category Manager Table */
+.cat-mgr-item{
+  display:flex;align-items:center;justify-content:space-between;padding:10px 12px;
+  background:var(--surface2);border-radius:var(--radius-sm);margin-bottom:6px;
+  border:1px solid var(--border);
+}
+.cat-mgr-del{color:var(--danger);font-size:14px;cursor:pointer;padding:4px 8px;border-radius:6px}
+.cat-mgr-del:hover{background:rgba(255,71,87,.2)}
+
+/* IDM Turbo Modal */
 .idm-box{
   background:var(--surface);border-radius:var(--radius-md);padding:16px;
   border:1px solid var(--border);display:flex;flex-direction:column;gap:12px;
 }
-.idm-header{display:flex;align-items:center;gap:10px}
-.idm-icon{font-size:28px}
-.idm-title{font-size:14px;font-weight:800}
-.idm-sub{font-size:11px;color:var(--text-muted)}
-
 .idm-threads-box{display:flex;flex-direction:column;gap:6px}
 .thread-row{display:flex;align-items:center;gap:8px;font-size:11px}
 .thread-label{width:54px;font-weight:700;color:var(--text-muted)}
 .thread-bar-bg{flex:1;height:8px;border-radius:4px;background:var(--surface2);overflow:hidden}
 .thread-bar-fill{height:100%;border-radius:4px;background:var(--primary);width:0%;transition:width .2s}
 .thread-pct{width:36px;text-align:right;font-weight:700;font-family:'JetBrains Mono',monospace}
-
 .idm-overall-bar-bg{height:10px;border-radius:5px;background:var(--surface2);overflow:hidden}
 .idm-overall-bar-fill{height:100%;border-radius:5px;background:linear-gradient(90deg,var(--primary),var(--accent));width:0%;transition:width .2s}
 .idm-stats{display:flex;justify-content:space-between;font-size:11px;color:var(--text-muted)}
 
-/* ========================================================
-   MEDIA PLAYER & VIEWER OVERLAY
-   ======================================================== */
-#player-overlay{
-  position:fixed;inset:0;background:rgba(0,0,0,.95);z-index:150;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  opacity:0;pointer-events:none;transition:opacity .25s ease;padding:20px;
-}
-#player-overlay.open{opacity:1;pointer-events:all}
-.player-close-btn{
-  position:absolute;top:20px;right:20px;width:40px;height:40px;border-radius:50%;
-  background:rgba(255,255,255,.15);color:#fff;display:flex;align-items:center;justify-content:center;
-  font-size:20px;cursor:pointer;
-}
-.player-container{max-width:90vw;max-height:80vh;display:flex;flex-direction:column;align-items:center}
-.player-media{max-width:100%;max-height:65vh;border-radius:var(--radius-md);box-shadow:0 12px 32px rgba(0,0,0,.8)}
-.player-title{color:#fff;font-size:16px;font-weight:700;margin-top:16px;text-align:center}
-.player-meta{color:rgba(255,255,255,.6);font-size:12px;margin-top:4px}
-
-/* Audio Player Bottom Floating Bar */
-#mini-audio-bar{
-  position:fixed;bottom:calc(var(--bnav-h) + 12px);left:16px;right:16px;max-width:500px;margin:0 auto;
-  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);
-  padding:10px 14px;display:none;align-items:center;gap:12px;box-shadow:0 12px 30px rgba(0,0,0,.5);
-  z-index:55;backdrop-filter:blur(8px);
-}
-@media(min-width:768px){#mini-audio-bar{bottom:16px;right:20px;left:auto;width:380px}}
-#mini-audio-bar.show{display:flex}
-.mab-icon{font-size:22px;color:var(--primary)}
-.mab-info{flex:1;min-width:0}
-.mab-title{font-size:12px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.mab-sub{font-size:10px;color:var(--text-muted)}
-.mab-ctrls{display:flex;align-items:center;gap:8px}
-.mab-btn{font-size:18px;color:var(--text);cursor:pointer}
-
-/* Theme Picker Grid */
+/* Theme Grid */
 .themes-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
 .theme-card{
   padding:12px;border-radius:var(--radius-sm);border:2px solid var(--border);
@@ -646,20 +589,20 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
   transition:var(--transition);
 }
 .theme-card.active{border-color:var(--primary);background:var(--surface3)}
-.theme-dot{width:24px;height:24px;border-radius:50%;flex-shrink:0}
+.theme-dot{width:22px;height:22px;border-radius:50%;flex-shrink:0}
 .theme-name{font-size:12px;font-weight:700}
 
 /* Toast */
 #toast{
   position:fixed;bottom:calc(var(--bnav-h) + 76px);left:50%;transform:translateX(-50%) translateY(20px);
-  background:rgba(12,13,22,.92);color:#fff;padding:9px 18px;border-radius:24px;
-  font-size:12px;font-weight:700;z-index:999;opacity:0;pointer-events:none;
+  background:rgba(9,10,18,.94);color:#fff;padding:9px 18px;border-radius:24px;
+  font-size:12px;font-weight:800;z-index:999;opacity:0;pointer-events:none;
   transition:opacity .2s,transform .2s;white-space:nowrap;backdrop-filter:blur(8px);
   box-shadow:0 8px 24px rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.1);
 }
 #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
-/* Ripple effect */
+/* Ripple */
 .ripple{position:relative;overflow:hidden}
 .ripple-wave{
   position:absolute;border-radius:50%;background:rgba(255,255,255,.3);
@@ -680,34 +623,37 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
       <div class="brand-icon">🔐</div>
       <div>
         <div class="brand-title">Safi Vault</div>
-        <div class="brand-sub">Telegram Archive OS</div>
+        <div class="brand-sub">Telegram Digital Archive</div>
       </div>
     </div>
 
-    <!-- User & Sync Status Card -->
-    <div class="user-card ripple" onclick="openSettingsModal()">
+    <!-- User Profile Card -->
+    <div class="user-card ripple" onclick="openProfileTab()">
       <div class="user-avatar" id="sb-user-avatar">S</div>
       <div class="user-info">
-        <div class="user-name" id="sb-user-name">Safi Account</div>
+        <div class="user-name" id="sb-user-name">Md Safi Islam</div>
         <div class="user-status" id="sb-sync-status">
           <span class="status-dot" id="sb-status-dot"></span>
-          <span id="sb-status-text">Checking...</span>
+          <span id="sb-status-text">Owner Active</span>
         </div>
       </div>
     </div>
 
-    <!-- Category Nav Links -->
-    <div class="sidebar-section-title">Categories & Topics</div>
+    <!-- Category Nav Section -->
+    <div class="sidebar-section-header">
+      <span>Categories & Topics</span>
+      <span class="sidebar-add-topic-btn" onclick="openCreateCategoryModal()">＋ New Topic</span>
+    </div>
     <nav class="sidebar-nav" id="sidebar-nav-list">
-      <!-- Injected dynamically by JS -->
+      <!-- Injected dynamically -->
     </nav>
 
-    <!-- Sidebar Footer -->
+    <!-- Sidebar Bottom Actions -->
     <div class="sidebar-footer">
       <button class="sbtn ripple" onclick="openThemeModal()">
         <span>🎨</span> Themes
       </button>
-      <button class="sbtn ripple" onclick="openSettingsModal()">
+      <button class="sbtn ripple" onclick="openProfileTab()">
         <span>⚙️</span> Settings
       </button>
       <button class="sbtn ripple" onclick="exportVaultBackup()">
@@ -733,16 +679,14 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
       <!-- Quick Search -->
       <div class="search-wrapper">
         <span class="search-icon">🔍</span>
-        <input type="text" class="search-input" id="global-search-input" placeholder="Search title, email, notes..." oninput="handleSearch(this.value)">
+        <input type="text" class="search-input" id="global-search-input" placeholder="Search files, numbers, notes..." oninput="handleSearch(this.value)">
         <span class="search-clear" id="search-clear-btn" onclick="clearSearch()">✕</span>
       </div>
 
-      <!-- Header Action Buttons -->
+      <!-- Header Actions -->
       <div class="header-actions">
         <button class="hbtn ripple" onclick="openThemeModal()" title="Themes">🎨</button>
-        <button class="hbtn ripple" onclick="openSettingsModal()" title="Telegram & Settings">
-          <span>⚙️</span>
-        </button>
+        <button class="hbtn ripple" onclick="openProfileTab()" title="Profile & Settings">👤</button>
       </div>
     </header>
 
@@ -763,7 +707,7 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
 <!-- Floating Action Button (FAB) -->
 <button id="fab" class="ripple" onclick="openAddSheet()" title="Add New Item">＋</button>
 
-<!-- Bottom Nav (Mobile) -->
+<!-- Bottom Navigation (Mobile) -->
 <nav id="bottom-nav">
   <div class="bnav-btn active ripple" onclick="switchCategory('all', this)">
     <span class="bnav-icon">🏠</span>
@@ -773,39 +717,25 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
     <span class="bnav-icon">🖼️</span>
     <span>Photos</span>
   </div>
-  <div class="bnav-btn ripple" onclick="switchCategory('saved_messages', this)">
-    <span class="bnav-icon">💬</span>
-    <span>Messages</span>
+  <div class="bnav-btn ripple" onclick="openAddSheet()">
+    <span class="bnav-icon" style="color:var(--primary);font-size:24px">➕</span>
+    <span>Add</span>
   </div>
-  <div class="bnav-btn ripple" onclick="switchCategory('links', this)">
-    <span class="bnav-icon">🔗</span>
-    <span>Links</span>
+  <div class="bnav-btn ripple" onclick="switchCategory('important', this)">
+    <span class="bnav-icon">⭐</span>
+    <span>Important</span>
   </div>
-  <div class="bnav-btn ripple" onclick="openSettingsModal()">
-    <span class="bnav-icon">⚙️</span>
-    <span>Vault</span>
+  <div class="bnav-btn ripple" onclick="openProfileTab()">
+    <span class="bnav-icon">👤</span>
+    <span>Profile</span>
   </div>
 </nav>
-
-<!-- Mini Floating Audio Player -->
-<div id="mini-audio-bar">
-  <span class="mab-icon">🎵</span>
-  <div class="mab-info">
-    <div class="mab-title" id="mab-title">Playing Track</div>
-    <div class="mab-sub" id="mab-time">00:00 / 00:00</div>
-  </div>
-  <div class="mab-ctrls">
-    <button class="mab-btn" onclick="toggleMiniAudioPlay()" id="mab-play-btn">⏸️</button>
-    <button class="mab-btn" onclick="closeMiniAudio()">✕</button>
-  </div>
-  <audio id="global-audio-element" style="display:none"></audio>
-</div>
 
 <!-- ========================================================
      MODALS & OVERLAYS
      ======================================================== -->
 
-<!-- 1. Add New Item Action Sheet -->
+<!-- 1. ADD NEW ITEM SHEET (NOW INCLUDES ALL 11 ITEM TYPES!) -->
 <div class="overlay" id="add-action-overlay" onclick="closeOverlayOnBackdrop(event, 'add-action-overlay')">
   <div class="sheet">
     <div class="sheet-handle"></div>
@@ -813,6 +743,7 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
       <div class="modal-title"><span>➕</span> Add to Safi Vault</div>
       <button class="modal-close" onclick="closeOverlay('add-action-overlay')">✕</button>
     </div>
+    
     <div class="action-grid">
       <div class="action-tile ripple" onclick="openCreateItemModal('photos')">
         <span class="action-tile-icon">📸</span>
@@ -830,6 +761,18 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
         <span class="action-tile-icon">📄</span>
         <span>PDF Doc</span>
       </div>
+      <div class="action-tile ripple" onclick="openCreateItemModal('sms')">
+        <span class="action-tile-icon">✉️</span>
+        <span>SMS & Messages</span>
+      </div>
+      <div class="action-tile ripple" onclick="openCreateItemModal('jobs')">
+        <span class="action-tile-icon">💼</span>
+        <span>Job Files</span>
+      </div>
+      <div class="action-tile ripple" onclick="openCreateItemModal('cards')">
+        <span class="action-tile-icon">🔐</span>
+        <span>Card Details</span>
+      </div>
       <div class="action-tile ripple" onclick="openCreateItemModal('idm_keys')">
         <span class="action-tile-icon">🔑</span>
         <span>IDM Key</span>
@@ -842,20 +785,21 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
         <span class="action-tile-icon">📚</span>
         <span>Tutorial</span>
       </div>
-      <div class="action-tile ripple" onclick="openCreateItemModal('cards')">
-        <span class="action-tile-icon">🔐</span>
-        <span>Card / Secret</span>
-      </div>
       <div class="action-tile ripple" onclick="openCreateItemModal('files')">
         <span class="action-tile-icon">🗂️</span>
         <span>File / Software</span>
       </div>
+      <div class="action-tile ripple" onclick="openCreateCategoryModal()">
+        <span class="action-tile-icon">📁</span>
+        <span>New Topic</span>
+      </div>
     </div>
+    
     <button class="btn-secondary ripple" onclick="openCreateCategoryModal()">📁 Create New Category / Telegram Topic</button>
   </div>
 </div>
 
-<!-- 2. Create / Edit Item Modal -->
+<!-- 2. CREATE / EDIT ITEM MODAL -->
 <div class="overlay center" id="create-item-overlay" onclick="closeOverlayOnBackdrop(event, 'create-item-overlay')">
   <div class="modal">
     <div class="modal-header">
@@ -864,7 +808,7 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
     </div>
     <form id="create-item-form" onsubmit="handleSaveItem(event)">
       <div class="form-group">
-        <label class="form-label">Category</label>
+        <label class="form-label">Category / Forum Topic</label>
         <select class="form-select" id="form-item-category" required onchange="adaptFormFields(this.value)">
           <!-- Options injected by JS -->
         </select>
@@ -872,7 +816,7 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
 
       <div class="form-group">
         <label class="form-label">Title / Subject</label>
-        <input type="text" class="form-input" id="form-item-title" placeholder="e.g. Turkish Airways, Netflix Account..." required>
+        <input type="text" class="form-input" id="form-item-title" placeholder="e.g. Visa Platinum, Google Interview CV..." required>
       </div>
 
       <!-- Specialized field: URL (for Links) -->
@@ -881,17 +825,54 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
         <input type="url" class="form-input" id="form-item-url" placeholder="https://example.com">
       </div>
 
-      <!-- Specialized field: Bulk Emails / Numbers (for Saved Messages) -->
-      <div class="form-group" id="field-bubbles" style="display:none">
-        <label class="form-label">Emails / Phone Numbers (One per line)</label>
-        <textarea class="form-textarea" id="form-item-bubbles" placeholder="ariYaNsAFI1132@gmail.com&#10;+21620809250"></textarea>
+      <!-- Specialized field: SMS Info (Sender & Phone) -->
+      <div id="field-sms" style="display:none">
+        <div class="form-row">
+          <div class="form-group" style="flex:1">
+            <label class="form-label">Sender / Service</label>
+            <input type="text" class="form-input" id="form-sms-sender" placeholder="e.g. bKash, OTP, Bank">
+          </div>
+          <div class="form-group" style="flex:1">
+            <label class="form-label">Phone Number</label>
+            <input type="text" class="form-input mono" id="form-sms-phone" placeholder="+8801700000000">
+          </div>
+        </div>
       </div>
 
-      <!-- Specialized field: Card Details -->
+      <!-- Specialized field: Job Details (Company & Status) -->
+      <div id="field-job" style="display:none">
+        <div class="form-row">
+          <div class="form-group" style="flex:1">
+            <label class="form-label">Company / Platform</label>
+            <input type="text" class="form-input" id="form-job-company" placeholder="e.g. Google, Remote, Freelance">
+          </div>
+          <div class="form-group" style="flex:1">
+            <label class="form-label">Application Status</label>
+            <select class="form-select" id="form-job-status">
+              <option value="Applied">Applied</option>
+              <option value="Interview">Interview</option>
+              <option value="Offer">Offer</option>
+              <option value="Saved">Saved</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Specialized field: Card Details (FULLY VISIBLE AS REQUESTED) -->
       <div id="field-card" style="display:none">
         <div class="form-group">
-          <label class="form-label">Card Number</label>
-          <input type="text" class="form-input mono" id="form-card-num" placeholder="4242 •••• •••• 4242">
+          <label class="form-label">Card Number (16 Digits)</label>
+          <input type="text" class="form-input mono" id="form-card-num" placeholder="4532 8910 2345 6789">
+        </div>
+        <div class="form-row">
+          <div class="form-group" style="flex:1">
+            <label class="form-label">Cardholder Name</label>
+            <input type="text" class="form-input" id="form-card-name" placeholder="MD SAFI ISLAM">
+          </div>
+          <div class="form-group" style="flex:1">
+            <label class="form-label">Bank / Brand</label>
+            <input type="text" class="form-input" id="form-card-bank" placeholder="Visa / City Bank">
+          </div>
         </div>
         <div class="form-row">
           <div class="form-group" style="flex:1">
@@ -899,21 +880,27 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
             <input type="text" class="form-input mono" id="form-card-exp" placeholder="12/28">
           </div>
           <div class="form-group" style="flex:1">
-            <label class="form-label">CVV</label>
-            <input type="password" class="form-input mono" id="form-card-cvv" placeholder="•••" maxlength="4">
+            <label class="form-label">CVV Code</label>
+            <input type="text" class="form-input mono" id="form-card-cvv" placeholder="842" maxlength="4">
           </div>
         </div>
       </div>
 
+      <!-- Specialized field: Bulk Emails / Numbers (for Saved Messages) -->
+      <div class="form-group" id="field-bubbles" style="display:none">
+        <label class="form-label">Emails / Numbers (One per line with copy & mark)</label>
+        <textarea class="form-textarea" id="form-item-bubbles" placeholder="ariYaNsAFI1132@gmail.com&#10;+21620809250"></textarea>
+      </div>
+
       <!-- General Description / Note / Text -->
       <div class="form-group" id="field-notes">
-        <label class="form-label">Notes / Content / Code</label>
-        <textarea class="form-textarea" id="form-item-notes" placeholder="Write details, tutorial steps, keys or notes..."></textarea>
+        <label class="form-label">Notes / Instructions / Content</label>
+        <textarea class="form-textarea" id="form-item-notes" placeholder="Write details, tutorial steps, keys, or descriptions..."></textarea>
       </div>
 
       <!-- File Attachment -->
       <div class="form-group">
-        <label class="form-label">Attachment (Photo, PDF, File)</label>
+        <label class="form-label">Attachment (Photo, PDF, Job CV, Software File)</label>
         <input type="file" class="form-input" id="form-item-file" onchange="handleFileSelection(this)">
         <div id="form-file-info" style="font-size:11px;color:var(--text-muted);margin-top:4px"></div>
       </div>
@@ -924,13 +911,13 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
       </div>
 
       <button type="submit" class="btn-primary ripple" id="btn-save-submit">
-        <span>💾</span> Save to Safi Vault & Telegram
+        <span>💾</span> Save to Vault & Sync Telegram
       </button>
     </form>
   </div>
 </div>
 
-<!-- 3. Create Custom Category Modal -->
+<!-- 3. CREATE NEW CATEGORY / TOPIC MODAL -->
 <div class="overlay center" id="create-cat-overlay" onclick="closeOverlayOnBackdrop(event, 'create-cat-overlay')">
   <div class="modal">
     <div class="modal-header">
@@ -940,7 +927,7 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
     <form onsubmit="handleCreateCategory(event)">
       <div class="form-group">
         <label class="form-label">Category Name</label>
-        <input type="text" class="form-input" id="cat-name-input" placeholder="e.g. Bank Statements, Crypto..." required>
+        <input type="text" class="form-input" id="cat-name-input" placeholder="e.g. Bank Statements, Crypto Keys..." required>
       </div>
       <div class="form-group">
         <label class="form-label">Icon (Emoji)</label>
@@ -955,50 +942,91 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
   </div>
 </div>
 
-<!-- 4. Settings & Telegram Configuration Modal -->
-<div class="overlay center" id="settings-overlay" onclick="closeOverlayOnBackdrop(event, 'settings-overlay')">
-  <div class="modal" style="max-width:480px">
+<!-- 4. PROFILE & SETTINGS FULL MODAL (ALL-IN-ONE CONTROL CENTER) -->
+<div class="overlay center" id="profile-settings-overlay" onclick="closeOverlayOnBackdrop(event, 'profile-settings-overlay')">
+  <div class="modal" style="max-width:500px">
     <div class="modal-header">
-      <div class="modal-title"><span>⚙️</span> Safi Vault Settings</div>
-      <button class="modal-close" onclick="closeOverlay('settings-overlay')">✕</button>
+      <div class="modal-title"><span>👤</span> Profile & Settings</div>
+      <button class="modal-close" onclick="closeOverlay('profile-settings-overlay')">✕</button>
     </div>
 
-    <!-- Telegram Configuration -->
-    <div style="margin-bottom:20px;border-bottom:1px solid var(--border);padding-bottom:16px">
-      <div style="font-size:13px;font-weight:800;margin-bottom:8px;color:var(--primary)">✈️ Telegram Bot & Supergroup</div>
-      <div style="font-size:11px;color:var(--text-muted);margin-bottom:12px;line-height:1.4">
-        Connect your Telegram Bot and Forum Supergroup. All items will be synced directly into categorized Forum Topics.
+    <!-- Navigation Tabs -->
+    <div class="settings-nav-tabs">
+      <div class="sttab active" onclick="switchSettingsTab('profile', this)">Profile</div>
+      <div class="sttab" onclick="switchSettingsTab('telegram', this)">Telegram</div>
+      <div class="sttab" onclick="switchSettingsTab('topics', this)">Topics Manager</div>
+      <div class="sttab" onclick="switchSettingsTab('backup', this)">Backup</div>
+    </div>
+
+    <!-- Tab 1: Profile -->
+    <div id="stab-profile" class="stab-content">
+      <div style="display:flex;align-items:center;gap:14px;background:var(--surface2);padding:14px;border-radius:var(--radius-md);margin-bottom:16px;border:1px solid var(--border)">
+        <div class="user-avatar" style="width:52px;height:52px;font-size:20px" id="set-prof-avatar">S</div>
+        <div>
+          <div style="font-size:15px;font-weight:800" id="set-prof-name">Md Safi Islam</div>
+          <div style="font-size:11px;color:var(--text-muted)">Master Owner • No Auto-Logout</div>
+        </div>
       </div>
 
       <div class="form-group">
-        <label class="form-label">Bot Token (from @BotFather)</label>
+        <label class="form-label">Display Name</label>
+        <input type="text" class="form-input" id="profile-name-input" value="Md Safi Islam">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Avatar Letter or Emoji</label>
+        <input type="text" class="form-input" id="profile-avatar-input" value="S" maxlength="3">
+      </div>
+      <button class="btn-primary ripple" onclick="saveProfileChanges()">Update Profile</button>
+    </div>
+
+    <!-- Tab 2: Telegram Connect -->
+    <div id="stab-telegram" class="stab-content" style="display:none">
+      <div style="font-size:11px;color:var(--text-muted);margin-bottom:12px;line-height:1.4">
+        Connect your Telegram Bot and Supergroup. All items will be synced directly into Forum Topics.
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Telegram Bot Token</label>
         <input type="password" class="form-input mono" id="settings-tg-token" placeholder="123456789:ABCdefGhIjkLmNo...">
       </div>
 
       <div class="form-group">
-        <label class="form-label">Supergroup Chat ID (e.g. -100xxxxxxxxxx)</label>
+        <label class="form-label">Supergroup Chat ID</label>
         <input type="text" class="form-input mono" id="settings-tg-chatid" placeholder="-1001234567890">
       </div>
 
       <div style="display:flex;gap:8px">
-        <button class="btn-primary ripple" style="flex:1" onclick="saveTelegramSettings()">Save & Test Connection</button>
-        <button class="btn-secondary ripple" style="width:auto" onclick="testTelegramSync()">Test ✈️</button>
+        <button class="btn-primary ripple" style="flex:1" onclick="saveTelegramSettings()">Save Configuration</button>
+        <button class="btn-secondary ripple" style="width:auto" onclick="testTelegramSync()">Test Ping ✈️</button>
       </div>
     </div>
 
-    <!-- Vault Backup & Restore -->
-    <div style="margin-bottom:16px">
-      <div style="font-size:13px;font-weight:800;margin-bottom:8px">💾 Backup & Restore</div>
-      <div style="display:flex;gap:8px">
-        <button class="btn-secondary ripple" onclick="exportVaultBackup()">Export JSON</button>
-        <button class="btn-secondary ripple" onclick="document.getElementById('import-file-input').click()">Import JSON</button>
+    <!-- Tab 3: Topics Manager (DELETE UNWANTED CATEGORIES/TOPICS HERE!) -->
+    <div id="stab-topics" class="stab-content" style="display:none">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+        <span style="font-size:12px;font-weight:700">Active Categories & Topics</span>
+        <button class="btn-primary ripple" style="width:auto;padding:6px 12px;font-size:11px" onclick="openCreateCategoryModal()">＋ New Topic</button>
+      </div>
+      <div id="topics-manager-list" style="max-height:260px;overflow-y:auto">
+        <!-- Injected dynamically -->
+      </div>
+    </div>
+
+    <!-- Tab 4: Backup & Restore -->
+    <div id="stab-backup" class="stab-content" style="display:none">
+      <div style="font-size:11px;color:var(--text-muted);margin-bottom:14px">
+        Export your complete digital archive into a single JSON file. You can restore it anytime on any device.
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <button class="btn-primary ripple" onclick="exportVaultBackup()">💾 Export Full Vault (.JSON)</button>
+        <button class="btn-secondary ripple" onclick="document.getElementById('import-file-input').click()">📂 Restore / Import Backup</button>
         <input type="file" id="import-file-input" accept=".json" style="display:none" onchange="importVaultBackup(this)">
       </div>
     </div>
   </div>
 </div>
 
-<!-- 5. Theme Picker Modal -->
+<!-- 5. THEME PICKER MODAL -->
 <div class="overlay center" id="theme-overlay" onclick="closeOverlayOnBackdrop(event, 'theme-overlay')">
   <div class="modal" style="max-width:440px">
     <div class="modal-header">
@@ -1011,19 +1039,18 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
   </div>
 </div>
 
-<!-- 6. IDM Turbo Downloader Modal -->
+<!-- 6. IDM TURBO DOWNLOADER MODAL -->
 <div class="overlay center" id="idm-overlay">
   <div class="modal" style="max-width:460px">
     <div class="idm-box">
-      <div class="idm-header">
-        <span class="idm-icon">⚡</span>
+      <div style="display:flex;align-items:center;gap:10px">
+        <span style="font-size:28px">⚡</span>
         <div>
-          <div class="idm-title" id="idm-file-name">Downloading file...</div>
-          <div class="idm-sub" id="idm-file-size">Multi-Threaded Turbo Accelerator</div>
+          <div style="font-size:14px;font-weight:800" id="idm-file-name">Downloading file...</div>
+          <div style="font-size:11px;color:var(--text-muted)" id="idm-file-size">Multi-Threaded Turbo Accelerator</div>
         </div>
       </div>
 
-      <!-- Threads Progress -->
       <div class="idm-threads-box">
         <div class="thread-row">
           <span class="thread-label">Thread 1</span>
@@ -1047,7 +1074,6 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
         </div>
       </div>
 
-      <!-- Overall Bar -->
       <div class="idm-overall-bar-bg">
         <div class="idm-overall-bar-fill" id="idm-overall-fill"></div>
       </div>
@@ -1062,41 +1088,39 @@ code,pre,.mono{font-family:'JetBrains Mono',monospace}
   </div>
 </div>
 
-<!-- 7. Media Viewer / Lightbox Overlay -->
-<div id="player-overlay">
-  <button class="player-close-btn" onclick="closePlayerOverlay()">✕</button>
-  <div class="player-container">
-    <img id="lightbox-img" class="player-media" style="display:none" alt="Preview">
-    <video id="lightbox-video" class="player-media" controls style="display:none"></video>
-    <div class="player-title" id="lightbox-title">Media Title</div>
-    <div class="player-meta" id="lightbox-meta">1920x1080 · 2.4 MB</div>
+<!-- 7. MEDIA VIEWER OVERLAY -->
+<div class="overlay center" id="media-viewer-overlay">
+  <div style="position:relative;max-width:90vw;max-height:85vh;display:flex;flex-direction:column;align-items:center">
+    <button class="modal-close" style="position:absolute;top:-40px;right:0;background:rgba(255,255,255,.2);color:#fff" onclick="closeOverlay('media-viewer-overlay')">✕</button>
+    <img id="viewer-img" style="max-width:100%;max-height:75vh;border-radius:12px;display:none" alt="Preview">
+    <video id="viewer-video" controls style="max-width:100%;max-height:75vh;border-radius:12px;display:none"></video>
+    <div id="viewer-title" style="color:#fff;font-size:14px;font-weight:700;margin-top:10px;text-align:center"></div>
   </div>
 </div>
 
-<!-- Toast Container -->
+<!-- Toast -->
 <div id="toast">Message</div>
 
 <!-- ========================================================
-     APPLICATION LOGIC (JAVASCRIPT)
-     ======================================================== */
--->
+     APPLICATION JAVASCRIPT LOGIC
+     ======================================================== -->
 <script>
 // ========================================================
-// CORE CONSTANTS & DEFAULT CATEGORIES (12 CATEGORIES + BIN)
+// CORE CATEGORIES DEFINITION
 // ========================================================
 const DEFAULT_CATEGORIES = [
   { id: 'all', name: 'All Items', icon: '🏠', isSystem: true },
-  { id: 'photos', name: 'Photos & Images', icon: '📸', topicId: null },
-  { id: 'links', name: 'Website Links', icon: '🔗', topicId: null },
-  { id: 'saved_messages', name: 'Saved Message', icon: '💬', topicId: null },
-  { id: 'pdfs', name: 'PDF Documents', icon: '📄', topicId: null },
-  { id: 'sms', name: 'SMS & Messages', icon: '✉️', topicId: null },
-  { id: 'tutorials', name: 'Methods & Tutorials', icon: '📚', topicId: null },
-  { id: 'prompts', name: 'AI Prompts', icon: '✨', topicId: null },
-  { id: 'idm_keys', name: 'IDM Keys', icon: '🔑', topicId: null },
-  { id: 'files', name: 'Files & Software', icon: '🗂️', topicId: null },
-  { id: 'jobs', name: 'Job Files', icon: '💼', topicId: null },
-  { id: 'cards', name: 'Card Details', icon: '🔐', topicId: null },
+  { id: 'photos', name: 'Photos & Images', icon: '📸' },
+  { id: 'links', name: 'Website Links', icon: '🔗' },
+  { id: 'saved_messages', name: 'Saved Message', icon: '💬' },
+  { id: 'pdfs', name: 'PDF Documents', icon: '📄' },
+  { id: 'sms', name: 'SMS & Messages', icon: '✉️' },
+  { id: 'jobs', name: 'Job Files', icon: '💼' },
+  { id: 'cards', name: 'Card Details', icon: '🔐' },
+  { id: 'idm_keys', name: 'IDM Keys', icon: '🔑' },
+  { id: 'prompts', name: 'AI Prompts', icon: '✨' },
+  { id: 'tutorials', name: 'Methods & Tutorials', icon: '📚' },
+  { id: 'files', name: 'Files & Software', icon: '🗂️' },
   { id: 'important', name: 'Important & Backup', icon: '⭐', isFilter: true },
   { id: 'bin', name: 'Bin', icon: '🗑️', isSystem: true }
 ];
@@ -1105,18 +1129,18 @@ const THEMES = [
   { id: 'dark', name: 'Dark Mode', dot: '#6c63ff' },
   { id: 'amoled', name: 'AMOLED Black', dot: '#bb86fc' },
   { id: 'forest', name: 'Forest Green', dot: '#10b981' },
-  { id: 'aurora', name: 'Aurora Cyan', dot: '#48cae4' },
-  { id: 'midnight', name: 'Midnight Blue', dot: '#5352ed' },
-  { id: 'sunset', name: 'Sunset Plum', dot: '#ff4757' },
+  { id: 'aurora', name: 'Aurora Cyan', dot: '#38bdf8' },
+  { id: 'midnight', name: 'Midnight Blue', dot: '#4f46e5' },
+  { id: 'sunset', name: 'Sunset Plum', dot: '#f43f5e' },
   { id: 'rose', name: 'Rose Light', dot: '#e11d48' },
   { id: 'arctic', name: 'Arctic Light', dot: '#0284c7' },
   { id: 'mono', name: 'Monochrome', dot: '#ffffff' },
-  { id: 'sakura', name: 'Sakura Blush', dot: '#f472b6' },
+  { id: 'sakura', name: 'Sakura Blush', dot: '#ec4899' },
   { id: 'light', name: 'Light Classic', dot: '#4f46e5' },
-  { id: 'ocean', name: 'Ocean Aqua', dot: '#00b4d8' }
+  { id: 'ocean', name: 'Ocean Aqua', dot: '#06b6d4' }
 ];
 
-// App State
+// App Global State
 const VAULT = {
   items: [],
   categories: [],
@@ -1125,7 +1149,8 @@ const VAULT = {
   theme: localStorage.getItem('safi_theme') || 'dark',
   tgToken: localStorage.getItem('safi_tg_token') || '',
   tgChatId: localStorage.getItem('safi_tg_chatid') || '',
-  viewMode: localStorage.getItem('safi_view_mode') || 'grid',
+  profileName: localStorage.getItem('safi_prof_name') || 'Md Safi Islam',
+  profileAvatar: localStorage.getItem('safi_prof_avatar') || 'S',
   activeFilePayload: null
 };
 
@@ -1135,6 +1160,7 @@ const VAULT = {
 document.addEventListener('DOMContentLoaded', () => {
   loadVaultData();
   applyTheme(VAULT.theme);
+  updateProfileUI();
   renderCategoryNav();
   renderFilterChips();
   renderItems();
@@ -1143,13 +1169,13 @@ document.addEventListener('DOMContentLoaded', () => {
   setupRipples();
 });
 
-// Load Data from LocalStorage
+// Load Data
 function loadVaultData() {
   try {
     const storedCats = localStorage.getItem('safi_categories');
-    VAULT.categories = storedCats ? JSON.parse(storedCats) : DEFAULT_CATEGORIES;
-    
-    // Ensure all default categories exist
+    VAULT.categories = storedCats ? JSON.parse(storedCats) : [...DEFAULT_CATEGORIES];
+
+    // Ensure all base categories are present
     DEFAULT_CATEGORIES.forEach(dc => {
       if(!VAULT.categories.find(c => c.id === dc.id)) {
         VAULT.categories.push(dc);
@@ -1159,8 +1185,7 @@ function loadVaultData() {
     const storedItems = localStorage.getItem('safi_items');
     VAULT.items = storedItems ? JSON.parse(storedItems) : [];
   } catch(e) {
-    console.error('Error loading vault data:', e);
-    VAULT.categories = DEFAULT_CATEGORIES;
+    VAULT.categories = [...DEFAULT_CATEGORIES];
     VAULT.items = [];
   }
 }
@@ -1171,9 +1196,95 @@ function saveVaultData() {
   localStorage.setItem('safi_categories', JSON.stringify(VAULT.categories));
 }
 
-// Generate UID
 function generateId() {
   return 'item_' + Date.now().toString(36) + '_' + Math.random().toString(36).substr(2, 5);
+}
+
+// ========================================================
+// PROFILE MANAGEMENT (PERSISTENT - NO LOGIN POPUPS)
+// ========================================================
+function updateProfileUI() {
+  document.getElementById('sb-user-name').textContent = VAULT.profileName;
+  document.getElementById('sb-user-avatar').textContent = VAULT.profileAvatar;
+  document.getElementById('set-prof-name').textContent = VAULT.profileName;
+  document.getElementById('set-prof-avatar').textContent = VAULT.profileAvatar;
+  document.getElementById('profile-name-input').value = VAULT.profileName;
+  document.getElementById('profile-avatar-input').value = VAULT.profileAvatar;
+}
+
+function saveProfileChanges() {
+  const name = document.getElementById('profile-name-input').value.trim() || 'Md Safi Islam';
+  const av = document.getElementById('profile-avatar-input').value.trim() || 'S';
+  VAULT.profileName = name;
+  VAULT.profileAvatar = av;
+  localStorage.setItem('safi_prof_name', name);
+  localStorage.setItem('safi_prof_avatar', av);
+  updateProfileUI();
+  showToast('Profile updated successfully!');
+}
+
+function openProfileTab() {
+  updateTopicsManagerList();
+  openOverlay('profile-settings-overlay');
+}
+
+function switchSettingsTab(tabName, btn) {
+  document.querySelectorAll('.sttab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.stab-content').forEach(c => c.style.display = 'none');
+  const target = document.getElementById('stab-' + tabName);
+  if(target) target.style.display = 'block';
+  if(tabName === 'topics') updateTopicsManagerList();
+}
+
+// ========================================================
+// CATEGORIES & TOPIC MANAGER (WITH DELETE FUNCTIONALITY!)
+// ========================================================
+function updateTopicsManagerList() {
+  const container = document.getElementById('topics-manager-list');
+  if(!container) return;
+
+  container.innerHTML = VAULT.categories.map(c => {
+    const isProtected = c.id === 'all' || c.id === 'important' || c.id === 'bin';
+    const count = VAULT.items.filter(i => i.category === c.id && !i.isDeleted).length;
+
+    return `
+      <div class="cat-mgr-item">
+        <div style="display:flex;align-items:center;gap:8px">
+          <span style="font-size:18px">${c.icon}</span>
+          <div>
+            <div style="font-size:13px;font-weight:800">${escapeHtml(c.name)}</div>
+            <div style="font-size:10px;color:var(--text-muted)">${count} items ${c.topicId ? `• Topic ID: ${c.topicId}` : ''}</div>
+          </div>
+        </div>
+        ${!isProtected ? `
+          <button class="cat-mgr-del ripple" onclick="deleteCategory('${c.id}')" title="Delete Topic">🗑️ Delete</button>
+        ` : `<span style="font-size:10px;color:var(--text-muted)">Default</span>`}
+      </div>
+    `;
+  }).join('');
+}
+
+function deleteCategory(catId) {
+  const cat = VAULT.categories.find(c => c.id === catId);
+  if(!cat) return;
+
+  if(!confirm(`Are you sure you want to delete category "${cat.name}"? Items inside will remain in "All Items".`)) return;
+
+  // Move items to 'files' or keep them without category
+  VAULT.items.forEach(i => {
+    if(i.category === catId) i.category = 'files';
+  });
+
+  VAULT.categories = VAULT.categories.filter(c => c.id !== catId);
+  if(VAULT.currentCategory === catId) VAULT.currentCategory = 'all';
+
+  saveVaultData();
+  renderCategoryNav();
+  renderFilterChips();
+  renderItems();
+  updateTopicsManagerList();
+  showToast(`Category "${cat.name}" deleted!`);
 }
 
 // ========================================================
@@ -1183,8 +1294,6 @@ function applyTheme(themeId) {
   document.documentElement.setAttribute('data-theme', themeId);
   VAULT.theme = themeId;
   localStorage.setItem('safi_theme', themeId);
-  
-  // Highlight in modal
   document.querySelectorAll('.theme-card').forEach(el => {
     el.classList.toggle('active', el.dataset.theme === themeId);
   });
@@ -1201,22 +1310,21 @@ function initThemeGrid() {
   `).join('');
 }
 
+function openThemeModal() { openOverlay('theme-overlay'); }
+
 // ========================================================
 // NAVIGATION & CATEGORY SWITCHING
 // ========================================================
 function switchCategory(catId, element) {
   VAULT.currentCategory = catId;
   
-  // Update Nav Items Active State
   document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
   const targetNav = document.getElementById(`nav-${catId}`);
   if(targetNav) targetNav.classList.add('active');
 
-  // Update Bottom Nav Active State
   document.querySelectorAll('.bnav-btn').forEach(el => el.classList.remove('active'));
   if(element && element.classList.contains('bnav-btn')) element.classList.add('active');
 
-  // Update Header Title
   const cat = VAULT.categories.find(c => c.id === catId) || { name: 'Items', icon: '📂' };
   document.getElementById('view-icon').textContent = cat.icon;
   document.getElementById('view-name').textContent = cat.name;
@@ -1239,12 +1347,16 @@ function renderCategoryNav() {
     else count = VAULT.items.filter(i => i.category === c.id && !i.isDeleted).length;
 
     const isActive = VAULT.currentCategory === c.id;
+    const isCustom = !c.isSystem && !c.isFilter;
 
     return `
       <div class="nav-item ${isActive ? 'active' : ''} ripple" id="nav-${c.id}" onclick="switchCategory('${c.id}', this)">
         <span class="nav-icon">${c.icon}</span>
         <span class="nav-title">${c.name}</span>
         <span class="nav-badge">${count}</span>
+        ${isCustom ? `
+          <span class="nav-del-btn" onclick="event.stopPropagation();deleteCategory('${c.id}')" title="Delete Topic">✕</span>
+        ` : ''}
       </div>
     `;
   }).join('');
@@ -1272,7 +1384,7 @@ function renderFilterChips() {
 }
 
 // ========================================================
-// RENDER ITEMS (AWD TELEDRIVE & SAFI VAULT ENHANCED)
+// RENDER ITEMS
 // ========================================================
 function renderItems() {
   const container = document.getElementById('items-container');
@@ -1291,13 +1403,14 @@ function renderItems() {
     filtered = filtered.filter(i => !i.isDeleted);
   }
 
-  // Search Filter
+  // Search
   if(VAULT.searchQuery) {
     const q = VAULT.searchQuery.toLowerCase();
     filtered = filtered.filter(i => 
       (i.title && i.title.toLowerCase().includes(q)) ||
       (i.notes && i.notes.toLowerCase().includes(q)) ||
       (i.url && i.url.toLowerCase().includes(q)) ||
+      (i.cardDetails && JSON.stringify(i.cardDetails).toLowerCase().includes(q)) ||
       (i.bubbles && i.bubbles.some(b => b.text.toLowerCase().includes(q)))
     );
   }
@@ -1309,7 +1422,7 @@ function renderItems() {
         <div class="empty-icon">${VAULT.currentCategory === 'bin' ? '🗑️' : '📂'}</div>
         <div class="empty-title">${VAULT.currentCategory === 'bin' ? 'Bin is empty' : 'No items found'}</div>
         <div class="empty-desc">
-          ${VAULT.currentCategory === 'bin' ? 'Deleted items will appear here.' : 'Tap the ＋ button below to create or upload new records.'}
+          ${VAULT.currentCategory === 'bin' ? 'Deleted items will appear here.' : 'Tap the ＋ button below to add records.'}
         </div>
       </div>
     `;
@@ -1321,31 +1434,89 @@ function renderItems() {
   renderCategoryNav();
 }
 
-// Specialized Card Renderer
 function renderItemCard(item) {
   const cat = VAULT.categories.find(c => c.id === item.category) || { name: 'Item', icon: '📄' };
   const isBin = item.isDeleted;
 
-  // 1. Photos & Images
+  // 1. Photos & Images Thumbnail
   let mediaHtml = '';
   if(item.fileData && (item.fileType?.startsWith('image/') || item.category === 'photos')) {
     mediaHtml = `
-      <div class="media-thumb-box" onclick="openLightbox('${item.id}')">
-        <img src="${item.fileData}" class="media-thumb-img" alt="${escapeHtml(item.title)}">
-        <span class="media-meta-tag">${item.fileResolution || formatFileSize(item.fileSize)}</span>
+      <div style="width:100%;height:150px;border-radius:10px;overflow:hidden;background:var(--surface2);cursor:pointer;position:relative" onclick="openMediaViewer('${item.id}', 'img')">
+        <img src="${item.fileData}" style="width:100%;height:100%;object-fit:cover" alt="${escapeHtml(item.title)}">
+        <span style="position:absolute;bottom:6px;right:6px;padding:2px 7px;border-radius:4px;background:rgba(0,0,0,.7);color:#fff;font-size:10px;font-weight:700">
+          ${formatFileSize(item.fileSize)}
+        </span>
       </div>
     `;
   } else if(item.fileData && item.fileType?.startsWith('video/')) {
     mediaHtml = `
-      <div class="media-thumb-box" onclick="openVideoPlayer('${item.id}')">
-        <video src="${item.fileData}" class="media-thumb-img"></video>
-        <div class="media-play-overlay">▶</div>
-        <span class="media-meta-tag">${formatFileSize(item.fileSize)}</span>
+      <div style="width:100%;height:150px;border-radius:10px;overflow:hidden;background:var(--surface2);cursor:pointer;position:relative;display:flex;align-items:center;justify-content:center" onclick="openMediaViewer('${item.id}', 'video')">
+        <video src="${item.fileData}" style="width:100%;height:100%;object-fit:cover"></video>
+        <span style="position:absolute;font-size:32px;color:#fff">▶</span>
       </div>
     `;
   }
 
-  // 2. Saved Messages (Email / Phone Numbers Bubble List with Circular Mark & Copy)
+  // 2. REALISTIC CREDIT / DEBIT CARD DETAILS (FULLY VISIBLE & EASY TO COPY)
+  let cardHtml = '';
+  if(item.cardDetails) {
+    const cd = item.cardDetails;
+    cardHtml = `
+      <div class="credit-card-ui">
+        <div class="cc-top-row">
+          <div class="cc-chip"></div>
+          <span class="cc-bank">${escapeHtml(cd.bank || 'DEBIT CARD')}</span>
+        </div>
+
+        <div class="cc-number-row">
+          <span class="cc-number">${escapeHtml(cd.number || '•••• •••• •••• ••••')}</span>
+          <button class="cc-copy-btn" onclick="copyToClipboard('${escapeAttr(cd.number)}')">Copy</button>
+        </div>
+
+        <div class="cc-bottom-row">
+          <div>
+            <div class="cc-holder-label">Cardholder</div>
+            <div class="cc-holder-name">${escapeHtml(cd.name || 'MD SAFI ISLAM')}</div>
+          </div>
+          <div class="cc-exp-cvv-box">
+            <div>
+              <div class="cc-holder-label">EXP</div>
+              <div class="cc-val" style="cursor:pointer" onclick="copyToClipboard('${escapeAttr(cd.exp)}')">${escapeHtml(cd.exp || '••/••')}</div>
+            </div>
+            <div>
+              <div class="cc-holder-label">CVV</div>
+              <div class="cc-val" style="cursor:pointer" onclick="copyToClipboard('${escapeAttr(cd.cvv)}')">${escapeHtml(cd.cvv || '•••')}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  // 3. SMS & Messages
+  let smsHtml = '';
+  if(item.smsDetails) {
+    smsHtml = `
+      <div class="meta-badge-row">
+        ${item.smsDetails.sender ? `<span class="meta-tag">From: ${escapeHtml(item.smsDetails.sender)}</span>` : ''}
+        ${item.smsDetails.phone ? `<span class="meta-tag">Phone: ${escapeHtml(item.smsDetails.phone)}</span>` : ''}
+      </div>
+    `;
+  }
+
+  // 4. Job Files Details
+  let jobHtml = '';
+  if(item.jobDetails) {
+    jobHtml = `
+      <div class="meta-badge-row">
+        ${item.jobDetails.company ? `<span class="meta-tag">💼 ${escapeHtml(item.jobDetails.company)}</span>` : ''}
+        ${item.jobDetails.status ? `<span class="meta-tag" style="background:var(--primary);color:var(--primary-text)">${escapeHtml(item.jobDetails.status)}</span>` : ''}
+      </div>
+    `;
+  }
+
+  // 5. Emails / Numbers Bubble List
   let bubblesHtml = '';
   if(item.bubbles && item.bubbles.length > 0) {
     bubblesHtml = `
@@ -1365,32 +1536,11 @@ function renderItemCard(item) {
     `;
   }
 
-  // 3. Card Details (Privacy Mask / Tap to reveal)
-  let cardBoxHtml = '';
-  if(item.cardDetails) {
-    const cd = item.cardDetails;
-    cardBoxHtml = `
-      <div class="card-details-box">
-        <div style="display:flex;justify-content:space-between;align-items:center">
-          <div class="cd-chip"></div>
-          <span style="font-size:12px;font-weight:700">SECURE CARD</span>
-        </div>
-        <div class="cd-num masked" id="cd-num-${item.id}" onclick="toggleCardMask('${item.id}', '${cd.number}')">
-          •••• •••• •••• ${cd.number.slice(-4) || '••••'}
-        </div>
-        <div class="cd-row">
-          <div>EXP: <span class="cd-val">${cd.exp || '••/••'}</span></div>
-          <div>CVV: <span class="cd-val" id="cd-cvv-${item.id}" onclick="this.textContent='${cd.cvv}'">•••</span></div>
-        </div>
-      </div>
-    `;
-  }
-
-  // 4. Website Link
+  // 6. Web Links
   let linkHtml = '';
   if(item.url) {
     linkHtml = `
-      <div style="display:flex;align-items:center;gap:8px">
+      <div>
         <a href="${item.url}" target="_blank" rel="noopener" style="color:var(--accent);font-size:12px;font-weight:700;word-break:break-all">
           🔗 ${escapeHtml(item.url)}
         </a>
@@ -1398,23 +1548,12 @@ function renderItemCard(item) {
     `;
   }
 
-  // 5. AI Prompt / Code / Key Box
-  let promptHtml = '';
-  if(item.category === 'prompts' && item.notes) {
-    promptHtml = `
-      <div class="prompt-box">
-        <button class="prompt-copy-btn ripple" onclick="copyToClipboard('${escapeAttr(item.notes)}')">Copy</button>
-        <div>${escapeHtml(item.notes)}</div>
-      </div>
-    `;
-  }
-
-  // 6. IDM Key Box
-  let idmHtml = '';
-  if(item.category === 'idm_keys' && item.notes) {
-    idmHtml = `
-      <div class="idm-key-row">
-        <span class="idm-key-text">${escapeHtml(item.notes)}</span>
+  // 7. IDM Key / AI Prompt Quick Copy
+  let keyPromptHtml = '';
+  if((item.category === 'idm_keys' || item.category === 'prompts') && item.notes) {
+    keyPromptHtml = `
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;background:var(--surface2);padding:8px 12px;border-radius:8px;border:1px solid var(--border)">
+        <span class="mono" style="font-size:12px;font-weight:700;word-break:break-all">${escapeHtml(item.notes)}</span>
         <button class="copy-pill" onclick="copyToClipboard('${escapeAttr(item.notes)}')">Copy</button>
       </div>
     `;
@@ -1451,30 +1590,28 @@ function renderItemCard(item) {
       ` : ''}
 
       ${linkHtml}
+      ${smsHtml}
+      ${jobHtml}
+      ${cardHtml}
       ${bubblesHtml}
-      ${cardBoxHtml}
-      ${promptHtml}
-      ${idmHtml}
+      ${keyPromptHtml}
 
       <div style="font-size:10px;color:var(--text-muted);display:flex;justify-content:space-between;margin-top:auto">
         <span>${formatDate(item.createdAt)}</span>
-        <span>${item.tgMsgId ? '✈️ Synced' : '💾 Local'}</span>
+        <span>${item.tgMsgId ? '✈️ Telegram Synced' : '💾 Local Vault'}</span>
       </div>
     </div>
   `;
 }
 
 // ========================================================
-// ITEM ACTIONS: ADD, EDIT, DELETE, RESTORE, MARK
+// ITEM CREATION, PERSISTENCE & ACTIONS
 // ========================================================
-function openAddSheet() {
-  openOverlay('add-action-overlay');
-}
+function openAddSheet() { openOverlay('add-action-overlay'); }
 
 function openCreateItemModal(catId) {
   closeOverlay('add-action-overlay');
   
-  // Populate Categories in Select
   const sel = document.getElementById('form-item-category');
   sel.innerHTML = VAULT.categories
     .filter(c => !c.isSystem && !c.isFilter)
@@ -1492,8 +1629,10 @@ function openCreateItemModal(catId) {
 
 function adaptFormFields(catId) {
   document.getElementById('field-url').style.display = (catId === 'links') ? 'block' : 'none';
-  document.getElementById('field-bubbles').style.display = (catId === 'saved_messages' || catId === 'sms') ? 'block' : 'none';
+  document.getElementById('field-sms').style.display = (catId === 'sms') ? 'block' : 'none';
+  document.getElementById('field-job').style.display = (catId === 'jobs') ? 'block' : 'none';
   document.getElementById('field-card').style.display = (catId === 'cards') ? 'block' : 'none';
+  document.getElementById('field-bubbles').style.display = (catId === 'saved_messages') ? 'block' : 'none';
 }
 
 function handleFileSelection(input) {
@@ -1515,7 +1654,6 @@ function handleFileSelection(input) {
   reader.readAsDataURL(file);
 }
 
-// Save Item (Local + Telegram Sync)
 async function handleSaveItem(e) {
   e.preventDefault();
   
@@ -1529,7 +1667,37 @@ async function handleSaveItem(e) {
   const url = document.getElementById('form-item-url').value.trim();
   const isImportant = document.getElementById('form-item-important').checked;
 
-  // Process Emails / Phone numbers bubbles
+  // SMS Details
+  let smsDetails = null;
+  if(category === 'sms') {
+    smsDetails = {
+      sender: document.getElementById('form-sms-sender').value.trim(),
+      phone: document.getElementById('form-sms-phone').value.trim()
+    };
+  }
+
+  // Job Details
+  let jobDetails = null;
+  if(category === 'jobs') {
+    jobDetails = {
+      company: document.getElementById('form-job-company').value.trim(),
+      status: document.getElementById('form-job-status').value
+    };
+  }
+
+  // Card Details (Fully visible as requested)
+  let cardDetails = null;
+  if(category === 'cards') {
+    cardDetails = {
+      number: document.getElementById('form-card-num').value.trim(),
+      name: document.getElementById('form-card-name').value.trim() || 'MD SAFI ISLAM',
+      bank: document.getElementById('form-card-bank').value.trim() || 'VISA PLATINUM',
+      exp: document.getElementById('form-card-exp').value.trim() || '12/28',
+      cvv: document.getElementById('form-card-cvv').value.trim() || '842'
+    };
+  }
+
+  // Email / Phone Bubbles
   let bubbles = [];
   const bubbleRaw = document.getElementById('form-item-bubbles').value.trim();
   if(bubbleRaw) {
@@ -1539,24 +1707,16 @@ async function handleSaveItem(e) {
     }));
   }
 
-  // Process Card Details
-  let cardDetails = null;
-  if(category === 'cards') {
-    cardDetails = {
-      number: document.getElementById('form-card-num').value.trim(),
-      exp: document.getElementById('form-card-exp').value.trim(),
-      cvv: document.getElementById('form-card-cvv').value.trim()
-    };
-  }
-
   const newItem = {
     id: generateId(),
     category,
     title,
     notes,
     url: url || null,
-    bubbles: bubbles.length > 0 ? bubbles : null,
+    smsDetails,
+    jobDetails,
     cardDetails,
+    bubbles: bubbles.length > 0 ? bubbles : null,
     fileData: VAULT.activeFilePayload?.data || null,
     fileName: VAULT.activeFilePayload?.name || null,
     fileSize: VAULT.activeFilePayload?.size || null,
@@ -1567,7 +1727,7 @@ async function handleSaveItem(e) {
     tgMsgId: null
   };
 
-  // Sync to Telegram if connected
+  // Telegram Sync
   if(VAULT.tgToken && VAULT.tgChatId) {
     try {
       const tgRes = await sendToTelegram(newItem);
@@ -1575,14 +1735,13 @@ async function handleSaveItem(e) {
         newItem.tgMsgId = tgRes.result.message_id;
         showToast('✅ Saved & Synced to Telegram Topic!');
       } else {
-        showToast('⚠️ Saved locally (Telegram sync issue)');
+        showToast('💾 Saved locally to Vault');
       }
     } catch(err) {
-      console.warn('Telegram sync failed:', err);
-      showToast('⚠️ Saved locally (Telegram unreachable)');
+      showToast('💾 Saved locally to Vault');
     }
   } else {
-    showToast('💾 Saved to Safi Vault locally');
+    showToast('💾 Saved locally to Vault');
   }
 
   VAULT.items.unshift(newItem);
@@ -1591,10 +1750,10 @@ async function handleSaveItem(e) {
   renderItems();
 
   submitBtn.disabled = false;
-  submitBtn.innerHTML = `<span>💾</span> Save to Safi Vault & Telegram`;
+  submitBtn.innerHTML = `<span>💾</span> Save to Vault & Sync Telegram`;
 }
 
-// Toggle Email / Phone Number Mark (○ / ✓)
+// Toggle Bubble Mark
 function toggleBubbleMark(itemId, index) {
   const item = VAULT.items.find(i => i.id === itemId);
   if(!item || !item.bubbles || !item.bubbles[index]) return;
@@ -1613,20 +1772,6 @@ function toggleBubbleMark(itemId, index) {
   }
 }
 
-// Toggle Card Mask
-function toggleCardMask(itemId, fullNum) {
-  const el = document.getElementById(`cd-num-${itemId}`);
-  if(!el) return;
-  if(el.classList.contains('masked')) {
-    el.classList.remove('masked');
-    el.textContent = fullNum;
-  } else {
-    el.classList.add('masked');
-    el.textContent = `•••• •••• •••• ${fullNum.slice(-4)}`;
-  }
-}
-
-// Toggle Important
 function toggleImportant(itemId) {
   const item = VAULT.items.find(i => i.id === itemId);
   if(!item) return;
@@ -1636,7 +1781,6 @@ function toggleImportant(itemId) {
   showToast(item.isImportant ? '⭐ Marked as Important' : 'Unmarked');
 }
 
-// Soft Delete (Move to Bin)
 function moveToBin(itemId) {
   const item = VAULT.items.find(i => i.id === itemId);
   if(!item) return;
@@ -1646,7 +1790,6 @@ function moveToBin(itemId) {
   showToast('🗑️ Moved to Bin');
 }
 
-// Restore from Bin
 function restoreFromBin(itemId) {
   const item = VAULT.items.find(i => i.id === itemId);
   if(!item) return;
@@ -1656,27 +1799,19 @@ function restoreFromBin(itemId) {
   showToast('↩️ Restored to Vault');
 }
 
-// Permanent Delete (Local + Telegram deleteMessage)
 async function permanentlyDeleteItem(itemId) {
-  if(!confirm('Are you sure you want to PERMANENTLY delete this item? This action cannot be undone.')) return;
-
+  if(!confirm('Permanently delete this record?')) return;
   const item = VAULT.items.find(i => i.id === itemId);
   if(!item) return;
 
-  // Telegram Delete
   if(item.tgMsgId && VAULT.tgToken && VAULT.tgChatId) {
     try {
       await fetch(`https://api.telegram.org/bot${VAULT.tgToken}/deleteMessage`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          chat_id: VAULT.tgChatId,
-          message_id: item.tgMsgId
-        })
+        body: JSON.stringify({ chat_id: VAULT.tgChatId, message_id: item.tgMsgId })
       });
-    } catch(e) {
-      console.warn('Telegram message delete failed:', e);
-    }
+    } catch(e) {}
   }
 
   VAULT.items = VAULT.items.filter(i => i.id !== itemId);
@@ -1686,7 +1821,7 @@ async function permanentlyDeleteItem(itemId) {
 }
 
 // ========================================================
-// TELEGRAM BOT API & FORUM TOPIC SYNC
+// TELEGRAM BOT & TOPIC SYNC
 // ========================================================
 async function sendToTelegram(item) {
   if(!VAULT.tgToken || !VAULT.tgChatId) return null;
@@ -1694,21 +1829,19 @@ async function sendToTelegram(item) {
   const cat = VAULT.categories.find(c => c.id === item.category);
   const threadId = cat?.topicId || null;
 
-  // Clean, premium message body formatting (No annoying spam text)
   let caption = `<b>${escapeHtml(item.title)}</b>\n`;
   if(item.notes) caption += `\n${escapeHtml(item.notes)}`;
   if(item.url) caption += `\n🔗 <a href="${item.url}">${item.url}</a>`;
+  if(item.cardDetails) {
+    caption += `\n💳 <b>CARD:</b> <code>${item.cardDetails.number}</code> | EXP: <code>${item.cardDetails.exp}</code> | CVV: <code>${item.cardDetails.cvv}</code>`;
+  }
   if(item.bubbles && item.bubbles.length > 0) {
     caption += `\n\n<b>ITEMS:</b>\n` + item.bubbles.map(b => `• <code>${escapeHtml(b.text)}</code>`).join('\n');
   }
 
-  const payload = {
-    chat_id: VAULT.tgChatId,
-    parse_mode: 'HTML'
-  };
+  const payload = { chat_id: VAULT.tgChatId, parse_mode: 'HTML' };
   if(threadId) payload.message_thread_id = threadId;
 
-  // File Upload vs Text Message
   if(item.fileData && VAULT.activeFilePayload) {
     const formData = new FormData();
     formData.append('chat_id', VAULT.tgChatId);
@@ -1716,15 +1849,13 @@ async function sendToTelegram(item) {
     formData.append('caption', caption);
     formData.append('parse_mode', 'HTML');
 
-    // Convert Base64 dataURL to Blob
     const blob = await (await fetch(item.fileData)).blob();
     const isPhoto = item.fileType?.startsWith('image/');
     const method = isPhoto ? 'sendPhoto' : 'sendDocument';
     formData.append(isPhoto ? 'photo' : 'document', blob, item.fileName || 'file');
 
     const res = await fetch(`https://api.telegram.org/bot${VAULT.tgToken}/${method}`, {
-      method: 'POST',
-      body: formData
+      method: 'POST', body: formData
     });
     return await res.json();
   } else {
@@ -1738,14 +1869,13 @@ async function sendToTelegram(item) {
   }
 }
 
-// Check Connection Status
 async function checkTelegramStatus() {
   const dot = document.getElementById('sb-status-dot');
   const txt = document.getElementById('sb-status-text');
 
   if(!VAULT.tgToken || !VAULT.tgChatId) {
     dot.className = 'status-dot offline';
-    txt.textContent = 'Local Mode (No TG)';
+    txt.textContent = 'Local Vault (No TG)';
     return;
   }
 
@@ -1761,7 +1891,7 @@ async function checkTelegramStatus() {
     }
   } catch(e) {
     dot.className = 'status-dot offline';
-    txt.textContent = 'Connection Error';
+    txt.textContent = 'Offline Mode';
   }
 }
 
@@ -1775,8 +1905,7 @@ function saveTelegramSettings() {
   localStorage.setItem('safi_tg_chatid', cid);
 
   checkTelegramStatus();
-  closeOverlay('settings-overlay');
-  showToast('Settings saved!');
+  showToast('Telegram settings saved!');
 }
 
 async function testTelegramSync() {
@@ -1790,10 +1919,7 @@ async function testTelegramSync() {
     const res = await fetch(`https://api.telegram.org/bot${VAULT.tgToken}/sendMessage`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        chat_id: VAULT.tgChatId,
-        text: '⚡ Safi Telegram Vault — Test Ping Successful!'
-      })
+      body: JSON.stringify({ chat_id: VAULT.tgChatId, text: '⚡ Safi Telegram Vault — Test Ping Successful!' })
     });
     const d = await res.json();
     if(d.ok) alert('✅ Success! Bot sent a test message to your Telegram Supergroup.');
@@ -1803,7 +1929,6 @@ async function testTelegramSync() {
   }
 }
 
-// Create New Category & Telegram Topic
 async function handleCreateCategory(e) {
   e.preventDefault();
   const name = document.getElementById('cat-name-input').value.trim();
@@ -1817,25 +1942,16 @@ async function handleCreateCategory(e) {
     topicId: null
   };
 
-  // Create Topic on Telegram if requested
   if(autoTg && VAULT.tgToken && VAULT.tgChatId) {
     try {
       const res = await fetch(`https://api.telegram.org/bot${VAULT.tgToken}/createForumTopic`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          chat_id: VAULT.tgChatId,
-          name: `${icon} ${name}`
-        })
+        body: JSON.stringify({ chat_id: VAULT.tgChatId, name: `${icon} ${name}` })
       });
       const data = await res.json();
-      if(data.ok) {
-        newCat.topicId = data.result.message_thread_id;
-        showToast(`Topic "${name}" created on Telegram!`);
-      }
-    } catch(err) {
-      console.warn('Could not create forum topic:', err);
-    }
+      if(data.ok) newCat.topicId = data.result.message_thread_id;
+    } catch(err) {}
   }
 
   VAULT.categories.push(newCat);
@@ -1843,11 +1959,16 @@ async function handleCreateCategory(e) {
   renderCategoryNav();
   renderFilterChips();
   closeOverlay('create-cat-overlay');
-  showToast(`Category "${name}" created!`);
+  showToast(`Topic "${name}" created!`);
+}
+
+function openCreateCategoryModal() {
+  closeOverlay('add-action-overlay');
+  openOverlay('create-cat-overlay');
 }
 
 // ========================================================
-// IDM TURBO MULTI-THREADED ACCELERATOR ENGINE
+// IDM TURBO ACCELERATED DOWNLOADER
 // ========================================================
 function triggerTurboDownload(itemId) {
   const item = VAULT.items.find(i => i.id === itemId);
@@ -1858,11 +1979,10 @@ function triggerTurboDownload(itemId) {
   
   openOverlay('idm-overlay');
   
-  // Animate 4 concurrent chunks accelerating
   let p1 = 0, p2 = 0, p3 = 0, p4 = 0;
   const interval = setInterval(() => {
     p1 = Math.min(100, p1 + Math.random() * 20);
-    p2 = Math.min(100, p2 + Math.random() * 24);
+    p2 = Math.min(100, p2 + Math.random() * 25);
     p3 = Math.min(100, p3 + Math.random() * 18);
     p4 = Math.min(100, p4 + Math.random() * 22);
 
@@ -1877,12 +1997,11 @@ function triggerTurboDownload(itemId) {
 
     const overall = (p1 + p2 + p3 + p4) / 4;
     document.getElementById('idm-overall-fill').style.width = overall + '%';
-    document.getElementById('idm-speed').textContent = `Speed: ${(Math.random() * 3 + 8).toFixed(1)} MB/s`;
+    document.getElementById('idm-speed').textContent = `Speed: ${(Math.random() * 3 + 7).toFixed(1)} MB/s`;
 
     if(overall >= 100) {
       clearInterval(interval);
       document.getElementById('idm-status').textContent = '✅ Stitched 4 streams! Saving...';
-      
       setTimeout(() => {
         const a = document.createElement('a');
         a.href = item.fileData;
@@ -1892,81 +2011,89 @@ function triggerTurboDownload(itemId) {
         a.remove();
         closeOverlay('idm-overlay');
         showToast('Download Complete!');
-      }, 600);
+      }, 500);
     }
   }, 100);
 }
 
 // ========================================================
-// MEDIA VIEWER & AUDIO BAR
+// MEDIA VIEWER
 // ========================================================
-function openLightbox(itemId) {
+function openMediaViewer(itemId, type) {
   const item = VAULT.items.find(i => i.id === itemId);
   if(!item || !item.fileData) return;
 
-  const overlay = document.getElementById('player-overlay');
-  const img = document.getElementById('lightbox-img');
-  const vid = document.getElementById('lightbox-video');
+  const img = document.getElementById('viewer-img');
+  const vid = document.getElementById('viewer-video');
+  const title = document.getElementById('viewer-title');
 
-  vid.style.display = 'none';
-  vid.pause();
-  img.style.display = 'block';
-  img.src = item.fileData;
+  title.textContent = item.title;
 
-  document.getElementById('lightbox-title').textContent = item.title;
-  document.getElementById('lightbox-meta').textContent = `${formatFileSize(item.fileSize)} · ${item.fileName || ''}`;
-
-  overlay.classList.add('open');
-}
-
-function openVideoPlayer(itemId) {
-  const item = VAULT.items.find(i => i.id === itemId);
-  if(!item || !item.fileData) return;
-
-  const overlay = document.getElementById('player-overlay');
-  const img = document.getElementById('lightbox-img');
-  const vid = document.getElementById('lightbox-video');
-
-  img.style.display = 'none';
-  vid.style.display = 'block';
-  vid.src = item.fileData;
-  vid.play();
-
-  document.getElementById('lightbox-title').textContent = item.title;
-  document.getElementById('lightbox-meta').textContent = `${formatFileSize(item.fileSize)}`;
-
-  overlay.classList.add('open');
-}
-
-function closePlayerOverlay() {
-  const overlay = document.getElementById('player-overlay');
-  overlay.classList.remove('open');
-  const vid = document.getElementById('lightbox-video');
-  vid.pause();
-  vid.src = '';
-}
-
-function toggleMiniAudioPlay() {
-  const audio = document.getElementById('global-audio-element');
-  const btn = document.getElementById('mab-play-btn');
-  if(audio.paused) {
-    audio.play();
-    btn.textContent = '⏸️';
+  if(type === 'img') {
+    vid.style.display = 'none';
+    vid.pause();
+    img.style.display = 'block';
+    img.src = item.fileData;
   } else {
-    audio.pause();
-    btn.textContent = '▶️';
+    img.style.display = 'none';
+    vid.style.display = 'block';
+    vid.src = item.fileData;
+    vid.play();
   }
-}
 
-function closeMiniAudio() {
-  const bar = document.getElementById('mini-audio-bar');
-  bar.classList.remove('show');
-  const audio = document.getElementById('global-audio-element');
-  audio.pause();
+  openOverlay('media-viewer-overlay');
 }
 
 // ========================================================
-// SEARCH & FILTERS
+// BACKUP & RESTORE
+// ========================================================
+function exportVaultBackup() {
+  const data = {
+    version: '2.5',
+    exportedAt: new Date().toISOString(),
+    profile: { name: VAULT.profileName, avatar: VAULT.profileAvatar },
+    categories: VAULT.categories,
+    items: VAULT.items
+  };
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `Safi_Vault_Backup_${new Date().toISOString().slice(0,10)}.json`;
+  a.click();
+  showToast('💾 Backup exported successfully!');
+}
+
+function importVaultBackup(input) {
+  const file = input.files[0];
+  if(!file) return;
+
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    try {
+      const data = JSON.parse(e.target.result);
+      if(data.items && Array.isArray(data.items)) {
+        VAULT.items = data.items;
+        if(data.categories) VAULT.categories = data.categories;
+        if(data.profile) {
+          VAULT.profileName = data.profile.name || VAULT.profileName;
+          VAULT.profileAvatar = data.profile.avatar || VAULT.profileAvatar;
+          updateProfileUI();
+        }
+        saveVaultData();
+        renderCategoryNav();
+        renderFilterChips();
+        renderItems();
+        showToast('✅ Vault restored successfully!');
+      }
+    } catch(err) {
+      alert('Failed to parse backup JSON.');
+    }
+  };
+  reader.readAsText(file);
+}
+
+// ========================================================
+// SEARCH & UTILS
 // ========================================================
 function handleSearch(q) {
   VAULT.searchQuery = q.trim();
@@ -1980,55 +2107,6 @@ function clearSearch() {
   handleSearch('');
 }
 
-// ========================================================
-// BACKUP & RESTORE
-// ========================================================
-function exportVaultBackup() {
-  const data = {
-    version: '2.0',
-    exportedAt: new Date().toISOString(),
-    categories: VAULT.categories,
-    items: VAULT.items
-  };
-  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = `Safi_Vault_Backup_${new Date().toISOString().slice(0,10)}.json`;
-  a.click();
-  showToast('💾 Backup file exported successfully!');
-}
-
-function importVaultBackup(input) {
-  const file = input.files[0];
-  if(!file) return;
-
-  const reader = new FileReader();
-  reader.onload = (e) => {
-    try {
-      const data = JSON.parse(e.target.result);
-      if(data.items && Array.isArray(data.items)) {
-        VAULT.items = data.items;
-        if(data.categories && Array.isArray(data.categories)) {
-          VAULT.categories = data.categories;
-        }
-        saveVaultData();
-        renderCategoryNav();
-        renderFilterChips();
-        renderItems();
-        showToast('✅ Vault restored successfully!');
-      } else {
-        alert('Invalid backup file format.');
-      }
-    } catch(err) {
-      alert('Failed to parse backup JSON.');
-    }
-  };
-  reader.readAsText(file);
-}
-
-// ========================================================
-// UTILITIES (CLIPBOARD, FORMATTERS, RIPPLE)
-// ========================================================
 function copyToClipboard(text) {
   navigator.clipboard.writeText(text).then(() => {
     showToast('✓ Copied to Clipboard!');
@@ -2077,7 +2155,6 @@ function toggleSidebar(open) {
   document.getElementById('sidebar-backdrop').classList.toggle('open', open);
 }
 
-// Overlays helper
 function openOverlay(id) {
   const el = document.getElementById(id);
   if(el) el.classList.add('open');
@@ -2090,18 +2167,6 @@ function closeOverlayOnBackdrop(e, id) {
   if(e.target.id === id) closeOverlay(id);
 }
 
-function openSettingsModal() {
-  document.getElementById('settings-tg-token').value = VAULT.tgToken;
-  document.getElementById('settings-tg-chatid').value = VAULT.tgChatId;
-  openOverlay('settings-overlay');
-}
-function openThemeModal() { openOverlay('theme-overlay'); }
-function openCreateCategoryModal() {
-  closeOverlay('add-action-overlay');
-  openOverlay('create-cat-overlay');
-}
-
-// Touch Ripples
 function setupRipples() {
   document.addEventListener('pointerdown', e => {
     const el = e.target.closest('.ripple');
