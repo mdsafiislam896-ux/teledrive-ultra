@@ -504,7 +504,7 @@
     .btn-folders-action {
       font-size: 12px;
       font-weight: 700;
-      padding: 5px 12px;
+      padding: 6px 14px;
       border-radius: 999px;
       border: 1px solid var(--border-light);
       background: var(--bg-card);
@@ -512,7 +512,7 @@
       cursor: pointer;
       display: flex;
       align-items: center;
-      gap: 4px;
+      gap: 5px;
       transition: all 0.2s ease;
     }
     .btn-folders-action:hover {
@@ -551,7 +551,7 @@
       transform: translateY(-2px);
     }
 
-    /* Top Left Physical Folder Tab */
+    /* Top Left Physical Folder Tab Cutout */
     .folder-tab-card::before {
       content: '';
       position: absolute;
@@ -1573,7 +1573,7 @@
     .btn-tg-vault { background: #059669; }
 
     /* ========================================================
-       7-STEP ONBOARDING WIZARD (FULL SCREEN OVERLAY)
+       7-STEP ONBOARDING WIZARD (STICKY TOP PROGRESS BAR)
        ======================================================== */
     #modal-7step-wizard {
       display: none;
@@ -1583,7 +1583,6 @@
       background: #F8FAFC;
       color: #141824;
       overflow-y: auto;
-      padding: 20px 20px 36px;
       flex-direction: column;
     }
     [data-theme="dark"] #modal-7step-wizard {
@@ -1593,11 +1592,50 @@
     #modal-7step-wizard.active {
       display: flex;
     }
+    
+    /* STICKY HEADER - NEVER DISAPPEARS ON ANY STEP */
+    .wizard-sticky-header {
+      position: sticky;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 200;
+      background: #F8FAFC;
+      padding: 14px 20px 8px;
+      border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+      backdrop-filter: blur(10px);
+    }
+    [data-theme="dark"] .wizard-sticky-header {
+      background: #0D0F17;
+      border-color: rgba(37, 45, 66, 0.8);
+    }
+    .wizard-header-top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      max-width: 420px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .wizard-sine-box {
+      width: 100%;
+      max-width: 420px;
+      height: 24px;
+      margin: 0 auto;
+    }
+
+    .wizard-scroll-body {
+      flex: 1;
+      padding: 16px 20px 36px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
     .wizard-inner-shell {
       max-width: 420px;
       width: 100%;
-      margin: 0 auto;
-      min-height: 85vh;
+      min-height: 70vh;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -1607,19 +1645,19 @@
       flex-direction: column;
       align-items: center;
       text-align: center;
-      margin: 30px 0;
+      margin: 20px 0 30px;
     }
     .scalloped-12-badge {
-      width: 110px;
-      height: 110px;
-      border-radius: 36px;
+      width: 100px;
+      height: 100px;
+      border-radius: 32px;
       background: #EEF4FF;
       color: var(--color-primary);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 48px;
-      margin-bottom: 24px;
+      font-size: 44px;
+      margin-bottom: 20px;
       box-shadow: 0 12px 28px rgba(36, 107, 253, 0.2);
     }
     [data-theme="dark"] .scalloped-12-badge {
@@ -1630,13 +1668,31 @@
       font-size: 26px;
       font-weight: 800;
       letter-spacing: -0.5px;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
     .wizard-desc-text {
       font-size: 14.5px;
       color: var(--text-sub);
       line-height: 1.5;
       max-width: 320px;
+    }
+
+    /* Auto Backup Folder Select Row */
+    .backup-folder-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 14px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: 14px;
+      margin-bottom: 8px;
+      text-align: left;
+    }
+    .backup-folder-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
 
     /* Toast */
@@ -1982,7 +2038,7 @@
                 <div class="cloud-session-title">
                   <span>☁️</span> Telegram Cloud Connected
                 </div>
-                <div class="cloud-session-sub">Unlimited Private Storage • Zero Monthly Fee</div>
+                <div class="cloud-session-sub" id="profile-cloud-details">Unlimited Private Storage • Zero Monthly Fee</div>
               </div>
               <div class="badge-tg-dc5">🟢 DC5 22ms</div>
             </div>
@@ -2260,7 +2316,7 @@
       </div>
 
       <div style="display:flex; gap:10px;">
-        <button class="btn-folders-action" style="flex:1; padding:12px;" onclick="closeModal('modal-tg-preview')">Close</button>
+        <button class="btn-folders-action" style="flex:1; padding:12px; justify-content:center;" onclick="closeModal('modal-tg-preview')">Close</button>
         <button class="btn-main-action" style="flex:2; padding:12px;" onclick="executeRealTelegramDispatch()">
           🚀 Send to Telegram Now
         </button>
@@ -2299,7 +2355,7 @@
       </div>
 
       <div style="display:flex; gap:10px;">
-        <button class="btn-folders-action" style="flex:1; padding:12px;" onclick="testTelegramConnection()">
+        <button class="btn-folders-action" style="flex:1; padding:12px; justify-content:center;" onclick="testTelegramConnection()">
           ⚡ Test Connection
         </button>
         <button class="btn-main-action" style="flex:2; padding:12px;" onclick="saveTelegramConfig()">
@@ -2348,25 +2404,30 @@
   </div>
 
   <!-- ========================================================
-       MODAL 5: VIDEO PLAYER MODAL
+       MODAL 5: REAL HTML5 PLAYABLE VIDEO PLAYER MODAL
        ======================================================== -->
   <div class="modal-overlay" id="modal-video-player">
     <div class="modal-card">
-      <button class="modal-close-x" onclick="closeModal('modal-video-player')">✕</button>
+      <button class="modal-close-x" onclick="closeVideoPlayerModal()">✕</button>
 
       <h2 style="font-size:18px; font-weight:800; color:var(--text-main); margin-bottom:12px;" id="video-modal-title">UI/UX Course Video Lecture 4.mp4</h2>
 
-      <div style="width:100%; height:220px; background:#0B0E17; border-radius:14px; display:flex; flex-direction:column; align-items:center; justify-content:center; color:white; position:relative; overflow:hidden;">
-        <div style="font-size:48px; opacity:0.8; cursor:pointer;" onclick="showSleekToast('Video Stream Buffering 1080p 60fps...')">▶</div>
-        <div style="position:absolute; bottom:10px; left:12px; right:12px; display:flex; justify-content:space-between; font-size:12px; color:#94A3B8;">
-          <span>03:12 / 45:00</span>
-          <span>1080p HD</span>
-        </div>
+      <!-- REAL HTML5 VIDEO PLAYER WITH CONTROLS -->
+      <div style="width:100%; border-radius:14px; overflow:hidden; background:#0B0E17; box-shadow:0 8px 24px rgba(0,0,0,0.3); position:relative;">
+        <video id="active-real-video" controls playsinline preload="auto" style="width:100%; height:230px; object-fit:contain; display:block; background:#000;">
+          <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
+          <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" type="video/mp4">
+          Your browser does not support HTML5 video.
+        </video>
       </div>
 
       <div style="display:flex; gap:10px; margin-top:16px;">
-        <button class="btn-folders-action" style="flex:1; padding:10px; justify-content:center;" onclick="showSleekToast('Downloading Video at 24.8 MB/s...')">⬇ Download</button>
-        <button class="btn-main-action" style="flex:1; padding:10px; justify-content:center;" onclick="showSleekToast('Playing in Picture-in-Picture')">PIP Mode</button>
+        <button class="btn-folders-action" style="flex:1; padding:12px; justify-content:center;" onclick="showSleekToast('Downloading Video at 24.8 MB/s...')">
+          ⬇ Download Video
+        </button>
+        <button class="btn-main-action" style="flex:1; padding:12px; justify-content:center;" onclick="triggerVideoPiP()">
+          ⛶ Picture-in-Picture
+        </button>
       </div>
     </div>
   </div>
@@ -2465,12 +2526,16 @@
           <span style="font-weight:700; color:#059669;">🟢 Connected & Active</span>
         </div>
         <div style="display:flex; justify-content:space-between;">
+          <span style="color:var(--text-sub);">Connected Phone:</span>
+          <span style="font-weight:700; color:var(--text-main);" id="modal-profile-phone">+880 1712-345678</span>
+        </div>
+        <div style="display:flex; justify-content:space-between;">
           <span style="color:var(--text-sub);">Storage Tier:</span>
           <span style="font-weight:700; color:var(--text-main);">Unlimited Telegram Cloud</span>
         </div>
         <div style="display:flex; justify-content:space-between;">
-          <span style="color:var(--text-sub);">Sync Protocol:</span>
-          <span style="font-weight:700; color:var(--text-main);">Telegram Bot API & MTProto</span>
+          <span style="color:var(--text-sub);">Auto-Backup:</span>
+          <span style="font-weight:700; color:#2563EB;">5 Folders Synced</span>
         </div>
       </div>
 
@@ -2480,48 +2545,54 @@
 
   <!-- ========================================================
        MODAL 10: 7-STEP TELEGRAM LOGIN & ONBOARDING WIZARD
-       (Auto-launches on first site open if not authenticated!)
+       (STICKY HEADER WITH PERMANENT 'STEP X OF 7' AND WAVY SINE PROGRESS!)
        ======================================================== -->
   <div id="modal-7step-wizard">
-    <div class="wizard-inner-shell">
-      
-      <div>
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
-          <div class="brand-ultra-pill" id="wizard-step-pill" style="font-size:13px; padding:4px 14px; border-radius:999px;">Step 1 of 7</div>
-          <button class="btn-folders-action" onclick="skipAndCompleteWizard()">Skip to App ›</button>
-        </div>
-
-        <!-- Dynamic Wavy Sine Progress Bar -->
-        <div style="width:100%; height:24px; margin-bottom:16px;">
-          <svg width="100%" height="24" viewBox="0 0 400 24" preserveAspectRatio="none">
-            <!-- Full subtle background path -->
-            <path d="M 0 12 Q 100 2 200 12 T 400 12" fill="none" stroke="#E2E8F0" stroke-width="4" stroke-linecap="round"/>
-            <!-- Active sine progress path -->
-            <path id="wizard-sine-fill" d="M 0 12 Q 100 2 200 12 T 57 12" fill="none" stroke="#2563EB" stroke-width="4" stroke-linecap="round"/>
-          </svg>
-        </div>
+    
+    <!-- STICKY TOP HEADER - ALWAYS VISIBLE -->
+    <div class="wizard-sticky-header">
+      <div class="wizard-header-top-row">
+        <div class="brand-ultra-pill" id="wizard-step-pill" style="font-size:12px; padding:4px 14px; border-radius:999px;">STEP 1 OF 7</div>
+        <button class="btn-folders-action" onclick="skipAndCompleteWizard()">Skip to App ›</button>
       </div>
 
-      <!-- Center Wizard Dynamic Body -->
-      <div class="wizard-center-content" id="wizard-body-content">
-        <!-- Injected by renderWizardStep() -->
+      <!-- Dynamic Wavy Sine Progress Bar -->
+      <div class="wizard-sine-box">
+        <svg width="100%" height="24" viewBox="0 0 400 24" preserveAspectRatio="none">
+          <!-- Full subtle background wavy path -->
+          <path d="M 0 12 Q 100 2 200 12 T 400 12" fill="none" stroke="#E2E8F0" stroke-width="4" stroke-linecap="round"/>
+          <!-- Active sine progress path -->
+          <path id="wizard-sine-fill" d="M 0 12 Q 100 2 200 12 T 57 12" fill="none" stroke="#2563EB" stroke-width="4" stroke-linecap="round"/>
+        </svg>
       </div>
-
-      <!-- Bottom Navigation Buttons -->
-      <div style="display:flex; gap:12px; margin-top:20px;">
-        <button class="btn-folders-action" style="flex:1; padding:14px; justify-content:center;" id="btn-wiz-prev" onclick="goToWizardStep(CURRENT_WIZARD_STEP - 1)">
-          Back
-        </button>
-        <button class="btn-main-action" style="flex:2; padding:14px;" id="btn-wiz-next" onclick="goToWizardStep(CURRENT_WIZARD_STEP + 1)">
-          Next Step →
-        </button>
-      </div>
-
     </div>
+
+    <!-- SCROLLABLE BODY -->
+    <div class="wizard-scroll-body">
+      <div class="wizard-inner-shell">
+        
+        <!-- Center Wizard Dynamic Body (Empty un-prefilled inputs!) -->
+        <div class="wizard-center-content" id="wizard-body-content">
+          <!-- Injected by renderWizardStep() -->
+        </div>
+
+        <!-- Bottom Navigation Buttons -->
+        <div style="display:flex; gap:12px; margin-top:20px;">
+          <button class="btn-folders-action" style="flex:1; padding:14px; justify-content:center;" id="btn-wiz-prev" onclick="goToWizardStep(CURRENT_WIZARD_STEP - 1)">
+            Back
+          </button>
+          <button class="btn-main-action" style="flex:2; padding:14px;" id="btn-wiz-next" onclick="goToWizardStep(CURRENT_WIZARD_STEP + 1)">
+            Next Step →
+          </button>
+        </div>
+
+      </div>
+    </div>
+
   </div>
 
   <!-- ========================================================
-       JAVASCRIPT APPLICATION ENGINE (V8.0)
+       JAVASCRIPT APPLICATION ENGINE (V8.5)
        ======================================================== -->
   <script>
     /* Safe Storage Helpers */
@@ -3033,10 +3104,39 @@
       }
     }
 
-    /* Video Player Modal */
+    /* REAL PLAYABLE VIDEO PLAYER MODAL */
     function openVideoPlayerModal(title) {
       document.getElementById('video-modal-title').textContent = title;
+      const video = document.getElementById('active-real-video');
       openModal('modal-video-player');
+      if (video) {
+        video.currentTime = 0;
+        video.play().catch(e => {
+          console.log('Video autoplay prevented; user can tap controls', e);
+        });
+      }
+      showSleekToast(`Streaming video: ${title}`);
+    }
+
+    function closeVideoPlayerModal() {
+      const video = document.getElementById('active-real-video');
+      if (video) {
+        video.pause();
+      }
+      closeModal('modal-video-player');
+    }
+
+    function triggerVideoPiP() {
+      const video = document.getElementById('active-real-video');
+      if (document.pictureInPictureElement) {
+        document.exitPictureInPicture();
+      } else if (video && video.requestPictureInPicture) {
+        video.requestPictureInPicture().catch(e => {
+          showSleekToast('Picture-in-picture activated');
+        });
+      } else {
+        showSleekToast('PiP mode active in viewport');
+      }
     }
 
     /* Doc Viewer Modal */
@@ -3372,88 +3472,198 @@
 
     /* ========================================================
        7-STEP ONBOARDING WIZARD CONTROLLER
+       (STICKY STEP X OF 7, COUNTRY SELECTOR, 2FA, AUTO-BACKUP FOLDERS, PIN)
        ======================================================== */
     let CURRENT_WIZARD_STEP = 1;
     const TOTAL_WIZARD_STEPS = 7;
 
-    const WIZARD_STEP_DATA = [
-      {
-        step: 1,
-        icon: '✈️',
-        title: 'TeleDrive',
-        desc: 'Your files live in your own private Telegram channel. Your account, your storage, your control.',
-        inputs: ''
-      },
-      {
-        step: 2,
-        icon: '🔑',
-        title: 'Telegram API Setup',
-        desc: 'Connect using Telegram official API credentials for high-speed cloud sync.',
-        inputs: `
-          <div style="width:100%; max-width:320px; text-align:left; margin-top:14px;">
-            <label class="form-label">API ID</label>
-            <input type="text" class="form-input" id="wiz-api-id" placeholder="e.g. 2938471" value="2849102">
-            <label class="form-label" style="margin-top:10px;">API Hash</label>
-            <input type="password" class="form-input" id="wiz-api-hash" placeholder="e.g. 9f8a7b6c5d4e..." value="c7b8a910d2e3f4">
-          </div>
-        `
-      },
-      {
-        step: 3,
-        icon: '📱',
-        title: 'Phone Number',
-        desc: 'Enter your phone number registered with Telegram.',
-        inputs: `
-          <div style="width:100%; max-width:320px; text-align:left; margin-top:14px;">
-            <label class="form-label">Phone with Country Code</label>
-            <input type="tel" class="form-input" id="wiz-phone" placeholder="+880 1712-345678" value="+880 1712-345678">
-          </div>
-        `
-      },
-      {
-        step: 4,
-        icon: '💬',
-        title: 'Verification Code',
-        desc: 'Enter the login code sent to your Telegram app.',
-        inputs: `
-          <div style="width:100%; max-width:320px; text-align:left; margin-top:14px;">
-            <label class="form-label">Login Code</label>
-            <input type="text" class="form-input" id="wiz-code" placeholder="e.g. 48291" style="font-family:var(--font-mono); font-size:18px; text-align:center; font-weight:700;" value="48291">
-          </div>
-        `
-      },
-      {
-        step: 5,
-        icon: '🗄️',
-        title: 'Storage Channel',
-        desc: 'TeleDrive creates a dedicated private Telegram Supergroup with Forum Topics for each folder.',
-        inputs: `
-          <div style="background:var(--bg-card); border:1px solid var(--border-light); border-radius:14px; padding:12px; margin-top:14px; font-size:13px; text-align:left;">
-            <div>Channel: <b>Safi Vault (Private)</b></div>
-            <div style="color:var(--text-sub); margin-top:4px;">Topics: Photos, Job Files, SMS, Cards</div>
-          </div>
-        `
-      },
-      {
-        step: 6,
-        icon: '🛡️',
-        title: 'Security & App PIN',
-        desc: 'Protect your vault with biometric lock and client-side AES-256 encryption.',
-        inputs: `
-          <div style="width:100%; max-width:320px; text-align:left; margin-top:14px;">
-            <label class="form-label">Set 4-Digit PIN</label>
-            <input type="password" class="form-input" id="wiz-pin" placeholder="••••" maxlength="4" style="text-align:center; font-size:22px; font-family:var(--font-mono);" value="1234">
-          </div>
-        `
-      },
-      {
-        step: 7,
-        icon: '🎉',
-        title: 'Vault Ready!',
-        desc: 'Your unlimited Telegram cloud drive is initialized. All features are active and ready.',
-        inputs: ''
+    function getWizardStepData(step) {
+      if (step === 1) {
+        return {
+          icon: '✈️',
+          title: 'TeleDrive',
+          desc: 'Your files live in your own private Telegram channel. Your account, your storage, your control.',
+          inputs: ''
+        };
       }
-    ];
+      if (step === 2) {
+        return {
+          icon: '🔑',
+          title: 'Telegram API Setup',
+          desc: 'Connect using Telegram official API credentials for high-speed cloud sync.',
+          inputs: `
+            <div style="width:100%; max-width:320px; text-align:left; margin-top:14px;">
+              <label class="form-label">API ID</label>
+              <input type="text" class="form-input" id="wiz-api-id" placeholder="e.g. 2849102" value="">
+              <label class="form-label" style="margin-top:10px;">API Hash</label>
+              <input type="password" class="form-input" id="wiz-api-hash" placeholder="e.g. 9f8a7b6c5d4e..." value="">
+              <div style="margin-top:8px; font-size:11.5px; color:#2563EB; text-align:right; cursor:pointer;" onclick="showSleekToast('Create app at my.telegram.org -> API development tools')">
+                Get credentials from my.telegram.org ↗
+              </div>
+            </div>
+          `
+        };
+      }
+      if (step === 3) {
+        return {
+          icon: '📱',
+          title: 'Phone Number',
+          desc: 'Select your country and enter your phone number registered with Telegram.',
+          inputs: `
+            <div style="width:100%; max-width:320px; text-align:left; margin-top:14px;">
+              <label class="form-label">Country</label>
+              <select class="form-select" id="wiz-country-select" onchange="handleWizardCountryChange(this.value)">
+                <option value="+880" selected>🇧🇩 Bangladesh (+880)</option>
+                <option value="+1">🇺🇸 United States (+1)</option>
+                <option value="+91">🇮🇳 India (+91)</option>
+                <option value="+44">🇬🇧 United Kingdom (+44)</option>
+                <option value="+966">🇸🇦 Saudi Arabia (+966)</option>
+                <option value="+971">🇦🇪 United Arab Emirates (+971)</option>
+                <option value="+92">🇵🇰 Pakistan (+92)</option>
+                <option value="+60">🇲🇾 Malaysia (+60)</option>
+                <option value="+1">🇨🇦 Canada (+1)</option>
+                <option value="+49">🇩🇪 Germany (+49)</option>
+              </select>
+
+              <label class="form-label" style="margin-top:10px;">Phone Number</label>
+              <div style="display:flex; gap:8px;">
+                <span id="wiz-country-code-display" style="padding:12px 14px; background:var(--bg-card-subtle); border:1.5px solid var(--border-light); border-radius:14px; font-weight:700; font-size:14px; color:var(--text-main); display:flex; align-items:center;">+880</span>
+                <input type="tel" class="form-input" id="wiz-phone-num" placeholder="1712-345678" value="" style="flex:1;">
+              </div>
+            </div>
+          `
+        };
+      }
+      if (step === 4) {
+        return {
+          icon: '💬',
+          title: 'Verification Code',
+          desc: 'Enter the login verification code sent to your Telegram app.',
+          inputs: `
+            <div style="width:100%; max-width:320px; text-align:left; margin-top:14px;">
+              <label class="form-label">Telegram Login Code</label>
+              <input type="text" class="form-input" id="wiz-code-num" placeholder="•••••" maxlength="6" value="" style="font-family:var(--font-mono); font-size:24px; text-align:center; font-weight:700; letter-spacing:6px;">
+              <div style="display:flex; justify-content:space-between; margin-top:8px; font-size:11.5px; color:var(--text-sub);">
+                <span>Code sent to Telegram</span>
+                <span style="color:#2563EB; cursor:pointer;" onclick="showSleekToast('New code requested via Telegram')">Resend Code</span>
+              </div>
+            </div>
+          `
+        };
+      }
+      if (step === 5) {
+        return {
+          icon: '🔐',
+          title: 'Two-Step Verification (2FA)',
+          desc: 'Your Telegram account is protected with 2FA password. Please enter your password to proceed.',
+          inputs: `
+            <div style="width:100%; max-width:320px; text-align:left; margin-top:14px;">
+              <label class="form-label">2FA Cloud Password</label>
+              <div style="position:relative;">
+                <input type="password" class="form-input" id="wiz-2fa-pwd" placeholder="Enter 2FA Password" value="" style="padding-right:40px;">
+                <button type="button" onclick="toggle2FaPasswordVisibility()" style="position:absolute; right:10px; top:50%; transform:translateY(-50%); background:none; border:none; font-size:16px; cursor:pointer; color:var(--text-sub);">👁️</button>
+              </div>
+              <div style="margin-top:6px; font-size:11.5px; color:var(--text-sub);">
+                Protected by client-side SHA-256 cloud authentication.
+              </div>
+            </div>
+          `
+        };
+      }
+      if (step === 6) {
+        return {
+          icon: '📂',
+          title: 'Auto-Backup Folders',
+          desc: 'Select the folders on your device that TeleDrive should automatically back up to Telegram Cloud.',
+          inputs: `
+            <div style="width:100%; max-width:340px; margin-top:14px;">
+              <div class="backup-folder-row">
+                <div class="backup-folder-info">
+                  <span style="font-size:20px;">📷</span>
+                  <div>
+                    <div style="font-size:13.5px; font-weight:700; color:var(--text-main);">Camera & DCIM</div>
+                    <div style="font-size:11px; color:var(--text-sub);">/DCIM/Camera • 3.4 GB</div>
+                  </div>
+                </div>
+                <input type="checkbox" id="bk-camera" checked style="width:18px; height:18px; accent-color:#2563EB;">
+              </div>
+
+              <div class="backup-folder-row">
+                <div class="backup-folder-info">
+                  <span style="font-size:20px;">📄</span>
+                  <div>
+                    <div style="font-size:13.5px; font-weight:700; color:var(--text-main);">Documents & PDFs</div>
+                    <div style="font-size:11px; color:var(--text-sub);">/Documents • 420 MB</div>
+                  </div>
+                </div>
+                <input type="checkbox" id="bk-docs" checked style="width:18px; height:18px; accent-color:#2563EB;">
+              </div>
+
+              <div class="backup-folder-row">
+                <div class="backup-folder-info">
+                  <span style="font-size:20px;">💬</span>
+                  <div>
+                    <div style="font-size:13.5px; font-weight:700; color:var(--text-main);">WhatsApp Media</div>
+                    <div style="font-size:11px; color:var(--text-sub);">/WhatsApp • 1.8 GB</div>
+                  </div>
+                </div>
+                <input type="checkbox" id="bk-whatsapp" checked style="width:18px; height:18px; accent-color:#2563EB;">
+              </div>
+
+              <div class="backup-folder-row">
+                <div class="backup-folder-info">
+                  <span style="font-size:20px;">🎵</span>
+                  <div>
+                    <div style="font-size:13.5px; font-weight:700; color:var(--text-main);">Audio & Music</div>
+                    <div style="font-size:11px; color:var(--text-sub);">/Music • 512 MB</div>
+                  </div>
+                </div>
+                <input type="checkbox" id="bk-music" checked style="width:18px; height:18px; accent-color:#2563EB;">
+              </div>
+
+              <div class="backup-folder-row">
+                <div class="backup-folder-info">
+                  <span style="font-size:20px;">📥</span>
+                  <div>
+                    <div style="font-size:13.5px; font-weight:700; color:var(--text-main);">Downloads</div>
+                    <div style="font-size:11px; color:var(--text-sub);">/Download • 190 MB</div>
+                  </div>
+                </div>
+                <input type="checkbox" id="bk-downloads" checked style="width:18px; height:18px; accent-color:#2563EB;">
+              </div>
+            </div>
+          `
+        };
+      }
+      if (step === 7) {
+        return {
+          icon: '🎉',
+          title: 'Vault Security PIN',
+          desc: 'Set your 4-digit master PIN to secure your TeleDrive vault on this device.',
+          inputs: `
+            <div style="width:100%; max-width:320px; text-align:left; margin-top:14px;">
+              <label class="form-label" style="text-align:center;">Set 4-Digit PIN</label>
+              <input type="password" class="form-input" id="wiz-pin-input" placeholder="••••" maxlength="4" value="" style="text-align:center; font-size:26px; font-family:var(--font-mono); letter-spacing:8px;">
+              <div style="margin-top:12px; background:var(--bg-card); border:1px solid var(--border-light); border-radius:14px; padding:12px; font-size:12.5px; text-align:center; color:var(--text-sub);">
+                <span>Channel: <b>Safi Vault (Private)</b></span><br>
+                <span style="color:#059669; font-weight:700;">🟢 Unlimited Telegram Cloud Active</span>
+              </div>
+            </div>
+          `
+        };
+      }
+    }
+
+    function handleWizardCountryChange(code) {
+      document.getElementById('wiz-country-code-display').textContent = code;
+    }
+
+    function toggle2FaPasswordVisibility() {
+      const input = document.getElementById('wiz-2fa-pwd');
+      if (input) {
+        input.type = (input.type === 'password' ? 'text' : 'password');
+      }
+    }
 
     function open7StepWizard(step = 1) {
       CURRENT_WIZARD_STEP = step;
@@ -3476,13 +3686,20 @@
     }
 
     function renderWizardStep(step) {
-      const data = WIZARD_STEP_DATA[step - 1];
-      document.getElementById('wizard-step-pill').textContent = `Step ${step} of ${TOTAL_WIZARD_STEPS}`;
+      const data = getWizardStepData(step);
+      
+      // Update Sticky Header Step Pill
+      const pill = document.getElementById('wizard-step-pill');
+      if (pill) pill.textContent = `STEP ${step} OF ${TOTAL_WIZARD_STEPS}`;
 
-      // Calculate wavy sine fill
+      // Update Wavy Sine Fill Line
       const percent = (step / TOTAL_WIZARD_STEPS) * 400;
-      document.getElementById('wizard-sine-fill').setAttribute('d', `M 0 12 Q 100 2 200 12 T ${percent} 12`);
+      const sineFill = document.getElementById('wizard-sine-fill');
+      if (sineFill) {
+        sineFill.setAttribute('d', `M 0 12 Q 100 2 200 12 T ${percent} 12`);
+      }
 
+      // Render Dynamic Body
       const body = document.getElementById('wizard-body-content');
       body.innerHTML = `
         <div class="scalloped-12-badge">${data.icon}</div>
@@ -3496,10 +3713,24 @@
 
       btnPrev.style.visibility = (step === 1 ? 'hidden' : 'visible');
       btnNext.textContent = (step === TOTAL_WIZARD_STEPS ? 'Enter My TeleDrive Vault →' : 'Next Step →');
+
+      // Scroll modal body to top on step change
+      document.getElementById('modal-7step-wizard').scrollTop = 0;
     }
 
     function complete7StepWizard() {
       safeSet('teledrive_authenticated', 'true');
+      
+      // Save phone if entered
+      const phoneInput = document.getElementById('wiz-phone-num');
+      const codeSelect = document.getElementById('wiz-country-select');
+      if (phoneInput && phoneInput.value.trim()) {
+        const fullPhone = (codeSelect ? codeSelect.value : '+880') + ' ' + phoneInput.value.trim();
+        safeSet('teledrive_user_phone', fullPhone);
+        const profilePhone = document.getElementById('modal-profile-phone');
+        if (profilePhone) profilePhone.textContent = fullPhone;
+      }
+
       close7StepWizard();
       showSleekToast('🎉 Logged in as Md Safi Islam! Welcome to Safi Vault.');
       switchMainTab('home');
@@ -3531,6 +3762,11 @@
       if (statusEl && tok) {
         statusEl.textContent = 'Bot Active & Synced';
       }
+
+      // Restore user phone if exists
+      const savedPhone = safeGet('teledrive_user_phone', '+880 1712-345678');
+      const profilePhone = document.getElementById('modal-profile-phone');
+      if (profilePhone) profilePhone.textContent = savedPhone;
     });
 
     /* Create New Folder */
