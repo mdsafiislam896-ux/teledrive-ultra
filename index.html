@@ -2,17 +2,19 @@
 <html lang="en" data-theme="oled">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>TeleDrive Ultra • Next-Gen Cloud</title>
-    <meta name="description" content="Ultra-secure, premium Telegram-powered cloud storage drive. Unlimited, zero-cost, military-grade encrypted.">
-    <meta name="theme-color" content="#090d16">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>TeleDrive Ultra • Next-Gen Cloud Ecosystem</title>
+    <meta name="description" content="Ultra-secure, decentralized cloud drive powered by Telegram MTProto. 100% Free, Unlimited, Military-Grade AES-256-GCM.">
+    <meta name="theme-color" content="#030712">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <link rel="manifest" href="manifest.json">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2300f2fe'><path d='M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5'/></svg>">
     
     <!-- Google Fonts & Tailwind CDN -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -28,26 +30,32 @@
         }
     </script>
     
-    <!-- Lucide Icons -->
+    <!-- Lucide Icons & QR Code Generator -->
     <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     
     <!-- Custom Stylesheet -->
     <link rel="stylesheet" href="css/styles.css">
 </head>
-<body class="bg-theme-bg text-theme-text font-sans antialiased min-h-screen overflow-x-hidden selection:bg-theme-primary selection:text-black">
+<body class="bg-theme-bg text-theme-text font-sans antialiased min-h-screen overflow-x-hidden selection:bg-theme-primary selection:text-black pb-20 lg:pb-0">
 
-    <!-- Vault / PIN Lock Modal (Runs before app access if enabled) -->
-    <div id="vaultOverlay" class="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-2xl transition-all duration-300">
-        <div class="vault-card p-8 rounded-3xl max-w-sm w-full mx-4 text-center border border-theme-border shadow-2xl relative overflow-hidden">
+    <!-- Vault Keypad Security Modal -->
+    <div id="vaultOverlay" class="fixed inset-0 z-50 flex items-center justify-center bg-black/95 backdrop-blur-2xl transition-all duration-300">
+        <div class="glass-blur p-8 rounded-3xl max-w-sm w-full mx-4 text-center border border-theme-border shadow-2xl relative overflow-hidden">
             <div class="absolute -top-20 -left-20 w-40 h-40 bg-theme-primary/20 rounded-full blur-3xl pointer-events-none"></div>
-            <div class="inline-flex p-4 rounded-2xl bg-theme-primary/10 text-theme-primary mb-4 border border-theme-primary/20">
+            
+            <div class="inline-flex p-4 rounded-2xl bg-theme-primary/10 text-theme-primary mb-3 border border-theme-primary/20 animate-pulse">
                 <i data-lucide="shield-check" class="w-10 h-10"></i>
             </div>
-            <h2 class="text-2xl font-bold tracking-tight mb-1 text-white">TeleDrive Ultra</h2>
-            <p class="text-xs text-theme-muted mb-6">Enter Security PIN or Biometrics</p>
+            
+            <div class="flex items-center justify-center gap-1.5 mb-1">
+                <h2 class="text-2xl font-extrabold tracking-tight text-white">TeleDrive</h2>
+                <span class="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-theme-primary/20 text-theme-primary border border-theme-primary/30">Ultra</span>
+            </div>
+            <p class="text-xs text-theme-muted mb-6">Enter Biometric / Security PIN</p>
             
             <!-- PIN Dots -->
-            <div class="flex justify-center gap-3 mb-6" id="pinDots">
+            <div class="flex justify-center gap-3.5 mb-6" id="pinDots">
                 <span class="pin-dot"></span>
                 <span class="pin-dot"></span>
                 <span class="pin-dot"></span>
@@ -71,17 +79,17 @@
             </div>
             
             <p id="vaultError" class="text-xs text-rose-400 min-h-[1.25rem] font-medium"></p>
-            <div class="mt-2 text-[10px] text-theme-muted flex items-center justify-center gap-1">
-                <i data-lucide="lock" class="w-3 h-3"></i> Dual-Vault Panic Guard Active
+            <div class="mt-2 text-[10px] text-theme-muted flex items-center justify-center gap-1.5 font-mono">
+                <i data-lucide="lock" class="w-3.5 h-3.5 text-emerald-400"></i> Dual-Vault Panic Guard Active
             </div>
         </div>
     </div>
 
-    <!-- Main Layout Container -->
+    <!-- Main Container -->
     <div id="appContainer" class="flex h-screen w-screen overflow-hidden">
         
-        <!-- Sidebar Navigation (Desktop) / Drawer (Mobile) -->
-        <aside id="sidebar" class="sidebar fixed inset-y-0 left-0 z-40 w-72 bg-theme-surface/80 backdrop-blur-xl border-r border-theme-border flex flex-col transition-transform duration-300 -translate-x-full lg:translate-x-0">
+        <!-- PC Desktop Sidebar (Hidden on Mobile) -->
+        <aside id="sidebar" class="hidden lg:flex fixed inset-y-0 left-0 z-40 w-72 bg-theme-surface/90 backdrop-blur-2xl border-r border-theme-border flex-col transition-transform duration-300">
             <!-- Brand Logo -->
             <div class="h-20 flex items-center justify-between px-6 border-b border-theme-border">
                 <div class="flex items-center gap-3">
@@ -99,24 +107,20 @@
                         </span>
                     </div>
                 </div>
-                <button class="lg:hidden p-2 rounded-xl text-theme-muted hover:text-white" onclick="App.toggleSidebar()">
-                    <i data-lucide="x" class="w-5 h-5"></i>
-                </button>
             </div>
 
             <!-- Upload Action Button -->
             <div class="p-5">
-                <button onclick="document.getElementById('fileInput').click()" class="w-full group relative overflow-hidden rounded-2xl bg-gradient-to-r from-theme-primary via-cyan-400 to-theme-secondary p-[1px] font-semibold transition-all duration-300 shadow-xl shadow-theme-primary/15 hover:shadow-theme-primary/30 active:scale-[0.98]">
+                <button onclick="document.getElementById('fileInput').click()" class="btn-ripple w-full group relative overflow-hidden rounded-2xl bg-gradient-to-r from-theme-primary via-cyan-400 to-theme-secondary p-[1px] font-semibold transition-all duration-300 shadow-xl shadow-theme-primary/15 hover:shadow-theme-primary/30 active:scale-[0.98]">
                     <div class="flex items-center justify-center gap-2.5 rounded-2xl bg-theme-surface px-4 py-3.5 transition-colors group-hover:bg-opacity-80">
                         <i data-lucide="plus-circle" class="w-5 h-5 text-theme-primary group-hover:rotate-90 transition-transform duration-300"></i>
                         <span class="text-sm font-bold text-white tracking-wide">Upload File</span>
                     </div>
                 </button>
-                <input type="file" id="fileInput" multiple class="hidden" onchange="App.handleFileSelect(event)">
             </div>
 
-            <!-- Navigation Links -->
-            <nav class="flex-1 px-4 space-y-1 overflow-y-auto custom-scroll">
+            <!-- Desktop Navigation Links -->
+            <nav class="flex-1 px-4 space-y-1.5 overflow-y-auto custom-scroll">
                 <a href="#all" onclick="App.navigateView('all')" class="nav-item active" data-nav="all">
                     <i data-lucide="folder-kanban" class="w-5 h-5"></i>
                     <span>All Files</span>
@@ -127,7 +131,7 @@
                     <span>Stream & Media</span>
                     <span id="badgeMediaCount" class="nav-badge">0</span>
                 </a>
-                <a href="#camera" onclick="App.openGhostCamera()" class="nav-item text-amber-300 hover:text-amber-200" data-nav="camera">
+                <a href="#camera" onclick="GhostCamera.open()" class="nav-item text-amber-300 hover:text-amber-200" data-nav="camera">
                     <i data-lucide="camera" class="w-5 h-5 text-amber-400"></i>
                     <span>Ghost Camera</span>
                     <span class="text-[9px] px-1.5 py-0.5 rounded bg-amber-400/20 text-amber-300 font-mono">Instant</span>
@@ -164,7 +168,7 @@
                         <span class="text-[11px] font-mono text-theme-primary font-bold">Unlimited</span>
                     </div>
                     <div class="w-full h-1.5 bg-theme-border rounded-full overflow-hidden mb-2">
-                        <div id="storageProgressBar" class="h-full bg-gradient-to-r from-theme-primary to-cyan-400 rounded-full transition-all duration-500" style="width: 28%"></div>
+                        <div id="storageProgressBar" class="h-full bg-gradient-to-r from-theme-primary to-cyan-400 rounded-full transition-all duration-500" style="width: 25%"></div>
                     </div>
                     <div class="flex justify-between items-center text-[10px] text-theme-muted font-mono">
                         <span id="storageUsedText">0 MB stored</span>
@@ -172,7 +176,7 @@
                     </div>
                 </div>
 
-                <!-- Settings & Theme Trigger -->
+                <!-- Settings, Theme & Profile Trigger -->
                 <div class="mt-3 flex items-center justify-between px-1">
                     <button onclick="App.openSettingsModal()" class="text-xs text-theme-muted hover:text-white flex items-center gap-1.5 transition-colors">
                         <i data-lucide="settings" class="w-4 h-4"></i> Settings
@@ -188,139 +192,288 @@
         <!-- Main Content Area -->
         <main class="flex-1 flex flex-col h-screen overflow-hidden bg-theme-bg lg:pl-72 transition-all duration-300">
             
-            <!-- Top Header Bar -->
-            <header class="h-20 border-b border-theme-border bg-theme-surface/40 backdrop-blur-xl px-4 lg:px-8 flex items-center justify-between gap-4 z-30">
-                <!-- Left: Mobile Menu Toggle & Breadcrumbs -->
-                <div class="flex items-center gap-3 min-w-0">
-                    <button class="lg:hidden p-2.5 rounded-xl bg-theme-surface border border-theme-border text-white hover:border-theme-primary/50 transition-colors" onclick="App.toggleSidebar()">
-                        <i data-lucide="menu" class="w-5 h-5"></i>
+            <!-- Mobile App Native Header Bar -->
+            <header class="h-16 lg:h-20 border-b border-theme-border bg-theme-surface/60 backdrop-blur-2xl px-4 lg:px-8 flex items-center justify-between gap-3 z-30 shrink-0">
+                
+                <!-- Left: User Profile Avatar & App Title -->
+                <div class="flex items-center gap-3">
+                    <button onclick="App.openProfileDrawer()" class="relative group btn-ripple">
+                        <div class="w-9 h-9 lg:w-10 lg:h-10 rounded-2xl bg-gradient-to-tr from-theme-primary via-cyan-400 to-indigo-500 p-[1.5px] shadow-lg shadow-theme-primary/20">
+                            <div class="w-full h-full rounded-[14px] bg-theme-surface flex items-center justify-center font-bold text-xs lg:text-sm text-theme-primary uppercase">
+                                SI
+                            </div>
+                        </div>
+                        <span class="absolute -top-1 -right-1 w-3.5 h-3.5 bg-emerald-400 border-2 border-theme-bg rounded-full"></span>
                     </button>
-                    
-                    <!-- Breadcrumbs Navigator -->
-                    <div id="breadcrumbs" class="flex items-center gap-1 text-sm font-medium overflow-x-auto whitespace-nowrap py-1">
-                        <button onclick="App.openFolder('root')" class="flex items-center gap-1 text-theme-primary hover:underline font-semibold">
-                            <i data-lucide="home" class="w-4 h-4"></i>
-                            <span>Home</span>
-                        </button>
-                        <!-- Dynamic subfolder breadcrumb items -->
+
+                    <div>
+                        <div class="flex items-center gap-1.5">
+                            <span class="font-extrabold text-sm lg:text-base tracking-tight text-white">TeleDrive</span>
+                            <span class="text-[9px] uppercase font-bold tracking-wider px-1.5 py-0.2 rounded-full bg-theme-primary/20 text-theme-primary border border-theme-primary/30">Ultra</span>
+                        </div>
+                        <span class="text-[10px] text-theme-muted font-mono">mdsafiislam.tech</span>
                     </div>
                 </div>
 
-                <!-- Right: Search Bar, New Folder & Actions -->
-                <div class="flex items-center gap-2 lg:gap-3">
-                    <!-- Instant Live Search -->
-                    <div class="relative w-40 sm:w-64 md:w-80">
-                        <i data-lucide="search" class="w-4 h-4 text-theme-muted absolute left-3.5 top-1/2 -translate-y-1/2"></i>
-                        <input type="text" id="searchInput" placeholder="Search files, tags, extensions..." oninput="App.handleSearch(event)" class="w-full bg-theme-bg/80 border border-theme-border focus:border-theme-primary rounded-xl pl-10 pr-4 py-2 text-xs text-white placeholder-theme-muted outline-none transition-all shadow-inner">
-                        <span id="searchClearBtn" class="hidden absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-theme-muted hover:text-white" onclick="App.clearSearch()">
-                            <i data-lucide="x" class="w-3.5 h-3.5"></i>
-                        </span>
+                <!-- Right Header Actions -->
+                <div class="flex items-center gap-2">
+                    <!-- Instant Live Search Trigger/Input -->
+                    <div class="relative w-36 sm:w-56 md:w-72">
+                        <i data-lucide="search" class="w-4 h-4 text-theme-muted absolute left-3 top-1/2 -translate-y-1/2"></i>
+                        <input type="text" id="searchInput" placeholder="Search files..." oninput="App.handleSearch(event)" class="w-full bg-theme-bg/80 border border-theme-border focus:border-theme-primary rounded-xl pl-9 pr-3 py-1.5 text-xs text-white placeholder-theme-muted outline-none transition-all shadow-inner">
                     </div>
 
-                    <!-- New Folder Button -->
-                    <button onclick="App.promptNewFolder()" class="p-2.5 sm:px-3 sm:py-2 rounded-xl bg-theme-surface border border-theme-border hover:border-theme-primary/50 text-white text-xs font-semibold flex items-center gap-1.5 transition-all shadow-sm">
-                        <i data-lucide="folder-plus" class="w-4 h-4 text-theme-primary"></i>
-                        <span class="hidden sm:inline">New Folder</span>
-                    </button>
-
-                    <!-- Ghost Record (Instant Audio to Telegram) -->
-                    <button id="quickRecordBtn" onclick="App.toggleQuickRecord()" class="p-2.5 sm:px-3 sm:py-2 rounded-xl bg-rose-500/10 border border-rose-500/30 hover:bg-rose-500/20 text-rose-400 text-xs font-semibold flex items-center gap-1.5 transition-all shadow-sm" title="Instant Voice to Telegram">
-                        <i data-lucide="mic" class="w-4 h-4"></i>
-                        <span class="hidden md:inline">Voice Note</span>
+                    <!-- Theme Switcher -->
+                    <button onclick="ThemeEngine.toggleThemePicker()" class="p-2 lg:p-2.5 rounded-xl bg-theme-surface border border-theme-border text-theme-primary hover:border-theme-primary/50 transition-all btn-ripple" title="Themes">
+                        <i data-lucide="palette" class="w-4 h-4"></i>
                     </button>
 
                     <!-- Lock Vault Instant -->
-                    <button onclick="Vault.lockNow()" class="p-2.5 rounded-xl bg-theme-surface border border-theme-border text-theme-muted hover:text-rose-400 hover:border-rose-400/50 transition-colors" title="Lock App Now">
+                    <button onclick="Vault.lockNow()" class="p-2 lg:p-2.5 rounded-xl bg-theme-surface border border-theme-border text-theme-muted hover:text-rose-400 hover:border-rose-400/50 transition-colors btn-ripple" title="Lock App Now">
                         <i data-lucide="lock" class="w-4 h-4"></i>
                     </button>
                 </div>
             </header>
 
-            <!-- Active Uploads Floating Banner -->
-            <div id="uploadBanner" class="hidden px-6 py-2.5 bg-gradient-to-r from-theme-primary/10 via-cyan-500/10 to-transparent border-b border-theme-primary/20 flex items-center justify-between text-xs">
-                <div class="flex items-center gap-3">
-                    <div class="w-4 h-4 border-2 border-theme-primary border-t-transparent rounded-full animate-spin"></div>
-                    <span id="uploadBannerText" class="text-white font-medium">Encrypting & Uploading to Telegram (0%)...</span>
+            <!-- Mobile Smart Category Filter Chips (Horizontal Scroll) -->
+            <div class="px-4 py-2.5 border-b border-theme-border/40 bg-theme-surface/30 backdrop-blur-md overflow-x-auto custom-scroll flex items-center gap-2 shrink-0">
+                <button onclick="App.filterCategory('all')" class="cat-chip active" data-cat="all">
+                    <i data-lucide="layers" class="w-3.5 h-3.5"></i>
+                    <span>All</span>
+                </button>
+                <button onclick="App.filterCategory('video')" class="cat-chip" data-cat="video">
+                    <i data-lucide="film" class="w-3.5 h-3.5 text-purple-400"></i>
+                    <span>4K Videos</span>
+                </button>
+                <button onclick="App.filterCategory('audio')" class="cat-chip" data-cat="audio">
+                    <i data-lucide="music" class="w-3.5 h-3.5 text-emerald-400"></i>
+                    <span>Music & Audio</span>
+                </button>
+                <button onclick="App.filterCategory('photo')" class="cat-chip" data-cat="photo">
+                    <i data-lucide="image" class="w-3.5 h-3.5 text-cyan-400"></i>
+                    <span>Photos & RAW</span>
+                </button>
+                <button onclick="App.filterCategory('doc')" class="cat-chip" data-cat="doc">
+                    <i data-lucide="file-text" class="w-3.5 h-3.5 text-rose-400"></i>
+                    <span>Documents</span>
+                </button>
+                <button onclick="App.filterCategory('archive')" class="cat-chip" data-cat="archive">
+                    <i data-lucide="archive" class="w-3.5 h-3.5 text-amber-400"></i>
+                    <span>Archives</span>
+                </button>
+                <button onclick="App.filterCategory('vault')" class="cat-chip" data-cat="vault">
+                    <i data-lucide="shield-alert" class="w-3.5 h-3.5 text-rose-400"></i>
+                    <span>Secret Vault</span>
+                </button>
+            </div>
+
+            <!-- Breadcrumbs Bar & View Mode Toggle -->
+            <div class="px-4 lg:px-8 py-2.5 flex items-center justify-between border-b border-theme-border/30 text-xs shrink-0">
+                <div id="breadcrumbs" class="flex items-center gap-1 text-xs font-medium overflow-x-auto whitespace-nowrap py-0.5">
+                    <button onclick="App.openFolder('root')" class="flex items-center gap-1 text-theme-primary hover:underline font-bold">
+                        <i data-lucide="home" class="w-3.5 h-3.5"></i>
+                        <span>Home</span>
+                    </button>
                 </div>
-                <div class="w-32 bg-theme-border h-1.5 rounded-full overflow-hidden">
-                    <div id="uploadBannerProgress" class="bg-theme-primary h-full w-0 transition-all duration-200"></div>
+
+                <div class="flex items-center gap-2">
+                    <button onclick="App.promptNewFolder()" class="px-2.5 py-1 rounded-lg bg-theme-surface border border-theme-border text-white text-[11px] font-semibold flex items-center gap-1.5 hover:border-theme-primary/50 transition-all btn-ripple">
+                        <i data-lucide="folder-plus" class="w-3.5 h-3.5 text-theme-primary"></i>
+                        <span class="hidden sm:inline">Folder</span>
+                    </button>
+
+                    <div class="flex items-center bg-theme-surface/60 border border-theme-border p-0.5 rounded-lg">
+                        <button id="viewGridBtn" onclick="App.setViewMode('grid')" class="p-1 rounded text-theme-primary bg-theme-primary/10">
+                            <i data-lucide="layout-grid" class="w-3.5 h-3.5"></i>
+                        </button>
+                        <button id="viewListBtn" onclick="App.setViewMode('list')" class="p-1 rounded text-theme-muted hover:text-white">
+                            <i data-lucide="list" class="w-3.5 h-3.5"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
 
-            <!-- View Modes & Filter Toolbar -->
-            <div class="px-4 lg:px-8 pt-4 pb-2 flex items-center justify-between border-b border-theme-border/40 text-xs">
-                <div class="flex items-center gap-2">
-                    <span id="currentViewTitle" class="text-sm font-bold text-white tracking-wide">All Files</span>
-                    <span id="itemCountLabel" class="text-[11px] font-mono text-theme-muted">(0 items)</span>
+            <!-- Uploading Floating Progress Banner -->
+            <div id="uploadBanner" class="hidden px-6 py-2.5 bg-gradient-to-r from-theme-primary/10 via-cyan-500/10 to-transparent border-b border-theme-primary/20 flex items-center justify-between text-xs shrink-0">
+                <div class="flex items-center gap-3">
+                    <div class="w-4 h-4 border-2 border-theme-primary border-t-transparent rounded-full animate-spin"></div>
+                    <span id="uploadBannerText" class="text-white font-medium">Encrypting & Uploading...</span>
                 </div>
-                <div class="flex items-center gap-1 bg-theme-surface/60 border border-theme-border p-1 rounded-xl">
-                    <button id="viewGridBtn" onclick="App.setViewMode('grid')" class="p-1.5 rounded-lg text-theme-primary bg-theme-primary/10 transition-colors">
-                        <i data-lucide="layout-grid" class="w-4 h-4"></i>
-                    </button>
-                    <button id="viewListBtn" onclick="App.setViewMode('list')" class="p-1.5 rounded-lg text-theme-muted hover:text-white transition-colors">
-                        <i data-lucide="list" class="w-4 h-4"></i>
-                    </button>
+                <div class="w-28 bg-theme-border h-1.5 rounded-full overflow-hidden">
+                    <div id="uploadBannerProgress" class="bg-theme-primary h-full w-0 transition-all duration-200"></div>
                 </div>
             </div>
 
             <!-- Main File Browser Area (Scrollable) -->
             <div id="browserContainer" class="flex-1 p-4 lg:p-8 overflow-y-auto custom-scroll" ondragover="App.handleDragOver(event)" ondragleave="App.handleDragLeave(event)" ondrop="App.handleDrop(event)">
                 
-                <!-- Drag and Drop Overlay -->
-                <div id="dropOverlay" class="hidden border-2 border-dashed border-theme-primary rounded-3xl p-12 text-center bg-theme-primary/5 backdrop-blur-sm mb-6 pointer-events-none transition-all">
-                    <i data-lucide="upload-cloud" class="w-12 h-12 text-theme-primary mx-auto mb-3 animate-bounce"></i>
-                    <p class="text-base font-bold text-white">Drop your files to upload to Telegram</p>
-                    <p class="text-xs text-theme-muted">Files will be chunked and encrypted automatically</p>
-                </div>
-
-                <!-- Folder Section -->
-                <div id="foldersSection" class="mb-8">
-                    <h3 class="text-xs font-bold text-theme-muted uppercase tracking-wider mb-3 flex items-center gap-1.5">
-                        <i data-lucide="folder" class="w-3.5 h-3.5 text-theme-primary"></i> Folders & Telegram Topics
+                <!-- Folders Section -->
+                <div id="foldersSection" class="mb-6">
+                    <h3 class="text-[11px] font-bold text-theme-muted uppercase tracking-wider mb-2.5 flex items-center gap-1.5">
+                        <i data-lucide="folder" class="w-3.5 h-3.5 text-theme-primary"></i> Telegram Mirror Folders
                     </h3>
-                    <div id="foldersGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 lg:gap-4">
-                        <!-- Folders rendered dynamically -->
+                    <div id="foldersGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3">
+                        <!-- Folders rendered dynamically with tilt-3d -->
                     </div>
                 </div>
 
                 <!-- Files Section -->
                 <div id="filesSection">
-                    <h3 class="text-xs font-bold text-theme-muted uppercase tracking-wider mb-3 flex items-center gap-1.5">
-                        <i data-lucide="file" class="w-3.5 h-3.5 text-cyan-400"></i> Files
+                    <h3 class="text-[11px] font-bold text-theme-muted uppercase tracking-wider mb-2.5 flex items-center gap-1.5">
+                        <i data-lucide="file" class="w-3.5 h-3.5 text-cyan-400"></i> Cloud Files
                     </h3>
-                    <div id="filesContainer" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 lg:gap-4">
-                        <!-- Files rendered dynamically -->
+                    <div id="filesContainer" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3">
+                        <!-- Files rendered dynamically with tilt-3d -->
                     </div>
                 </div>
 
                 <!-- Empty State -->
-                <div id="emptyState" class="hidden flex-col items-center justify-center py-20 text-center">
+                <div id="emptyState" class="hidden flex-col items-center justify-center py-16 text-center">
                     <div class="w-16 h-16 rounded-3xl bg-theme-surface border border-theme-border flex items-center justify-center mb-4 text-theme-muted shadow-inner">
                         <i data-lucide="cloud-off" class="w-8 h-8"></i>
                     </div>
-                    <h4 class="text-base font-bold text-white mb-1">No files in this folder</h4>
-                    <p class="text-xs text-theme-muted max-w-sm mb-5">Upload files, drop them here, or take a direct photo with Ghost Camera to store on Telegram.</p>
-                    <button onclick="document.getElementById('fileInput').click()" class="px-4 py-2.5 rounded-xl bg-theme-primary/10 border border-theme-primary/30 text-theme-primary text-xs font-bold hover:bg-theme-primary/20 transition-all flex items-center gap-2">
-                        <i data-lucide="upload" class="w-4 h-4"></i> Upload Now
-                    </button>
+                    <h4 class="text-sm font-bold text-white mb-1">No files in this folder</h4>
+                    <p class="text-xs text-theme-muted max-w-xs mb-4">Tap the upload button or use Ghost Camera to store files on Telegram.</p>
                 </div>
             </div>
 
         </main>
     </div>
 
-    <!-- Modals & Overlays -->
+    <!-- Mobile Native Bottom Navigation Bar -->
+    <nav class="lg:hidden bottom-nav-bar">
+        <button onclick="App.navigateView('all')" class="bottom-nav-btn active" data-bottom-nav="all">
+            <i data-lucide="home" class="w-5 h-5"></i>
+            <span>Home</span>
+        </button>
+        <button onclick="App.navigateView('media')" class="bottom-nav-btn" data-bottom-nav="media">
+            <i data-lucide="play-circle" class="w-5 h-5"></i>
+            <span>Media</span>
+        </button>
+        
+        <!-- Center Floating Action Button (Ghost Camera / Instant Upload) -->
+        <button onclick="GhostCamera.open()" class="mobile-fab-center btn-ripple" title="Ghost Camera">
+            <i data-lucide="camera" class="w-6 h-6 stroke-[2.5]"></i>
+        </button>
 
-    <!-- Built-in Media Streaming Player Modal -->
+        <button onclick="App.navigateView('vault')" class="bottom-nav-btn" data-bottom-nav="vault">
+            <i data-lucide="shield-alert" class="w-5 h-5 text-rose-400"></i>
+            <span>Vault</span>
+        </button>
+        <button onclick="App.openProfileDrawer()" class="bottom-nav-btn" data-bottom-nav="profile">
+            <i data-lucide="user" class="w-5 h-5"></i>
+            <span>Profile</span>
+        </button>
+    </nav>
+
+    <!-- Hidden File Input for Native File Picker -->
+    <input type="file" id="fileInput" multiple class="hidden" onchange="App.handleFileSelect(event)">
+
+    <!-- Floating PiP Mini Media Player -->
+    <div id="pipPlayer" class="hidden pip-mini-player">
+        <div class="w-10 h-10 rounded-xl bg-theme-primary/10 border border-theme-primary/20 flex items-center justify-center text-theme-primary shrink-0 animate-pulse">
+            <i data-lucide="music" class="w-5 h-5"></i>
+        </div>
+        <div class="min-w-0 flex-1 cursor-pointer" onclick="MediaPlayer.reopenCurrent()">
+            <div id="pipTitle" class="text-xs font-bold text-white truncate">Playing Track</div>
+            <div id="pipMeta" class="text-[10px] text-theme-muted font-mono truncate">Streaming from Telegram</div>
+        </div>
+        <div class="flex items-center gap-1">
+            <button id="pipPlayPauseBtn" onclick="MediaPlayer.togglePlay()" class="p-2 rounded-lg text-theme-primary hover:bg-white/5">
+                <i id="pipPlayIcon" data-lucide="pause" class="w-4 h-4"></i>
+            </button>
+            <button onclick="MediaPlayer.closePip()" class="p-1.5 rounded-lg text-theme-muted hover:text-white">
+                <i data-lucide="x" class="w-3.5 h-3.5"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- VIP User Profile & Cloud Control Drawer -->
+    <div id="profileDrawer" class="hidden fixed inset-0 z-50 flex items-end lg:items-center justify-center bg-black/80 backdrop-blur-md p-0 lg:p-4 transition-all">
+        <div class="w-full max-w-md bg-theme-surface border border-theme-border rounded-t-3xl lg:rounded-3xl p-6 shadow-2xl max-h-[85vh] overflow-y-auto custom-scroll">
+            
+            <div class="flex items-center justify-between mb-5 pb-3 border-b border-theme-border">
+                <div class="flex items-center gap-3">
+                    <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-theme-primary to-indigo-500 p-[2px]">
+                        <div class="w-full h-full rounded-[14px] bg-theme-surface flex items-center justify-center font-bold text-base text-theme-primary uppercase">
+                            SI
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-1.5">
+                            <h3 class="text-base font-bold text-white">Safi Islam</h3>
+                            <span class="vip-shimmer text-[9px] font-extrabold uppercase px-2 py-0.5 rounded-full text-amber-300">ULTRA VIP</span>
+                        </div>
+                        <p class="text-xs text-theme-muted font-mono">mdsafiislam.tech</p>
+                    </div>
+                </div>
+                <button onclick="App.closeProfileDrawer()" class="p-2 text-theme-muted hover:text-white">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+
+            <!-- Cloud Tier & Speed Stats -->
+            <div class="p-4 rounded-2xl bg-theme-bg/80 border border-theme-border mb-4 space-y-3">
+                <div class="flex items-center justify-between">
+                    <span class="text-xs font-semibold text-white">Cloud Storage</span>
+                    <span class="text-xs font-mono font-bold text-emerald-400">∞ Unlimited Free</span>
+                </div>
+                <div class="flex items-center justify-between text-[11px] text-theme-muted font-mono">
+                    <span>Active Protocol</span>
+                    <span class="text-theme-primary font-bold">MTProto Direct</span>
+                </div>
+                <div class="flex items-center justify-between text-[11px] text-theme-muted font-mono">
+                    <span>Live Throughput</span>
+                    <span class="text-emerald-400 font-bold flex items-center gap-1">
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
+                        45.8 MB/s
+                    </span>
+                </div>
+            </div>
+
+            <!-- Quick Toggles (Audio FX & Haptics) -->
+            <div class="space-y-2 mb-5">
+                <div class="flex items-center justify-between p-3 rounded-xl bg-theme-bg/50 border border-theme-border">
+                    <div class="flex items-center gap-2.5">
+                        <i data-lucide="volume-2" class="w-4 h-4 text-theme-primary"></i>
+                        <span class="text-xs font-semibold text-white">Sound Effects</span>
+                    </div>
+                    <input type="checkbox" id="toggleSoundCheck" onchange="App.toggleSoundFX(event)" checked class="w-4 h-4 accent-cyan-400">
+                </div>
+                <div class="flex items-center justify-between p-3 rounded-xl bg-theme-bg/50 border border-theme-border">
+                    <div class="flex items-center gap-2.5">
+                        <i data-lucide="vibrate" class="w-4 h-4 text-theme-primary"></i>
+                        <span class="text-xs font-semibold text-white">Haptic Vibration</span>
+                    </div>
+                    <input type="checkbox" id="toggleHapticsCheck" onchange="App.toggleHaptics(event)" checked class="w-4 h-4 accent-cyan-400">
+                </div>
+            </div>
+
+            <!-- QR Cross-Device Code -->
+            <div class="text-center p-4 rounded-2xl bg-theme-bg/80 border border-theme-border mb-4">
+                <span class="text-xs font-bold text-white block mb-2">Cross-Device Pairing QR</span>
+                <div id="qrcodeContainer" class="flex justify-center p-2 bg-white rounded-xl max-w-[140px] mx-auto mb-2"></div>
+                <p class="text-[10px] text-theme-muted">Scan with phone to open this drive instantly</p>
+            </div>
+
+            <button onclick="App.openSettingsModal(); App.closeProfileDrawer();" class="w-full py-2.5 rounded-xl bg-theme-surface border border-theme-border text-white text-xs font-bold hover:border-theme-primary transition-all flex items-center justify-center gap-2">
+                <i data-lucide="settings" class="w-4 h-4"></i> Open Advanced Cloud Settings
+            </button>
+        </div>
+    </div>
+
+    <!-- Media Streaming Player Modal -->
     <div id="mediaModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/95 backdrop-blur-2xl p-4">
-        <div class="relative w-full max-w-4xl bg-theme-surface border border-theme-border rounded-3xl overflow-hidden shadow-2xl flex flex-col max-h-[90vh]">
-            <!-- Player Header -->
+        <div class="relative w-full max-w-3xl bg-theme-surface border border-theme-border rounded-3xl overflow-hidden shadow-2xl flex flex-col max-h-[90vh]">
             <div class="p-4 border-b border-theme-border flex items-center justify-between">
                 <div class="flex items-center gap-2 min-w-0">
                     <i id="mediaPlayerIcon" data-lucide="play" class="w-5 h-5 text-theme-primary shrink-0"></i>
                     <span id="mediaPlayerTitle" class="text-sm font-bold text-white truncate">Media Player</span>
                 </div>
-                <div class="flex items-center gap-2">
+                <div class="flex items-center gap-1.5">
+                    <button onclick="MediaPlayer.minimizeToPip()" class="p-2 rounded-xl text-theme-muted hover:text-white" title="Minimize to PiP">
+                        <i data-lucide="minimize-2" class="w-4 h-4"></i>
+                    </button>
                     <button id="mediaDownloadBtn" class="p-2 rounded-xl text-theme-muted hover:text-white" title="Download">
                         <i data-lucide="download" class="w-4 h-4"></i>
                     </button>
@@ -329,15 +482,9 @@
                     </button>
                 </div>
             </div>
-
-            <!-- Player Content Window -->
-            <div id="mediaPlayerContent" class="flex-1 bg-black flex items-center justify-center min-h-[300px] overflow-hidden">
-                <!-- Video, Audio, or Document Iframe inserted dynamically -->
-            </div>
-
-            <!-- Player Footer Meta -->
+            <div id="mediaPlayerContent" class="flex-1 bg-black flex items-center justify-center min-h-[300px] overflow-hidden"></div>
             <div class="p-3 border-t border-theme-border bg-theme-bg/60 flex items-center justify-between text-xs text-theme-muted font-mono">
-                <span id="mediaPlayerMeta">Decrypted On-The-Fly Stream</span>
+                <span id="mediaPlayerMeta">Decrypted Stream</span>
                 <span class="text-theme-primary flex items-center gap-1">
                     <i data-lucide="shield" class="w-3.5 h-3.5"></i> End-to-End Verified
                 </span>
@@ -357,20 +504,18 @@
                     <i data-lucide="x" class="w-5 h-5"></i>
                 </button>
             </div>
-            
             <div class="relative aspect-[3/4] bg-black overflow-hidden flex items-center justify-center">
                 <video id="ghostVideo" autoplay playsinline class="w-full h-full object-cover"></video>
                 <canvas id="ghostCanvas" class="hidden"></canvas>
             </div>
-
             <div class="p-5 flex items-center justify-around bg-theme-bg/90 border-t border-theme-border">
-                <button onclick="GhostCamera.switchCamera()" class="p-3 rounded-2xl bg-theme-surface border border-theme-border text-white hover:border-theme-primary transition-all">
+                <button onclick="GhostCamera.switchCamera()" class="p-3 rounded-2xl bg-theme-surface border border-theme-border text-white btn-ripple">
                     <i data-lucide="refresh-cw" class="w-5 h-5"></i>
                 </button>
-                <button onclick="GhostCamera.capturePhoto()" class="w-16 h-16 rounded-full border-4 border-amber-400 p-1 flex items-center justify-center hover:scale-105 active:scale-95 transition-transform">
+                <button onclick="GhostCamera.capturePhoto()" class="w-16 h-16 rounded-full border-4 border-amber-400 p-1 flex items-center justify-center active:scale-95 transition-transform btn-ripple">
                     <div class="w-full h-full rounded-full bg-amber-400 shadow-lg shadow-amber-400/50"></div>
                 </button>
-                <button onclick="GhostCamera.close()" class="p-3 rounded-2xl bg-theme-surface border border-theme-border text-theme-muted hover:text-white transition-all">
+                <button onclick="GhostCamera.close()" class="p-3 rounded-2xl bg-theme-surface border border-theme-border text-theme-muted hover:text-white btn-ripple">
                     <i data-lucide="x" class="w-5 h-5"></i>
                 </button>
             </div>
@@ -383,16 +528,13 @@
             <div class="flex items-center justify-between mb-4">
                 <div class="flex items-center gap-2">
                     <i data-lucide="palette" class="w-5 h-5 text-theme-primary"></i>
-                    <h3 class="text-base font-bold text-white">Select Visual Theme</h3>
+                    <h3 class="text-base font-bold text-white">Visual Theme Studio</h3>
                 </div>
                 <button onclick="ThemeEngine.toggleThemePicker()" class="p-1.5 text-theme-muted hover:text-white">
                     <i data-lucide="x" class="w-4 h-4"></i>
                 </button>
             </div>
-            
-            <div class="space-y-2.5" id="themeListContainer">
-                <!-- Injected from themes.js -->
-            </div>
+            <div class="space-y-2" id="themeListContainer"></div>
         </div>
     </div>
 
@@ -405,8 +547,8 @@
                         <i data-lucide="sliders" class="w-5 h-5"></i>
                     </div>
                     <div>
-                        <h3 class="text-base font-bold text-white">TeleDrive Ultra Settings</h3>
-                        <p class="text-xs text-theme-muted">Telegram credentials & Domain sharing</p>
+                        <h3 class="text-base font-bold text-white">TeleDrive Settings</h3>
+                        <p class="text-xs text-theme-muted">Telegram credentials & Domain</p>
                     </div>
                 </div>
                 <button onclick="App.closeSettingsModal()" class="p-2 text-theme-muted hover:text-white">
@@ -414,82 +556,40 @@
                 </button>
             </div>
 
-            <!-- Settings Tabs / Sections -->
-            <div class="space-y-6 text-xs">
-                <!-- Telegram Connection Mode -->
+            <div class="space-y-4 text-xs">
                 <div>
-                    <label class="block font-bold text-white mb-2">Telegram Storage Engine</label>
-                    <div class="grid grid-cols-2 gap-3 mb-3">
-                        <button id="engineBotBtn" onclick="App.setStorageEngine('bot')" class="p-3 rounded-2xl border text-left transition-all border-theme-primary bg-theme-primary/10">
-                            <span class="block font-bold text-white mb-0.5">🤖 Bot API Mode</span>
-                            <span class="text-[11px] text-theme-muted">Instant 1-min setup, files up to 50MB</span>
-                        </button>
-                        <button id="engineMtprotoBtn" onclick="App.setStorageEngine('mtproto')" class="p-3 rounded-2xl border border-theme-border bg-theme-bg/60 text-left transition-all hover:border-theme-primary/50">
-                            <span class="block font-bold text-white mb-0.5">⚡ MTProto TDLib</span>
-                            <span class="text-[11px] text-theme-muted">2GB - 4GB per chunk, unlimited power</span>
-                        </button>
-                    </div>
-
-                    <!-- Bot Credentials Fields -->
-                    <div id="botFields" class="space-y-3 p-4 rounded-2xl bg-theme-bg/70 border border-theme-border">
-                        <div>
-                            <label class="block font-semibold text-theme-text mb-1">Telegram Bot Token</label>
-                            <input type="password" id="inputBotToken" placeholder="123456789:ABCdefGhIJKlmNoPQRsTUVwxyZ" class="w-full bg-theme-surface border border-theme-border focus:border-theme-primary rounded-xl px-3 py-2 text-white outline-none font-mono">
-                            <span class="text-[10px] text-theme-muted mt-1 block">Created via @BotFather on Telegram (100% Free)</span>
-                        </div>
-                        <div>
-                            <label class="block font-semibold text-theme-text mb-1">Storage Channel / Supergroup ID</label>
-                            <input type="text" id="inputChatId" placeholder="-100xxxxxxxxxx" class="w-full bg-theme-surface border border-theme-border focus:border-theme-primary rounded-xl px-3 py-2 text-white outline-none font-mono">
-                            <span class="text-[10px] text-theme-muted mt-1 block">Your private Supergroup (enable Topics for folder mirroring)</span>
-                        </div>
-                    </div>
-
-                    <!-- MTProto Credentials Fields -->
-                    <div id="mtprotoFields" class="hidden space-y-3 p-4 rounded-2xl bg-theme-bg/70 border border-theme-border">
-                        <div>
-                            <label class="block font-semibold text-theme-text mb-1">API ID</label>
-                            <input type="text" id="inputApiId" placeholder="12345678" class="w-full bg-theme-surface border border-theme-border focus:border-theme-primary rounded-xl px-3 py-2 text-white outline-none font-mono">
-                        </div>
-                        <div>
-                            <label class="block font-semibold text-theme-text mb-1">API Hash</label>
-                            <input type="password" id="inputApiHash" placeholder="abcdef0123456789abcdef0123456789" class="w-full bg-theme-surface border border-theme-border focus:border-theme-primary rounded-xl px-3 py-2 text-white outline-none font-mono">
-                            <span class="text-[10px] text-theme-muted mt-1 block">From my.telegram.org (App Development Tools)</span>
-                        </div>
-                    </div>
+                    <label class="block font-semibold text-theme-text mb-1">Telegram Bot Token</label>
+                    <input type="password" id="inputBotToken" placeholder="123456789:ABCdefGhIJKlmNoPQRsTUVwxyZ" class="w-full bg-theme-surface border border-theme-border focus:border-theme-primary rounded-xl px-3 py-2 text-white outline-none font-mono">
                 </div>
-
-                <!-- Custom Domain Setup -->
-                <div class="p-4 rounded-2xl bg-theme-bg/70 border border-theme-border space-y-3">
-                    <label class="block font-bold text-white">🌐 Custom Domain Public Sharing</label>
-                    <p class="text-[11px] text-theme-muted">Point your domain (e.g. <code>drive.yourdomain.com</code>) to Cloudflare Pages for free public sharing URLs.</p>
-                    <input type="text" id="inputCustomDomain" placeholder="https://drive.yourdomain.com" class="w-full bg-theme-surface border border-theme-border focus:border-theme-primary rounded-xl px-3 py-2 text-white outline-none font-mono">
+                <div>
+                    <label class="block font-semibold text-theme-text mb-1">Storage Channel / Supergroup ID</label>
+                    <input type="text" id="inputChatId" placeholder="-100xxxxxxxxxx" class="w-full bg-theme-surface border border-theme-border focus:border-theme-primary rounded-xl px-3 py-2 text-white outline-none font-mono">
                 </div>
-
-                <!-- Security PIN & Decoy Vault Setup -->
-                <div class="p-4 rounded-2xl bg-theme-bg/70 border border-theme-border space-y-3">
-                    <label class="block font-bold text-white">🔐 Dual-Vault Security PINs</label>
-                    <div class="grid grid-cols-2 gap-3">
-                        <div>
-                            <label class="block text-theme-muted mb-1">Real PIN (Primary Drive)</label>
-                            <input type="password" id="inputRealPin" maxlength="4" placeholder="1234" class="w-full bg-theme-surface border border-theme-border focus:border-theme-primary rounded-xl px-3 py-2 text-center text-white font-mono tracking-widest">
-                        </div>
-                        <div>
-                            <label class="block text-rose-300 mb-1">Decoy PIN (Panic Mode)</label>
-                            <input type="password" id="inputDecoyPin" maxlength="4" placeholder="9999" class="w-full bg-theme-surface border border-rose-500/30 focus:border-rose-400 rounded-xl px-3 py-2 text-center text-white font-mono tracking-widest">
-                        </div>
+                <div>
+                    <label class="block font-semibold text-theme-text mb-1">Custom Domain</label>
+                    <input type="text" id="inputCustomDomain" value="https://mdsafiislam.tech" class="w-full bg-theme-surface border border-theme-border focus:border-theme-primary rounded-xl px-3 py-2 text-white outline-none font-mono">
+                </div>
+                <div class="grid grid-cols-2 gap-3 pt-2">
+                    <div>
+                        <label class="block text-theme-muted mb-1">Real PIN (Primary)</label>
+                        <input type="password" id="inputRealPin" maxlength="4" placeholder="1234" class="w-full bg-theme-surface border border-theme-border focus:border-theme-primary rounded-xl px-3 py-2 text-center text-white font-mono tracking-widest">
                     </div>
-                    <span class="text-[10px] text-theme-muted block">Decoy PIN displays an empty harmless drive if forced to unlock under duress.</span>
+                    <div>
+                        <label class="block text-rose-300 mb-1">Decoy PIN (Panic)</label>
+                        <input type="password" id="inputDecoyPin" maxlength="4" placeholder="9999" class="w-full bg-theme-surface border border-rose-500/30 focus:border-rose-400 rounded-xl px-3 py-2 text-center text-white font-mono tracking-widest">
+                    </div>
                 </div>
             </div>
 
             <div class="mt-6 flex justify-end gap-3 pt-4 border-t border-theme-border">
                 <button onclick="App.closeSettingsModal()" class="px-4 py-2 rounded-xl text-theme-muted hover:text-white font-semibold">Cancel</button>
-                <button onclick="App.saveSettings()" class="px-5 py-2.5 rounded-xl bg-theme-primary text-black font-bold shadow-lg shadow-theme-primary/30 hover:opacity-90 transition-opacity">Save Configuration</button>
+                <button onclick="App.saveSettings()" class="px-5 py-2.5 rounded-xl bg-theme-primary text-black font-bold shadow-lg shadow-theme-primary/30 btn-ripple">Save Settings</button>
             </div>
         </div>
     </div>
 
-    <!-- Scripts -->
+    <!-- Core Script Modules -->
+    <script src="js/fx.js"></script>
     <script src="js/themes.js"></script>
     <script src="js/crypto.js"></script>
     <script src="js/telegram.js"></script>
@@ -499,9 +599,20 @@
     <script src="js/app.js"></script>
 
     <script>
-        // Initialize Lucide icons on DOM load
         document.addEventListener('DOMContentLoaded', () => {
-            lucide.createIcons();
+            if (window.lucide) lucide.createIcons();
+            // Generate QR code for mobile pairing
+            const qrEl = document.getElementById('qrcodeContainer');
+            if (qrEl && window.QRCode) {
+                new QRCode(qrEl, {
+                    text: 'https://mdsafiislam.tech',
+                    width: 120,
+                    height: 120,
+                    colorDark : "#000000",
+                    colorLight : "#ffffff",
+                    correctLevel : QRCode.CorrectLevel.H
+                });
+            }
         });
     </script>
 </body>
