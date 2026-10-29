@@ -1,5 +1,5 @@
 /* ==========================================================================
-   TeleDrive Ultra Design System & Theme Engine
+   TeleDrive Ultra - Next-Gen Hybrid Design System (Mobile App + PC Desktop)
    ========================================================================== */
 
 :root,
@@ -12,58 +12,76 @@ html[data-theme="oled"] {
     --theme-secondary: #4facfe;
     --theme-text: #f9fafb;
     --theme-muted: #9ca3af;
-    --theme-accent-glow: rgba(0, 242, 254, 0.15);
-}
-
-html[data-theme="nordic"] {
-    --theme-bg: #0b1329;
-    --theme-surface: rgba(22, 34, 68, 0.65);
-    --theme-card: rgba(28, 44, 88, 0.5);
-    --theme-border: rgba(147, 197, 253, 0.15);
-    --theme-primary: #38bdf8;
-    --theme-secondary: #818cf8;
-    --theme-text: #f0f9ff;
-    --theme-muted: #94a3b8;
-    --theme-accent-glow: rgba(56, 189, 248, 0.2);
+    --theme-accent-glow: rgba(0, 242, 254, 0.18);
+    --theme-glass: rgba(11, 15, 25, 0.85);
 }
 
 html[data-theme="cyberpunk"] {
     --theme-bg: #090615;
     --theme-surface: #120d2b;
     --theme-card: #19123b;
-    --theme-border: rgba(255, 0, 128, 0.25);
+    --theme-border: rgba(255, 0, 128, 0.28);
     --theme-primary: #ff007f;
     --theme-secondary: #00ffff;
     --theme-text: #fdf2f8;
-    --theme-muted: #a78bfa;
+    --theme-muted: #c084fc;
     --theme-accent-glow: rgba(255, 0, 127, 0.25);
+    --theme-glass: rgba(18, 13, 43, 0.85);
+}
+
+html[data-theme="nordic"] {
+    --theme-bg: #070e20;
+    --theme-surface: rgba(15, 25, 52, 0.7);
+    --theme-card: rgba(22, 38, 78, 0.55);
+    --theme-border: rgba(147, 197, 253, 0.18);
+    --theme-primary: #38bdf8;
+    --theme-secondary: #818cf8;
+    --theme-text: #f0f9ff;
+    --theme-muted: #94a3b8;
+    --theme-accent-glow: rgba(56, 189, 248, 0.22);
+    --theme-glass: rgba(15, 25, 52, 0.75);
 }
 
 html[data-theme="luxury"] {
-    --theme-bg: #06130e;
-    --theme-surface: #0c241c;
-    --theme-card: #123328;
-    --theme-border: rgba(212, 175, 55, 0.22);
+    --theme-bg: #04100c;
+    --theme-surface: #09211a;
+    --theme-card: #0f3026;
+    --theme-border: rgba(212, 175, 55, 0.24);
     --theme-primary: #d4af37;
     --theme-secondary: #10b981;
     --theme-text: #fefce8;
     --theme-muted: #86efac;
-    --theme-accent-glow: rgba(212, 175, 55, 0.2);
+    --theme-accent-glow: rgba(212, 175, 55, 0.22);
+    --theme-glass: rgba(9, 33, 26, 0.85);
 }
 
-html[data-theme="sunset"] {
-    --theme-bg: #180d0d;
-    --theme-surface: #271414;
-    --theme-card: #351a1a;
-    --theme-border: rgba(251, 146, 60, 0.2);
+html[data-theme="titanium"] {
+    --theme-bg: #090d16;
+    --theme-surface: #131b2e;
+    --theme-card: #1c2742;
+    --theme-border: rgba(226, 232, 240, 0.15);
+    --theme-primary: #f8fafc;
+    --theme-secondary: #94a3b8;
+    --theme-text: #f8fafc;
+    --theme-muted: #94a3b8;
+    --theme-accent-glow: rgba(248, 250, 252, 0.18);
+    --theme-glass: rgba(19, 27, 46, 0.85);
+}
+
+html[data-theme="tokyo"] {
+    --theme-bg: #11071d;
+    --theme-surface: #1e0d33;
+    --theme-card: #2c134a;
+    --theme-border: rgba(251, 146, 60, 0.22);
     --theme-primary: #fb923c;
-    --theme-secondary: #f43f5e;
+    --theme-secondary: #ec4899;
     --theme-text: #fff7ed;
-    --theme-muted: #fdba74;
-    --theme-accent-glow: rgba(251, 146, 60, 0.2);
+    --theme-muted: #f472b6;
+    --theme-accent-glow: rgba(251, 146, 60, 0.22);
+    --theme-glass: rgba(30, 13, 51, 0.85);
 }
 
-/* Background & Surface Utilities */
+/* Background & Utility Classes */
 .bg-theme-bg { background-color: var(--theme-bg); }
 .bg-theme-surface { background-color: var(--theme-surface); }
 .bg-theme-card { background-color: var(--theme-card); }
@@ -75,18 +93,18 @@ html[data-theme="sunset"] {
 .bg-theme-primary { background-color: var(--theme-primary); }
 .border-theme-primary { border-color: var(--theme-primary); }
 
-/* Glassmorphism & Custom Effects */
-.glass-panel {
-    background: var(--theme-surface);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
+/* Glassmorphism */
+.glass-blur {
+    background: var(--theme-glass);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     border: 1px solid var(--theme-border);
 }
 
-/* Custom Scrollbars */
+/* Custom Scrollbar */
 .custom-scroll::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
+    width: 5px;
+    height: 5px;
 }
 .custom-scroll::-webkit-scrollbar-track {
     background: transparent;
@@ -95,52 +113,179 @@ html[data-theme="sunset"] {
     background: var(--theme-border);
     border-radius: 9999px;
 }
-.custom-scroll::-webkit-scrollbar-thumb:hover {
-    background: var(--theme-muted);
+
+/* ==========================================================================
+   📱 MOBILE-NATIVE INTERACTION & ANIMATIONS
+   ========================================================================== */
+
+/* Liquid Ripple Effect */
+.liquid-ripple {
+    position: absolute;
+    border-radius: 50%;
+    transform: scale(0);
+    animation: rippleAnim 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+    background: radial-gradient(circle, var(--theme-accent-glow) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 50;
 }
 
-/* Nav Item Styling */
-.nav-item {
+@keyframes rippleAnim {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+/* Mobile Bottom Navigation Bar */
+.bottom-nav-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 68px;
+    background: var(--theme-glass);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border-top: 1px solid var(--theme-border);
     display: flex;
     align-items: center;
-    gap: 0.75rem;
-    padding: 0.65rem 0.85rem;
-    border-radius: 0.875rem;
+    justify-content: space-around;
+    padding: 0 12px;
+    z-index: 45;
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+.bottom-nav-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
     color: var(--theme-muted);
-    font-size: 0.8125rem;
+    font-size: 10px;
     font-weight: 600;
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+    flex: 1;
+    height: 100%;
     position: relative;
 }
 
-.nav-item:hover {
-    color: var(--theme-text);
-    background-color: rgba(255, 255, 255, 0.04);
+.bottom-nav-btn.active {
+    color: var(--theme-primary);
+    transform: translateY(-2px);
 }
 
-.nav-item.active {
-    color: var(--theme-text);
-    background: linear-gradient(90deg, var(--theme-accent-glow), transparent);
-    border-left: 3px solid var(--theme-primary);
+.bottom-nav-btn.active::after {
+    content: '';
+    position: absolute;
+    bottom: 6px;
+    width: 14px;
+    height: 3px;
+    border-radius: 9999px;
+    background: var(--theme-primary);
+    box-shadow: 0 0 8px var(--theme-primary);
 }
 
-.nav-badge {
-    margin-left: auto;
-    font-size: 0.6875rem;
-    font-family: 'JetBrains Mono', monospace;
-    padding: 0.15rem 0.45rem;
-    border-radius: 0.5rem;
-    background: var(--theme-border);
-    color: var(--theme-muted);
+/* Floating Action Button (Ghost Camera / Upload) */
+.mobile-fab-center {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--theme-primary), var(--theme-secondary));
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 24px var(--theme-accent-glow);
+    transform: translateY(-16px);
+    transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    border: 3px solid var(--theme-bg);
 }
 
-/* Vault Keypad */
-.vault-card {
+.mobile-fab-center:active {
+    transform: translateY(-12px) scale(0.92);
+}
+
+/* Category Filter Chips */
+.cat-chip {
+    padding: 6px 14px;
+    border-radius: 9999px;
+    font-size: 11px;
+    font-weight: 700;
+    white-space: nowrap;
+    cursor: pointer;
     background: var(--theme-surface);
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid var(--theme-border);
+    color: var(--theme-muted);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
 }
 
+.cat-chip:active {
+    transform: scale(0.95);
+}
+
+.cat-chip.active {
+    background: linear-gradient(90deg, var(--theme-accent-glow), transparent);
+    border-color: var(--theme-primary);
+    color: var(--theme-text);
+    box-shadow: 0 0 16px var(--theme-accent-glow);
+}
+
+/* ==========================================================================
+   🧊 3D CARD REACTIONS & SPRING PHYSICS
+   ========================================================================== */
+
+.tilt-3d {
+    transition: transform 0.15s cubic-bezier(0.2, 0, 0.2, 1), box-shadow 0.2s ease, border-color 0.2s ease;
+    transform-style: preserve-3d;
+    will-change: transform;
+}
+
+.folder-card,
+.file-card {
+    background: var(--theme-surface);
+    border: 1px solid var(--theme-border);
+    border-radius: 1.25rem;
+    position: relative;
+    overflow: hidden;
+    user-select: none;
+    -webkit-user-select: none;
+    transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.folder-card:hover,
+.file-card:hover {
+    border-color: var(--theme-primary);
+    box-shadow: 0 10px 30px var(--theme-accent-glow);
+}
+
+.folder-card:active,
+.file-card:active {
+    transform: scale(0.96);
+}
+
+/* Holographic VIP Shimmer Badge */
+.vip-shimmer {
+    background: linear-gradient(
+        90deg,
+        rgba(255, 215, 0, 0.1) 0%,
+        rgba(255, 255, 255, 0.4) 50%,
+        rgba(255, 215, 0, 0.1) 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmerAnim 2.5s infinite linear;
+    border: 1px solid rgba(255, 215, 0, 0.4);
+}
+
+@keyframes shimmerAnim {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+
+/* Keypad PIN Lock */
 .keypad-btn {
     height: 3.5rem;
     border-radius: 1.25rem;
@@ -153,13 +298,15 @@ html[data-theme="sunset"] {
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
+    overflow: hidden;
     transition: all 0.15s ease;
 }
 
 .keypad-btn:active {
     background: var(--theme-accent-glow);
     border-color: var(--theme-primary);
-    transform: scale(0.94);
+    transform: scale(0.93);
 }
 
 .pin-dot {
@@ -167,75 +314,42 @@ html[data-theme="sunset"] {
     height: 0.875rem;
     border-radius: 9999px;
     border: 2px solid var(--theme-muted);
-    transition: all 0.2s ease;
+    transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .pin-dot.filled {
     background: var(--theme-primary);
     border-color: var(--theme-primary);
-    box-shadow: 0 0 12px var(--theme-primary);
+    box-shadow: 0 0 14px var(--theme-primary);
+    transform: scale(1.15);
 }
 
-/* Folder Card Component */
-.folder-card {
-    background: var(--theme-surface);
+/* Floating PiP Mini Media Player */
+.pip-mini-player {
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    width: 320px;
+    max-width: calc(100vw - 40px);
+    background: var(--theme-glass);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
     border: 1px solid var(--theme-border);
     border-radius: 1.25rem;
-    padding: 1rem;
-    cursor: pointer;
-    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    overflow: hidden;
-}
-
-.folder-card:hover {
-    border-color: var(--theme-primary);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px var(--theme-accent-glow);
-}
-
-/* File Card Component */
-.file-card {
-    background: var(--theme-surface);
-    border: 1px solid var(--theme-border);
-    border-radius: 1.25rem;
-    padding: 0.875rem;
-    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    display: flex;
-    flex-direction: column;
-}
-
-.file-card:hover {
-    border-color: var(--theme-border);
-    background-color: var(--theme-card);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
-}
-
-/* List Mode View adjustments */
-.file-list-row {
+    padding: 10px 14px;
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.6), 0 0 20px var(--theme-accent-glow);
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: 0.75rem 1rem;
-    border-radius: 1rem;
-    background: var(--theme-surface);
-    border: 1px solid var(--theme-border);
-    transition: all 0.2s ease;
+    gap: 12px;
+    z-index: 44;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-.file-list-row:hover {
-    background: var(--theme-card);
-    border-color: var(--theme-primary);
-}
-
-/* Animations */
-@keyframes pulseGlow {
-    0%, 100% { opacity: 0.6; }
-    50% { opacity: 1; }
-}
-
-.animate-glow {
-    animation: pulseGlow 2.5s infinite;
+@media (max-width: 768px) {
+    .pip-mini-player {
+        bottom: 78px;
+        left: 14px;
+        right: 14px;
+        width: auto;
+    }
 }
