@@ -1,6 +1,6 @@
 /**
- * TeleDrive Ultra - Mobile & Desktop Hybrid Application Controller
- * Manages category filters, bottom navigation, 3D cards, Ghost Camera, sound & haptics.
+ * TeleDrive Ultra - Application Controller (Material 3 Mobile & Desktop Experience)
+ * Directly implements AWD TeleDrive / Google Drive interactions.
  */
 
 const GhostCamera = {
@@ -58,7 +58,7 @@ const GhostCamera = {
 
         canvas.toBlob(async (blob) => {
             this.close();
-            const fileName = `GhostPhoto_${Date.now()}.jpg`;
+            const fileName = `Photo_${Date.now()}.jpg`;
             await App.uploadBlobDirectly(blob, fileName, 'image/jpeg');
         }, 'image/jpeg', 0.95);
     }
@@ -66,14 +66,14 @@ const GhostCamera = {
 
 const App = {
     searchQuery: '',
-    activeCategory: 'all',
+    folderHistory: ['root'],
 
     init() {
         this.refreshUI();
-        this.initKeyboardShortcuts();
+        this.initShortcuts();
     },
 
-    initKeyboardShortcuts() {
+    initShortcuts() {
         window.addEventListener('keydown', (e) => {
             if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'u') {
                 e.preventDefault();
@@ -84,10 +84,11 @@ const App = {
                 document.getElementById('searchInput').focus();
             }
             if (e.key === 'Escape') {
+                this.closeActionSheet();
+                this.closeNewFolderModal();
                 MediaPlayer.close();
                 GhostCamera.close();
-                App.closeProfileDrawer();
-                App.closeSettingsModal();
+                this.closeSettingsModal();
                 ThemeEngine.toggleThemePicker();
             }
         });
@@ -97,121 +98,116 @@ const App = {
         this.renderBreadcrumbs();
         this.renderFolders();
         this.renderFiles();
-        this.renderSidebarFolders();
-        this.updateBadgesAndStorage();
+        this.updateStorageStats();
 
         if (window.lucide) lucide.createIcons();
     },
 
+    // ==========================================
+    // 📁 NAVIGATION & FOLDER HIERARCHY
+    // ==========================================
+
+    openFolder(folderId) {
+        if (window.FX) FX.tap('light');
+        if (folderId !== StorageManager.currentFolderId) {
+            this.folderHistory.push(folderId);
+        }
+        StorageManager.currentFolderId = folderId;
+        StorageManager.currentView = 'all';
+        this.refreshUI();
+    },
+
+    navigateBack() {
+        if (window.FX) FX.tap('light');
+        if (this.folderHistory.length > 1) {
+            this.folderHistory.pop();
+            const prev = this.folderHistory[this.folderHistory.length - 1];
+            StorageManager.currentFolderId = prev;
+        } else {
+            StorageManager.currentFolderId = 'root';
+        }
+        this.refreshUI();
+    },
+
+    renderBreadcrumbs() {
+        const container = document.getElementById('breadcrumbs');
+        const backBtn = document.getElementById('folderBackBtn');
+        if (!container) return;
+
+        const isRoot = StorageManager.currentFolderId === 'root';
+        if (backBtn) {
+            if (!isRoot) {
+                backBtn.classList.remove('hidden');
+            } else {
+                backBtn.classList.add('hidden');
+            }
+        }
+
+        const currentFolder = StorageManager.getFolderById(StorageManager.currentFolderId);
+        const folderName = currentFolder ? currentFolder.name : 'Home';
+
+        if (isRoot) {
+            container.innerHTML = `<span class="text-theme-text font-bold text-sm">My Drive</span>`;
+        } else {
+            container.innerHTML = `
+                <button onclick="App.openFolder('root')" class="text-theme-muted hover:underline font-normal text-xs">My Drive</button>
+                <span class="text-theme-muted text-xs">/</span>
+                <span class="text-theme-text font-bold text-sm truncate max-w-[150px]">${folderName}</span>
+            `;
+        }
+    },
+
     navigateView(viewName) {
-        if (window.FX) FX.tap();
+        if (window.FX) FX.tap('light');
         StorageManager.currentView = viewName;
 
-        // Update Desktop Nav
-        document.querySelectorAll('.nav-item').forEach(item => {
-            if (item.getAttribute('data-nav') === viewName) {
+        // Bottom Navigation Active Pill
+        document.querySelectorAll('.bottom-nav-item').forEach(item => {
+            if (item.getAttribute('data-bottom-nav') === viewName) {
                 item.classList.add('active');
             } else {
                 item.classList.remove('active');
             }
         });
 
-        // Update Mobile Bottom Nav
-        document.querySelectorAll('.bottom-nav-btn').forEach(btn => {
-            if (btn.getAttribute('data-bottom-nav') === viewName) {
-                btn.classList.add('active');
+        // Desktop Sidebar Active
+        document.querySelectorAll('[data-desktop-nav]').forEach(item => {
+            if (item.getAttribute('data-desktop-nav') === viewName) {
+                item.className = 'flex items-center gap-3 px-4 py-2.5 rounded-full text-xs font-semibold text-theme-primary bg-theme-primary-container/30 transition-colors';
             } else {
-                btn.classList.remove('active');
+                item.className = 'flex items-center gap-3 px-4 py-2.5 rounded-full text-xs font-semibold text-theme-muted hover:bg-theme-surface-variant transition-colors';
             }
         });
 
         this.refreshUI();
     },
 
-    filterCategory(cat) {
-        if (window.FX) FX.tap();
-        this.activeCategory = cat;
-
-        document.querySelectorAll('.cat-chip').forEach(chip => {
-            if (chip.getAttribute('data-cat') === cat) {
-                chip.classList.add('active');
-            } else {
-                chip.classList.remove('active');
-            }
-        });
-
-        this.renderFiles();
-    },
-
     setViewMode(mode) {
-        if (window.FX) FX.tap();
+        if (window.FX) FX.tap('light');
         StorageManager.viewMode = mode;
         const gridBtn = document.getElementById('viewGridBtn');
         const listBtn = document.getElementById('viewListBtn');
 
         if (mode === 'grid') {
-            gridBtn.className = 'p-1 rounded text-theme-primary bg-theme-primary/10';
-            listBtn.className = 'p-1 rounded text-theme-muted hover:text-white';
+            gridBtn.className = 'p-1 rounded text-theme-primary bg-theme-surface-variant';
+            listBtn.className = 'p-1 rounded text-theme-muted hover:text-theme-text';
         } else {
-            gridBtn.className = 'p-1 rounded text-theme-muted hover:text-white';
-            listBtn.className = 'p-1 rounded text-theme-primary bg-theme-primary/10';
+            gridBtn.className = 'p-1 rounded text-theme-muted hover:text-theme-text';
+            listBtn.className = 'p-1 rounded text-theme-primary bg-theme-surface-variant';
         }
         this.renderFiles();
     },
 
-    openFolder(folderId) {
-        if (window.FX) FX.tap('medium');
-        StorageManager.currentFolderId = folderId;
-        StorageManager.currentView = 'all';
-        this.refreshUI();
-    },
-
-    renderBreadcrumbs() {
-        const container = document.getElementById('breadcrumbs');
-        if (!container) return;
-
-        const path = StorageManager.getFolderPath();
-        let html = `
-            <button onclick="App.openFolder('root')" class="flex items-center gap-1 text-theme-primary hover:underline font-bold">
-                <i data-lucide="home" class="w-3.5 h-3.5"></i>
-                <span>Home</span>
-            </button>
-        `;
-
-        path.forEach(folder => {
-            html += `
-                <span class="text-theme-muted text-[11px]">/</span>
-                <button onclick="App.openFolder('${folder.id}')" class="text-white hover:text-theme-primary font-semibold truncate max-w-[100px]">
-                    ${folder.name}
-                </button>
-            `;
-        });
-
-        container.innerHTML = html;
-    },
-
-    renderSidebarFolders() {
-        const container = document.getElementById('sidebarFolderList');
-        if (!container) return;
-
-        const folders = StorageManager.getActiveData().folders;
-        container.innerHTML = folders.map(f => `
-            <a href="javascript:void(0)" onclick="App.openFolder('${f.id}')" class="flex items-center justify-between px-3 py-2 rounded-xl text-xs text-theme-muted hover:text-white hover:bg-white/5 transition-all">
-                <span class="flex items-center gap-2 truncate">
-                    <i data-lucide="folder" class="w-4 h-4 text-theme-primary shrink-0"></i>
-                    <span class="truncate">${f.name}</span>
-                </span>
-                <span class="text-[9px] font-mono px-1.5 py-0.5 rounded bg-white/5 text-theme-primary">Topic</span>
-            </a>
-        `).join('');
-    },
+    // ==========================================
+    // 📂 FOLDERS & FILES RENDERING
+    // ==========================================
 
     renderFolders() {
         const section = document.getElementById('foldersSection');
         const grid = document.getElementById('foldersGrid');
         if (!section || !grid) return;
 
-        if (StorageManager.currentView !== 'all' || this.activeCategory !== 'all') {
+        if (StorageManager.currentView !== 'all') {
             section.classList.add('hidden');
             return;
         }
@@ -226,17 +222,14 @@ const App = {
         grid.innerHTML = folders.map(folder => {
             const filesCount = StorageManager.getActiveData().files.filter(f => f.folderId === folder.id && !f.isTrash).length;
             return `
-                <div class="folder-card tilt-3d p-3.5 cursor-pointer group" onclick="App.openFolder('${folder.id}')">
-                    <div class="flex items-start justify-between mb-2.5">
-                        <div class="p-2.5 rounded-xl bg-theme-primary/10 text-theme-primary border border-theme-primary/20 group-hover:scale-110 transition-transform">
-                            <i data-lucide="folder" class="w-5 h-5"></i>
-                        </div>
-                        <span class="text-[8px] uppercase font-bold tracking-wider px-1.5 py-0.2 rounded-full bg-cyan-400/10 text-cyan-400 border border-cyan-400/20">
-                            Topic
-                        </span>
+                <div class="m3-folder-card group" onclick="App.openFolder('${folder.id}')">
+                    <div class="flex items-center gap-2.5 min-w-0">
+                        <i data-lucide="folder" class="w-5 h-5 text-amber-500 fill-amber-500/20 shrink-0"></i>
+                        <span class="text-xs font-bold text-theme-text truncate">${folder.name}</span>
                     </div>
-                    <h4 class="text-xs font-bold text-white truncate mb-0.5">${folder.name}</h4>
-                    <p class="text-[10px] text-theme-muted font-mono">${filesCount} files</p>
+                    <button onclick="event.stopPropagation(); App.deleteFolderPrompt('${folder.id}', '${folder.name}');" class="p-1 text-theme-muted hover:text-rose-500 rounded-full opacity-60 group-hover:opacity-100 transition-opacity">
+                        <i data-lucide="more-vertical" class="w-4 h-4"></i>
+                    </button>
                 </div>
             `;
         }).join('');
@@ -250,22 +243,6 @@ const App = {
 
         let files = StorageManager.getFiles();
 
-        // Apply Category Filter
-        if (this.activeCategory === 'video') {
-            files = files.filter(f => ['mp4', 'mkv', 'webm', 'mov'].includes(f.ext.toLowerCase()));
-        } else if (this.activeCategory === 'audio') {
-            files = files.filter(f => ['mp3', 'wav', 'flac', 'ogg'].includes(f.ext.toLowerCase()));
-        } else if (this.activeCategory === 'photo') {
-            files = files.filter(f => ['jpg', 'jpeg', 'png', 'gif', 'webp'].includes(f.ext.toLowerCase()));
-        } else if (this.activeCategory === 'doc') {
-            files = files.filter(f => ['pdf', 'doc', 'docx', 'txt', 'md', 'xlsx'].includes(f.ext.toLowerCase()));
-        } else if (this.activeCategory === 'archive') {
-            files = files.filter(f => ['zip', 'rar', 'tar', '7z'].includes(f.ext.toLowerCase()));
-        } else if (this.activeCategory === 'vault') {
-            files = files.filter(f => f.isVault);
-        }
-
-        // Apply Search Filter
         if (this.searchQuery.trim()) {
             const q = this.searchQuery.toLowerCase();
             files = files.filter(f => f.name.toLowerCase().includes(q) || f.ext.toLowerCase().includes(q));
@@ -283,52 +260,49 @@ const App = {
 
         if (StorageManager.viewMode === 'grid') {
             container.className = 'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3';
-            container.innerHTML = files.map(file => this.renderFileCard(file)).join('');
+            container.innerHTML = files.map(file => this.renderFileGridCard(file)).join('');
         } else {
             container.className = 'space-y-2';
             container.innerHTML = files.map(file => this.renderFileListRow(file)).join('');
         }
     },
 
-    renderFileCard(file) {
+    renderFileGridCard(file) {
         const iconData = this.getFileIcon(file.ext);
         const sizeStr = TelegramEngine.formatBytes(file.size);
         const isTrash = StorageManager.currentView === 'trash';
 
         return `
-            <div class="file-card tilt-3d p-3 flex flex-col group">
-                <div class="flex items-start justify-between mb-2">
-                    <div class="p-2.5 rounded-xl ${iconData.bg} ${iconData.color} border ${iconData.border}">
+            <div class="m3-file-card group" onclick="MediaPlayer.open(${JSON.stringify(file).replace(/"/g, '&quot;')})">
+                <div class="flex items-start justify-between mb-3">
+                    <div class="p-2.5 rounded-xl ${iconData.bg} ${iconData.color}">
                         <i data-lucide="${iconData.icon}" class="w-5 h-5"></i>
                     </div>
-                    <div class="flex items-center gap-1 opacity-80 group-hover:opacity-100 transition-opacity">
-                        ${file.isEncrypted ? '<span title="AES-256 Encrypted"><i data-lucide="lock" class="w-3.5 h-3.5 text-emerald-400"></i></span>' : ''}
-                        ${file.shared ? '<span title="mdsafiislam.tech Public Share Active"><i data-lucide="globe" class="w-3.5 h-3.5 text-cyan-400"></i></span>' : ''}
+                    <div class="flex items-center gap-1">
+                        ${file.isEncrypted ? '<i data-lucide="lock" class="w-3.5 h-3.5 text-emerald-500"></i>' : ''}
+                        ${file.shared ? '<i data-lucide="globe" class="w-3.5 h-3.5 text-blue-500"></i>' : ''}
                     </div>
                 </div>
 
-                <div class="cursor-pointer mb-2.5" onclick="MediaPlayer.open(${JSON.stringify(file).replace(/"/g, '&quot;')})">
-                    <h4 class="text-xs font-bold text-white truncate mb-0.5 hover:text-theme-primary transition-colors">${file.name}</h4>
+                <div class="mb-3">
+                    <h4 class="text-xs font-bold text-theme-text truncate mb-0.5 group-hover:text-theme-primary transition-colors">${file.name}</h4>
                     <span class="text-[10px] text-theme-muted font-mono">${sizeStr} • ${file.ext.toUpperCase()}</span>
                 </div>
 
-                <div class="mt-auto pt-2 border-t border-theme-border/60 flex items-center justify-between text-xs">
+                <div class="pt-2 border-t border-theme-border/60 flex items-center justify-between text-xs" onclick="event.stopPropagation()">
                     ${!isTrash ? `
-                        <button onclick="MediaPlayer.open(${JSON.stringify(file).replace(/"/g, '&quot;')})" class="p-1.5 rounded-lg text-theme-primary hover:bg-theme-primary/10" title="Play">
-                            <i data-lucide="play" class="w-3.5 h-3.5"></i>
-                        </button>
-                        <button onclick="App.shareFile('${file.id}')" class="p-1.5 rounded-lg text-theme-muted hover:text-cyan-400" title="Share">
+                        <button onclick="App.shareFile('${file.id}')" class="p-1 text-theme-muted hover:text-blue-500 rounded" title="Share Link">
                             <i data-lucide="share-2" class="w-3.5 h-3.5"></i>
                         </button>
-                        <button onclick="App.downloadFile('${file.id}')" class="p-1.5 rounded-lg text-theme-muted hover:text-white" title="Download">
+                        <button onclick="App.downloadFile('${file.id}')" class="p-1 text-theme-muted hover:text-theme-text rounded" title="Download">
                             <i data-lucide="download" class="w-3.5 h-3.5"></i>
                         </button>
-                        <button onclick="StorageManager.moveToTrash('${file.id}'); App.refreshUI();" class="p-1.5 rounded-lg text-theme-muted hover:text-rose-400" title="Trash">
+                        <button onclick="StorageManager.moveToTrash('${file.id}'); App.refreshUI();" class="p-1 text-theme-muted hover:text-rose-500 rounded" title="Move to Trash">
                             <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
                         </button>
                     ` : `
-                        <button onclick="StorageManager.restoreFromTrash('${file.id}'); App.refreshUI();" class="text-[10px] text-emerald-400 font-bold hover:underline">Restore</button>
-                        <button onclick="StorageManager.permanentDelete('${file.id}'); App.refreshUI();" class="text-[10px] text-rose-400 font-bold hover:underline">Delete</button>
+                        <button onclick="StorageManager.restoreFromTrash('${file.id}'); App.refreshUI();" class="text-[11px] text-emerald-500 font-bold hover:underline">Restore</button>
+                        <button onclick="StorageManager.permanentDelete('${file.id}'); App.refreshUI();" class="text-[11px] text-rose-500 font-bold hover:underline">Delete</button>
                     `}
                 </div>
             </div>
@@ -341,21 +315,21 @@ const App = {
         const dateStr = new Date(file.createdAt).toLocaleDateString();
 
         return `
-            <div class="p-2.5 rounded-xl bg-theme-surface border border-theme-border flex items-center justify-between gap-3 group">
-                <div class="flex items-center gap-2.5 min-w-0 flex-1 cursor-pointer" onclick="MediaPlayer.open(${JSON.stringify(file).replace(/"/g, '&quot;')})">
-                    <div class="p-2 rounded-lg ${iconData.bg} ${iconData.color}">
+            <div class="p-3 rounded-2xl bg-theme-surface border border-theme-border flex items-center justify-between gap-3 group hover:border-theme-primary transition-colors cursor-pointer" onclick="MediaPlayer.open(${JSON.stringify(file).replace(/"/g, '&quot;')})">
+                <div class="flex items-center gap-3 min-w-0 flex-1">
+                    <div class="p-2 rounded-xl ${iconData.bg} ${iconData.color}">
                         <i data-lucide="${iconData.icon}" class="w-4 h-4"></i>
                     </div>
                     <div class="truncate">
-                        <div class="text-xs font-bold text-white truncate">${file.name}</div>
+                        <div class="text-xs font-bold text-theme-text truncate group-hover:text-theme-primary transition-colors">${file.name}</div>
                         <div class="text-[10px] text-theme-muted font-mono">${dateStr}</div>
                     </div>
                 </div>
-                <div class="flex items-center gap-3 text-xs font-mono text-theme-muted">
+                <div class="flex items-center gap-3 text-xs font-mono text-theme-muted" onclick="event.stopPropagation()">
                     <span>${sizeStr}</span>
-                    <button onclick="MediaPlayer.open(${JSON.stringify(file).replace(/"/g, '&quot;')})" class="p-1 hover:text-theme-primary"><i data-lucide="play" class="w-3.5 h-3.5"></i></button>
-                    <button onclick="App.shareFile('${file.id}')" class="p-1 hover:text-cyan-400"><i data-lucide="share-2" class="w-3.5 h-3.5"></i></button>
-                    <button onclick="StorageManager.moveToTrash('${file.id}'); App.refreshUI();" class="p-1 hover:text-rose-400"><i data-lucide="trash-2" class="w-3.5 h-3.5"></i></button>
+                    <button onclick="App.shareFile('${file.id}')" class="p-1.5 hover:text-blue-500"><i data-lucide="share-2" class="w-4 h-4"></i></button>
+                    <button onclick="App.downloadFile('${file.id}')" class="p-1.5 hover:text-theme-text"><i data-lucide="download" class="w-4 h-4"></i></button>
+                    <button onclick="StorageManager.moveToTrash('${file.id}'); App.refreshUI();" class="p-1.5 hover:text-rose-500"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
                 </div>
             </div>
         `;
@@ -363,29 +337,83 @@ const App = {
 
     getFileIcon(ext) {
         const map = {
-            pdf: { icon: 'file-text', color: 'text-rose-400', bg: 'bg-rose-500/10', border: 'border-rose-500/20' },
-            mp4: { icon: 'video', color: 'text-purple-400', bg: 'bg-purple-500/10', border: 'border-purple-500/20' },
-            mkv: { icon: 'film', color: 'text-purple-400', bg: 'bg-purple-500/10', border: 'border-purple-500/20' },
-            mp3: { icon: 'music', color: 'text-emerald-400', bg: 'bg-emerald-500/10', border: 'border-emerald-500/20' },
-            jpg: { icon: 'image', color: 'text-cyan-400', bg: 'bg-cyan-500/10', border: 'border-cyan-500/20' },
-            png: { icon: 'image', color: 'text-cyan-400', bg: 'bg-cyan-500/10', border: 'border-cyan-500/20' },
-            zip: { icon: 'archive', color: 'text-amber-400', bg: 'bg-amber-500/10', border: 'border-amber-500/20' }
+            pdf: { icon: 'file-text', color: 'text-rose-500', bg: 'bg-rose-50 dark:bg-rose-950/40' },
+            mp4: { icon: 'video', color: 'text-purple-500', bg: 'bg-purple-50 dark:bg-purple-950/40' },
+            mkv: { icon: 'film', color: 'text-purple-500', bg: 'bg-purple-50 dark:bg-purple-950/40' },
+            mp3: { icon: 'music', color: 'text-emerald-500', bg: 'bg-emerald-50 dark:bg-emerald-950/40' },
+            jpg: { icon: 'image', color: 'text-blue-500', bg: 'bg-blue-50 dark:bg-blue-950/40' },
+            png: { icon: 'image', color: 'text-blue-500', bg: 'bg-blue-50 dark:bg-blue-950/40' },
+            zip: { icon: 'archive', color: 'text-amber-500', bg: 'bg-amber-50 dark:bg-amber-950/40' }
         };
-        return map[ext.toLowerCase()] || { icon: 'file', color: 'text-theme-muted', bg: 'bg-white/5', border: 'border-white/10' };
+        return map[ext.toLowerCase()] || { icon: 'file', color: 'text-slate-500', bg: 'bg-slate-100 dark:bg-slate-800' };
     },
 
-    async promptNewFolder() {
-        if (window.FX) FX.tap();
-        const name = prompt('Folder name (Mirrored as Telegram Forum Topic):');
-        if (!name || !name.trim()) return;
+    // ==========================================
+    // ➕ ACTION SHEET & CREATION MODALS
+    // ==========================================
 
-        const topicResult = await TelegramEngine.createFolderTopic(name.trim());
+    openActionSheet() {
+        if (window.FX) FX.playTap();
+        document.getElementById('actionBottomSheet').classList.remove('hidden');
+    },
+
+    closeActionSheet() {
+        document.getElementById('actionBottomSheet').classList.add('hidden');
+    },
+
+    closeActionSheetOnBackdrop(e) {
+        if (e.target.id === 'actionBottomSheet') {
+            this.closeActionSheet();
+        }
+    },
+
+    promptNewFolder() {
+        if (window.FX) FX.playTap();
+        const modal = document.getElementById('newFolderModal');
+        const input = document.getElementById('newFolderNameInput');
+        if (modal && input) {
+            input.value = '';
+            modal.classList.remove('hidden');
+            setTimeout(() => input.focus(), 100);
+        }
+    },
+
+    closeNewFolderModal() {
+        const modal = document.getElementById('newFolderModal');
+        if (modal) modal.classList.add('hidden');
+    },
+
+    async confirmCreateFolder() {
+        const input = document.getElementById('newFolderNameInput');
+        const name = input ? input.value.trim() : '';
+        if (!name) return;
+
+        this.closeNewFolderModal();
+
+        // Create Forum Topic on Telegram
+        const topicResult = await TelegramEngine.createFolderTopic(name);
         const threadId = topicResult ? topicResult.message_thread_id : null;
 
-        StorageManager.createFolder(name.trim(), StorageManager.currentFolderId, threadId);
-        if (window.FX) FX.playSuccess();
+        StorageManager.createFolder(name, StorageManager.currentFolderId, threadId);
+
+        if (window.FX) {
+            FX.playSuccess();
+            FX.haptic('success');
+        }
+
         this.refreshUI();
     },
+
+    deleteFolderPrompt(id, name) {
+        if (confirm(`Delete folder "${name}" and move files to trash?`)) {
+            StorageManager.deleteFolder(id);
+            this.refreshUI();
+        }
+    },
+
+    // ==========================================
+    // 📤 FILE UPLOAD ENGINE
+    // ==========================================
 
     async handleFileSelect(e) {
         const files = Array.from(e.target.files);
@@ -396,29 +424,13 @@ const App = {
         e.target.value = '';
     },
 
-    handleDragOver(e) {
-        e.preventDefault();
-    },
-
-    handleDragLeave(e) {
-        e.preventDefault();
-    },
-
-    async handleDrop(e) {
-        e.preventDefault();
-        const files = Array.from(e.dataTransfer.files);
-        for (const file of files) {
-            await this.uploadBlobDirectly(file, file.name, file.type);
-        }
-    },
-
     async uploadBlobDirectly(blob, name, type) {
         const banner = document.getElementById('uploadBanner');
         const bannerText = document.getElementById('uploadBannerText');
         const progressBar = document.getElementById('uploadBannerProgress');
 
         banner.classList.remove('hidden');
-        bannerText.textContent = `Encrypting & Uploading ${name}...`;
+        bannerText.textContent = `Uploading ${name}...`;
         progressBar.style.width = '10%';
 
         try {
@@ -461,7 +473,7 @@ const App = {
             });
 
             progressBar.style.width = '100%';
-            bannerText.textContent = 'Upload Verified!';
+            bannerText.textContent = 'Upload Complete!';
             if (window.FX) {
                 FX.playSuccess();
                 FX.haptic('success');
@@ -475,17 +487,46 @@ const App = {
         }
     },
 
+    uploadToVault() {
+        StorageManager.currentView = 'vault';
+        this.refreshUI();
+        document.getElementById('fileInput').click();
+    },
+
+    async recordVoiceNote() {
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            const mediaRecorder = new MediaRecorder(stream);
+            const chunks = [];
+
+            alert('Recording voice note... Click OK when finished.');
+            mediaRecorder.ondataavailable = e => chunks.push(e.data);
+            mediaRecorder.onstop = async () => {
+                const blob = new Blob(chunks, { type: 'audio/mp3' });
+                const name = `VoiceNote_${Date.now()}.mp3`;
+                await this.uploadBlobDirectly(blob, name, 'audio/mp3');
+                stream.getTracks().forEach(t => t.stop());
+            };
+            mediaRecorder.start();
+            setTimeout(() => {
+                if (mediaRecorder.state === 'recording') mediaRecorder.stop();
+            }, 60000); // Max 1 min
+        } catch (err) {
+            alert('Microphone access denied: ' + err.message);
+        }
+    },
+
     shareFile(fileId) {
-        if (window.FX) FX.tap();
+        if (window.FX) FX.playTap();
         StorageManager.toggleShare(fileId);
         const link = `https://mdsafiislam.tech/#share=${fileId}`;
         navigator.clipboard.writeText(link);
-        alert(`Public Share Link Copied to Clipboard!\n\n${link}\n\nAnyone with this link can download through mdsafiislam.tech.`);
+        alert(`Link Copied!\n\n${link}\n\nAnyone with this link can download from mdsafiislam.tech`);
         this.refreshUI();
     },
 
     downloadFile(fileId) {
-        if (window.FX) FX.tap();
+        if (window.FX) FX.playTap();
         const file = StorageManager.getActiveData().files.find(f => f.id === fileId);
         if (!file) return;
 
@@ -495,7 +536,7 @@ const App = {
             a.download = file.name;
             a.click();
         } else {
-            alert(`Initiating download for ${file.name}...`);
+            alert(`Downloading ${file.name}...`);
         }
     },
 
@@ -504,48 +545,14 @@ const App = {
         this.renderFiles();
     },
 
-    updateBadgesAndStorage() {
-        const data = StorageManager.getActiveData();
-        const allFiles = data.files.filter(f => !f.isTrash);
-        const mediaFiles = data.files.filter(f => !f.isTrash && ['mp4', 'mkv', 'mp3', 'wav', 'jpg', 'png'].includes(f.ext.toLowerCase()));
-
-        const bAll = document.getElementById('badgeAllCount');
-        const bMedia = document.getElementById('badgeMediaCount');
-        if (bAll) bAll.textContent = allFiles.length;
-        if (bMedia) bMedia.textContent = mediaFiles.length;
-
+    updateStorageStats() {
         const usage = StorageManager.getStorageUsage();
-        const storageText = document.getElementById('storageUsedText');
-        if (storageText) storageText.textContent = `${usage.formatted} stored`;
-    },
-
-    openProfileDrawer() {
-        if (window.FX) FX.tap();
-        document.getElementById('profileDrawer').classList.remove('hidden');
-    },
-
-    closeProfileDrawer() {
-        document.getElementById('profileDrawer').classList.add('hidden');
-    },
-
-    toggleSoundFX(e) {
-        if (window.FX) {
-            FX.soundEnabled = e.target.checked;
-            localStorage.setItem('teledrive_sound', e.target.checked ? 'true' : 'false');
-            if (e.target.checked) FX.playSuccess();
-        }
-    },
-
-    toggleHaptics(e) {
-        if (window.FX) {
-            FX.hapticsEnabled = e.target.checked;
-            localStorage.setItem('teledrive_haptics', e.target.checked ? 'true' : 'false');
-            if (e.target.checked) FX.haptic('medium');
-        }
+        const desk = document.getElementById('desktopStorageText');
+        if (desk) desk.textContent = `${usage.formatted} of ∞ Used`;
     },
 
     openSettingsModal() {
-        if (window.FX) FX.tap();
+        if (window.FX) FX.playTap();
         document.getElementById('inputBotToken').value = TelegramEngine.botToken;
         document.getElementById('inputChatId').value = TelegramEngine.chatId;
         document.getElementById('inputCustomDomain').value = TelegramEngine.customDomain || 'https://mdsafiislam.tech';
@@ -571,7 +578,7 @@ const App = {
         if (window.FX) FX.playSuccess();
         this.closeSettingsModal();
         this.refreshUI();
-        alert('TeleDrive Ultra Configuration Saved!');
+        alert('Settings Saved Successfully!');
     }
 };
 
