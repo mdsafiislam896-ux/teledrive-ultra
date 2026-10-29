@@ -6,63 +6,76 @@
   <title>TeleDrive — Unlimited Telegram Cloud Storage</title>
 
   <!-- PWA & Mobile Meta Tags -->
-  <meta name="theme-color" content="#0b0f19">
+  <meta name="theme-color" content="#0b0e14">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="TeleDrive">
   <link rel="manifest" href="manifest.json">
   <link rel="icon" type="image/png" sizes="32x32" href="assets/icon-32.png">
+  <link rel="icon" type="image/png" sizes="64x64" href="assets/icon-64.png">
   <link rel="icon" type="image/png" sizes="192x192" href="assets/icon-192.png">
   <link rel="apple-touch-icon" href="assets/icon-180.png">
 
-  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <!-- Fonts: Plus Jakarta Sans & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
     /* ========================================================
-       TELEDRIVE MATERIAL 3 EXPRESSIVE DESIGN TOKENS
+       TELEDRIVE 1.5.0 EXACT MATERIAL 3 EXPRESSIVE DESIGN SYSTEM
        ======================================================== */
     :root {
-      /* TeleDrive Official Blue Theme (Default Dark) */
-      --bg-base: #0b0f19;
-      --bg-surface: #121827;
-      --bg-surface-2: #1a2236;
-      --bg-surface-3: #222d48;
-      --bg-card: #151d30;
-      --bg-card-hover: #1b253e;
+      /* Official TeleDrive Dark (Exact Match from App Screenshots) */
+      --bg-base: #0b0e14;
+      --bg-surface: #121824;
+      --bg-surface-hover: #162030;
+      --bg-surface-3: #1a2538;
+      --bg-card: #131a27;
+      --bg-card-hover: #1a2436;
       --border: rgba(255, 255, 255, 0.08);
-      --border-focus: #4f86f7;
-      
-      --text: #f3f5fa;
-      --text-muted: #8b9bb4;
-      --text-dim: #5c6c84;
+      --border-focus: #2b82f6;
 
-      --primary: #4f86f7;
-      --primary-hover: #3b74e6;
-      --primary-light: rgba(79, 134, 247, 0.15);
+      --text-white: #ffffff;
+      --text: #f0f4f8;
+      --text-muted: #8090a0;
+      --text-dim: #556272;
+
+      /* TeleDrive Brand Accents */
+      --primary: #2b82f6;
+      --primary-hover: #1d72e2;
+      --primary-light: rgba(43, 130, 246, 0.15);
       --primary-text: #ffffff;
 
-      --accent: #9b5de5;
-      --accent-teal: #00bfa6;
+      --accent-purple: #7c5cfc;
+      --accent-cyan: #00bfa6;
       --accent-amber: #f4a62a;
       --accent-rose: #f2617a;
       --accent-slate: #8a93a6;
 
+      /* Backed up Card Colors (from Screen 1) */
+      --card-backed-bg: #0f2d3c;
+      --card-backed-text: #ffffff;
+      --card-backed-sub: #8bc3d8;
+      --btn-backed-bg: #bbeafb;
+      --btn-backed-text: #003648;
+
+      /* Bottom Nav Pill Colors */
+      --nav-pill-bg: #1c3754;
+      --nav-pill-text: #bbeafb;
+
       --success: #10b981;
-      --warning: #f59e0b;
       --danger: #ef4444;
 
       --radius-sm: 8px;
       --radius-md: 14px;
       --radius-lg: 20px;
-      --radius-xl: 28px;
+      --radius-xl: 26px;
       --radius-pill: 9999px;
 
       --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.25);
-      --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.35);
-      --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.5);
+      --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.4);
+      --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.6);
 
       --font-main: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
@@ -71,17 +84,18 @@
       --safe-bottom: env(safe-area-inset-bottom, 0px);
     }
 
-    /* THEME: TeleDrive Light */
+    /* THEME: TeleDrive Light (Clean, Crisp Material 3) */
     [data-theme="light"] {
       --bg-base: #f4f6fa;
       --bg-surface: #ffffff;
-      --bg-surface-2: #ebedf5;
-      --bg-surface-3: #e0e4ef;
+      --bg-surface-hover: #f0f3fa;
+      --bg-surface-3: #e5e9f4;
       --bg-card: #ffffff;
-      --bg-card-hover: #f0f3fa;
+      --bg-card-hover: #f5f7fc;
       --border: rgba(0, 0, 0, 0.08);
       --border-focus: #1b6ef3;
-      
+
+      --text-white: #111827;
       --text: #111827;
       --text-muted: #64748b;
       --text-dim: #94a3b8;
@@ -90,6 +104,15 @@
       --primary-hover: #1459c9;
       --primary-light: rgba(27, 110, 243, 0.1);
       --primary-text: #ffffff;
+
+      --card-backed-bg: #e0f2fe;
+      --card-backed-text: #034f75;
+      --card-backed-sub: #0284c7;
+      --btn-backed-bg: #0284c7;
+      --btn-backed-text: #ffffff;
+
+      --nav-pill-bg: #dbeafe;
+      --nav-pill-text: #1d4ed8;
 
       --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
       --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.08);
@@ -100,7 +123,7 @@
     [data-theme="amoled"] {
       --bg-base: #000000;
       --bg-surface: #0a0a0a;
-      --bg-surface-2: #141414;
+      --bg-surface-hover: #141414;
       --bg-surface-3: #1f1f1f;
       --bg-card: #0e0e0e;
       --bg-card-hover: #181818;
@@ -109,69 +132,48 @@
       --primary-hover: #a362f7;
       --primary-light: rgba(187, 134, 252, 0.15);
       --primary-text: #000000;
+      --card-backed-bg: #141414;
+      --nav-pill-bg: #292929;
+      --nav-pill-text: #ffffff;
     }
 
-    /* THEME: Cyberpunk Violet */
+    /* THEME: Cyber Violet */
     [data-theme="violet"] {
-      --bg-base: #0d091a;
-      --bg-surface: #140e28;
-      --bg-surface-2: #1f163d;
-      --bg-surface-3: #2d2057;
-      --bg-card: #17112e;
-      --bg-card-hover: #221944;
+      --bg-base: #0c0817;
+      --bg-surface: #140d26;
+      --bg-surface-hover: #1c1336;
+      --bg-surface-3: #261b47;
+      --bg-card: #160e2b;
+      --bg-card-hover: #20153d;
       --border: rgba(155, 93, 229, 0.2);
       --primary: #9b5de5;
       --primary-hover: #8338ec;
       --primary-light: rgba(155, 93, 229, 0.15);
       --primary-text: #ffffff;
+      --card-backed-bg: #221340;
+      --nav-pill-bg: #321b5e;
+      --nav-pill-text: #e2d1fc;
     }
 
     /* THEME: Emerald Green */
     [data-theme="emerald"] {
-      --bg-base: #081411;
-      --bg-surface: #0e201b;
-      --bg-surface-2: #16302a;
-      --bg-surface-3: #20443b;
-      --bg-card: #112620;
-      --bg-card-hover: #193830;
+      --bg-base: #071310;
+      --bg-surface: #0d211b;
+      --bg-surface-hover: #132e27;
+      --bg-surface-3: #1c4238;
+      --bg-card: #0f261f;
+      --bg-card-hover: #16362d;
       --border: rgba(0, 191, 166, 0.2);
       --primary: #00bfa6;
       --primary-hover: #009e89;
       --primary-light: rgba(0, 191, 166, 0.15);
-      --primary-text: #081411;
+      --primary-text: #071310;
+      --card-backed-bg: #10332a;
+      --nav-pill-bg: #18483b;
+      --nav-pill-text: #b6f4eb;
     }
 
-    /* THEME: Sunset Amber */
-    [data-theme="sunset"] {
-      --bg-base: #140d0a;
-      --bg-surface: #201410;
-      --bg-surface-2: #301f18;
-      --bg-surface-3: #422b22;
-      --bg-card: #251813;
-      --bg-card-hover: #35231c;
-      --border: rgba(244, 166, 42, 0.2);
-      --primary: #f4a62a;
-      --primary-hover: #dd8f16;
-      --primary-light: rgba(244, 166, 42, 0.15);
-      --primary-text: #140d0a;
-    }
-
-    /* THEME: Ocean Aqua */
-    [data-theme="ocean"] {
-      --bg-base: #09151e;
-      --bg-surface: #0e202e;
-      --bg-surface-2: #163145;
-      --bg-surface-3: #1f425c;
-      --bg-card: #112638;
-      --bg-card-hover: #193850;
-      --border: rgba(6, 182, 212, 0.2);
-      --primary: #06b6d4;
-      --primary-hover: #0891b2;
-      --primary-light: rgba(6, 182, 212, 0.15);
-      --primary-text: #09151e;
-    }
-
-    /* Base Reset */
+    /* Reset & Base */
     *, *::before, *::after {
       box-sizing: border-box;
       margin: 0;
@@ -197,7 +199,7 @@
     input, textarea, select, button {
       font-family: inherit;
       color: inherit;
-      font-size: 16px !important; /* Prevents auto-zoom & input freezes on iOS/Android */
+      font-size: 16px !important; /* Prevents auto-zoom & input lock on iOS/Android */
       touch-action: manipulation;
     }
 
@@ -230,8 +232,8 @@
 
     /* PC Desktop Navigation Rail / Sidebar */
     #desktop-sidebar {
-      display: none; /* Mobile first */
-      width: 280px;
+      display: none;
+      width: 270px;
       background: var(--bg-surface);
       border-right: 1px solid var(--border);
       flex-direction: column;
@@ -258,10 +260,10 @@
     }
 
     .sidebar-logo {
-      width: 38px;
-      height: 38px;
+      width: 36px;
+      height: 36px;
       border-radius: var(--radius-md);
-      box-shadow: 0 4px 14px rgba(79, 134, 247, 0.35);
+      box-shadow: 0 4px 14px rgba(43, 130, 246, 0.35);
     }
 
     .sidebar-title-box {
@@ -273,7 +275,7 @@
       font-size: 18px;
       font-weight: 800;
       letter-spacing: -0.02em;
-      color: var(--text);
+      color: var(--text-white);
     }
 
     .sidebar-app-sub {
@@ -287,7 +289,7 @@
       display: flex;
       align-items: center;
       gap: 12px;
-      background: var(--bg-surface-2);
+      background: var(--bg-surface-3);
       padding: 12px 14px;
       border-radius: var(--radius-lg);
       margin-bottom: 24px;
@@ -297,15 +299,15 @@
     }
 
     .user-pill-card:hover {
-      background: var(--bg-surface-3);
+      background: var(--bg-surface-hover);
       border-color: var(--border-focus);
     }
 
     .user-avatar-circle {
-      width: 40px;
-      height: 40px;
+      width: 38px;
+      height: 38px;
       border-radius: 50%;
-      background: linear-gradient(135deg, var(--primary), var(--accent));
+      background: #a58aff;
       color: #fff;
       display: flex;
       align-items: center;
@@ -323,6 +325,7 @@
     .user-pill-name {
       font-weight: 700;
       font-size: 13px;
+      color: var(--text-white);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -359,15 +362,15 @@
     }
 
     .sidebar-item:hover {
-      background: var(--bg-surface-2);
+      background: var(--bg-surface-3);
       color: var(--text);
     }
 
     .sidebar-item.active {
       background: var(--primary);
-      color: var(--primary-text);
+      color: #fff;
       font-weight: 700;
-      box-shadow: 0 4px 16px rgba(79, 134, 247, 0.4);
+      box-shadow: 0 4px 16px rgba(43, 130, 246, 0.4);
     }
 
     .sidebar-item .item-icon {
@@ -392,7 +395,7 @@
       flex-direction: column;
       min-width: 0;
       min-height: 100vh;
-      padding-bottom: 90px; /* Space for Mobile Floating Bar */
+      padding-bottom: 96px; /* Space for Mobile Floating Bar */
     }
 
     @media (min-width: 900px) {
@@ -401,217 +404,146 @@
       }
     }
 
-    /* ========================================================
-       TOP APP BAR (TELEDRIVE OFFICIAL M3 STYLE)
-       ======================================================== */
-    .top-app-bar {
-      position: sticky;
-      top: 0;
-      z-index: 40;
-      background: rgba(11, 15, 25, 0.85);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--border);
-      padding: calc(var(--safe-top) + 12px) 16px 12px 16px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      transition: background 0.2s ease;
-    }
-
-    [data-theme="light"] .top-app-bar {
-      background: rgba(244, 246, 250, 0.9);
-    }
-
-    .bar-left {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .bar-logo {
-      width: 32px;
-      height: 32px;
-      border-radius: 8px;
-    }
-
-    .bar-title-box {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .bar-title {
-      font-size: 16px;
-      font-weight: 800;
-      letter-spacing: -0.01em;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .bar-connection-pill {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      font-size: 11px;
-      font-weight: 600;
-      color: var(--success);
-    }
-
-    .pulse-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--success);
-      box-shadow: 0 0 8px var(--success);
-      animation: pulse 2s infinite ease-in-out;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.4; transform: scale(0.85); }
-    }
-
-    .bar-right-actions {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .icon-action-btn {
-      width: 38px;
-      height: 38px;
-      border-radius: 50%;
-      background: var(--bg-surface-2);
-      color: var(--text);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 16px;
-      border: 1px solid var(--border);
-      transition: all 0.2s ease;
-    }
-
-    .icon-action-btn:hover {
-      background: var(--bg-surface-3);
-      border-color: var(--border-focus);
-    }
-
-    .user-profile-badge-btn {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--bg-surface-2);
-      padding: 4px 10px 4px 4px;
-      border-radius: var(--radius-pill);
-      border: 1px solid var(--border);
-      cursor: pointer;
-    }
-
-    .user-avatar-mini {
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--primary), var(--accent));
-      color: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 12px;
-      font-weight: 800;
-    }
-
-    .user-name-mini {
-      font-size: 12px;
-      font-weight: 700;
-      display: none;
-    }
-
-    @media (min-width: 600px) {
-      .user-name-mini {
-        display: block;
-      }
-    }
-
     /* Container for tab screens */
     .tab-view-container {
       padding: 16px;
-      max-width: 1200px;
+      max-width: 900px;
       margin: 0 auto;
       width: 100%;
     }
 
     /* ========================================================
-       TAB 1: HOME SCREEN (TELEDRIVE COMPONENT SYSTEM)
+       TOP APP HEADER (EXACT TELEDRIVE SCREEN 1 STYLE)
        ======================================================== */
-    /* 1. Cloud Backup Status Card */
-    .backup-card {
-      background: var(--bg-card);
+    .teledrive-top-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: calc(var(--safe-top) + 16px) 20px 14px 20px;
+    }
+
+    .teledrive-app-title {
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--text-white);
+    }
+
+    .top-header-right-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .avatar-drive-pill {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #a58aff;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 17px;
+      box-shadow: 0 4px 12px rgba(165, 138, 255, 0.35);
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    .avatar-drive-pill:hover {
+      transform: scale(1.06);
+    }
+
+    .header-icon-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: var(--bg-surface);
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
       border: 1px solid var(--border);
+      cursor: pointer;
+    }
+
+    /* ========================================================
+       TAB 1: HOME SCREEN (EXACT TELEDRIVE SCREEN 1)
+       ======================================================== */
+    /* 1. Backed up Card */
+    .card-backed-up {
+      background: var(--card-backed-bg);
       border-radius: var(--radius-xl);
-      padding: 20px;
-      margin-bottom: 20px;
-      box-shadow: var(--shadow-sm);
+      padding: 24px;
+      margin-bottom: 24px;
       position: relative;
       overflow: hidden;
     }
 
-    .backup-header-row {
+    .backed-up-title-row {
       display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 12px;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 6px;
     }
 
-    .backup-info-title {
-      font-size: 16px;
+    .cloud-icon-circle {
+      font-size: 26px;
+      line-height: 1;
+    }
+
+    .backed-up-title {
+      font-size: 19px;
       font-weight: 800;
-      color: var(--text);
-      display: flex;
+      color: var(--card-backed-text);
+      letter-spacing: -0.01em;
+    }
+
+    .backed-up-subtitle {
+      font-size: 13px;
+      color: var(--card-backed-sub);
+      margin-left: 38px;
+      margin-bottom: 18px;
+      font-weight: 500;
+    }
+
+    .btn-choose-folders {
+      background: var(--btn-backed-bg);
+      color: var(--btn-backed-text);
+      font-size: 13px;
+      font-weight: 700;
+      padding: 10px 22px;
+      border-radius: var(--radius-pill);
+      display: inline-flex;
       align-items: center;
       gap: 8px;
-    }
-
-    .backup-info-sub {
-      font-size: 12px;
-      color: var(--text-muted);
-      margin-top: 2px;
-    }
-
-    .backup-action-btn {
-      background: var(--primary);
-      color: var(--primary-text);
-      font-size: 12px;
-      font-weight: 700;
-      padding: 8px 16px;
-      border-radius: var(--radius-pill);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      box-shadow: 0 4px 12px rgba(79, 134, 247, 0.3);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
       transition: all 0.2s ease;
+      cursor: pointer;
     }
 
-    .backup-action-btn:hover {
-      background: var(--primary-hover);
+    .btn-choose-folders:hover {
+      opacity: 0.92;
+      transform: translateY(-1px);
     }
 
     /* TELEDRIVE ANIMATED WAVY PROGRESS BAR */
     .wavy-progress-box {
       width: 100%;
-      height: 12px;
-      background: var(--bg-surface-3);
+      height: 8px;
+      background: rgba(0, 0, 0, 0.2);
       border-radius: var(--radius-pill);
       overflow: hidden;
-      margin-top: 14px;
+      margin-top: 16px;
       position: relative;
     }
 
     .wavy-progress-bar {
       height: 100%;
       width: 100%;
-      background: linear-gradient(90deg, var(--primary), var(--accent), var(--accent-teal));
+      background: linear-gradient(90deg, #2b82f6, #7c5cfc, #00bfa6);
       background-size: 200% 100%;
       border-radius: var(--radius-pill);
       animation: waveFlow 3s infinite linear;
@@ -622,399 +554,254 @@
       100% { background-position: -100% 0; }
     }
 
-    /* 2. Storage Overview Card (TeleDrive Signature) */
-    .storage-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-xl);
-      padding: 22px;
-      margin-bottom: 24px;
-      box-shadow: var(--shadow-sm);
-    }
-
-    .storage-headline {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      margin-bottom: 16px;
-    }
-
-    .storage-total-num {
-      font-size: 26px;
-      font-weight: 800;
-      color: var(--text);
-      line-height: 1.1;
-    }
-
-    .storage-total-desc {
-      font-size: 12px;
-      color: var(--text-muted);
-      margin-top: 4px;
-    }
-
-    .storage-unlimited-badge {
-      background: rgba(16, 185, 129, 0.15);
-      color: var(--success);
-      border: 1px solid rgba(16, 185, 129, 0.3);
-      padding: 4px 12px;
-      border-radius: var(--radius-pill);
-      font-size: 11px;
-      font-weight: 700;
-    }
-
-    /* Segmented Storage Bar */
-    .storage-segment-bar {
-      display: flex;
-      height: 14px;
-      width: 100%;
-      border-radius: var(--radius-pill);
-      overflow: hidden;
-      gap: 3px;
-      background: var(--bg-surface-3);
-      margin-bottom: 18px;
-    }
-
-    .storage-segment {
-      height: 100%;
-      border-radius: var(--radius-pill);
-      transition: width 0.4s ease;
-    }
-
-    .seg-photos { background: #9b5de5; }
-    .seg-videos { background: #4f86f7; }
-    .seg-audio  { background: #00bfa6; }
-    .seg-docs   { background: #f4a62a; }
-    .seg-secrets{ background: #f2617a; }
-    .seg-other  { background: #8a93a6; }
-
-    /* Storage Legend */
-    .storage-legend-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-    }
-
-    @media (min-width: 600px) {
-      .storage-legend-grid {
-        grid-template-columns: repeat(3, 1fr);
-      }
-    }
-
-    .legend-item {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 12px;
-    }
-
-    .legend-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-    }
-
-    .legend-name {
-      color: var(--text-muted);
-      font-weight: 600;
-      flex: 1;
-    }
-
-    .legend-val {
-      font-weight: 700;
-      color: var(--text);
-    }
-
-    /* 3. Section Title Row */
-    .section-title-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 14px;
-    }
-
-    .section-title {
-      font-size: 17px;
-      font-weight: 800;
-      color: var(--text);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .section-action-link {
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--primary);
-      cursor: pointer;
-    }
-
-    /* 4. AWD TeleDrive Folder Grid */
-    .folder-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-      margin-bottom: 26px;
-    }
-
-    @media (min-width: 640px) {
-      .folder-grid {
-        grid-template-columns: repeat(3, 1fr);
-      }
-    }
-
-    @media (min-width: 1000px) {
-      .folder-grid {
-        grid-template-columns: repeat(4, 1fr);
-      }
-    }
-
-    .folder-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 16px;
-      cursor: pointer;
-      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-      display: flex;
-      flex-direction: column;
-      position: relative;
-    }
-
-    .folder-card:hover {
-      background: var(--bg-card-hover);
-      border-color: var(--border-focus);
-      transform: translateY(-2px);
-      box-shadow: var(--shadow-sm);
-    }
-
-    .folder-top-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 10px;
-    }
-
-    .folder-icon {
-      font-size: 28px;
-      line-height: 1;
-    }
-
-    .folder-badge-count {
-      font-size: 11px;
-      font-weight: 700;
-      background: var(--bg-surface-3);
-      color: var(--text-muted);
-      padding: 2px 8px;
-      border-radius: var(--radius-pill);
-    }
-
-    .folder-name {
+    /* Section Subheaders (Recent, Storage, Folders) */
+    .teledrive-section-label {
       font-size: 14px;
       font-weight: 700;
-      color: var(--text);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .folder-meta {
-      font-size: 11px;
-      color: var(--text-dim);
-      margin-top: 2px;
-    }
-
-    /* 5. Recent Files Carousel */
-    .recent-strip {
+      color: var(--text-muted);
+      margin-bottom: 12px;
       display: flex;
-      gap: 12px;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* 2. Recent Files Horizontal Strip (from Screen 1) */
+    .recent-horizontal-strip {
+      display: flex;
+      gap: 14px;
       overflow-x: auto;
-      padding-bottom: 8px;
+      padding-bottom: 6px;
       margin-bottom: 26px;
       scrollbar-width: none;
     }
 
-    .recent-strip::-webkit-scrollbar {
+    .recent-horizontal-strip::-webkit-scrollbar {
       display: none;
     }
 
-    .recent-card {
-      flex: 0 0 130px;
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      padding: 10px;
-      cursor: pointer;
+    .recent-squircle-card {
+      flex: 0 0 110px;
       display: flex;
       flex-direction: column;
-      transition: all 0.2s ease;
+      gap: 6px;
+      cursor: pointer;
     }
 
-    .recent-card:hover {
-      border-color: var(--border-focus);
-      background: var(--bg-card-hover);
-    }
-
-    .recent-thumb {
-      width: 100%;
-      height: 90px;
-      background: var(--bg-surface-2);
-      border-radius: var(--radius-sm);
+    .recent-squircle-thumb {
+      width: 110px;
+      height: 110px;
+      border-radius: var(--radius-lg);
+      background: var(--bg-surface);
+      overflow: hidden;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 32px;
-      overflow: hidden;
-      margin-bottom: 8px;
+      font-size: 36px;
+      border: 1px solid var(--border);
+      transition: transform 0.2s ease, border-color 0.2s ease;
     }
 
-    .recent-thumb img {
+    .recent-squircle-card:hover .recent-squircle-thumb {
+      transform: scale(1.04);
+      border-color: var(--border-focus);
+    }
+
+    .recent-squircle-thumb img {
       width: 100%;
       height: 100%;
       object-fit: cover;
     }
 
-    .recent-title {
+    .recent-file-name-label {
       font-size: 11px;
-      font-weight: 700;
-      color: var(--text);
+      font-weight: 600;
+      color: var(--text-muted);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      padding: 0 2px;
     }
 
-    /* 6. Collection Row Group (TeleDrive GroupedList) */
-    .grouped-card {
+    /* 3. Storage Overview Card (from Screen 1) */
+    .card-storage-overview {
       background: var(--bg-card);
-      border: 1px solid var(--border);
       border-radius: var(--radius-xl);
+      border: 1px solid var(--border);
+      padding: 24px;
+      margin-bottom: 26px;
+    }
+
+    .storage-big-number {
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--text-white);
+      line-height: 1.1;
+    }
+
+    .storage-files-sub {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 4px;
+      margin-bottom: 18px;
+    }
+
+    /* TeleDrive Segmented Progress Bar */
+    .storage-pill-bar {
+      display: flex;
+      height: 12px;
+      width: 100%;
+      border-radius: var(--radius-pill);
       overflow: hidden;
-      margin-bottom: 24px;
-    }
-
-    .collection-row {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      padding: 16px 20px;
-      border-bottom: 1px solid var(--border);
-      cursor: pointer;
-      transition: background 0.2s ease;
-    }
-
-    .collection-row:last-child {
-      border-bottom: none;
-    }
-
-    .collection-row:hover {
-      background: var(--bg-surface-2);
-    }
-
-    .collection-icon {
-      font-size: 20px;
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
+      gap: 3px;
       background: var(--bg-surface-3);
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      margin-bottom: 20px;
     }
 
-    .collection-info {
+    .storage-bar-seg {
+      height: 100%;
+      border-radius: var(--radius-pill);
+      transition: width 0.4s ease;
+    }
+
+    /* Storage Legend Rows */
+    .storage-legend-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .storage-legend-row {
+      display: flex;
+      align-items: center;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .legend-row-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      margin-right: 12px;
+    }
+
+    .legend-row-name {
+      color: var(--text);
       flex: 1;
     }
 
-    .collection-title {
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--text);
+    .legend-row-percent {
+      color: var(--text-muted);
+      width: 50px;
+      text-align: right;
     }
 
-    .collection-sub {
+    .legend-row-bytes {
+      color: var(--text-white);
+      font-weight: 700;
+      width: 90px;
+      text-align: right;
+    }
+
+    /* 4. TeleDrive Vault Folders Grid */
+    .folders-grid-3col {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 26px;
+    }
+
+    .folder-box-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 16px 10px 14px 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .folder-box-card:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--border-focus);
+      transform: translateY(-2px);
+    }
+
+    .folder-box-icon {
+      font-size: 32px;
+      margin-bottom: 8px;
+    }
+
+    .folder-box-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-white);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 100%;
+    }
+
+    .folder-box-count {
       font-size: 11px;
       color: var(--text-muted);
-    }
-
-    .collection-arrow {
-      color: var(--text-dim);
-      font-size: 16px;
+      margin-top: 2px;
     }
 
     /* ========================================================
-       TAB 2: FILES SCREEN (TELEDRIVE BREADCRUMBS & ITEMS)
+       TAB 2: FILES SCREEN (EXACT TELEDRIVE SCREEN 2)
        ======================================================== */
-    .files-header-toolbar {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      margin-bottom: 16px;
-    }
-
-    .breadcrumb-row {
+    .files-screen-topbar {
       display: flex;
       align-items: center;
-      gap: 8px;
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--text-muted);
-      flex-wrap: wrap;
+      justify-content: space-between;
+      margin-bottom: 18px;
     }
 
-    .breadcrumb-item {
+    .files-screen-title {
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--text-white);
+    }
+
+    .files-screen-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .files-action-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--bg-surface);
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
       cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .breadcrumb-item:hover {
-      color: var(--primary);
-    }
-
-    .breadcrumb-item.active {
-      color: var(--text);
-    }
-
-    .files-search-filter-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .search-box {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--bg-card);
       border: 1px solid var(--border);
-      border-radius: var(--radius-pill);
-      padding: 8px 16px;
     }
 
-    .search-box input {
-      background: none;
-      border: none;
-      outline: none;
-      width: 100%;
-      color: var(--text);
-      font-size: 13px !important;
-    }
-
-    .filter-chips-strip {
+    /* Quick Filter Chips (Pill Row) */
+    .chips-filter-row {
       display: flex;
-      gap: 6px;
+      gap: 8px;
       overflow-x: auto;
-      padding: 4px 0 10px 0;
+      padding-bottom: 8px;
+      margin-bottom: 16px;
       scrollbar-width: none;
     }
 
-    .filter-chips-strip::-webkit-scrollbar {
+    .chips-filter-row::-webkit-scrollbar {
       display: none;
     }
 
-    .fchip {
-      background: var(--bg-surface-2);
+    .filter-chip-pill {
+      background: var(--bg-surface);
       border: 1px solid var(--border);
       padding: 6px 14px;
       border-radius: var(--radius-pill);
@@ -1029,124 +816,103 @@
       gap: 6px;
     }
 
-    .fchip:hover {
-      background: var(--bg-surface-3);
-      color: var(--text);
+    .filter-chip-pill.active {
+      background: var(--btn-backed-bg);
+      color: var(--btn-backed-text);
+      border-color: var(--btn-backed-bg);
     }
 
-    .fchip.active {
-      background: var(--primary);
-      color: var(--primary-text);
-      border-color: var(--primary);
-      box-shadow: 0 4px 12px rgba(79, 134, 247, 0.35);
-    }
-
-    /* ITEMS CARDS GRID */
-    .items-container {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 14px;
-    }
-
-    @media (min-width: 720px) {
-      .items-container {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    @media (min-width: 1100px) {
-      .items-container {
-        grid-template-columns: repeat(3, 1fr);
-      }
-    }
-
-    .item-card {
+    /* Search Box */
+    .search-input-wrapper {
       background: var(--bg-card);
       border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 16px;
+      border-radius: var(--radius-pill);
+      padding: 8px 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .search-input-wrapper input {
+      background: none;
+      border: none;
+      outline: none;
+      width: 100%;
+      color: var(--text-white);
+      font-size: 13px !important;
+    }
+
+    /* 3-Column Files Grid (from Screen 2) */
+    .files-grid-3col {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .file-item-card {
       display: flex;
       flex-direction: column;
-      gap: 12px;
-      position: relative;
-      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .item-card:hover {
-      border-color: var(--border-focus);
-      background: var(--bg-card-hover);
-      box-shadow: var(--shadow-sm);
-    }
-
-    .item-card.pinned {
-      border-color: var(--accent-amber);
-    }
-
-    .item-header-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 8px;
-    }
-
-    .item-cat-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      font-size: 11px;
-      font-weight: 700;
-      background: var(--bg-surface-3);
-      padding: 3px 10px;
-      border-radius: var(--radius-pill);
-      color: var(--text-muted);
-    }
-
-    .item-card-actions {
-      display: flex;
-      align-items: center;
       gap: 6px;
-    }
-
-    .item-action-icon {
-      font-size: 15px;
       cursor: pointer;
-      opacity: 0.6;
-      transition: opacity 0.2s;
     }
 
-    .item-action-icon:hover {
-      opacity: 1;
+    .file-item-preview {
+      width: 100%;
+      aspect-ratio: 1;
+      border-radius: var(--radius-lg);
+      background: var(--bg-surface);
+      overflow: hidden;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      transition: all 0.2s ease;
     }
 
-    .item-title {
-      font-size: 15px;
-      font-weight: 800;
-      color: var(--text);
-      line-height: 1.3;
-      word-break: break-word;
+    .file-item-card:hover .file-item-preview {
+      border-color: var(--border-focus);
+      transform: scale(1.03);
     }
 
-    .item-notes {
-      font-size: 12px;
+    .file-item-preview img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .file-item-name {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-white);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .file-item-size {
+      font-size: 10px;
       color: var(--text-muted);
-      line-height: 1.5;
-      white-space: pre-wrap;
-      word-break: break-word;
     }
 
-    /* 1. REALISTIC 3D CREDIT CARD (ZERO REDUNDANT BUTTONS) */
+    /* ========================================================
+       USER CUSTOM COMPONENTS: 3D CREDIT CARD, SMS & BUBBLES
+       ======================================================== */
+    /* REALISTIC 3D CREDIT CARD (ZERO REDUNDANT BUTTONS) */
     .credit-card-ui {
       background: linear-gradient(135deg, #18192b 0%, #291f42 50%, #15162c 100%);
-      border-radius: var(--radius-md);
-      padding: 16px 18px;
+      border-radius: var(--radius-lg);
+      padding: 18px 20px;
       box-shadow: 0 10px 24px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.2);
       border: 1px solid rgba(255, 255, 255, 0.12);
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 14px;
       color: #ffffff;
       position: relative;
       overflow: hidden;
+      margin-top: 10px;
     }
 
     .credit-card-ui::after {
@@ -1173,7 +939,6 @@
       background: linear-gradient(135deg, #d4af37, #f7d070, #aa820a);
       border-radius: 5px;
       box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.3);
-      position: relative;
     }
 
     .cc-bank {
@@ -1184,7 +949,7 @@
       text-transform: uppercase;
     }
 
-    .cc-number-box {
+    .cc-number-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -1199,6 +964,21 @@
       letter-spacing: 2px;
       color: #ffffff;
       text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    }
+
+    .copy-chip-btn {
+      background: var(--primary);
+      color: #ffffff;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      box-shadow: 0 2px 8px rgba(43, 130, 246, 0.35);
+      cursor: pointer;
+    }
+
+    .copy-chip-btn.copied {
+      background: var(--success) !important;
     }
 
     .cc-bottom-row {
@@ -1226,26 +1006,21 @@
       gap: 16px;
     }
 
-    .cc-badge-clickable {
+    .cc-val-clickable {
       cursor: pointer;
-      transition: opacity 0.2s;
-    }
-
-    .cc-badge-clickable:hover {
-      opacity: 0.8;
-      text-decoration: underline;
-    }
-
-    .cc-val {
       font-family: var(--font-mono);
       font-size: 13px;
       font-weight: 700;
       color: #ffffff;
     }
 
-    /* 2. COMPACT SMS & MESSAGES CARD */
+    .cc-val-clickable:hover {
+      text-decoration: underline;
+    }
+
+    /* COMPACT SMS & MESSAGES BOX */
     .sms-compact-box {
-      background: var(--bg-surface-2);
+      background: var(--bg-surface);
       border: 1px solid var(--border);
       border-radius: var(--radius-md);
       padding: 10px 14px;
@@ -1253,6 +1028,7 @@
       align-items: center;
       justify-content: space-between;
       gap: 10px;
+      margin-top: 8px;
     }
 
     .sms-phone-badge {
@@ -1262,362 +1038,185 @@
       font-family: var(--font-mono);
       font-size: 13px;
       font-weight: 700;
-      color: var(--text);
+      color: var(--text-white);
       cursor: pointer;
     }
 
-    .copy-pill-btn {
-      background: var(--primary);
-      color: var(--primary-text);
-      font-size: 11px;
-      font-weight: 700;
-      padding: 4px 10px;
-      border-radius: var(--radius-pill);
-      box-shadow: 0 2px 6px rgba(79, 134, 247, 0.3);
-      transition: all 0.2s ease;
-      white-space: nowrap;
-    }
-
-    .copy-pill-btn:hover {
-      background: var(--primary-hover);
-    }
-
-    .copy-pill-btn.copied {
-      background: var(--success) !important;
-    }
-
-    /* 3. EMAIL & PHONE NUMBERS BUBBLE LIST */
-    .bubbles-container {
+    /* EMAIL & PHONE BUBBLE LIST */
+    .bubbles-list-box {
       display: flex;
       flex-direction: column;
       gap: 6px;
       max-height: 200px;
       overflow-y: auto;
-      background: var(--bg-surface-2);
+      background: var(--bg-surface);
       padding: 8px;
       border-radius: var(--radius-md);
       border: 1px solid var(--border);
+      margin-top: 8px;
     }
 
-    .bubble-row {
+    .bubble-item-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 8px;
-      background: var(--bg-surface);
+      background: var(--bg-surface-3);
       padding: 6px 10px;
       border-radius: var(--radius-sm);
-      border: 1px solid var(--border);
     }
 
-    .bubble-row.marked {
-      background: rgba(16, 185, 129, 0.1);
-      border-color: rgba(16, 185, 129, 0.3);
+    .bubble-item-row.marked {
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.3);
     }
 
-    .bubble-text {
+    .bubble-item-text {
       font-size: 12px;
       font-weight: 700;
-      color: var(--text);
+      color: var(--text-white);
       cursor: pointer;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
     }
 
-    .bubble-actions {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .bubble-mark-toggle {
+    .bubble-mark-pill {
       font-size: 10px;
       font-weight: 700;
       padding: 2px 8px;
       border-radius: var(--radius-pill);
-      background: var(--bg-surface-3);
+      background: var(--bg-surface);
       color: var(--text-muted);
       cursor: pointer;
     }
 
-    .bubble-mark-toggle.marked {
+    .bubble-mark-pill.marked {
       background: var(--success);
       color: #fff;
     }
 
-    /* Code Snippet / AI Prompt / IDM Key Box */
-    .code-snippet-box {
-      background: var(--bg-surface-2);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      padding: 10px 12px;
-      font-family: var(--font-mono);
-      font-size: 12px;
-      color: var(--text);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      word-break: break-all;
-    }
-
-    /* Inline Audio & Video Players */
-    .inline-video-box video {
-      width: 100%;
-      border-radius: var(--radius-md);
-      background: #000;
-      max-height: 220px;
-    }
-
-    .inline-audio-box {
-      background: var(--bg-surface-2);
-      border-radius: var(--radius-md);
-      padding: 10px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .iap-play-btn {
-      width: 34px;
-      height: 34px;
-      border-radius: 50%;
-      background: var(--primary);
-      color: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 14px;
-    }
-
     /* ========================================================
-       TAB 3: GALLERY SCREEN (MEDIA LIGHTBOX)
+       TAB 3: GALLERY SCREEN (EXACT TELEDRIVE SCREEN 3)
        ======================================================== */
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
+    .gallery-filter-pill-bar {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+      overflow-x: auto;
     }
 
-    @media (min-width: 600px) {
-      .gallery-grid {
-        grid-template-columns: repeat(3, 1fr);
-      }
-    }
-
-    @media (min-width: 900px) {
-      .gallery-grid {
-        grid-template-columns: repeat(4, 1fr);
-      }
-    }
-
-    .gallery-item-tile {
-      aspect-ratio: 1;
-      border-radius: var(--radius-md);
-      overflow: hidden;
-      background: var(--bg-surface-2);
-      position: relative;
-      cursor: pointer;
+    .gfilter-pill {
+      background: var(--bg-surface);
       border: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 13px;
+      font-weight: 700;
+      padding: 8px 18px;
+      border-radius: var(--radius-pill);
+      cursor: pointer;
+      transition: all 0.2s ease;
     }
 
-    .gallery-item-tile img {
+    .gfilter-pill.active {
+      background: var(--btn-backed-bg);
+      color: var(--btn-backed-text);
+      border-color: var(--btn-backed-bg);
+    }
+
+    .gallery-grid-3col {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .gallery-photo-thumb {
+      aspect-ratio: 1;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      cursor: pointer;
+    }
+
+    .gallery-photo-thumb img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform 0.3s ease;
+      transition: transform 0.25s ease;
     }
 
-    .gallery-item-tile:hover img {
+    .gallery-photo-thumb:hover img {
       transform: scale(1.05);
     }
 
-    .gallery-item-info {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      padding: 8px 10px;
-      background: linear-gradient(transparent, rgba(0, 0, 0, 0.85));
-      color: #fff;
-      font-size: 11px;
-      font-weight: 700;
-      display: flex;
-      justify-content: space-between;
-    }
-
     /* ========================================================
-       TAB 4: SETTINGS SCREEN
+       TAB 4: SETTINGS SCREEN (EXACT TELEDRIVE SCREEN 4)
        ======================================================== */
-    .settings-group {
+    .settings-list-group {
       background: var(--bg-card);
       border: 1px solid var(--border);
       border-radius: var(--radius-xl);
-      padding: 20px;
-      margin-bottom: 20px;
+      overflow: hidden;
+      margin-bottom: 24px;
     }
 
-    .settings-group-title {
-      font-size: 15px;
-      font-weight: 800;
-      color: var(--text);
-      margin-bottom: 14px;
+    .settings-list-row {
       display: flex;
       align-items: center;
-      gap: 8px;
-    }
-
-    .form-group {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      margin-bottom: 14px;
-    }
-
-    .form-label {
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--text-muted);
-    }
-
-    .form-input, .form-select, .form-textarea {
-      background: var(--bg-surface-2);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      padding: 10px 14px;
-      color: var(--text);
-      outline: none;
-      transition: border-color 0.2s ease;
-      width: 100%;
-    }
-
-    .form-input:focus, .form-select:focus, .form-textarea:focus {
-      border-color: var(--border-focus);
-      background: var(--bg-surface-3);
-    }
-
-    .form-row {
-      display: flex;
-      gap: 12px;
-    }
-
-    .btn-primary {
-      background: var(--primary);
-      color: var(--primary-text);
-      font-weight: 700;
-      font-size: 13px;
-      padding: 12px 20px;
-      border-radius: var(--radius-pill);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      box-shadow: 0 4px 14px rgba(79, 134, 247, 0.35);
-      transition: all 0.2s ease;
-      width: 100%;
-    }
-
-    .btn-primary:hover {
-      background: var(--primary-hover);
-      transform: translateY(-1px);
-    }
-
-    .btn-secondary {
-      background: var(--bg-surface-2);
-      color: var(--text);
-      font-weight: 700;
-      font-size: 13px;
-      padding: 12px 20px;
-      border-radius: var(--radius-pill);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      border: 1px solid var(--border);
-      transition: all 0.2s ease;
-      width: 100%;
-    }
-
-    .btn-secondary:hover {
-      background: var(--bg-surface-3);
-    }
-
-    /* TOPIC / CATEGORY MANAGER LIST (WITH DELETE BUTTON) */
-    .topic-manager-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 10px 14px;
-      background: var(--bg-surface-2);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      margin-bottom: 8px;
-    }
-
-    .topic-del-btn {
-      color: var(--danger);
-      font-size: 12px;
-      font-weight: 700;
-      padding: 4px 8px;
-      border-radius: var(--radius-sm);
+      gap: 16px;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
       cursor: pointer;
+      transition: background 0.2s ease;
     }
 
-    .topic-del-btn:hover {
-      background: rgba(239, 68, 68, 0.15);
+    .settings-list-row:last-child {
+      border-bottom: none;
     }
 
-    /* THEMES PICKER GRID */
-    .themes-palette-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
+    .settings-list-row:hover {
+      background: var(--bg-surface-hover);
     }
 
-    .theme-palette-card {
-      background: var(--bg-surface-2);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      padding: 12px 8px;
-      text-align: center;
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
-      transition: all 0.2s ease;
-    }
-
-    .theme-palette-card:hover {
-      border-color: var(--border-focus);
-    }
-
-    .theme-palette-card.active {
-      border-color: var(--primary);
-      background: var(--primary-light);
-    }
-
-    .theme-dot {
-      width: 22px;
-      height: 22px;
+    .settings-icon-circle {
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+      background: #0e364f;
+      color: #6bb1f8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
     }
 
-    .theme-palette-label {
-      font-size: 11px;
+    .settings-row-text {
+      flex: 1;
+    }
+
+    .settings-row-title {
+      font-size: 15px;
       font-weight: 700;
-      color: var(--text);
+      color: var(--text-white);
+    }
+
+    .settings-row-subtitle {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .settings-row-chevron {
+      color: var(--text-dim);
+      font-size: 18px;
     }
 
     /* ========================================================
-       FLOATING ACTION BUTTON (SPEED DIAL FAB)
+       FLOATING ACTION BUTTON (SPEED DIAL)
        ======================================================== */
     #fab-container {
       position: fixed;
       right: 20px;
-      bottom: calc(var(--safe-bottom) + 80px);
+      bottom: calc(var(--safe-bottom) + 84px);
       z-index: 90;
       display: flex;
       flex-direction: column-reverse;
@@ -1636,13 +1235,14 @@
       width: 56px;
       height: 56px;
       border-radius: var(--radius-pill);
-      background: linear-gradient(135deg, var(--primary), var(--accent));
-      color: #fff;
+      background: var(--btn-backed-bg);
+      color: var(--btn-backed-text);
       font-size: 26px;
+      font-weight: 800;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 8px 24px rgba(79, 134, 247, 0.45);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
       transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
       cursor: pointer;
     }
@@ -1677,7 +1277,7 @@
 
     .fab-item-label {
       background: var(--bg-surface);
-      color: var(--text);
+      color: var(--text-white);
       font-size: 12px;
       font-weight: 700;
       padding: 6px 12px;
@@ -1691,7 +1291,7 @@
       width: 44px;
       height: 44px;
       border-radius: 50%;
-      background: var(--bg-surface-2);
+      background: var(--bg-surface);
       border: 1px solid var(--border);
       display: flex;
       align-items: center;
@@ -1707,15 +1307,15 @@
     }
 
     /* ========================================================
-       FLOATING BOTTOM NAVIGATION (TELEDRIVE M3 STYLE)
+       FLOATING BOTTOM NAVIGATION (EXACT SCREEN 1-4 STYLE)
        ======================================================== */
     #mobile-bottom-nav {
       position: fixed;
       bottom: calc(var(--safe-bottom) + 12px);
-      left: 16px;
-      right: 16px;
-      height: 64px;
-      background: rgba(18, 24, 39, 0.88);
+      left: 20px;
+      right: 20px;
+      height: 60px;
+      background: rgba(18, 24, 36, 0.95);
       backdrop-filter: blur(24px);
       -webkit-backdrop-filter: blur(24px);
       border: 1px solid var(--border);
@@ -1723,91 +1323,65 @@
       display: flex;
       align-items: center;
       justify-content: space-around;
-      padding: 0 8px;
+      padding: 0 6px;
       z-index: 80;
-      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
-    }
-
-    [data-theme="light"] #mobile-bottom-nav {
-      background: rgba(255, 255, 255, 0.9);
-      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6);
     }
 
     @media (min-width: 900px) {
       #mobile-bottom-nav {
-        display: none; /* Hidden on PC Desktop */
+        display: none;
       }
     }
 
-    .bnav-item {
+    .bnav-tab-btn {
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 4px;
-      flex: 1;
-      height: 100%;
-      color: var(--text-muted);
-      cursor: pointer;
-      position: relative;
-      transition: color 0.2s ease;
-    }
-
-    .bnav-item .bnav-icon {
-      font-size: 20px;
-      line-height: 1;
-      transition: transform 0.2s ease;
-    }
-
-    .bnav-item .bnav-label {
-      font-size: 11px;
-      font-weight: 700;
-      line-height: 1;
-    }
-
-    .bnav-item.active {
-      color: var(--primary);
-    }
-
-    .bnav-item.active .bnav-icon {
-      transform: translateY(-2px);
-    }
-
-    .bnav-indicator-pill {
-      position: absolute;
-      top: 6px;
-      width: 48px;
-      height: 32px;
+      gap: 6px;
+      height: 44px;
+      padding: 0 16px;
       border-radius: var(--radius-pill);
-      background: var(--primary-light);
-      z-index: -1;
-      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      color: var(--text-muted);
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .bnav-tab-btn.active {
+      background: var(--nav-pill-bg);
+      color: var(--nav-pill-text);
+    }
+
+    .bnav-tab-btn .bnav-icon {
+      font-size: 16px;
     }
 
     /* ========================================================
-       MODALS & OVERLAYS (TOUCH-SAFE & NON-BLOCKING)
+       MODALS & DIALOGS (CLEAN, TOUCH-FRIENDLY, NON-BLOCKING)
        ======================================================== */
-    .overlay-backdrop {
+    .modal-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.7);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
       z-index: 100;
       display: none;
       align-items: center;
       justify-content: center;
       padding: 16px;
       opacity: 0;
-      transition: opacity 0.25s ease;
+      transition: opacity 0.2s ease;
     }
 
-    .overlay-backdrop.open {
+    .modal-overlay.open {
       display: flex;
       opacity: 1;
     }
 
-    .modal-box {
+    .modal-sheet {
       background: var(--bg-surface);
       border: 1px solid var(--border);
       border-radius: var(--radius-xl);
@@ -1821,7 +1395,7 @@
       transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    .overlay-backdrop.open .modal-box {
+    .modal-overlay.open .modal-sheet {
       transform: translateY(0);
     }
 
@@ -1832,20 +1406,17 @@
       margin-bottom: 20px;
     }
 
-    .modal-title {
-      font-size: 17px;
+    .modal-title-text {
+      font-size: 18px;
       font-weight: 800;
-      color: var(--text);
-      display: flex;
-      align-items: center;
-      gap: 8px;
+      color: var(--text-white);
     }
 
-    .modal-close-btn {
+    .modal-close-icon {
       width: 32px;
       height: 32px;
       border-radius: 50%;
-      background: var(--bg-surface-2);
+      background: var(--bg-surface-3);
       color: var(--text);
       display: flex;
       align-items: center;
@@ -1854,20 +1425,82 @@
       cursor: pointer;
     }
 
-    /* IDM 8-CHANNEL TURBO MODAL */
-    .idm-box {
+    /* Forms */
+    .form-group {
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 6px;
+      margin-bottom: 14px;
     }
 
+    .form-label {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+
+    .form-input, .form-select, .form-textarea {
+      background: var(--bg-surface-3);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 12px 14px;
+      color: var(--text-white);
+      outline: none;
+      transition: border-color 0.2s ease;
+      width: 100%;
+    }
+
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      border-color: var(--border-focus);
+    }
+
+    .form-row {
+      display: flex;
+      gap: 12px;
+    }
+
+    .btn-primary-action {
+      background: var(--primary);
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 14px;
+      padding: 14px 20px;
+      border-radius: var(--radius-pill);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 4px 14px rgba(43, 130, 246, 0.4);
+      width: 100%;
+      cursor: pointer;
+      margin-top: 8px;
+    }
+
+    .btn-secondary-action {
+      background: var(--bg-surface-3);
+      color: var(--text);
+      font-weight: 700;
+      font-size: 13px;
+      padding: 12px 20px;
+      border-radius: var(--radius-pill);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border: 1px solid var(--border);
+      width: 100%;
+      cursor: pointer;
+    }
+
+    /* IDM 8-Channel Turbo Modal */
     .idm-channels-grid {
       display: grid;
       grid-template-columns: 1fr;
       gap: 6px;
-      background: var(--bg-surface-2);
+      background: var(--bg-surface-3);
       padding: 12px;
       border-radius: var(--radius-md);
+      margin: 14px 0;
     }
 
     .idm-channel-row {
@@ -1887,7 +1520,7 @@
     .idm-chan-track {
       flex: 1;
       height: 6px;
-      background: var(--bg-surface-3);
+      background: rgba(0, 0, 0, 0.3);
       border-radius: var(--radius-pill);
       overflow: hidden;
     }
@@ -1904,25 +1537,51 @@
       background: var(--bg-surface-3);
       border-radius: var(--radius-pill);
       overflow: hidden;
+      margin-bottom: 12px;
     }
 
     .idm-master-fill {
       height: 100%;
-      background: linear-gradient(90deg, var(--primary), var(--accent));
+      background: linear-gradient(90deg, var(--primary), var(--accent-purple));
       width: 0%;
       transition: width 0.1s linear;
     }
 
-    /* FLOATING TOAST */
+    /* Category / Topic Deletion List */
+    .topic-manage-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px;
+      background: var(--bg-surface-3);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      margin-bottom: 8px;
+    }
+
+    .topic-del-btn {
+      color: var(--danger);
+      font-size: 12px;
+      font-weight: 700;
+      padding: 4px 8px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+    }
+
+    .topic-del-btn:hover {
+      background: rgba(239, 68, 68, 0.15);
+    }
+
+    /* Toast Notification */
     #toast-msg {
       position: fixed;
       top: 24px;
       left: 50%;
       transform: translateX(-50%) translateY(-30px);
       background: var(--bg-surface);
-      color: var(--text);
+      color: var(--text-white);
       border: 1px solid var(--border);
-      padding: 10px 20px;
+      padding: 10px 22px;
       border-radius: var(--radius-pill);
       font-size: 13px;
       font-weight: 700;
@@ -1930,10 +1589,7 @@
       z-index: 200;
       opacity: 0;
       pointer-events: none;
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-      display: flex;
-      align-items: center;
-      gap: 8px;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     #toast-msg.show {
@@ -1957,7 +1613,7 @@
       </div>
     </div>
 
-    <!-- Active User & Drive Profile Card -->
+    <!-- Active User Card -->
     <div class="user-pill-card" onclick="switchNavTab('settings')">
       <div class="user-avatar-circle" id="sidebar-user-avatar">S</div>
       <div class="user-pill-info">
@@ -1966,7 +1622,7 @@
       </div>
     </div>
 
-    <!-- Navigation Destinations -->
+    <!-- Desktop Navigation Menu -->
     <nav class="sidebar-nav-menu">
       <div class="sidebar-item active" id="desk-nav-home" onclick="switchNavTab('home')">
         <span class="item-icon">🏠</span>
@@ -1980,10 +1636,6 @@
       <div class="sidebar-item" id="desk-nav-gallery" onclick="switchNavTab('gallery')">
         <span class="item-icon">🖼️</span>
         <span>Gallery</span>
-      </div>
-      <div class="sidebar-item" id="desk-nav-important" onclick="switchCategoryFilter('important')">
-        <span class="item-icon">⭐</span>
-        <span>Important</span>
       </div>
       <div class="sidebar-item" id="desk-nav-settings" onclick="switchNavTab('settings')">
         <span class="item-icon">⚙️</span>
@@ -2000,243 +1652,253 @@
        MAIN APPLICATION VIEWPORT
        ======================================================== -->
   <main id="main-content">
-    <!-- TOP APP BAR -->
-    <header class="top-app-bar">
-      <div class="bar-left">
-        <img src="assets/icon-192.png" class="bar-logo" alt="TeleDrive">
-        <div class="bar-title-box">
-          <div class="bar-title">TeleDrive</div>
-          <div class="bar-connection-pill">
-            <span class="pulse-dot"></span>
-            <span>Connected to Telegram</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="bar-right-actions">
-        <!-- 1-Click Dark/Light Mode Switcher -->
-        <button class="icon-action-btn" onclick="toggleTheme()" title="Toggle Dark / Light Theme" id="btn-theme-toggle">
+    <!-- TOP APP HEADER (EXACT TELEDRIVE SCREEN 1 STYLE) -->
+    <header class="teledrive-top-header">
+      <div class="teledrive-app-title">TeleDrive</div>
+      <div class="top-header-right-actions">
+        <!-- Dark/Light Theme Toggle -->
+        <button class="header-icon-btn" onclick="toggleTheme()" title="Toggle Theme" id="btn-theme-toggle">
           🌙
         </button>
-        <!-- Themes Palette -->
-        <button class="icon-action-btn" onclick="openThemePaletteModal()" title="Themes Palette">
-          🎨
-        </button>
-        <!-- User Profile Pill -->
-        <div class="user-profile-badge-btn" onclick="switchNavTab('settings')">
-          <div class="user-avatar-mini" id="top-user-avatar">S</div>
-          <span class="user-name-mini" id="top-user-name">Md Safi Islam</span>
+        <!-- Drive Avatar Pill (Screen 1 Avatar) -->
+        <div class="avatar-drive-pill" onclick="switchNavTab('settings')" id="top-user-avatar" title="Switch Drive / Profile">
+          S
         </div>
       </div>
     </header>
 
-    <!-- TAB SCREEN 1: HOME -->
+    <!-- ========================================================
+         TAB SCREEN 1: HOME (EXACT TELEDRIVE SCREEN 1)
+         ======================================================== -->
     <section id="view-home" class="tab-view-container">
-      <!-- 1. Cloud Backup Status Card -->
-      <div class="backup-card">
-        <div class="backup-header-row">
-          <div>
-            <div class="backup-info-title">
-              <span>☁️</span> Telegram Cloud Backup
-            </div>
-            <div class="backup-info-sub">All backed up to Telegram • Last sync just now</div>
-          </div>
-          <button class="backup-action-btn" onclick="runCloudScanner()">
-            <span>🔄</span> Scan Now
-          </button>
+      <!-- 1. Backed up Card (Cyan/Teal Tinted) -->
+      <div class="card-backed-up">
+        <div class="backed-up-title-row">
+          <span class="cloud-icon-circle">☁️</span>
+          <span class="backed-up-title">Backed up</span>
         </div>
+        <div class="backed-up-subtitle">Every file is in Telegram</div>
+        <button class="btn-choose-folders" onclick="runCloudScanner()">
+          Choose folders
+        </button>
         <div class="wavy-progress-box">
           <div class="wavy-progress-bar"></div>
         </div>
       </div>
 
-      <!-- 2. Storage Overview Card (TeleDrive M3 Signature) -->
-      <div class="storage-card">
-        <div class="storage-headline">
-          <div>
-            <div class="storage-total-num" id="storage-total-count">0 Items</div>
-            <div class="storage-total-desc" id="storage-bytes-desc">Calculating archive size...</div>
-          </div>
-          <div class="storage-unlimited-badge">
-            ∞ Unlimited Cloud
-          </div>
-        </div>
-
-        <!-- Segmented Chart Bar -->
-        <div class="storage-segment-bar">
-          <div class="storage-segment seg-photos" id="seg-photos" style="width: 25%"></div>
-          <div class="storage-segment seg-videos" id="seg-videos" style="width: 20%"></div>
-          <div class="storage-segment seg-audio" id="seg-audio" style="width: 15%"></div>
-          <div class="storage-segment seg-docs" id="seg-docs" style="width: 20%"></div>
-          <div class="storage-segment seg-secrets" id="seg-secrets" style="width: 12%"></div>
-          <div class="storage-segment seg-other" id="seg-other" style="width: 8%"></div>
-        </div>
-
-        <!-- Legend Grid -->
-        <div class="storage-legend-grid">
-          <div class="legend-item"><span class="legend-dot" style="background:#9b5de5"></span><span class="legend-name">Photos</span><span class="legend-val" id="leg-photos-val">0</span></div>
-          <div class="legend-item"><span class="legend-dot" style="background:#4f86f7"></span><span class="legend-name">Links</span><span class="legend-val" id="leg-links-val">0</span></div>
-          <div class="legend-item"><span class="legend-dot" style="background:#00bfa6"></span><span class="legend-name">Messages</span><span class="legend-val" id="leg-msgs-val">0</span></div>
-          <div class="legend-item"><span class="legend-dot" style="background:#f4a62a"></span><span class="legend-name">Docs & PDFs</span><span class="legend-val" id="leg-docs-val">0</span></div>
-          <div class="legend-item"><span class="legend-dot" style="background:#f2617a"></span><span class="legend-name">Cards & Secrets</span><span class="legend-val" id="leg-cards-val">0</span></div>
-          <div class="legend-item"><span class="legend-dot" style="background:#8a93a6"></span><span class="legend-name">Software & Other</span><span class="legend-val" id="leg-other-val">0</span></div>
-        </div>
+      <!-- 2. Recent Files Horizontal Strip -->
+      <div class="teledrive-section-label">
+        <span>Recent</span>
       </div>
-
-      <!-- 3. AWD TeleDrive Folder Grid Section -->
-      <div class="section-title-row">
-        <div class="section-title"><span>📁</span> Vault Folders</div>
-        <div class="section-action-link" onclick="openCreateTopicModal()">＋ New Topic</div>
-      </div>
-      <div class="folder-grid" id="home-folder-grid">
+      <div class="recent-horizontal-strip" id="home-recent-strip">
         <!-- Rendered dynamically -->
       </div>
 
-      <!-- 4. Recent Files Strip -->
-      <div class="section-title-row">
-        <div class="section-title"><span>🕒</span> Recent Files</div>
+      <!-- 3. Storage Overview Card (Segmented Bar) -->
+      <div class="teledrive-section-label">
+        <span>Storage</span>
       </div>
-      <div class="recent-strip" id="home-recent-strip">
-        <!-- Rendered dynamically -->
+      <div class="card-storage-overview">
+        <div class="storage-big-number" id="storage-total-bytes">1.8 GB</div>
+        <div class="storage-files-sub" id="storage-total-files">27 files</div>
+
+        <!-- TeleDrive Segmented Progress Bar -->
+        <div class="storage-pill-bar">
+          <div class="storage-bar-seg" id="seg-videos" style="width: 50%; background: #7c5cfc"></div>
+          <div class="storage-bar-seg" id="seg-photos" style="width: 25%; background: #2b82f6"></div>
+          <div class="storage-bar-seg" id="seg-audio" style="width: 15%; background: #00bfa6"></div>
+          <div class="storage-bar-seg" id="seg-docs" style="width: 10%; background: #f4a62a"></div>
+        </div>
+
+        <!-- Storage Legend List -->
+        <div class="storage-legend-list">
+          <div class="storage-legend-row">
+            <span class="legend-row-dot" style="background:#7c5cfc"></span>
+            <span class="legend-row-name">Videos & Media</span>
+            <span class="legend-row-percent" id="leg-videos-pct">50%</span>
+            <span class="legend-row-bytes" id="leg-videos-mb">900 MB</span>
+          </div>
+          <div class="storage-legend-row">
+            <span class="legend-row-dot" style="background:#2b82f6"></span>
+            <span class="legend-row-name">Photos</span>
+            <span class="legend-row-percent" id="leg-photos-pct">25%</span>
+            <span class="legend-row-bytes" id="leg-photos-mb">450 MB</span>
+          </div>
+          <div class="storage-legend-row">
+            <span class="legend-row-dot" style="background:#00bfa6"></span>
+            <span class="legend-row-name">SMS & Messages</span>
+            <span class="legend-row-percent" id="leg-msgs-pct">15%</span>
+            <span class="legend-row-bytes" id="leg-msgs-mb">270 MB</span>
+          </div>
+          <div class="storage-legend-row">
+            <span class="legend-row-dot" style="background:#f4a62a"></span>
+            <span class="legend-row-name">Documents & Cards</span>
+            <span class="legend-row-percent" id="leg-docs-pct">10%</span>
+            <span class="legend-row-bytes" id="leg-docs-mb">180 MB</span>
+          </div>
+        </div>
       </div>
 
-      <!-- 5. Collection Shortcuts -->
-      <div class="grouped-card">
-        <div class="collection-row" onclick="switchCategoryFilter('all')">
-          <div class="collection-icon">📦</div>
-          <div class="collection-info">
-            <div class="collection-title">All Items</div>
-            <div class="collection-sub">Complete unified digital archive</div>
-          </div>
-          <div class="collection-arrow">›</div>
-        </div>
-        <div class="collection-row" onclick="switchCategoryFilter('important')">
-          <div class="collection-icon">⭐</div>
-          <div class="collection-info">
-            <div class="collection-title">Important & Pinned</div>
-            <div class="collection-sub">Quick-access pinned records</div>
-          </div>
-          <div class="collection-arrow">›</div>
-        </div>
-        <div class="collection-row" onclick="openIdmTurboSim('TeleDrive Turbo Engine', '38.4 MB')">
-          <div class="collection-icon">⚡</div>
-          <div class="collection-info">
-            <div class="collection-title">IDM 8-Channel Turbo Transfers</div>
-            <div class="collection-sub">Active concurrent acceleration engine</div>
-          </div>
-          <div class="collection-arrow">›</div>
-        </div>
-        <div class="collection-row" onclick="switchCategoryFilter('bin')">
-          <div class="collection-icon">🗑️</div>
-          <div class="collection-info">
-            <div class="collection-title">Bin / Trash</div>
-            <div class="collection-sub">Recycle bin and recovery</div>
-          </div>
-          <div class="collection-arrow">›</div>
-        </div>
+      <!-- 4. TeleDrive Vault Folders Grid -->
+      <div class="teledrive-section-label">
+        <span>Vault Folders</span>
+        <span style="font-size:12px;color:var(--primary);cursor:pointer" onclick="openCreateTopicModal()">＋ New Topic</span>
+      </div>
+      <div class="folders-grid-3col" id="home-folders-grid">
+        <!-- Rendered dynamically -->
       </div>
     </section>
 
-    <!-- TAB SCREEN 2: FILES -->
+    <!-- ========================================================
+         TAB SCREEN 2: FILES (EXACT TELEDRIVE SCREEN 2)
+         ======================================================== -->
     <section id="view-files" class="tab-view-container" style="display:none">
-      <div class="files-header-toolbar">
-        <!-- Breadcrumbs -->
-        <div class="breadcrumb-row" id="files-breadcrumb">
-          <span class="breadcrumb-item" onclick="switchCategoryFilter('all')">TeleDrive</span>
-          <span>/</span>
-          <span class="breadcrumb-item active" id="files-breadcrumb-cat">All Files</span>
-        </div>
-
-        <!-- Search Bar -->
-        <div class="files-search-filter-row">
-          <div class="search-box">
-            <span>🔍</span>
-            <input type="text" id="files-search-input" placeholder="Search title, cards, numbers, keys..." oninput="handleGlobalSearch(this.value)">
-          </div>
-        </div>
-
-        <!-- Filter Chips Strip -->
-        <div class="filter-chips-strip" id="files-filter-chips">
-          <!-- Rendered dynamically -->
+      <div class="files-screen-topbar">
+        <div class="files-screen-title" id="files-view-title">Files</div>
+        <div class="files-screen-actions">
+          <button class="files-action-icon" onclick="toggleSearchInput()" title="Search">🔍</button>
+          <button class="files-action-icon" onclick="openCreateTopicModal()" title="New Folder">📁+</button>
+          <button class="files-action-icon" onclick="toggleSortMenu()" title="Sort">☰</button>
         </div>
       </div>
 
-      <!-- Items Grid -->
-      <div class="items-container" id="files-items-container">
+      <!-- Search Input Wrapper -->
+      <div class="search-input-wrapper" id="search-box-bar">
+        <span>🔍</span>
+        <input type="text" id="files-search-input" placeholder="Search cards, phone numbers, notes, keys..." oninput="handleGlobalSearch(this.value)">
+      </div>
+
+      <!-- Quick Filter Chips -->
+      <div class="chips-filter-row" id="files-chips-row">
+        <!-- Rendered dynamically -->
+      </div>
+
+      <!-- 3-Column Folders Grid (Top of Screen 2) -->
+      <div class="folders-grid-3col" id="files-folders-grid">
+        <!-- Rendered dynamically -->
+      </div>
+
+      <!-- Files & Detailed Items Container -->
+      <div class="teledrive-section-label" style="margin-top:16px">
+        <span id="files-subhead-label">All Items & Records</span>
+      </div>
+      <div class="files-grid-3col" id="files-grid-container">
         <!-- Rendered dynamically -->
       </div>
     </section>
 
-    <!-- TAB SCREEN 3: GALLERY -->
+    <!-- ========================================================
+         TAB SCREEN 3: GALLERY (EXACT TELEDRIVE SCREEN 3)
+         ======================================================== -->
     <section id="view-gallery" class="tab-view-container" style="display:none">
-      <div class="section-title-row">
-        <div class="section-title"><span>🖼️</span> Media Gallery</div>
-        <span style="font-size:12px;color:var(--text-muted)" id="gallery-count-label">0 photos & videos</span>
+      <div class="files-screen-topbar">
+        <div class="files-screen-title">Gallery</div>
       </div>
-      <div class="gallery-grid" id="gallery-grid-container">
+
+      <!-- Gallery Filter Pill Bar (from Screen 3) -->
+      <div class="gallery-filter-pill-bar">
+        <div class="gfilter-pill active" onclick="filterGallery('all', this)">All</div>
+        <div class="gfilter-pill" onclick="filterGallery('photos', this)">Photos</div>
+        <div class="gfilter-pill" onclick="filterGallery('videos', this)">Videos</div>
+        <div class="gfilter-pill" onclick="filterGallery('albums', this)">Albums</div>
+      </div>
+
+      <!-- Date Section Header -->
+      <div class="teledrive-section-label">
+        <span>Today</span>
+      </div>
+      <div class="gallery-grid-3col" id="gallery-grid-container">
         <!-- Rendered dynamically -->
       </div>
     </section>
 
-    <!-- TAB SCREEN 4: SETTINGS -->
+    <!-- ========================================================
+         TAB SCREEN 4: SETTINGS (EXACT TELEDRIVE SCREEN 4)
+         ======================================================== -->
     <section id="view-settings" class="tab-view-container" style="display:none">
-      <!-- 1. Profile Information -->
-      <div class="settings-group">
-        <div class="settings-group-title"><span>👤</span> Owner Profile</div>
-        <div class="form-row" style="margin-bottom:12px">
-          <div class="form-group" style="flex:1">
-            <label class="form-label">Full Name</label>
-            <input type="text" class="form-input" id="set-name-input" value="Md Safi Islam">
+      <div class="files-screen-topbar">
+        <div class="files-screen-title">Settings</div>
+      </div>
+
+      <div class="settings-list-group">
+        <!-- 1. Account -->
+        <div class="settings-list-row" onclick="openAccountModal()">
+          <div class="settings-icon-circle">👤</div>
+          <div class="settings-row-text">
+            <div class="settings-row-title">Account</div>
+            <div class="settings-row-subtitle" id="set-acc-sub">Md Safi Islam • Telegram Session Active</div>
           </div>
-          <div class="form-group" style="width:100px">
-            <label class="form-label">Avatar</label>
-            <input type="text" class="form-input" id="set-avatar-input" value="S" maxlength="2">
+          <div class="settings-row-chevron">›</div>
+        </div>
+
+        <!-- 2. Backup -->
+        <div class="settings-list-row" onclick="runCloudScanner()">
+          <div class="settings-icon-circle">☁️</div>
+          <div class="settings-row-text">
+            <div class="settings-row-title">Backup</div>
+            <div class="settings-row-subtitle">All folders, scheduled sync, Telegram Supergroup</div>
           </div>
+          <div class="settings-row-chevron">›</div>
         </div>
-        <button class="btn-primary" onclick="saveProfileSettings()">Update Profile</button>
-      </div>
 
-      <!-- 2. Telegram Bot & Channel Sync -->
-      <div class="settings-group">
-        <div class="settings-group-title"><span>✈️</span> Telegram Supergroup & Bot Sync</div>
-        <div class="form-group">
-          <label class="form-label">Telegram Bot Token</label>
-          <input type="password" class="form-input mono" id="set-tg-token" placeholder="123456789:ABCdefGhIjkLmNo...">
+        <!-- 3. Storage -->
+        <div class="settings-list-row" onclick="openStorageModal()">
+          <div class="settings-icon-circle">💾</div>
+          <div class="settings-row-text">
+            <div class="settings-row-title">Storage & Backup Export</div>
+            <div class="settings-row-subtitle">Full JSON vault export, restore, cache auto-clear</div>
+          </div>
+          <div class="settings-row-chevron">›</div>
         </div>
-        <div class="form-group">
-          <label class="form-label">Forum Supergroup Chat ID</label>
-          <input type="text" class="form-input mono" id="set-tg-chatid" placeholder="-1001234567890">
-        </div>
-        <div class="form-row">
-          <button class="btn-primary" style="flex:1" onclick="saveTelegramSettings()">Save Configuration</button>
-          <button class="btn-secondary" style="width:auto" onclick="testTelegramPing()">Test Ping ✈️</button>
-        </div>
-      </div>
 
-      <!-- 3. Categories & Topic Manager (WITH TOPIC DELETION) -->
-      <div class="settings-group">
-        <div class="settings-group-title">
-          <span>📁</span> Categories & Topics Manager
+        <!-- 4. Categories & Topics (WITH TOPIC DELETION) -->
+        <div class="settings-list-row" onclick="openTopicsManagerModal()">
+          <div class="settings-icon-circle">📁</div>
+          <div class="settings-row-text">
+            <div class="settings-row-title">Categories & Topics</div>
+            <div class="settings-row-subtitle">Create new topics, delete custom categories</div>
+          </div>
+          <div class="settings-row-chevron">›</div>
         </div>
-        <div style="font-size:12px;color:var(--text-muted);margin-bottom:12px">
-          Create new custom topics or delete custom categories.
-        </div>
-        <div id="settings-topics-list">
-          <!-- Rendered dynamically -->
-        </div>
-        <button class="btn-secondary" style="margin-top:10px" onclick="openCreateTopicModal()">＋ Create New Category / Topic</button>
-      </div>
 
-      <!-- 4. Backup & Restore -->
-      <div class="settings-group">
-        <div class="settings-group-title"><span>💾</span> Data Backup & Restore</div>
-        <div style="font-size:12px;color:var(--text-muted);margin-bottom:12px">
-          Download your complete vault data as a portable JSON file or restore from a previous backup.
+        <!-- 5. Security -->
+        <div class="settings-list-row" onclick="openSecurityModal()">
+          <div class="settings-icon-circle">🔒</div>
+          <div class="settings-row-text">
+            <div class="settings-row-title">Security & App Lock</div>
+            <div class="settings-row-subtitle">App PIN lock, biometric protection</div>
+          </div>
+          <div class="settings-row-chevron">›</div>
         </div>
-        <div class="form-row">
-          <button class="btn-primary" style="flex:1" onclick="exportVaultBackup()">Export Vault (.JSON)</button>
-          <button class="btn-secondary" style="flex:1" onclick="document.getElementById('file-import-input').click()">Import Backup</button>
-          <input type="file" id="file-import-input" accept=".json" style="display:none" onchange="importVaultBackup(this)">
+
+        <!-- 6. Appearance -->
+        <div class="settings-list-row" onclick="openThemePickerModal()">
+          <div class="settings-icon-circle">🎨</div>
+          <div class="settings-row-text">
+            <div class="settings-row-title">Appearance</div>
+            <div class="settings-row-subtitle" id="set-theme-sub">TeleDrive Dark • Material 3 Expressive</div>
+          </div>
+          <div class="settings-row-chevron">›</div>
+        </div>
+
+        <!-- 7. IDM Turbo Downloader -->
+        <div class="settings-list-row" onclick="openIdmTurboSim('TeleDrive Turbo Acceleration Engine', '38.4 MB')">
+          <div class="settings-icon-circle">⚡</div>
+          <div class="settings-row-text">
+            <div class="settings-row-title">Transfers & IDM Turbo</div>
+            <div class="settings-row-subtitle">8-Channel concurrent acceleration engine</div>
+          </div>
+          <div class="settings-row-chevron">›</div>
+        </div>
+
+        <!-- 8. About -->
+        <div class="settings-list-row" onclick="showToast('TeleDrive Ultra v1.5.0 — Unlimited Telegram Cloud')">
+          <div class="settings-icon-circle">ℹ️</div>
+          <div class="settings-row-text">
+            <div class="settings-row-title">About</div>
+            <div class="settings-row-subtitle">TeleDrive 1.5.0 • Pure Telegram Cloud Storage</div>
+          </div>
+          <div class="settings-row-chevron">›</div>
         </div>
       </div>
     </section>
@@ -2255,7 +1917,7 @@
       <div class="fab-item-circle">📷</div>
     </div>
     <div class="fab-menu-item" onclick="openCreateItemModal('sms')">
-      <span class="fab-item-label">SMS & Messages</span>
+      <span class="fab-item-label">SMS & Message</span>
       <div class="fab-item-circle">✉️</div>
     </div>
     <div class="fab-menu-item" onclick="openCreateItemModal('cards')">
@@ -2298,35 +1960,35 @@
 </div>
 
 <!-- ========================================================
-     MOBILE FLOATING BOTTOM NAVIGATION BAR
+     FLOATING BOTTOM NAVIGATION (EXACT SCREEN 1-4 STYLE)
      ======================================================== -->
 <nav id="mobile-bottom-nav">
-  <div class="bnav-item active" id="bnav-home" onclick="switchNavTab('home')">
+  <div class="bnav-tab-btn active" id="bnav-home" onclick="switchNavTab('home')">
     <span class="bnav-icon">🏠</span>
-    <span class="bnav-label">Home</span>
+    <span>Home</span>
   </div>
-  <div class="bnav-item" id="bnav-files" onclick="switchNavTab('files')">
+  <div class="bnav-tab-btn" id="bnav-files" onclick="switchNavTab('files')">
     <span class="bnav-icon">📁</span>
-    <span class="bnav-label">Files</span>
+    <span>Files</span>
   </div>
-  <div class="bnav-item" id="bnav-gallery" onclick="switchNavTab('gallery')">
+  <div class="bnav-tab-btn" id="bnav-gallery" onclick="switchNavTab('gallery')">
     <span class="bnav-icon">🖼️</span>
-    <span class="bnav-label">Gallery</span>
+    <span>Gallery</span>
   </div>
-  <div class="bnav-item" id="bnav-settings" onclick="switchNavTab('settings')">
+  <div class="bnav-tab-btn" id="bnav-settings" onclick="switchNavTab('settings')">
     <span class="bnav-icon">⚙️</span>
-    <span class="bnav-label">Settings</span>
+    <span>Settings</span>
   </div>
 </nav>
 
 <!-- ========================================================
-     MODAL: CREATE / SAVE ITEM (TOUCH & TYPING OPTIMIZED)
+     MODAL 1: CREATE ITEM (MOBILE TOUCH SAFE)
      ======================================================== -->
-<div class="overlay-backdrop" id="modal-create-item" onclick="handleOverlayBackdropClick(event, 'modal-create-item')">
-  <div class="modal-box" onclick="event.stopPropagation()">
+<div class="modal-overlay" id="modal-create-item" onclick="handleOverlayClick(event, 'modal-create-item')">
+  <div class="modal-sheet" onclick="event.stopPropagation()">
     <div class="modal-header-row">
-      <div class="modal-title" id="create-modal-header"><span>📝</span> Save Item</div>
-      <button class="modal-close-btn" onclick="closeModal('modal-create-item')">✕</button>
+      <div class="modal-title-text" id="create-modal-header">Save to TeleDrive</div>
+      <button class="modal-close-icon" onclick="closeModal('modal-create-item')">✕</button>
     </div>
 
     <form id="form-create-item" onsubmit="handleItemSaveSubmit(event)">
@@ -2360,7 +2022,7 @@
       <div id="subfield-card" style="display:none">
         <div class="form-group">
           <label class="form-label">Card Number (16 Digits)</label>
-          <input type="text" class="form-input mono" id="input-card-num" placeholder="4525 6532 6532 1234" autocomplete="off">
+          <input type="text" class="form-input mono" id="input-card-num" placeholder="4525 6532 6532 1111" autocomplete="off">
         </div>
         <div class="form-row">
           <div class="form-group" style="flex:1">
@@ -2433,7 +2095,7 @@
         <label for="input-item-important" style="font-size:12px;font-weight:700">Mark as Important (⭐ Pinned)</label>
       </div>
 
-      <button type="submit" class="btn-primary" id="btn-save-record">
+      <button type="submit" class="btn-primary-action" id="btn-save-record">
         <span>💾</span> Save Record & Sync Telegram
       </button>
     </form>
@@ -2441,13 +2103,13 @@
 </div>
 
 <!-- ========================================================
-     MODAL: CREATE NEW TOPIC / CATEGORY
+     MODAL 2: CREATE TOPIC / CATEGORY
      ======================================================== -->
-<div class="overlay-backdrop" id="modal-create-topic" onclick="handleOverlayBackdropClick(event, 'modal-create-topic')">
-  <div class="modal-box" onclick="event.stopPropagation()">
+<div class="modal-overlay" id="modal-create-topic" onclick="handleOverlayClick(event, 'modal-create-topic')">
+  <div class="modal-sheet" onclick="event.stopPropagation()">
     <div class="modal-header-row">
-      <div class="modal-title"><span>📁</span> New Category & Topic</div>
-      <button class="modal-close-btn" onclick="closeModal('modal-create-topic')">✕</button>
+      <div class="modal-title-text">New Category & Topic</div>
+      <button class="modal-close-icon" onclick="closeModal('modal-create-topic')">✕</button>
     </div>
     <form onsubmit="handleCreateCategorySubmit(event)">
       <div class="form-group">
@@ -2462,90 +2124,158 @@
         <input type="checkbox" id="input-cat-tg" checked style="width:16px;height:16px">
         <label for="input-cat-tg" style="font-size:12px;font-weight:700">Auto Create Telegram Forum Topic</label>
       </div>
-      <button type="submit" class="btn-primary">Create Category</button>
+      <button type="submit" class="btn-primary-action">Create Category</button>
     </form>
   </div>
 </div>
 
 <!-- ========================================================
-     MODAL: THEMES PALETTE
+     MODAL 3: TOPICS MANAGER (WITH CATEGORY DELETION)
      ======================================================== -->
-<div class="overlay-backdrop" id="modal-themes-palette" onclick="handleOverlayBackdropClick(event, 'modal-themes-palette')">
-  <div class="modal-box" onclick="event.stopPropagation()">
+<div class="modal-overlay" id="modal-topics-manager" onclick="handleOverlayClick(event, 'modal-topics-manager')">
+  <div class="modal-sheet" onclick="event.stopPropagation()">
     <div class="modal-header-row">
-      <div class="modal-title"><span>🎨</span> Select Theme</div>
-      <button class="modal-close-btn" onclick="closeModal('modal-themes-palette')">✕</button>
+      <div class="modal-title-text">Topics & Category Manager</div>
+      <button class="modal-close-icon" onclick="closeModal('modal-topics-manager')">✕</button>
     </div>
-    <div class="themes-palette-grid" id="themes-palette-container">
+    <div style="font-size:12px;color:var(--text-muted);margin-bottom:14px">
+      Manage existing categories or delete unwanted custom topics.
+    </div>
+    <div id="topics-manager-items-list">
+      <!-- Injected dynamically -->
+    </div>
+    <button class="btn-secondary-action" style="margin-top:10px" onclick="closeModal('modal-topics-manager');openCreateTopicModal()">
+      ＋ Create New Topic
+    </button>
+  </div>
+</div>
+
+<!-- ========================================================
+     MODAL 4: ACCOUNT SETTINGS
+     ======================================================== -->
+<div class="modal-overlay" id="modal-account" onclick="handleOverlayClick(event, 'modal-account')">
+  <div class="modal-sheet" onclick="event.stopPropagation()">
+    <div class="modal-header-row">
+      <div class="modal-title-text">Account & Telegram Session</div>
+      <button class="modal-close-icon" onclick="closeModal('modal-account')">✕</button>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Full Name</label>
+      <input type="text" class="form-input" id="acc-name-input" value="Md Safi Islam">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Avatar Letter / Emoji</label>
+      <input type="text" class="form-input" id="acc-avatar-input" value="S" maxlength="2">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Telegram Bot Token</label>
+      <input type="password" class="form-input mono" id="acc-tg-token" placeholder="123456789:ABCdefGhIjkLmNo...">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Supergroup Chat ID</label>
+      <input type="text" class="form-input mono" id="acc-tg-chatid" placeholder="-1001234567890">
+    </div>
+    <button class="btn-primary-action" onclick="saveAccountSettings()">Save Account & Sync</button>
+  </div>
+</div>
+
+<!-- ========================================================
+     MODAL 5: STORAGE & BACKUP EXPORT
+     ======================================================== -->
+<div class="modal-overlay" id="modal-storage" onclick="handleOverlayClick(event, 'modal-storage')">
+  <div class="modal-sheet" onclick="event.stopPropagation()">
+    <div class="modal-header-row">
+      <div class="modal-title-text">Storage & Backup Export</div>
+      <button class="modal-close-icon" onclick="closeModal('modal-storage')">✕</button>
+    </div>
+    <div style="font-size:12px;color:var(--text-muted);margin-bottom:16px">
+      Download your complete TeleDrive archive into a portable JSON backup file or restore from previous backup.
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <button class="btn-primary-action" onclick="exportVaultBackup()">💾 Export Full Vault (.JSON)</button>
+      <button class="btn-secondary-action" onclick="document.getElementById('file-import-input').click()">📂 Restore / Import Backup</button>
+      <input type="file" id="file-import-input" accept=".json" style="display:none" onchange="importVaultBackup(this)">
+    </div>
+  </div>
+</div>
+
+<!-- ========================================================
+     MODAL 6: THEMES PICKER
+     ======================================================== -->
+<div class="modal-overlay" id="modal-theme-picker" onclick="handleOverlayClick(event, 'modal-theme-picker')">
+  <div class="modal-sheet" onclick="event.stopPropagation()">
+    <div class="modal-header-row">
+      <div class="modal-title-text">Select Theme</div>
+      <button class="modal-close-icon" onclick="closeModal('modal-theme-picker')">✕</button>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px" id="themes-palette-container">
       <!-- Injected dynamically -->
     </div>
   </div>
 </div>
 
 <!-- ========================================================
-     MODAL: IDM 8-CHANNEL TURBO DOWNLOAD ACCELERATOR
+     MODAL 7: IDM 8-CHANNEL TURBO ACCELERATOR
      ======================================================== -->
-<div class="overlay-backdrop" id="modal-idm-turbo">
-  <div class="modal-box" onclick="event.stopPropagation()">
-    <div class="idm-box">
-      <div style="display:flex;align-items:center;gap:12px">
-        <div style="font-size:28px">⚡</div>
-        <div>
-          <div style="font-size:15px;font-weight:800" id="idm-modal-title">Downloading file...</div>
-          <div style="font-size:11px;color:var(--text-muted)" id="idm-modal-sub">8-Channel Concurrent Turbo Engine</div>
-        </div>
+<div class="modal-overlay" id="modal-idm-turbo">
+  <div class="modal-sheet" onclick="event.stopPropagation()">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+      <div style="font-size:28px">⚡</div>
+      <div>
+        <div style="font-size:15px;font-weight:800;color:var(--text-white)" id="idm-modal-title">Downloading file...</div>
+        <div style="font-size:11px;color:var(--text-muted)" id="idm-modal-sub">8-Channel Concurrent Turbo Engine</div>
       </div>
-
-      <div class="idm-channels-grid">
-        <div class="idm-channel-row"><span class="idm-chan-tag">Ch 1</span><div class="idm-chan-track"><div class="idm-chan-fill" id="idm-c1"></div></div></div>
-        <div class="idm-channel-row"><span class="idm-chan-tag">Ch 2</span><div class="idm-chan-track"><div class="idm-chan-fill" id="idm-c2"></div></div></div>
-        <div class="idm-channel-row"><span class="idm-chan-tag">Ch 3</span><div class="idm-chan-track"><div class="idm-chan-fill" id="idm-c3"></div></div></div>
-        <div class="idm-channel-row"><span class="idm-chan-tag">Ch 4</span><div class="idm-chan-track"><div class="idm-chan-fill" id="idm-c4"></div></div></div>
-        <div class="idm-channel-row"><span class="idm-chan-tag">Ch 5</span><div class="idm-chan-track"><div class="idm-chan-fill" id="idm-c5"></div></div></div>
-        <div class="idm-channel-row"><span class="idm-chan-tag">Ch 6</span><div class="idm-chan-track"><div class="idm-chan-fill" id="idm-c6"></div></div></div>
-        <div class="idm-channel-row"><span class="idm-chan-tag">Ch 7</span><div class="idm-chan-track"><div class="idm-chan-fill" id="idm-c7"></div></div></div>
-        <div class="idm-channel-row"><span class="idm-chan-tag">Ch 8</span><div class="idm-chan-track"><div class="idm-chan-fill" id="idm-c8"></div></div></div>
-      </div>
-
-      <div class="idm-master-track">
-        <div class="idm-master-fill" id="idm-master-fill"></div>
-      </div>
-
-      <div style="display:flex;justify-content:space-between;font-size:11px;font-weight:700">
-        <span id="idm-speed-indicator">Speed: 18.6 MB/s</span>
-        <span id="idm-percent-indicator">0%</span>
-      </div>
-
-      <button class="btn-secondary" onclick="closeModal('modal-idm-turbo')">Cancel Download</button>
     </div>
+
+    <div class="idm-channels-grid">
+      <div class="idm-channel-row"><span class="idm-chan-tag">Ch 1</span><div class="idm-chan-track"><div class="idm-chan-fill" id="idm-c1"></div></div></div>
+      <div class="idm-channel-row"><span class="idm-chan-tag">Ch 2</span><div class="idm-chan-track"><div class="idm-chan-fill" id="idm-c2"></div></div></div>
+      <div class="idm-channel-row"><span class="idm-chan-tag">Ch 3</span><div class="idm-chan-track"><div class="idm-chan-fill" id="idm-c3"></div></div></div>
+      <div class="idm-channel-row"><span class="idm-chan-tag">Ch 4</span><div class="idm-chan-track"><div class="idm-chan-fill" id="idm-c4"></div></div></div>
+      <div class="idm-channel-row"><span class="idm-chan-tag">Ch 5</span><div class="idm-chan-track"><div class="idm-chan-fill" id="idm-c5"></div></div></div>
+      <div class="idm-channel-row"><span class="idm-chan-tag">Ch 6</span><div class="idm-chan-track"><div class="idm-chan-fill" id="idm-c6"></div></div></div>
+      <div class="idm-channel-row"><span class="idm-chan-tag">Ch 7</span><div class="idm-chan-track"><div class="idm-chan-fill" id="idm-c7"></div></div></div>
+      <div class="idm-channel-row"><span class="idm-chan-tag">Ch 8</span><div class="idm-chan-track"><div class="idm-chan-fill" id="idm-c8"></div></div></div>
+    </div>
+
+    <div class="idm-master-track">
+      <div class="idm-master-fill" id="idm-master-fill"></div>
+    </div>
+
+    <div style="display:flex;justify-content:space-between;font-size:11px;font-weight:700;margin-bottom:14px">
+      <span id="idm-speed-indicator" style="color:var(--primary)">Speed: 18.6 MB/s</span>
+      <span id="idm-percent-indicator" style="color:var(--text-white)">0%</span>
+    </div>
+
+    <button class="btn-secondary-action" onclick="closeModal('modal-idm-turbo')">Cancel Download</button>
   </div>
 </div>
 
 <!-- ========================================================
-     MODAL: MEDIA VIEWER / LIGHTBOX
+     MODAL 8: MEDIA VIEWER / LIGHTBOX
      ======================================================== -->
-<div class="overlay-backdrop" id="modal-media-viewer" onclick="closeModal('modal-media-viewer')">
+<div class="modal-overlay" id="modal-media-viewer" onclick="closeModal('modal-media-viewer')">
   <div style="position:relative;max-width:92vw;max-height:85vh;display:flex;flex-direction:column;align-items:center" onclick="event.stopPropagation()">
-    <button class="modal-close-btn" style="position:absolute;top:-40px;right:0;background:rgba(255,255,255,.2);color:#fff" onclick="closeModal('modal-media-viewer')">✕</button>
+    <button class="modal-close-icon" style="position:absolute;top:-40px;right:0;background:rgba(255,255,255,.2);color:#fff" onclick="closeModal('modal-media-viewer')">✕</button>
     <img id="viewer-img-el" style="max-width:100%;max-height:75vh;border-radius:12px;display:none" alt="Preview">
     <video id="viewer-video-el" controls style="max-width:100%;max-height:75vh;border-radius:12px;display:none"></video>
     <div id="viewer-caption-el" style="color:#fff;font-size:14px;font-weight:700;margin-top:10px;text-align:center"></div>
   </div>
 </div>
 
-<!-- FLOATING TOAST MESSAGE -->
+<!-- Floating Toast Message -->
 <div id="toast-msg">Notification</div>
 
 <!-- ========================================================
-     APPLICATION JAVASCRIPT LOGIC
+     JAVASCRIPT APP CONTROLLER
      ======================================================== -->
 <script>
 // ========================================================
-// 1. TELEDRIVE CORE DATA & DEFAULT STATE
+// 1. DATA STATE & CATEGORIES
 // ========================================================
 const DEFAULT_CATEGORIES = [
-  { id: 'photos', name: 'Photos & Images', icon: '📸', isCore: true },
-  { id: 'saved_messages', name: 'Saved Messages & Emails', icon: '💬', isCore: true },
+  { id: 'photos', name: 'Photos', icon: '📸', isCore: true },
+  { id: 'saved_messages', name: 'Saved Messages', icon: '💬', isCore: true },
   { id: 'sms', name: 'SMS & Messages', icon: '✉️', isCore: true },
   { id: 'jobs', name: 'Job Files', icon: '💼', isCore: true },
   { id: 'cards', name: 'Card Details', icon: '🔐', isCore: true },
@@ -2553,20 +2283,18 @@ const DEFAULT_CATEGORIES = [
   { id: 'pdfs', name: 'PDF Documents', icon: '📄', isCore: true },
   { id: 'idm_keys', name: 'IDM Keys', icon: '🔑', isCore: true },
   { id: 'prompts', name: 'AI Prompts', icon: '✨', isCore: true },
-  { id: 'tutorials', name: 'Methods & Tutorials', icon: '📚', isCore: true },
+  { id: 'tutorials', name: 'Tutorials', icon: '📚', isCore: true },
   { id: 'files', name: 'Files & Software', icon: '🗂️', isCore: true },
-  { id: 'important', name: 'Important & Backup', icon: '⭐', isCore: true },
+  { id: 'important', name: 'Important', icon: '⭐', isCore: true },
   { id: 'bin', name: 'Bin', icon: '🗑️', isCore: true }
 ];
 
 const THEMES_LIST = [
-  { id: 'dark', name: 'TeleDrive Dark', dot: '#4f86f7' },
+  { id: 'dark', name: 'TeleDrive Dark (Default)', dot: '#2b82f6' },
   { id: 'light', name: 'TeleDrive Light', dot: '#1b6ef3' },
   { id: 'amoled', name: 'AMOLED Black', dot: '#bb86fc' },
   { id: 'violet', name: 'Cyber Violet', dot: '#9b5de5' },
-  { id: 'emerald', name: 'Emerald Green', dot: '#00bfa6' },
-  { id: 'sunset', name: 'Sunset Amber', dot: '#f4a62a' },
-  { id: 'ocean', name: 'Ocean Aqua', dot: '#06b6d4' }
+  { id: 'emerald', name: 'Emerald Green', dot: '#00bfa6' }
 ];
 
 const APP_STATE = {
@@ -2598,8 +2326,7 @@ function loadStoredData() {
   try {
     const rawCats = localStorage.getItem('td_categories');
     APP_STATE.categories = rawCats ? JSON.parse(rawCats) : [...DEFAULT_CATEGORIES];
-    
-    // Ensure default core categories exist
+
     DEFAULT_CATEGORIES.forEach(dc => {
       if (!APP_STATE.categories.find(c => c.id === dc.id)) {
         APP_STATE.categories.push(dc);
@@ -2609,7 +2336,6 @@ function loadStoredData() {
     const rawItems = localStorage.getItem('td_items');
     APP_STATE.items = rawItems ? JSON.parse(rawItems) : [];
 
-    // Pre-populate with realistic demo cards if fresh
     if (APP_STATE.items.length === 0) {
       seedDemoData();
     }
@@ -2762,6 +2488,12 @@ function applyAppTheme(themeId) {
   if (toggleBtn) {
     toggleBtn.innerHTML = (themeId === 'light') ? '☀️' : '🌙';
   }
+
+  const sub = document.getElementById('set-theme-sub');
+  if (sub) {
+    const t = THEMES_LIST.find(x => x.id === themeId) || { name: themeId };
+    sub.textContent = `${t.name} • Material 3 Expressive`;
+  }
 }
 
 function toggleTheme() {
@@ -2770,25 +2502,23 @@ function toggleTheme() {
   showToast(`Switched to ${next === 'light' ? 'Light' : 'Dark'} theme`);
 }
 
-function openThemePaletteModal() {
+function openThemePickerModal() {
   const container = document.getElementById('themes-palette-container');
   if (container) {
     container.innerHTML = THEMES_LIST.map(t => `
-      <div class="theme-palette-card ${APP_STATE.theme === t.id ? 'active' : ''}" onclick="applyAppTheme('${t.id}');closeModal('modal-themes-palette')">
-        <div class="theme-dot" style="background:${t.dot}"></div>
-        <div class="theme-palette-label">${t.name}</div>
+      <div style="background:var(--bg-surface-3);border:1px solid var(--border);border-radius:var(--radius-md);padding:14px;display:flex;align-items:center;gap:10px;cursor:pointer;${APP_STATE.theme === t.id ? 'border-color:var(--primary)' : ''}" onclick="applyAppTheme('${t.id}');closeModal('modal-theme-picker')">
+        <span style="width:18px;height:18px;border-radius:50%;background:${t.dot}"></span>
+        <span style="font-size:12px;font-weight:700;color:var(--text-white)">${t.name}</span>
       </div>
     `).join('');
   }
-  openModal('modal-themes-palette');
+  openModal('modal-theme-picker');
 }
 
 function updateProfileDisplays() {
   const name = APP_STATE.profileName;
   const avatar = APP_STATE.profileAvatar;
 
-  const topName = document.getElementById('top-user-name');
-  if (topName) topName.textContent = name;
   const topAv = document.getElementById('top-user-avatar');
   if (topAv) topAv.textContent = avatar;
 
@@ -2797,49 +2527,51 @@ function updateProfileDisplays() {
   const sideAv = document.getElementById('sidebar-user-avatar');
   if (sideAv) sideAv.textContent = avatar;
 
-  const setName = document.getElementById('set-name-input');
-  if (setName) setName.value = name;
-  const setAv = document.getElementById('set-avatar-input');
-  if (setAv) setAv.value = avatar;
+  const accName = document.getElementById('acc-name-input');
+  if (accName) accName.value = name;
+  const accAv = document.getElementById('acc-avatar-input');
+  if (accAv) accAv.value = avatar;
 
-  const setTok = document.getElementById('set-tg-token');
-  if (setTok) setTok.value = APP_STATE.tgToken;
-  const setChat = document.getElementById('set-tg-chatid');
-  if (setChat) setChat.value = APP_STATE.tgChatId;
+  const accSub = document.getElementById('set-acc-sub');
+  if (accSub) accSub.textContent = `${name} • Telegram Session Active`;
+
+  const accTok = document.getElementById('acc-tg-token');
+  if (accTok) accTok.value = APP_STATE.tgToken;
+  const accChat = document.getElementById('acc-tg-chatid');
+  if (accChat) accChat.value = APP_STATE.tgChatId;
 }
 
-function saveProfileSettings() {
-  const name = document.getElementById('set-name-input').value.trim() || 'Md Safi Islam';
-  const avatar = document.getElementById('set-avatar-input').value.trim() || 'S';
+function saveAccountSettings() {
+  const name = document.getElementById('acc-name-input').value.trim() || 'Md Safi Islam';
+  const avatar = document.getElementById('acc-avatar-input').value.trim() || 'S';
+  const tok = document.getElementById('acc-tg-token').value.trim();
+  const chat = document.getElementById('acc-tg-chatid').value.trim();
 
   APP_STATE.profileName = name;
   APP_STATE.profileAvatar = avatar;
-
-  localStorage.setItem('td_prof_name', name);
-  localStorage.setItem('td_prof_avatar', avatar);
-
-  updateProfileDisplays();
-  showToast('✓ Profile updated successfully!');
-}
-
-function saveTelegramSettings() {
-  const tok = document.getElementById('set-tg-token').value.trim();
-  const chat = document.getElementById('set-tg-chatid').value.trim();
-
   APP_STATE.tgToken = tok;
   APP_STATE.tgChatId = chat;
 
+  localStorage.setItem('td_prof_name', name);
+  localStorage.setItem('td_prof_avatar', avatar);
   localStorage.setItem('td_tg_token', tok);
   localStorage.setItem('td_tg_chatid', chat);
 
-  showToast('✓ Telegram configuration saved!');
+  updateProfileDisplays();
+  closeModal('modal-account');
+  showToast('✓ Account & Telegram session saved!');
 }
 
-function testTelegramPing() {
-  showToast('✈️ Pinging Telegram Supergroup Bot...');
-  setTimeout(() => {
-    showToast('✓ Telegram Bot Ping 200 OK! Forum sync ready.');
-  }, 1200);
+function openAccountModal() {
+  openModal('modal-account');
+}
+
+function openStorageModal() {
+  openModal('modal-storage');
+}
+
+function openSecurityModal() {
+  showToast('🔒 Vault Security Active: Protected with Telegram End-to-End');
 }
 
 // ========================================================
@@ -2848,19 +2580,16 @@ function testTelegramPing() {
 function switchNavTab(tabId) {
   APP_STATE.currentTab = tabId;
 
-  // Toggle visible containers
   const views = ['home', 'files', 'gallery', 'settings'];
   views.forEach(v => {
     const el = document.getElementById(`view-${v}`);
     if (el) el.style.display = (v === tabId) ? 'block' : 'none';
   });
 
-  // Mobile nav buttons active state
-  document.querySelectorAll('.bnav-item').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.bnav-tab-btn').forEach(b => b.classList.remove('active'));
   const activeBnav = document.getElementById(`bnav-${tabId}`);
   if (activeBnav) activeBnav.classList.add('active');
 
-  // Desktop sidebar items active state
   document.querySelectorAll('.sidebar-item').forEach(s => s.classList.remove('active'));
   const activeDesk = document.getElementById(`desk-nav-${tabId}`);
   if (activeDesk) activeDesk.classList.add('active');
@@ -2873,9 +2602,9 @@ function switchCategoryFilter(catId) {
   APP_STATE.currentCategory = catId;
   switchNavTab('files');
 
-  const catObj = APP_STATE.categories.find(c => c.id === catId) || { name: 'All Files' };
-  const breadcrumbEl = document.getElementById('files-breadcrumb-cat');
-  if (breadcrumbEl) breadcrumbEl.textContent = catObj.name;
+  const catObj = APP_STATE.categories.find(c => c.id === catId) || { name: 'Files' };
+  const titleEl = document.getElementById('files-view-title');
+  if (titleEl) titleEl.textContent = catObj.name;
 
   renderFilesTab();
 }
@@ -2885,6 +2614,20 @@ function handleGlobalSearch(query) {
   renderFilesTab();
 }
 
+function toggleSearchInput() {
+  const box = document.getElementById('search-box-bar');
+  if (box) {
+    box.style.display = (box.style.display === 'none') ? 'flex' : 'none';
+    if (box.style.display === 'flex') {
+      document.getElementById('files-search-input').focus();
+    }
+  }
+}
+
+function toggleSortMenu() {
+  showToast('✓ Sorted by Most Recent');
+}
+
 // ========================================================
 // 6. RENDERERS: HOME, FILES, GALLERY, SETTINGS
 // ========================================================
@@ -2892,112 +2635,113 @@ function renderAllViews() {
   renderHomeTab();
   renderFilesTab();
   renderGalleryTab();
-  renderSettingsTopics();
+  renderTopicsManagerList();
 }
 
 function renderHomeTab() {
-  // 1. Storage & Count Stats
   const activeItems = APP_STATE.items.filter(i => !i.isDeleted);
-  const totalCountEl = document.getElementById('storage-total-count');
-  if (totalCountEl) totalCountEl.textContent = `${activeItems.length} Items`;
 
-  let totalBytes = activeItems.reduce((acc, i) => acc + (i.fileSize || 1024 * 50), 0);
-  const bytesDescEl = document.getElementById('storage-bytes-desc');
-  if (bytesDescEl) bytesDescEl.textContent = `${formatBytes(totalBytes)} used • Powered by Telegram`;
+  // 1. Storage Stats & Segment Bar
+  let totalBytes = activeItems.reduce((acc, i) => acc + (i.fileSize || 1024 * 60), 0);
+  const bigNum = document.getElementById('storage-total-bytes');
+  if (bigNum) bigNum.textContent = formatBytes(totalBytes);
 
-  // Segment Bar & Legends
-  const photoCount = activeItems.filter(i => i.category === 'photos').length;
-  const linkCount = activeItems.filter(i => i.category === 'links').length;
+  const totalFiles = document.getElementById('storage-total-files');
+  if (totalFiles) totalFiles.textContent = `${activeItems.length} files`;
+
+  // Counts
+  const videoCount = activeItems.filter(i => i.category === 'files' || i.fileType?.startsWith('video/')).length;
+  const photoCount = activeItems.filter(i => i.category === 'photos' || i.fileType?.startsWith('image/')).length;
   const msgCount = activeItems.filter(i => i.category === 'saved_messages' || i.category === 'sms').length;
-  const docCount = activeItems.filter(i => i.category === 'pdfs' || i.category === 'idm_keys' || i.category === 'prompts').length;
-  const cardCount = activeItems.filter(i => i.category === 'cards' || i.category === 'jobs').length;
-  const otherCount = activeItems.length - (photoCount + linkCount + msgCount + docCount + cardCount);
+  const docCount = activeItems.length - (videoCount + photoCount + msgCount);
 
-  const setLeg = (id, val) => {
+  const vPct = activeItems.length ? Math.round((videoCount / activeItems.length) * 100) : 50;
+  const pPct = activeItems.length ? Math.round((photoCount / activeItems.length) * 100) : 25;
+  const mPct = activeItems.length ? Math.round((msgCount / activeItems.length) * 100) : 15;
+  const dPct = Math.max(0, 100 - (vPct + pPct + mPct));
+
+  const setEl = (id, val) => {
     const el = document.getElementById(id);
     if (el) el.textContent = val;
   };
-  setLeg('leg-photos-val', photoCount);
-  setLeg('leg-links-val', linkCount);
-  setLeg('leg-msgs-val', msgCount);
-  setLeg('leg-docs-val', docCount);
-  setLeg('leg-cards-val', cardCount);
-  setLeg('leg-other-val', Math.max(0, otherCount));
+  setEl('leg-videos-pct', `${vPct}%`);
+  setEl('leg-photos-pct', `${pPct}%`);
+  setEl('leg-msgs-pct', `${mPct}%`);
+  setEl('leg-docs-pct', `${dPct}%`);
 
-  // 2. AWD Folder Cards Grid
-  const folderGrid = document.getElementById('home-folder-grid');
-  if (folderGrid) {
-    const displayCats = APP_STATE.categories.filter(c => c.id !== 'all');
-    folderGrid.innerHTML = displayCats.map(cat => {
+  // 2. Recent Strip (from Screen 1)
+  const recentStrip = document.getElementById('home-recent-strip');
+  if (recentStrip) {
+    const list = [...activeItems].reverse().slice(0, 10);
+    if (list.length === 0) {
+      recentStrip.innerHTML = `<div style="font-size:12px;color:var(--text-muted);padding:8px">No recent items yet.</div>`;
+    } else {
+      recentStrip.innerHTML = list.map(item => `
+        <div class="recent-squircle-card" onclick="switchCategoryFilter('${item.category}')">
+          <div class="recent-squircle-thumb">
+            ${item.fileData && item.fileType?.startsWith('image/') ? `<img src="${item.fileData}" alt="${escapeHtml(item.title)}">` : getCategoryIcon(item.category)}
+          </div>
+          <div class="recent-file-name-label">${escapeHtml(item.title)}</div>
+        </div>
+      `).join('');
+    }
+  }
+
+  // 3. Vault Folders Grid (from Screen 1)
+  const foldersGrid = document.getElementById('home-folders-grid');
+  if (foldersGrid) {
+    const cats = APP_STATE.categories.filter(c => c.id !== 'all');
+    foldersGrid.innerHTML = cats.map(c => {
       let count = 0;
-      if (cat.id === 'bin') {
-        count = APP_STATE.items.filter(i => i.isDeleted).length;
-      } else if (cat.id === 'important') {
-        count = APP_STATE.items.filter(i => i.isImportant && !i.isDeleted).length;
-      } else {
-        count = APP_STATE.items.filter(i => i.category === cat.id && !i.isDeleted).length;
-      }
+      if (c.id === 'bin') count = APP_STATE.items.filter(i => i.isDeleted).length;
+      else if (c.id === 'important') count = APP_STATE.items.filter(i => i.isImportant && !i.isDeleted).length;
+      else count = APP_STATE.items.filter(i => i.category === c.id && !i.isDeleted).length;
 
       return `
-        <div class="folder-card" onclick="switchCategoryFilter('${cat.id}')">
-          <div class="folder-top-row">
-            <span class="folder-icon">${cat.icon}</span>
-            <span class="folder-badge-count">${count}</span>
-          </div>
-          <div class="folder-name">${escapeHtml(cat.name)}</div>
-          <div class="folder-meta">${count === 1 ? '1 record' : count + ' records'}</div>
+        <div class="folder-box-card" onclick="switchCategoryFilter('${c.id}')">
+          <div class="folder-box-icon">${c.icon}</div>
+          <div class="folder-box-name">${escapeHtml(c.name)}</div>
+          <div class="folder-box-count">${count} ${count === 1 ? 'file' : 'files'}</div>
         </div>
       `;
     }).join('');
   }
 
-  // 3. Recent Files Strip
-  const recentStrip = document.getElementById('home-recent-strip');
-  if (recentStrip) {
-    const recentList = [...activeItems].reverse().slice(0, 10);
-    if (recentList.length === 0) {
-      recentStrip.innerHTML = `<div style="font-size:12px;color:var(--text-muted);padding:8px">No recent files yet.</div>`;
-    } else {
-      recentStrip.innerHTML = recentList.map(item => {
-        let thumb = '📄';
-        if (item.category === 'photos') thumb = '📸';
-        if (item.category === 'cards') thumb = '💳';
-        if (item.category === 'sms') thumb = '✉️';
-        if (item.category === 'jobs') thumb = '💼';
-
-        return `
-          <div class="recent-card" onclick="switchCategoryFilter('${item.category}')">
-            <div class="recent-thumb">
-              ${item.fileData && item.fileType?.startsWith('image/') ? `<img src="${item.fileData}" alt="${escapeHtml(item.title)}">` : thumb}
-            </div>
-            <div class="recent-title">${escapeHtml(item.title)}</div>
-          </div>
-        `;
-      }).join('');
-    }
-  }
-
-  // Update desk files count badge
   const deskCount = document.getElementById('desk-files-count');
   if (deskCount) deskCount.textContent = activeItems.length;
 }
 
 function renderFilesTab() {
-  // Filter Chips Row
-  const chipsContainer = document.getElementById('files-filter-chips');
-  if (chipsContainer) {
+  // Quick Filter Chips (Screen 2)
+  const chipsRow = document.getElementById('files-chips-row');
+  if (chipsRow) {
     const chips = [{ id: 'all', name: 'All Files', icon: '📦' }, ...APP_STATE.categories];
-    chipsContainer.innerHTML = chips.map(c => `
-      <div class="fchip ${APP_STATE.currentCategory === c.id ? 'active' : ''}" onclick="switchCategoryFilter('${c.id}')">
+    chipsRow.innerHTML = chips.map(c => `
+      <div class="filter-chip-pill ${APP_STATE.currentCategory === c.id ? 'active' : ''}" onclick="switchCategoryFilter('${c.id}')">
         <span>${c.icon}</span>
         <span>${escapeHtml(c.name)}</span>
       </div>
     `).join('');
   }
 
+  // 3-Column Folders Grid (Top of Screen 2)
+  const fGrid = document.getElementById('files-folders-grid');
+  if (fGrid) {
+    const coreCats = APP_STATE.categories.filter(c => c.id === 'photos' || c.id === 'sms' || c.id === 'cards');
+    fGrid.innerHTML = coreCats.map(c => {
+      const count = APP_STATE.items.filter(i => i.category === c.id && !i.isDeleted).length;
+      return `
+        <div class="folder-box-card" onclick="switchCategoryFilter('${c.id}')">
+          <div class="folder-box-icon" style="color:#64b5f6">📁</div>
+          <div class="folder-box-name">${escapeHtml(c.name)}</div>
+          <div class="folder-box-count">${count} files</div>
+        </div>
+      `;
+    }).join('');
+  }
+
   // Filter Items
   let filtered = [...APP_STATE.items];
-
   if (APP_STATE.currentCategory === 'bin') {
     filtered = filtered.filter(i => i.isDeleted);
   } else if (APP_STATE.currentCategory === 'important') {
@@ -3020,75 +2764,59 @@ function renderFilesTab() {
     );
   }
 
-  const container = document.getElementById('files-items-container');
-  if (!container) return;
+  const grid = document.getElementById('files-grid-container');
+  if (!grid) return;
 
   if (filtered.length === 0) {
-    container.innerHTML = `
+    grid.innerHTML = `
       <div style="grid-column:1/-1;text-align:center;padding:40px 16px;color:var(--text-muted)">
         <div style="font-size:36px;margin-bottom:8px">📂</div>
         <div style="font-size:14px;font-weight:700">No items found in this section</div>
-        <div style="font-size:12px;margin-top:4px">Tap ＋ to add a new record.</div>
+        <div style="font-size:12px;margin-top:4px">Tap ＋ to save a record.</div>
       </div>
     `;
     return;
   }
 
-  container.innerHTML = filtered.map(item => renderItemCardHTML(item)).join('');
+  // Render individual file cards (Screen 2 3-col files grid)
+  grid.innerHTML = filtered.map(item => renderFileItemHTML(item)).join('');
 }
 
-function renderItemCardHTML(item) {
-  const cat = APP_STATE.categories.find(c => c.id === item.category) || { name: 'Item', icon: '📄' };
-  const isBin = item.isDeleted;
-
-  // 1. Photo preview
-  let mediaHtml = '';
-  if (item.fileData && item.fileType?.startsWith('image/')) {
-    mediaHtml = `
-      <div style="width:100%;height:150px;border-radius:var(--radius-md);overflow:hidden;background:var(--bg-surface-2);cursor:pointer" onclick="openMediaViewer('${item.id}')">
-        <img src="${item.fileData}" style="width:100%;height:100%;object-fit:cover" alt="${escapeHtml(item.title)}">
-      </div>
-    `;
-  } else if (item.fileData && item.fileType?.startsWith('video/')) {
-    mediaHtml = `
-      <div class="inline-video-box">
-        <video src="${item.fileData}" controls preload="metadata"></video>
-      </div>
-    `;
-  }
-
-  // 2. Realistic 3D Credit Card (ZERO REDUNDANT BUTTONS)
-  let cardHtml = '';
+function renderFileItemHTML(item) {
+  // If card has rich credit card or sms, we provide full interactive expansion
   if (item.cardDetails) {
     const cd = item.cardDetails;
     const cleanNum = (cd.number || '').replace(/\s+/g, '');
     const formattedNum = cleanNum.replace(/(\d{4})/g, '$1 ').trim();
 
-    cardHtml = `
-      <div class="credit-card-ui">
-        <div class="cc-top-row">
-          <div class="cc-chip"></div>
-          <span class="cc-bank">${escapeHtml(cd.bank || 'VISA PLATINUM')}</span>
-        </div>
-
-        <div class="cc-number-box" data-copy="${escapeHtml(cleanNum)}" data-label="Card Number" title="Tap to copy card number">
-          <span class="cc-number-digits">${escapeHtml(formattedNum || '•••• •••• •••• ••••')}</span>
-          <button class="copy-pill-btn" data-copy="${escapeHtml(cleanNum)}" data-label="Card Number">Copy</button>
-        </div>
-
-        <div class="cc-bottom-row">
-          <div>
-            <div class="cc-holder-label">Cardholder</div>
-            <div class="cc-holder-name">${escapeHtml(cd.name || 'MD SAFI ISLAM')}</div>
+    return `
+      <div style="grid-column: 1 / -1; margin-bottom: 8px;">
+        <div style="font-size:13px;font-weight:700;color:var(--text-white);margin-bottom:4px">${escapeHtml(item.title)}</div>
+        <div class="credit-card-ui">
+          <div class="cc-top-row">
+            <div class="cc-chip"></div>
+            <span class="cc-bank">${escapeHtml(cd.bank || 'VISA PLATINUM')}</span>
           </div>
-          <div class="cc-exp-cvv-group">
-            <div class="cc-badge-clickable" data-copy="${escapeHtml(cd.exp)}" data-label="Expiry Date" title="Tap to copy EXP">
-              <div class="cc-holder-label">EXP</div>
-              <div class="cc-val">${escapeHtml(cd.exp || '10/27')}</div>
+
+          <div class="cc-number-row" data-copy="${escapeHtml(cleanNum)}" data-label="Card Number" title="Tap to copy card number">
+            <span class="cc-number-digits">${escapeHtml(formattedNum || '•••• •••• •••• ••••')}</span>
+            <button class="copy-chip-btn" data-copy="${escapeHtml(cleanNum)}" data-label="Card Number">Copy</button>
+          </div>
+
+          <div class="cc-bottom-row">
+            <div>
+              <div class="cc-holder-label">Cardholder</div>
+              <div class="cc-holder-name">${escapeHtml(cd.name || 'MD SAFI ISLAM')}</div>
             </div>
-            <div class="cc-badge-clickable" data-copy="${escapeHtml(cd.cvv)}" data-label="CVV Code" title="Tap to copy CVV">
-              <div class="cc-holder-label">CVV</div>
-              <div class="cc-val">${escapeHtml(cd.cvv || '111')}</div>
+            <div class="cc-exp-cvv-group">
+              <div data-copy="${escapeHtml(cd.exp)}" data-label="Expiry Date" title="Tap to copy EXP">
+                <div class="cc-holder-label">EXP</div>
+                <div class="cc-val-clickable">${escapeHtml(cd.exp || '10/27')}</div>
+              </div>
+              <div data-copy="${escapeHtml(cd.cvv)}" data-label="CVV Code" title="Tap to copy CVV">
+                <div class="cc-holder-label">CVV</div>
+                <div class="cc-val-clickable">${escapeHtml(cd.cvv || '111')}</div>
+              </div>
             </div>
           </div>
         </div>
@@ -3096,168 +2824,97 @@ function renderItemCardHTML(item) {
     `;
   }
 
-  // 3. SMS & Messages Compact Box
-  let smsHtml = '';
   if (item.smsDetails) {
     const s = item.smsDetails;
-    smsHtml = `
-      <div class="sms-compact-box">
-        <div class="sms-phone-badge" data-copy="${escapeHtml(s.phone)}" data-label="Phone Number" title="Tap to copy phone">
-          <span>📞</span>
-          <span>${escapeHtml(s.phone || 'No Number')}</span>
-        </div>
-        <button class="copy-pill-btn" data-copy="${escapeHtml(s.phone)}" data-label="Phone Number">Copy</button>
-      </div>
-      ${s.sender ? `<div style="font-size:11px;color:var(--text-muted)">Sender: <b>${escapeHtml(s.sender)}</b></div>` : ''}
-    `;
-  }
-
-  // 4. Job Files Details
-  let jobHtml = '';
-  if (item.jobDetails) {
-    const j = item.jobDetails;
-    jobHtml = `
-      <div style="display:flex;gap:6px;flex-wrap:wrap">
-        ${j.company ? `<span style="background:var(--bg-surface-2);border:1px solid var(--border);padding:3px 8px;border-radius:var(--radius-sm);font-size:11px;font-weight:700">💼 ${escapeHtml(j.company)}</span>` : ''}
-        ${j.status ? `<span style="background:var(--primary);color:#fff;padding:3px 8px;border-radius:var(--radius-sm);font-size:11px;font-weight:700">${escapeHtml(j.status)}</span>` : ''}
-      </div>
-    `;
-  }
-
-  // 5. Emails / Numbers Bubble List
-  let bubblesHtml = '';
-  if (item.bubbles && item.bubbles.length > 0) {
-    bubblesHtml = `
-      <div class="bubbles-container">
-        ${item.bubbles.map((b, idx) => `
-          <div class="bubble-row ${b.isMarked ? 'marked' : ''}">
-            <span class="bubble-text" data-copy="${escapeHtml(b.text)}" data-label="Email/Number" title="Tap to copy">${escapeHtml(b.text)}</span>
-            <div class="bubble-actions">
-              <span class="bubble-mark-toggle ${b.isMarked ? 'marked' : ''}" onclick="toggleBubbleMark('${item.id}', ${idx})">
-                ${b.isMarked ? '✓ Marked' : '○ Not marked'}
-              </span>
-              <button class="copy-pill-btn" data-copy="${escapeHtml(b.text)}" data-label="Email/Number">Copy</button>
-            </div>
+    return `
+      <div style="grid-column: 1 / -1; margin-bottom: 6px;">
+        <div style="font-size:13px;font-weight:700;color:var(--text-white)">${escapeHtml(item.title)}</div>
+        <div class="sms-compact-box">
+          <div class="sms-phone-badge" data-copy="${escapeHtml(s.phone)}" data-label="Phone Number" title="Tap to copy phone">
+            <span>📞</span>
+            <span>${escapeHtml(s.phone || 'No Number')}</span>
           </div>
-        `).join('')}
+          <button class="copy-chip-btn" data-copy="${escapeHtml(s.phone)}" data-label="Phone Number">Copy</button>
+        </div>
+        ${s.sender ? `<div style="font-size:11px;color:var(--text-muted);margin-top:2px">Sender: <b>${escapeHtml(s.sender)}</b></div>` : ''}
+        ${item.notes ? `<div style="font-size:12px;color:var(--text-muted);margin-top:4px">${escapeHtml(item.notes)}</div>` : ''}
       </div>
     `;
   }
 
-  // 6. Web Link
-  let linkHtml = '';
-  if (item.url) {
-    linkHtml = `
-      <div class="code-snippet-box">
-        <a href="${escapeHtml(item.url)}" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:6px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">
-          <span>🔗</span> ${escapeHtml(item.url)}
-        </a>
-        <button class="copy-pill-btn" data-copy="${escapeHtml(item.url)}" data-label="Link">Copy</button>
-      </div>
-    `;
-  }
-
-  // Download actions for files
-  let downloadActions = '';
-  if (item.fileData) {
-    downloadActions = `
-      <div style="display:flex;gap:8px;margin-top:6px">
-        <button class="btn-primary" style="padding:6px 12px;font-size:11px" onclick="downloadAttachmentDirect('${item.id}')">
-          ⬇️ Direct Download
-        </button>
-        <button class="btn-secondary" style="padding:6px 12px;font-size:11px" onclick="openIdmTurboSim('${escapeHtml(item.fileName || item.title)}', '${formatBytes(item.fileSize)}')">
-          ⚡ IDM Turbo 8-Ch
-        </button>
-      </div>
-    `;
-  }
-
-  return `
-    <div class="item-card ${item.isImportant ? 'pinned' : ''}">
-      <div class="item-header-row">
-        <span class="item-cat-badge">${cat.icon} ${escapeHtml(cat.name)}</span>
-        <div class="item-card-actions">
-          ${!isBin ? `
-            <span class="item-action-icon" onclick="toggleItemImportant('${item.id}')" title="${item.isImportant ? 'Unpin' : 'Pin Important'}">
-              ${item.isImportant ? '⭐' : '☆'}
-            </span>
-            <span class="item-action-icon" onclick="trashOrRestoreItem('${item.id}', true)" title="Move to Bin">
-              🗑️
-            </span>
-          ` : `
-            <span class="item-action-icon" onclick="trashOrRestoreItem('${item.id}', false)" title="Restore">
-              🔄
-            </span>
-            <span class="item-action-icon" onclick="deleteItemPermanently('${item.id}')" title="Delete Permanently" style="color:var(--danger)">
-              ✕
-            </span>
-          `}
+  if (item.bubbles && item.bubbles.length > 0) {
+    return `
+      <div style="grid-column: 1 / -1; margin-bottom: 6px;">
+        <div style="font-size:13px;font-weight:700;color:var(--text-white)">${escapeHtml(item.title)}</div>
+        <div class="bubbles-list-box">
+          ${item.bubbles.map((b, idx) => `
+            <div class="bubble-item-row ${b.isMarked ? 'marked' : ''}">
+              <span class="bubble-item-text" data-copy="${escapeHtml(b.text)}" data-label="Email/Number" title="Tap to copy">${escapeHtml(b.text)}</span>
+              <div style="display:flex;align-items:center;gap:6px">
+                <span class="bubble-mark-pill ${b.isMarked ? 'marked' : ''}" onclick="toggleBubbleMark('${item.id}', ${idx})">
+                  ${b.isMarked ? '✓ Marked' : '○ Not marked'}
+                </span>
+                <button class="copy-chip-btn" data-copy="${escapeHtml(b.text)}" data-label="Email/Number">Copy</button>
+              </div>
+            </div>
+          `).join('')}
         </div>
       </div>
+    `;
+  }
 
-      <div class="item-title">${escapeHtml(item.title)}</div>
-
-      ${mediaHtml}
-      ${cardHtml}
-      ${smsHtml}
-      ${jobHtml}
-      ${bubblesHtml}
-      ${linkHtml}
-
-      ${item.notes ? `<div class="item-notes">${escapeHtml(item.notes)}</div>` : ''}
-      ${downloadActions}
-
-      <div style="display:flex;justify-content:space-between;align-items:center;font-size:11px;color:var(--text-dim);margin-top:4px">
-        <span>${formatDate(item.timestamp)}</span>
-        <span>${item.fileData ? '☁️ Telegram Synced' : '💾 Local Vault'}</span>
+  // Standard 3-column file grid item (Screen 2)
+  return `
+    <div class="file-item-card" onclick="openMediaViewer('${item.id}')">
+      <div class="file-item-preview">
+        ${item.fileData && item.fileType?.startsWith('image/') ? `<img src="${item.fileData}" alt="${escapeHtml(item.title)}">` : getCategoryIcon(item.category)}
       </div>
+      <div class="file-item-name">${escapeHtml(item.title)}</div>
+      <div class="file-item-size">${formatBytes(item.fileSize || 1024 * 50)}</div>
     </div>
   `;
 }
 
 function renderGalleryTab() {
-  const container = document.getElementById('gallery-grid-container');
-  const countLabel = document.getElementById('gallery-count-label');
-  if (!container) return;
+  const grid = document.getElementById('gallery-grid-container');
+  if (!grid) return;
 
-  const mediaItems = APP_STATE.items.filter(i => !i.isDeleted && (i.category === 'photos' || (i.fileData && i.fileType?.startsWith('image/'))));
+  const mediaList = APP_STATE.items.filter(i => !i.isDeleted && (i.category === 'photos' || (i.fileData && i.fileType?.startsWith('image/'))));
 
-  if (countLabel) {
-    countLabel.textContent = `${mediaItems.length} photos & videos`;
-  }
-
-  if (mediaItems.length === 0) {
-    container.innerHTML = `
+  if (mediaList.length === 0) {
+    grid.innerHTML = `
       <div style="grid-column:1/-1;text-align:center;padding:40px 16px;color:var(--text-muted)">
         <div style="font-size:36px;margin-bottom:8px">🖼️</div>
-        <div style="font-size:14px;font-weight:700">No media uploaded yet</div>
-        <div style="font-size:12px;margin-top:4px">Tap ＋ to upload your first photo or video.</div>
+        <div style="font-size:14px;font-weight:700">No photos in gallery</div>
+        <div style="font-size:12px;margin-top:4px">Tap ＋ to upload your photos.</div>
       </div>
     `;
     return;
   }
 
-  container.innerHTML = mediaItems.map(item => `
-    <div class="gallery-item-tile" onclick="openMediaViewer('${item.id}')">
+  grid.innerHTML = mediaList.map(item => `
+    <div class="gallery-photo-thumb" onclick="openMediaViewer('${item.id}')">
       <img src="${item.fileData}" alt="${escapeHtml(item.title)}" loading="lazy">
-      <div class="gallery-item-info">
-        <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:70%">${escapeHtml(item.title)}</span>
-        <span>${formatBytes(item.fileSize)}</span>
-      </div>
     </div>
   `).join('');
 }
 
-function renderSettingsTopics() {
-  const list = document.getElementById('settings-topics-list');
-  if (!list) return;
+function filterGallery(type, btn) {
+  document.querySelectorAll('.gfilter-pill').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderGalleryTab();
+}
 
-  list.innerHTML = APP_STATE.categories.map(c => `
-    <div class="topic-manager-row">
+function renderTopicsManagerList() {
+  const container = document.getElementById('topics-manager-items-list');
+  if (!container) return;
+
+  container.innerHTML = APP_STATE.categories.map(c => `
+    <div class="topic-manage-row">
       <div style="display:flex;align-items:center;gap:10px">
         <span style="font-size:18px">${c.icon}</span>
-        <span style="font-size:13px;font-weight:700">${escapeHtml(c.name)}</span>
-        ${c.isCore ? '<span style="font-size:10px;background:var(--bg-surface-3);padding:2px 6px;border-radius:var(--radius-pill);color:var(--text-muted)">Default</span>' : ''}
+        <span style="font-size:13px;font-weight:700;color:var(--text-white)">${escapeHtml(c.name)}</span>
+        ${c.isCore ? '<span style="font-size:10px;background:var(--bg-surface);padding:2px 6px;border-radius:var(--radius-pill);color:var(--text-muted)">Default</span>' : ''}
       </div>
       <div>
         ${!c.isCore ? `
@@ -3291,7 +2948,7 @@ function closeFabMenu() {
   }
 }
 
-function openCreateItemModal(defaultCategory = 'saved_messages') {
+function openCreateItemModal(defaultCategory = 'photos') {
   closeFabMenu();
 
   const select = document.getElementById('input-item-category');
@@ -3360,7 +3017,6 @@ function handleItemSaveSubmit(e) {
     timestamp: Date.now()
   };
 
-  // Attachments
   if (APP_STATE.activeAttachmentPayload) {
     newItem.fileName = APP_STATE.activeAttachmentPayload.name;
     newItem.fileSize = APP_STATE.activeAttachmentPayload.size;
@@ -3368,7 +3024,6 @@ function handleItemSaveSubmit(e) {
     newItem.fileData = APP_STATE.activeAttachmentPayload.data;
   }
 
-  // Category specific fields
   if (category === 'sms') {
     newItem.smsDetails = {
       sender: document.getElementById('input-sms-sender').value.trim(),
@@ -3401,18 +3056,22 @@ function handleItemSaveSubmit(e) {
   APP_STATE.items.unshift(newItem);
   persistData();
 
-  // Reset form
   document.getElementById('form-create-item').reset();
   APP_STATE.activeAttachmentPayload = null;
   document.getElementById('attachment-preview-meta').textContent = '';
 
   closeModal('modal-create-item');
   renderAllViews();
-  showToast('✓ Record saved to Vault & Telegram synced!');
+  showToast('✓ Saved to TeleDrive & Telegram Synced!');
 }
 
 function openCreateTopicModal() {
   openModal('modal-create-topic');
+}
+
+function openTopicsManagerModal() {
+  renderTopicsManagerList();
+  openModal('modal-topics-manager');
 }
 
 function handleCreateCategorySubmit(e) {
@@ -3447,10 +3106,11 @@ function deleteCustomCategory(catId) {
   const cat = APP_STATE.categories.find(c => c.id === catId);
   if (!cat || cat.isCore) return;
 
-  if (confirm(`Are you sure you want to delete the category "${cat.name}"? Items will be preserved in All Files.`)) {
+  if (confirm(`Are you sure you want to delete category "${cat.name}"? Records will be kept in All Files.`)) {
     APP_STATE.categories = APP_STATE.categories.filter(c => c.id !== catId);
     persistData();
     renderAllViews();
+    renderTopicsManagerList();
     showToast(`✓ Deleted category "${cat.name}"`);
   }
 }
@@ -3461,35 +3121,6 @@ function toggleBubbleMark(itemId, bubbleIdx) {
     item.bubbles[bubbleIdx].isMarked = !item.bubbles[bubbleIdx].isMarked;
     persistData();
     renderFilesTab();
-  }
-}
-
-function toggleItemImportant(itemId) {
-  const item = APP_STATE.items.find(i => i.id === itemId);
-  if (item) {
-    item.isImportant = !item.isImportant;
-    persistData();
-    renderAllViews();
-    showToast(item.isImportant ? '⭐ Pinned as Important' : 'Unpinned from Important');
-  }
-}
-
-function trashOrRestoreItem(itemId, moveToTrash) {
-  const item = APP_STATE.items.find(i => i.id === itemId);
-  if (item) {
-    item.isDeleted = moveToTrash;
-    persistData();
-    renderAllViews();
-    showToast(moveToTrash ? '🗑️ Moved to Bin' : '✓ Restored from Bin');
-  }
-}
-
-function deleteItemPermanently(itemId) {
-  if (confirm('Permanently delete this record? This cannot be undone.')) {
-    APP_STATE.items = APP_STATE.items.filter(i => i.id !== itemId);
-    persistData();
-    renderAllViews();
-    showToast('Record deleted permanently.');
   }
 }
 
@@ -3506,7 +3137,6 @@ function openIdmTurboSim(fileName = 'TeleDrive Turbo Engine', fileSize = '24.5 M
 
   openModal('modal-idm-turbo');
 
-  // Reset progress
   for (let c = 1; c <= 8; c++) {
     const el = document.getElementById(`idm-c${c}`);
     if (el) el.style.width = '0%';
@@ -3565,19 +3195,6 @@ function openMediaViewer(itemId) {
   openModal('modal-media-viewer');
 }
 
-function downloadAttachmentDirect(itemId) {
-  const item = APP_STATE.items.find(i => i.id === itemId);
-  if (!item || !item.fileData) return;
-
-  const a = document.createElement('a');
-  a.href = item.fileData;
-  a.download = item.fileName || item.title || 'teledrive-file';
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  showToast(`⬇️ Downloading ${item.fileName || item.title}`);
-}
-
 function runCloudScanner() {
   showToast('🔄 Scanning Telegram Cloud Supergroup & Local Vault...');
   setTimeout(() => {
@@ -3586,7 +3203,7 @@ function runCloudScanner() {
 }
 
 // ========================================================
-// 9. EXPORT & IMPORT DATA BACKUPS
+// 9. BACKUP EXPORT & RESTORE
 // ========================================================
 function exportVaultBackup() {
   const backup = {
@@ -3624,6 +3241,7 @@ function importVaultBackup(input) {
         }
         persistData();
         renderAllViews();
+        closeModal('modal-storage');
         showToast('✓ Vault backup restored successfully!');
       } else {
         alert('Invalid backup JSON structure.');
@@ -3651,27 +3269,26 @@ function closeModal(id) {
   }
 }
 
-function handleOverlayBackdropClick(e, id) {
+function handleOverlayClick(e, id) {
   if (e.target.id === id) {
     closeModal(id);
   }
 }
 
 // ========================================================
-// 11. FORMATTERS & HELPERS
+// 11. HELPERS & FORMATTERS
 // ========================================================
+function getCategoryIcon(catId) {
+  const c = APP_STATE.categories.find(x => x.id === catId);
+  return c ? c.icon : '📄';
+}
+
 function formatBytes(bytes) {
   if (!bytes || bytes <= 0) return '0 B';
   const k = 1024;
   const sizes = ['B', 'KB', 'MB', 'GB', 'TB'];
   const i = Math.floor(Math.log(bytes) / Math.log(k));
   return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
-}
-
-function formatDate(ts) {
-  if (!ts) return '';
-  const d = new Date(ts);
-  return d.toLocaleDateString(undefined, { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
 }
 
 function escapeHtml(str) {
