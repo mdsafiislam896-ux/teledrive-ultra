@@ -26,7 +26,7 @@ class TelegramSessionManager(
         fun onQrLink(link: String)
     }
 
-    private data class Session(val id: String, val client: Client, val dbKey: ByteArray)
+    private data class Session(val id: String, val phoneNumber: String, val client: Client, val dbKey: ByteArray)
     private val sessions = linkedMapOf<String, Session>()
     private var active: Session? = null
 
@@ -54,7 +54,7 @@ class TelegramSessionManager(
             { error -> listener.onStatus("TDLib error: ${error.message}") },
             { error -> listener.onStatus("TDLib fatal error: ${error.message}") }
         )
-        session = Session(id, client, dbKey)
+        session = Session(id, phoneNumber, client, dbKey)
         sessions[id] = session
         active = session
         client.send(TdApi.SetLogVerbosityLevel(1)) { }
@@ -82,7 +82,7 @@ class TelegramSessionManager(
                 is TdApi.AuthorizationStateWaitTdlibParameters -> listener.onStatus("TDLib parameters requested")
                 is TdApi.AuthorizationStateWaitEncryptionKey ->
                     s.client.send(TdApi.CheckDatabaseEncryptionKey(s.dbKey)) { handleResult(s, it) }
-                is TdApi.AuthorizationStateWaitPhoneNumber -> listener.onStatus("Enter phone number to continue")
+                is TdApi.AuthorizationStateWaitPhoneNumber -> {\n                    listener.onStatus("Submitting phone number to Telegram…")\n                    s.client.send(TdApi.SetAuthenticationPhoneNumber(s.phoneNumber, null)) { handleResult(s, it) }\n                }
                 is TdApi.AuthorizationStateWaitCode -> listener.onStatus("Telegram OTP required")
                 is TdApi.AuthorizationStateWaitPassword -> listener.onStatus("Telegram 2-step password required")
                 is TdApi.AuthorizationStateWaitOtherDeviceConfirmation -> {
