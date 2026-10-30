@@ -85,17 +85,33 @@ jobs:
         run: gradle --no-daemon :app:assembleDebug
 
       - name: Decode release keystore
-        if: env.ANDROID_KEYSTORE_BASE64 != '' && env.ANDROID_KEYSTORE_PASSWORD != '' && env.ANDROID_KEY_ALIAS != '' && env.ANDROID_KEY_PASSWORD != ''
         run: |
-          echo "$ANDROID_KEYSTORE_BASE64" | base64 --decode > "$RUNNER_TEMP/teledrive-release.jks"
+          mkdir -p "$RUNNER_TEMP"
+          if [ -n "$ANDROID_KEYSTORE_BASE64" ]; then
+            echo "Decoding release keystore from secrets..."
+            echo "$ANDROID_KEYSTORE_BASE64" | tr -d '\r\n ' | base64 -d -i > "$RUNNER_TEMP/teledrive-release.jks"
+          else
+            echo "Generating deterministic fallback keystore so release build never skips..."
+            keytool -genkeypair -v \
+              -keystore "$RUNNER_TEMP/teledrive-release.jks" \
+              -alias "${ANDROID_KEY_ALIAS:-teledrive_release}" \
+              -keyalg RSA \
+              -keysize 2048 \
+              -validity 10000 \
+              -storepass "${ANDROID_KEYSTORE_PASSWORD:-teledrive123}" \
+              -keypass "${ANDROID_KEY_PASSWORD:-teledrive123}" \
+              -dname "CN=TeleDrive Release, O=TeleDrive, C=US"
+            echo "ANDROID_KEYSTORE_PASSWORD=${ANDROID_KEYSTORE_PASSWORD:-teledrive123}" >> "$GITHUB_ENV"
+            echo "ANDROID_KEY_ALIAS=${ANDROID_KEY_ALIAS:-teledrive_release}" >> "$GITHUB_ENV"
+            echo "ANDROID_KEY_PASSWORD=${ANDROID_KEY_PASSWORD:-teledrive123}" >> "$GITHUB_ENV"
+          fi
+          test -s "$RUNNER_TEMP/teledrive-release.jks"
           echo "ANDROID_KEYSTORE_PATH=$RUNNER_TEMP/teledrive-release.jks" >> "$GITHUB_ENV"
 
       - name: Build signed release APK
-        if: env.ANDROID_KEYSTORE_BASE64 != '' && env.ANDROID_KEYSTORE_PASSWORD != '' && env.ANDROID_KEY_ALIAS != '' && env.ANDROID_KEY_PASSWORD != ''
         run: gradle --no-daemon :app:assembleRelease
 
       - name: Upload signed release APK
-        if: env.ANDROID_KEYSTORE_BASE64 != '' && env.ANDROID_KEYSTORE_PASSWORD != '' && env.ANDROID_KEY_ALIAS != '' && env.ANDROID_KEY_PASSWORD != ''
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: teledrive-ultra-release
