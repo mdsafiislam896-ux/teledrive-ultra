@@ -151,10 +151,6 @@ class TelegramSessionManager(
                     session.client.send(result) { handleResult(session, it) }
                 }
             }
-            is TdApi.AuthorizationStateWaitEncryptionKey ->
-                session.client.send(TdApi.CheckDatabaseEncryptionKey(session.dbKey)) {
-                    handleResult(session, it)
-                }
             is TdApi.AuthorizationStateWaitPhoneNumber -> {
                 if (session.qrLogin) {
                     session.client.send(TdApi.RequestQrCodeAuthentication(longArrayOf())) {
@@ -238,8 +234,6 @@ class TelegramSessionManager(
                 }
                 val content = TdApi.InputMessageDocument(
                     TdApi.InputFileLocal(localFile.absolutePath),
-                    null,
-                    false,
                     TdApi.FormattedText(caption, emptyArray())
                 )
                 session.client.send(

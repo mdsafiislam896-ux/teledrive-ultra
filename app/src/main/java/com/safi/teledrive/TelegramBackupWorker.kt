@@ -72,7 +72,7 @@ class TelegramBackupWorker(
 
     private suspend fun TelegramSessionManager.uploadAwait(file: File, caption: String) =
         suspendCancellableCoroutine<Unit> { continuation ->
-            uploadToSavedMessages(file.absolutePath, caption, object : TransferCallback {
+            uploadToSavedMessages(file.absolutePath, caption, object : TelegramSessionManager.TransferCallback {
                 override fun onSuccess(message: String) {
                     if (continuation.isActive) continuation.resume(Unit)
                 }

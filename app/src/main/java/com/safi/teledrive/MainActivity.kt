@@ -1,6 +1,6 @@
 package com.safi.teledrive
 
-import android.app.Activity
+import androidx.activity.ComponentActivity
 import android.content.Intent
 import java.io.File
 import android.os.Bundle
@@ -20,7 +20,7 @@ import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import androidx.work.workDataOf
 
-class MainActivity : Activity(), TelegramSessionManager.Listener {
+class MainActivity : ComponentActivity(), TelegramSessionManager.Listener {
     private lateinit var status: TextView
     private lateinit var phone: EditText
     private lateinit var code: EditText
