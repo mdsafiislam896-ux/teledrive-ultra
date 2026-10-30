@@ -15,7 +15,7 @@ android {
         minSdk = 23
         targetSdk = 34
         versionCode = 1
-        versionName = "1.0.0"
+        versionName = "2.0.0"
         buildConfigField("String", "TELEGRAM_API_ID", "\"$telegramApiId\"")
         buildConfigField("String", "TELEGRAM_API_HASH", "\"$telegramApiHash\"")
         ndk { abiFilters += listOf("arm64-v8a", "armeabi-v7a") }
