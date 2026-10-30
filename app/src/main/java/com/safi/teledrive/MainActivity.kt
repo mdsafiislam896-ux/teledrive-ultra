@@ -63,7 +63,7 @@ class MainActivity : Activity(), TelegramSessionManager.Listener {
         root.addView(qr)
         root.addView(Button(this).apply {
             text = "Show QR login"
-            setOnClickListener { sessions.startQrLogin() }
+            setOnClickListener { sessions.requestQrLogin() }
         })
     }
 
