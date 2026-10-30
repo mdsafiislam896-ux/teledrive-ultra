@@ -24,6 +24,25 @@ android {
         }
     }
 
+    signingConfigs {
+        val keyPath = System.getenv("ANDROID_KEYSTORE_PATH")
+        if (!keyPath.isNullOrBlank()) {
+            create("release") {
+                storeFile = file(keyPath)
+                storePassword = System.getenv("ANDROID_KEYSTORE_PASSWORD")
+                keyAlias = System.getenv("ANDROID_KEY_ALIAS")
+                keyPassword = System.getenv("ANDROID_KEY_PASSWORD")
+            }
+        }
+    }
+
+    buildTypes {
+        getByName("release") {
+            isMinifyEnabled = false
+            signingConfigs.findByName("release")?.let { signingConfig = it }
+        }
+    }
+
     buildFeatures { buildConfig = true }
 
     sourceSets["main"].jniLibs.srcDirs("src/main/jniLibs")

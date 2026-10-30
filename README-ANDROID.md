@@ -22,3 +22,18 @@ Do not commit API credentials, Telegram OTPs, 2FA passwords, keystores, or signi
 - Device login, QR scan, file upload/download and multi-account lifecycle: not yet device-tested.
 
 The CI run is the first acceptance gate. Fix any upstream TDLib or Kotlin API drift reported by the compiler before treating the APK as installable.
+
+
+## Signed release APK
+
+The workflow supports an optional signed release build. Generate a private upload keystore locally:
+
+`keytool -genkeypair -v -keystore teledrive-upload.jks -keyalg RSA -keysize 4096 -validity 10000 -alias teledrive`
+
+Keep the JKS file outside Git. Add these repository Actions secrets:
+- `ANDROID_KEYSTORE_BASE64`: Base64-encoded JKS bytes
+- `ANDROID_KEYSTORE_PASSWORD`
+- `ANDROID_KEY_ALIAS`
+- `ANDROID_KEY_PASSWORD`
+
+The release APK is produced only when all four secrets are configured. Keep an offline backup of the keystore because losing it can prevent updates signed with the same key.
