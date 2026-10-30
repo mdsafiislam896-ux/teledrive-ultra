@@ -14,6 +14,7 @@ import javax.crypto.Cipher
 import javax.crypto.KeyGenerator
 import javax.crypto.SecretKey
 import javax.crypto.spec.GCMParameterSpec
+import kotlinx.coroutines.delay
 
 /**
  * Owns isolated, persistent TDLib clients. TDLib databases remain in app-private
@@ -48,6 +49,7 @@ class TelegramSessionManager(
         context.getSharedPreferences("td_session_keys", Context.MODE_PRIVATE)
     }
     private val sessions = linkedMapOf<String, Session>()
+    private val pendingUploads = linkedMapOf<Long, TransferCallback>()
     @Volatile private var active: Session? = null
 
     init {
@@ -115,6 +117,18 @@ class TelegramSessionManager(
 
     private fun handleUpdate(id: String, update: TdApi.Object) {
         val session = synchronized(this) { sessions[id] } ?: return
+        when (update) {
+            is TdApi.UpdateMessageSendSucceeded -> {
+                val callback = synchronized(this) { pendingUploads.remove(update.oldMessageId) }
+                callback?.onSuccess("Telegram upload completed (message ${update.message.id}).")
+                return
+            }
+            is TdApi.UpdateMessageSendFailed -> {
+                val callback = synchronized(this) { pendingUploads.remove(update.oldMessageId) }
+                callback?.onError("Telegram upload failed: ${update.error.message}")
+                return
+            }
+        }
         if (update !is TdApi.UpdateAuthorizationState) return
         when (val state = update.authorizationState) {
             is TdApi.AuthorizationStateWaitTdlibParameters -> {
@@ -232,13 +246,26 @@ class TelegramSessionManager(
                     TdApi.SendMessage(chatResult.id, 0L, null, null, null, content)
                 ) { messageResult ->
                     if (messageResult is TdApi.Message) {
-                        callback.onSuccess("Upload queued in Telegram Saved Messages (message ${messageResult.id}).")
+                        if (messageResult.sendingState == null) {
+                            callback.onSuccess("Telegram upload completed (message ${messageResult.id}).")
+                        } else {
+                            synchronized(this) { pendingUploads[messageResult.id] = callback }
+                        }
                     } else {
                         callback.onError((messageResult as? TdApi.Error)?.message ?: "Telegram upload failed.")
                     }
                 }
             }
         }
+    }
+
+    suspend fun awaitActiveReady(timeoutMs: Long = 120_000L): Boolean {
+        val deadline = System.currentTimeMillis() + timeoutMs
+        while (System.currentTimeMillis() < deadline) {
+            if (active?.ready == true) return true
+            delay(500)
+        }
+        return active?.ready == true
     }
 
     /** Downloads a Telegram file ID into TDLib's private files directory. */
