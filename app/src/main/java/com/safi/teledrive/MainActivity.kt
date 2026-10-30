@@ -342,7 +342,7 @@ class MainActivity : ComponentActivity(), TelegramSessionManager.Listener {
         }.start()
     }
 
-    override fun onStatus(message: String) { runOnUiThread { status.text = message } }
+    override fun onStatus(message: String) { runOnUiThread { if (::status.isInitialized) status.text = message } }
 
     override fun onQrLink(link: String) {
         runOnUiThread {
