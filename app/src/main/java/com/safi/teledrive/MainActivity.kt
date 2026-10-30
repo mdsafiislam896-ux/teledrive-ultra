@@ -253,7 +253,7 @@ class MainActivity : ComponentActivity(), TelegramSessionManager.Listener {
         setTextColor(white)
         setHintTextColor(Color.rgb(115, 146, 134))
         inputType = type
-        singleLine = true
+        setSingleLine(true)
         setPadding(dp(13), dp(12), dp(13), dp(12))
         background = GradientDrawable().apply {
             setColor(Color.rgb(6, 27, 23)); cornerRadius = dp(12).toFloat()
