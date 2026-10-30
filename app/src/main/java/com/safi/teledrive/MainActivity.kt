@@ -5,64 +5,75 @@ import android.app.Activity
 import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
-import android.webkit.*
+import android.webkit.JavascriptInterface
+import android.webkit.ValueCallback
+import android.webkit.WebChromeClient
+import android.webkit.WebSettings
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.result.contract.ActivityResultContracts
+import org.json.JSONObject
 
+/** Hosts the bundled UI and exposes a small, trusted bridge to TDLib. */
 class MainActivity : ComponentActivity(), TelegramSessionManager.Listener {
     private lateinit var webView: WebView
     private lateinit var sessions: TelegramSessionManager
     private var fileUploadCallback: ValueCallback<Array<Uri>>? = null
 
+    @Volatile private var trustedPageLoaded = false
+
     private val filePickerLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
-        if (result.resultCode == Activity.RESULT_OK) {
-            val data = result.data
-            val results = WebChromeClient.FileChooserParams.parseResult(result.resultCode, data)
-            fileUploadCallback?.onReceiveValue(results)
-        } else {
-            fileUploadCallback?.onReceiveValue(null)
-        }
+        val callback = fileUploadCallback ?: return@registerForActivityResult
+        callback.onReceiveValue(
+            if (result.resultCode == Activity.RESULT_OK) {
+                WebChromeClient.FileChooserParams.parseResult(result.resultCode, result.data)
+            } else null
+        )
         fileUploadCallback = null
     }
 
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        // OLED Luxury Dark styling matching Figma theme (#0C0E12)
         window.statusBarColor = Color.rgb(12, 14, 18)
         window.navigationBarColor = Color.rgb(17, 20, 26)
 
-        sessions = TelegramSessionManager(this, this)
-
+        sessions = TelegramSessionManager(applicationContext, this)
         webView = WebView(this).apply {
             setBackgroundColor(Color.rgb(12, 14, 18))
             settings.apply {
                 javaScriptEnabled = true
                 domStorageEnabled = true
-                databaseEnabled = true
-                allowFileAccess = true
-                allowContentAccess = true
+                databaseEnabled = false
+                allowFileAccess = false
+                allowContentAccess = true // Needed only for user-selected content:// URIs.
+                allowFileAccessFromFileURLs = false
+                allowUniversalAccessFromFileURLs = false
                 loadWithOverviewMode = true
                 useWideViewPort = true
                 cacheMode = WebSettings.LOAD_DEFAULT
-                mediaPlaybackRequiresUserGesture = false
+                mediaPlaybackRequiresUserGesture = true
+                setSupportMultipleWindows(false)
             }
-
             addJavascriptInterface(WebAppBridge(), "AndroidBridge")
-
             webViewClient = object : WebViewClient() {
-                override fun onPageFinished(view: WebView?, url: String?) {
-                    super.onPageFinished(view, url)
-                    syncNativeAuthState()
+                override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
+                    if (url.startsWith(ASSET_URL)) return false
+                    trustedPageLoaded = false
+                    runCatching { startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url))) }
+                    return true
+                }
+
+                override fun onPageFinished(view: WebView, url: String) {
+                    trustedPageLoaded = url.startsWith(ASSET_URL)
+                    if (trustedPageLoaded) syncNativeAuthState()
                 }
             }
-
             webChromeClient = object : WebChromeClient() {
                 override fun onShowFileChooser(
                     webView: WebView?,
@@ -71,88 +82,123 @@ class MainActivity : ComponentActivity(), TelegramSessionManager.Listener {
                 ): Boolean {
                     fileUploadCallback?.onReceiveValue(null)
                     fileUploadCallback = filePathCallback
-                    val intent = fileChooserParams?.createIntent() ?: Intent(Intent.ACTION_GET_CONTENT).apply {
-                        type = "*/*"
-                        putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
-                    }
-                    try {
-                        filePickerLauncher.launch(intent)
-                    } catch (e: Exception) {
+                    return try {
+                        filePickerLauncher.launch(
+                            fileChooserParams?.createIntent() ?: Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
+                                type = "*/*"
+                                addCategory(Intent.CATEGORY_OPENABLE)
+                                putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+                            }
+                        )
+                        true
+                    } catch (_: Exception) {
                         fileUploadCallback = null
-                        return false
+                        false
                     }
-                    return true
                 }
             }
         }
 
         setContentView(webView)
-        webView.loadUrl("file:///android_asset/index.html")
+        webView.loadUrl(ASSET_URL)
     }
 
-    private fun syncNativeAuthState() {
-        val active = sessions.hasActiveSession()
-        val js = "if(window.onNativeAuthSynced) window.onNativeAuthSynced($active);"
-        webView.evaluateJavascript(js, null)
+    override fun onDestroy() {
+        fileUploadCallback?.onReceiveValue(null)
+        fileUploadCallback = null
+        if (::webView.isInitialized) webView.destroy()
+        super.onDestroy()
+    }
+
+    private fun syncNativeAuthState() = dispatchToPage("onNativeAuthSynced", sessions.hasActiveSession())
+
+    private fun dispatchToPage(callback: String, value: Any) {
+        if (!trustedPageLoaded || !::webView.isInitialized) return
+        val payload = JSONObject.quote(value.toString())
+        webView.post {
+            if (trustedPageLoaded) webView.evaluateJavascript("window.$callback && window.$callback($payload);", null)
+        }
+    }
+
+    private fun showBridgeError(message: String) {
+        dispatchToPage("onNativeError", message)
+        runOnUiThread { Toast.makeText(this, message, Toast.LENGTH_LONG).show() }
     }
 
     inner class WebAppBridge {
+        private fun allowCall(): Boolean {
+            if (trustedPageLoaded) return true
+            showBridgeError("This action is available only in the TeleDrive app.")
+            return false
+        }
+
         @JavascriptInterface
-        fun startLogin(phone: String) {
-            runOnUiThread {
-                sessions.startPhoneAuth(phone)
+        fun startLogin(phone: String?) = runOnUiThread {
+            if (!allowCall()) return@runOnUiThread
+            runCatching { sessions.startPhoneAuth(phone.orEmpty()) }
+                .onFailure { showBridgeError(it.message ?: "Unable to start Telegram login.") }
+        }
+
+        @JavascriptInterface
+        fun startQrLogin() = runOnUiThread {
+            if (!allowCall()) return@runOnUiThread
+            runCatching { sessions.startQrLogin() }
+                .onFailure { showBridgeError(it.message ?: "Unable to start QR login.") }
+        }
+
+        @JavascriptInterface
+        fun submitCode(code: String?) = runOnUiThread {
+            if (!allowCall()) return@runOnUiThread
+            runCatching { sessions.submitCode(code.orEmpty()) }
+                .onFailure { showBridgeError(it.message ?: "Unable to submit the Telegram code.") }
+        }
+
+        @JavascriptInterface
+        fun submitPassword(password: String?) = runOnUiThread {
+            if (!allowCall()) return@runOnUiThread
+            runCatching { sessions.submitPassword(password.orEmpty()) }
+                .onFailure { showBridgeError(it.message ?: "Unable to submit the 2-step verification password.") }
+        }
+
+        @JavascriptInterface
+        fun downloadFileToPublic(url: String?, fileName: String?, mimeType: String?) = runOnUiThread {
+            if (!allowCall()) return@runOnUiThread
+            runCatching {
+                DownloadWorker.schedule(this@MainActivity, url.orEmpty(), fileName.orEmpty(), mimeType.orEmpty())
+            }.onSuccess {
+                Toast.makeText(this@MainActivity, "Download added to the queue.", Toast.LENGTH_SHORT).show()
+            }.onFailure {
+                showBridgeError(it.message ?: "Unable to queue this download.")
             }
         }
 
         @JavascriptInterface
-        fun submitCode(code: String) {
-            runOnUiThread {
-                sessions.submitCode(code)
-            }
-        }
-
-        @JavascriptInterface
-        fun submitPassword(pwd: String) {
-            runOnUiThread {
-                sessions.submitPassword(pwd)
-            }
-        }
-
-        @JavascriptInterface
-        fun downloadFileToPublic(url: String, fileName: String, mimeType: String) {
-            runOnUiThread {
-                Toast.makeText(this@MainActivity, "Saving $fileName to Downloads/TeleDrive...", Toast.LENGTH_SHORT).show()
-                DownloadWorker.schedule(this@MainActivity, url, fileName)
-            }
-        }
-
-        @JavascriptInterface
-        fun removeAccount() {
-            runOnUiThread {
-                sessions.removeAccount()
-                Toast.makeText(this@MainActivity, "Account removed and KeyStore purged", Toast.LENGTH_SHORT).show()
-                syncNativeAuthState()
-            }
+        fun removeAccount() = runOnUiThread {
+            if (!allowCall()) return@runOnUiThread
+            sessions.removeAccount()
+            syncNativeAuthState()
         }
     }
 
-    override fun onAuthStateChanged(state: String) {
-        runOnUiThread {
-            webView.evaluateJavascript("if(window.onAuthStateChanged) window.onAuthStateChanged('$state');", null)
+    override fun onStatus(message: String) {
+        val state = when {
+            message.contains("OTP required", ignoreCase = true) -> "code"
+            message.contains("password required", ignoreCase = true) -> "password"
+            message.contains("connected", ignoreCase = true) -> "ready"
+            message.contains("QR", ignoreCase = true) -> "qr"
+            else -> "status"
         }
+        dispatchToPage("onAuthStateChanged", state)
+        dispatchToPage("onNativeStatus", message)
+        if (message.startsWith("Telegram error:") || message.startsWith("TDLib error:")) showBridgeError(message)
     }
 
-    override fun onError(message: String) {
-        runOnUiThread {
-            Toast.makeText(this, message, Toast.LENGTH_LONG).show()
-        }
-    }
+    override fun onQrLink(link: String) = dispatchToPage("onQrLink", link)
 
+    @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
-        if (webView.canGoBack()) {
-            webView.goBack()
-        } else {
-            super.onBackPressed()
-        }
+        if (::webView.isInitialized && webView.canGoBack()) webView.goBack() else super.onBackPressed()
     }
+
+    private companion object { const val ASSET_URL = "file:///android_asset/" }
 }

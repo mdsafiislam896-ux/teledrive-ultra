@@ -71,6 +71,24 @@ class TelegramSessionManager(
         listener.onStatus("Opening Telegram session…")
     }
 
+    /** Compatibility entry point used by the native WebView bridge. */
+    fun startPhoneAuth(phoneNumber: String) = startPhoneLogin(phoneNumber.trim().replace(" ", ""))
+
+    @Synchronized
+    fun hasActiveSession(): Boolean = active?.ready == true
+
+    /** Forgets the currently selected account, TDLib database and wrapped key. */
+    @Synchronized
+    fun removeAccount() {
+        val account = active
+        if (account == null) {
+            listener.onStatus("No Telegram account is connected.")
+            return
+        }
+        closeAccount(account.id, forget = true)
+        listener.onStatus("Telegram account removed from this device.")
+    }
+
     @Synchronized
     fun startQrLogin() {
         ensureApiCredentials()
