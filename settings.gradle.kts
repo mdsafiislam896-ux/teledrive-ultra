@@ -12,5 +12,5 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "TeleDriveUltra"
+rootProject.name = "NexaCloud"
 include(":app")
