@@ -50,6 +50,8 @@ class TelegramSessionManager(
     }
     private val sessions = linkedMapOf<String, Session>()
     private val pendingUploads = linkedMapOf<Long, TransferCallback>()
+    private val earlyUploadUpdates = linkedMapOf<Long, TdApi.Object>()
+    private val pendingDownloads = linkedMapOf<Int, TransferCallback>()
     @Volatile private var active: Session? = null
 
     init {
@@ -119,13 +121,31 @@ class TelegramSessionManager(
         val session = synchronized(this) { sessions[id] } ?: return
         when (update) {
             is TdApi.UpdateMessageSendSucceeded -> {
-                val callback = synchronized(this) { pendingUploads.remove(update.oldMessageId) }
+                val callback = synchronized(this) {
+                    pendingUploads.remove(update.oldMessageId) ?: run {
+                        earlyUploadUpdates[update.oldMessageId] = update
+                        null
+                    }
+                }
                 callback?.onSuccess("Telegram upload completed (message ${update.message.id}).")
                 return
             }
             is TdApi.UpdateMessageSendFailed -> {
-                val callback = synchronized(this) { pendingUploads.remove(update.oldMessageId) }
+                val callback = synchronized(this) {
+                    pendingUploads.remove(update.oldMessageId) ?: run {
+                        earlyUploadUpdates[update.oldMessageId] = update
+                        null
+                    }
+                }
                 callback?.onError("Telegram upload failed: ${update.error.message}")
+                return
+            }
+            is TdApi.UpdateFile -> {
+                val file = update.file
+                if (file.local != null && file.local.isDownloadingCompleted) {
+                    val callback = synchronized(this) { pendingDownloads.remove(file.id) }
+                    callback?.onSuccess(file.local.path)
+                }
                 return
             }
         }
@@ -248,7 +268,18 @@ class TelegramSessionManager(
                         if (messageResult.sendingState == null) {
                             callback.onSuccess("Telegram upload completed (message ${messageResult.id}).")
                         } else {
-                            synchronized(this) { pendingUploads[messageResult.id] = callback }
+                            val early = synchronized(this) {
+                                earlyUploadUpdates.remove(messageResult.id) ?: run {
+                                    pendingUploads[messageResult.id] = callback
+                                    null
+                                }
+                            }
+                            when (early) {
+                                is TdApi.UpdateMessageSendSucceeded ->
+                                    callback.onSuccess("Telegram upload completed (message ${early.message.id}).")
+                                is TdApi.UpdateMessageSendFailed ->
+                                    callback.onError("Telegram upload failed: ${early.error.message}")
+                            }
                         }
                     } else {
                         callback.onError((messageResult as? TdApi.Error)?.message ?: "Telegram upload failed.")
@@ -275,10 +306,19 @@ class TelegramSessionManager(
             return
         }
         session.client.send(TdApi.DownloadFile(fileId, 16, 0L, 0L, true)) { result ->
-            if (result is TdApi.File && result.local != null && result.local.isDownloadingCompleted) {
-                callback.onSuccess(result.local.path)
-            } else {
-                callback.onError((result as? TdApi.Error)?.message ?: "Download did not complete.")
+            when (result) {
+                is TdApi.File -> {
+                    val local = result.local
+                    if (local != null && local.isDownloadingCompleted) {
+                        callback.onSuccess(local.path)
+                    } else if (local != null && local.canBeDownloaded) {
+                        synchronized(this) { pendingDownloads[fileId] = callback }
+                    } else {
+                        callback.onError("Telegram file is not downloadable in this session.")
+                    }
+                }
+                is TdApi.Error -> callback.onError("Telegram download error: ${result.message}")
+                else -> callback.onError("Unexpected Telegram download response.")
             }
         }
     }
