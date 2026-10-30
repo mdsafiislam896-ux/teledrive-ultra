@@ -1,6 +1,8 @@
 package com.safi.teledrive
 
 import android.app.Activity
+import android.content.Intent
+import java.io.File
 import android.os.Bundle
 import android.graphics.Bitmap
 import android.graphics.Color
@@ -21,6 +23,7 @@ class MainActivity : Activity(), TelegramSessionManager.Listener {
     private lateinit var code: EditText
     private lateinit var password: EditText
     private lateinit var qr: ImageView
+    private lateinit var fileId: EditText
     private lateinit var sessions: TelegramSessionManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,9 +65,66 @@ class MainActivity : Activity(), TelegramSessionManager.Listener {
         qr = ImageView(this)
         root.addView(qr)
         root.addView(Button(this).apply {
-            text = "Show QR login"
-            setOnClickListener { sessions.requestQrLogin() }
+            text = "Start QR login"
+            setOnClickListener { sessions.startQrLogin() }
         })
+        root.addView(Button(this).apply {
+            text = "Choose file and upload to Saved Messages"
+            setOnClickListener {
+                val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
+                    addCategory(Intent.CATEGORY_OPENABLE)
+                    type = "*/*"
+                }
+                startActivityForResult(intent, 4101)
+            }
+        })
+        fileId = EditText(this).apply {
+            hint = "Telegram file ID to download"
+            inputType = 2
+        }
+        root.addView(fileId)
+        root.addView(Button(this).apply {
+            text = "Download Telegram file"
+            setOnClickListener {
+                val id = fileId.text.toString().toIntOrNull()
+                if (id == null) {
+                    status.text = "Enter a valid Telegram file ID"
+                } else {
+                    status.text = "Downloading file…"
+                    sessions.downloadFile(id, transferCallback())
+                }
+            }
+        })
+    }
+
+    private fun transferCallback() = object : TelegramSessionManager.TransferCallback {
+        override fun onSuccess(message: String) { runOnUiThread { status.text = message } }
+        override fun onError(message: String) { runOnUiThread { status.text = "Transfer error: $message" } }
+    }
+
+    @Deprecated("Deprecated in Android API; retained for broad device compatibility")
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode != 4101 || resultCode != RESULT_OK) return
+        val uri = data?.data ?: return
+        status.text = "Preparing selected file…"
+        Thread {
+            try {
+                val name = contentResolver.query(uri, null, null, null, null)?.use { cursor ->
+                    val index = cursor.getColumnIndex(android.provider.OpenableColumns.DISPLAY_NAME)
+                    if (cursor.moveToFirst() && index >= 0) cursor.getString(index) else "upload.bin"
+                } ?: "upload.bin"
+                val safeName = name.replace(Regex("[^A-Za-z0-9._-]"), "_")
+                val local = File(cacheDir, "upload_${System.currentTimeMillis()}_$safeName")
+                contentResolver.openInputStream(uri)?.use { input ->
+                    local.outputStream().use { output -> input.copyTo(output) }
+                } ?: throw IllegalStateException("Cannot open selected file")
+                runOnUiThread { status.text = "Uploading $name…" }
+                sessions.uploadToSavedMessages(local.absolutePath, name, transferCallback())
+            } catch (e: Exception) {
+                runOnUiThread { status.text = "File preparation failed: ${e.message}" }
+            }
+        }.start()
     }
 
     override fun onStatus(message: String) { runOnUiThread { status.text = message } }
