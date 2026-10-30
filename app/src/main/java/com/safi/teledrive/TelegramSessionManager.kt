@@ -34,6 +34,7 @@ class TelegramSessionManager(
         val phoneNumber: String,
         val client: Client,
         val dbKey: ByteArray,
+        val qrLogin: Boolean = false,
         var parametersSent: Boolean = false
     )
 
@@ -65,7 +66,7 @@ class TelegramSessionManager(
         ensureApiCredentials()
         val id = "qr_" + ByteArray(12).also { SecureRandom().nextBytes(it) }
             .joinToString("") { "%02x".format(it) }
-        active = createSession(id, "")
+        active = createSession(id, "", qrLogin = true)
         listener.onStatus("Preparing a new QR login session…")
     }
 
@@ -92,7 +93,7 @@ class TelegramSessionManager(
     }
 
     @Synchronized
-    private fun createSession(id: String, phoneNumber: String): Session {
+    private fun createSession(id: String, phoneNumber: String, qrLogin: Boolean = false): Session {
         sessions[id]?.let { return it }
         val dbKey = loadOrCreateDatabaseKey(id)
         val client = Client.create(
@@ -100,7 +101,7 @@ class TelegramSessionManager(
             { error -> listener.onStatus("TDLib error: ${error.message}") },
             { error -> listener.onStatus("TDLib fatal error: ${error.message}") }
         )
-        val session = Session(id, phoneNumber, client, dbKey)
+        val session = Session(id, phoneNumber, client, dbKey, qrLogin)
         sessions[id] = session
         client.send(TdApi.SetLogVerbosityLevel(1)) { }
         return session
@@ -118,16 +119,14 @@ class TelegramSessionManager(
                         false,
                         File(root, "db").absolutePath,
                         File(root, "files").absolutePath,
-                        false,
+                        session.dbKey,
                         true, true, true, true,
                         BuildConfig.TELEGRAM_API_ID.toInt(),
                         BuildConfig.TELEGRAM_API_HASH,
                         "en",
                         "Android",
                         android.os.Build.VERSION.RELEASE,
-                        "1.0.0",
-                        true,
-                        false
+                        "1.0.0"
                     )
                     session.client.send(result) { handleResult(session, it) }
                 }
@@ -137,7 +136,11 @@ class TelegramSessionManager(
                     handleResult(session, it)
                 }
             is TdApi.AuthorizationStateWaitPhoneNumber -> {
-                if (session.phoneNumber.isNotBlank()) {
+                if (session.qrLogin) {
+                    session.client.send(TdApi.RequestQrCodeAuthentication(emptyArray())) {
+                        handleResult(session, it)
+                    }
+                } else if (session.phoneNumber.isNotBlank()) {
                     session.client.send(TdApi.SetAuthenticationPhoneNumber(session.phoneNumber, null)) {
                         handleResult(session, it)
                     }
@@ -187,14 +190,7 @@ class TelegramSessionManager(
     }
 
     fun requestQrLogin() {
-        val session = active ?: error("Start a QR login session first")
-        if (session.phoneNumber.isNotBlank()) {
-            listener.onStatus("For QR login, start a separate QR session first")
-            return
-        }
-        session.client.send(TdApi.RequestQrCodeAuthentication(emptyArray())) {
-            handleResult(session, it)
-        }
+        startQrLogin()
     }
 
     private fun handleResult(session: Session, result: TdApi.Object) {
