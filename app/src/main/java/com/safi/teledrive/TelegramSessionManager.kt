@@ -157,7 +157,7 @@ class TelegramSessionManager(
                 }
             is TdApi.AuthorizationStateWaitPhoneNumber -> {
                 if (session.qrLogin) {
-                    session.client.send(TdApi.RequestQrCodeAuthentication(emptyArray())) {
+                    session.client.send(TdApi.RequestQrCodeAuthentication(longArrayOf())) {
                         handleResult(session, it)
                     }
                 } else if (session.phoneNumber.isNotBlank()) {
@@ -243,7 +243,7 @@ class TelegramSessionManager(
                     TdApi.FormattedText(caption, emptyArray())
                 )
                 session.client.send(
-                    TdApi.SendMessage(chatResult.id, 0L, null, null, null, content)
+                    TdApi.SendMessage(chatResult.id, null, null, null, null, content)
                 ) { messageResult ->
                     if (messageResult is TdApi.Message) {
                         if (messageResult.sendingState == null) {
