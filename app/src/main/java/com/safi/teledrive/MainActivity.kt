@@ -16,6 +16,9 @@ import android.widget.TextView
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.MultiFormatWriter
 import com.google.zxing.common.BitMatrix
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
+import androidx.work.workDataOf
 
 class MainActivity : Activity(), TelegramSessionManager.Listener {
     private lateinit var status: TextView
@@ -109,7 +112,55 @@ class MainActivity : Activity(), TelegramSessionManager.Listener {
                 }
             }
         })
+        root.addView(TextView(this).apply {
+            text = "IDM-style HTTP Download Manager"
+            textSize = 20f
+            setPadding(0, 28, 0, 8)
+        })
+        val httpUrl = EditText(this).apply {
+            hint = "Paste direct HTTP/HTTPS download link"
+            inputType =  uriInputType()
+        }
+        root.addView(httpUrl)
+        val threadCount = EditText(this).apply {
+            hint = "Connections (1–16, default 8)"
+            setText("8")
+            inputType = 2
+        }
+        root.addView(threadCount)
+        root.addView(Button(this).apply {
+            text = "Start fast download"
+            setOnClickListener {
+                val link = httpUrl.text.toString().trim()
+                val count = threadCount.text.toString().toIntOrNull() ?: 8
+                if (!link.startsWith("https://") && !link.startsWith("http://")) {
+                    status.text = "Enter a valid direct HTTP/HTTPS link"
+                } else {
+                    val request = OneTimeWorkRequestBuilder<HttpDownloadWorker>()
+                        .setInputData(workDataOf(
+                            HttpDownloadWorker.KEY_URL to link,
+                            HttpDownloadWorker.KEY_THREADS to count.coerceIn(1, 16)
+                        )).build()
+                    WorkManager.getInstance(this@MainActivity).enqueue(request)
+                    status.text = "Download queued. Parallel ranges will be used if the server supports them."
+                    WorkManager.getInstance(this@MainActivity).getWorkInfoByIdLiveData(request.id)
+                        .observe(this@MainActivity) { info ->
+                            if (info != null && info.state.isFinished) {
+                                status.text = if (info.state == androidx.work.WorkInfo.State.SUCCEEDED) {
+                                    "Download saved: ${info.outputData.getString(HttpDownloadWorker.KEY_OUTPUT)}"
+                                } else {
+                                    "Download failed: ${info.outputData.getString(HttpDownloadWorker.KEY_ERROR) ?: info.state}"
+                                }
+                            } else if (info != null) {
+                                status.text = "HTTP download: ${info.state}"
+                            }
+                        }
+                }
+            }
+        })
     }
+
+    private fun uriInputType(): Int = android.text.InputType.TYPE_CLASS_TEXT or android.text.InputType.TYPE_TEXT_VARIATION_URI
 
     private fun transferCallback() = object : TelegramSessionManager.TransferCallback {
         override fun onSuccess(message: String) { runOnUiThread { status.text = message } }

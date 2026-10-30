@@ -8,7 +8,7 @@ val telegramApiHash = providers.environmentVariable("TELEGRAM_API_HASH").orElse(
 
 android {
     namespace = "com.safi.teledrive"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.safi.teledrive"
@@ -16,12 +16,9 @@ android {
         targetSdk = 34
         versionCode = 1
         versionName = "1.0.0"
-
         buildConfigField("String", "TELEGRAM_API_ID", "\"$telegramApiId\"")
         buildConfigField("String", "TELEGRAM_API_HASH", "\"$telegramApiHash\"")
-        ndk {
-            abiFilters += listOf("arm64-v8a", "armeabi-v7a")
-        }
+        ndk { abiFilters += listOf("arm64-v8a", "armeabi-v7a") }
     }
 
     signingConfigs {
@@ -35,18 +32,14 @@ android {
             }
         }
     }
-
     buildTypes {
         getByName("release") {
             isMinifyEnabled = false
             signingConfigs.findByName("release")?.let { signingConfig = it }
         }
     }
-
     buildFeatures { buildConfig = true }
-
     sourceSets["main"].jniLibs.srcDirs("src/main/jniLibs")
-
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
