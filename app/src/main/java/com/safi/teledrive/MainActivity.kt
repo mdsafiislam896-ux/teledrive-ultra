@@ -104,7 +104,7 @@ class MainActivity : ComponentActivity(), TelegramSessionManager.Listener {
         auth.addView(actionButton("VERIFY LOGIN CODE") {
             safeAction { sessions.submitCode(code.text.toString().trim()) }
         })
-        password = edit("Telegram 2-step verification password", 1)
+        password = edit("Telegram 2-step verification password", 129).apply { transformationMethod = android.text.method.PasswordTransformationMethod.getInstance() }
         auth.addView(password)
         auth.addView(actionButton("VERIFY 2-STEP PASSWORD") {
             safeAction { sessions.submitPassword(password.text.toString()) }
