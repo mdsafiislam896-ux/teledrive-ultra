@@ -5879,6 +5879,97 @@
       showToast(`Opening ${folderName}...`);
     }
 
+    /* Native TDLib bridge.  This override deliberately replaces the older
+       browser-only Bot API / generated-OTP demo flow: a Telegram password or
+       login code must never be stored in Web Storage or sent to a bot. */
+    try {
+      localStorage.removeItem('teledrive_tg_token');
+      localStorage.removeItem('teledrive_tg_chat_id');
+      sessionStorage.removeItem('teledrive_real_otp');
+      localStorage.removeItem('teledrive_real_otp');
+    } catch (_) { /* Storage can be unavailable in private WebViews. */ }
+    const nativeBridge = () => window.AndroidBridge || null;
+    const callNative = (method, ...args) => {
+      const bridge = nativeBridge();
+      if (!bridge || typeof bridge[method] !== 'function') {
+        showSleekToast('This Telegram action is available in the Android app.');
+        return false;
+      }
+      bridge[method](...args);
+      return true;
+    };
+
+    window.onNativeAuthSynced = (connected) => {
+      safeSet('teledrive_authenticated', connected === 'true' || connected === true ? 'true' : 'false');
+      if (connected === 'true' || connected === true) {
+        document.getElementById('modal-7step-wizard')?.classList.remove('active');
+      }
+    };
+    window.onNativeStatus = (message) => showSleekToast(message);
+    window.onNativeError = (message) => showSleekToast(`Telegram: ${message}`);
+    window.onQrLink = () => showSleekToast('Open Telegram on another device and scan the QR code.');
+    window.onAuthStateChanged = (state) => {
+      if (state === 'code') goToWizardStep(4);
+      if (state === 'password') goToWizardStep(5);
+      if (state === 'ready') {
+        safeSet('teledrive_authenticated', 'true');
+        document.getElementById('modal-7step-wizard')?.classList.remove('active');
+      }
+    };
+
+    function sendTelegramLoginCode() {
+      const phoneInput = document.getElementById('wiz-phone-input');
+      const prefix = document.getElementById('wiz-phone-prefix')?.value || '';
+      const phone = phoneInput?.value.trim() || '';
+      if (!/^\d{6,15}$/.test(phone)) {
+        showSleekToast('Enter a valid phone number.');
+        return;
+      }
+      const fullPhone = `${prefix}${phone}`.replace(/\s/g, '');
+      safeSet('teledrive_user_phone', fullPhone);
+      if (callNative('startLogin', fullPhone)) showSleekToast('Requesting a Telegram login code…');
+    }
+
+    function verifyTelegramLoginCode() {
+      const code = document.getElementById('wiz-code-input')?.value.trim() || '';
+      if (!/^\d{4,8}$/.test(code)) {
+        showSleekToast('Enter the code received from Telegram.');
+        return;
+      }
+      callNative('submitCode', code);
+    }
+
+    function verify2FAPassword() {
+      const password = document.getElementById('wiz-2fa-input')?.value || '';
+      if (!password) {
+        showSleekToast('Enter your Telegram 2-step verification password.');
+        return;
+      }
+      callNative('submitPassword', password);
+      document.getElementById('wiz-2fa-input').value = '';
+    }
+
+    function executeLogoutSession() {
+      if (confirm('Remove this Telegram account from this device?')) callNative('removeAccount');
+    }
+
+    function executeSaveTelegramConfig() {
+      localStorage.removeItem('teledrive_tg_token');
+      localStorage.removeItem('teledrive_tg_chat_id');
+      closeModal('modal-tg-config');
+      showSleekToast('TeleDrive uses your signed-in Telegram account; a bot token is not required.');
+    }
+
+    function executeTestTelegramConnection() {
+      showSleekToast('Use the Telegram account sign-in flow instead of a bot token.');
+    }
+
+    function downloadFileToDevice(fileName, fileUrl) {
+      if (callNative('downloadFileToPublic', fileUrl, fileName, 'application/octet-stream')) {
+        showSleekToast(`Download queued: ${fileName}`);
+      }
+    }
+
 </script>
 
   <!-- Modal: Dedicated High-Resolution Photo Viewer with Full Delete & Download -->
