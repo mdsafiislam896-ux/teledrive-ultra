@@ -59,7 +59,7 @@ class MainActivity : ComponentActivity(), TelegramSessionManager.Listener {
             text = "Submit code"
             setOnClickListener { sessions.submitCode(code.text.toString()) }
         })
-        password = EditText(this).apply { hint = "Telegram 2-step verification password" }
+        password = EditText(this).apply { hint = "Telegram 2-step verification password"; inputType = android.text.InputType.TYPE_CLASS_TEXT or android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD; transformationMethod = android.text.method.PasswordTransformationMethod.getInstance() }
         root.addView(password)
         root.addView(Button(this).apply {
             text = "Submit 2FA password"
