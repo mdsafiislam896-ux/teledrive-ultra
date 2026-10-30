@@ -3,6 +3,7 @@ package com.safi.teledrive
 import android.content.Context
 import android.security.keystore.KeyGenParameterSpec
 import android.security.keystore.KeyProperties
+import android.util.Base64
 import org.drinkless.tdlib.Client
 import org.drinkless.tdlib.TdApi
 import java.io.File
@@ -11,11 +12,10 @@ import javax.crypto.Cipher
 import javax.crypto.KeyGenerator
 import javax.crypto.SecretKey
 import javax.crypto.spec.GCMParameterSpec
-import android.util.Base64
 
 /**
  * Each account gets an independent TDLib client, database directory and database key.
- * Authentication codes and 2FA passwords are only passed to TDLib in memory.
+ * OTPs and 2FA passwords are passed to TDLib in memory only.
  */
 class TelegramSessionManager(
     private val context: Context,
@@ -28,40 +28,67 @@ class TelegramSessionManager(
 
     private data class Session(val id: String, val client: Client, val dbKey: ByteArray)
     private val sessions = linkedMapOf<String, Session>()
+    private val pendingPhones = mutableMapOf<String, String>()
+    private val qrSessions = mutableSetOf<String>()
     private var active: Session? = null
 
     init { System.loadLibrary("tdjni") }
 
     @Synchronized
     fun startPhoneLogin(phoneNumber: String) {
-        require(phoneNumber.startsWith("+") && phoneNumber.length >= 8) { "Enter phone number with country code." }
-        if (BuildConfig.TELEGRAM_API_ID.isBlank() || BuildConfig.TELEGRAM_API_HASH.isBlank()) {
-            listener.onStatus("Build configuration missing: add TELEGRAM_API_ID and TELEGRAM_API_HASH GitHub secrets.")
-            return
+        require(phoneNumber.startsWith("+") && phoneNumber.length >= 8) {
+            "Enter phone number with country code."
         }
-        val id = phoneNumber.filter { it.isDigit() }.takeLast(10).ifBlank { System.currentTimeMillis().toString() }
+        if (!hasTelegramCredentials()) return
+        val id = phoneNumber.filter { it.isDigit() }
+        pendingPhones[id] = phoneNumber
         val existing = sessions[id]
         if (existing != null) {
             active = existing
-            existing.client.send(TdApi.SetAuthenticationPhoneNumber(phoneNumber, null)) { handleResult(existing, it) }
+            existing.client.send(TdApi.GetAuthorizationState()) { }
             return
         }
+        createSession(id)
+    }
 
+    @Synchronized
+    fun startQrLogin() {
+        if (!hasTelegramCredentials()) return
+        val id = "qr-${java.util.UUID.randomUUID()}"
+        qrSessions.add(id)
+        createSession(id)
+    }
+
+    private fun hasTelegramCredentials(): Boolean {
+        if (BuildConfig.TELEGRAM_API_ID.isBlank() || BuildConfig.TELEGRAM_API_HASH.isBlank()) {
+            listener.onStatus("Missing TELEGRAM_API_ID / TELEGRAM_API_HASH GitHub Actions secrets.")
+            return false
+        }
+        if (BuildConfig.TELEGRAM_API_ID.toIntOrNull() == null) {
+            listener.onStatus("TELEGRAM_API_ID must be a numeric Telegram API ID.")
+            return false
+        }
+        return true
+    }
+
+    private fun createSession(id: String) {
         val dbKey = loadOrCreateDatabaseKey(id)
-        lateinit var session: Session
+        val base = File(context.filesDir, "telegram_sessions/$id")
+        File(base, "db").mkdirs()
+        File(base, "files").mkdirs()
+
         val client = Client.create(
             { update -> handleUpdate(id, update) },
-            { error -> listener.onStatus("TDLib error: ${error.message}") },
-            { error -> listener.onStatus("TDLib fatal error: ${error.message}") }
+            { error -> listener.onStatus("TDLib update error: ${error.message}") },
+            { error -> listener.onStatus("TDLib error: ${error.message}") }
         )
-        session = Session(id, client, dbKey)
+        val session = Session(id, client, dbKey)
         sessions[id] = session
         active = session
-        client.send(TdApi.SetLogVerbosityLevel(1)) { }
         client.send(TdApi.SetTdlibParameters(
             false,
-            File(context.filesDir, "telegram_sessions/$id/db").absolutePath,
-            File(context.filesDir, "telegram_sessions/$id/files").absolutePath,
+            File(base, "db").absolutePath,
+            File(base, "files").absolutePath,
             true, true, true, true,
             BuildConfig.TELEGRAM_API_ID.toInt(),
             BuildConfig.TELEGRAM_API_HASH,
@@ -71,51 +98,52 @@ class TelegramSessionManager(
             "1.0.0",
             true,
             false
-        )) { handleResult(session, it) }
-        listener.onStatus("Creating isolated Telegram session…")
+        )) { handleResult(it) }
+        listener.onStatus("Initializing isolated Telegram session…")
     }
 
     private fun handleUpdate(id: String, update: TdApi.Object) {
-        val s = synchronized(this) { sessions[id] } ?: return
-        when (update) {
-            is TdApi.UpdateAuthorizationState -> when (val state = update.authorizationState) {
-                is TdApi.AuthorizationStateWaitTdlibParameters -> listener.onStatus("TDLib parameters requested")
-                is TdApi.AuthorizationStateWaitEncryptionKey ->
-                    s.client.send(TdApi.CheckDatabaseEncryptionKey(s.dbKey)) { handleResult(s, it) }
-                is TdApi.AuthorizationStateWaitPhoneNumber -> listener.onStatus("Enter phone number to continue")
-                is TdApi.AuthorizationStateWaitCode -> listener.onStatus("Telegram OTP required")
-                is TdApi.AuthorizationStateWaitPassword -> listener.onStatus("Telegram 2-step password required")
-                is TdApi.AuthorizationStateWaitOtherDeviceConfirmation -> {
-                    listener.onStatus("Scan this QR code from an already logged-in Telegram app")
-                    listener.onQrLink(state.link)
+        val session = synchronized(this) { sessions[id] } ?: return
+        if (update !is TdApi.UpdateAuthorizationState) return
+        when (val state = update.authorizationState) {
+            is TdApi.AuthorizationStateWaitTdlibParameters ->
+                listener.onStatus("TDLib parameters requested")
+            is TdApi.AuthorizationStateWaitEncryptionKey ->
+                session.client.send(TdApi.CheckDatabaseEncryptionKey(session.dbKey)) { handleResult(it) }
+            is TdApi.AuthorizationStateWaitPhoneNumber -> {
+                val phone = pendingPhones[id]
+                if (phone != null) {
+                    session.client.send(TdApi.SetAuthenticationPhoneNumber(phone, null)) { handleResult(it) }
+                } else if (id in qrSessions) {
+                    session.client.send(TdApi.RequestQrCodeAuthentication(emptyArray())) { handleResult(it) }
+                } else {
+                    listener.onStatus("Enter the phone number for this Telegram session")
                 }
-                is TdApi.AuthorizationStateReady -> listener.onStatus("Telegram account connected")
-                is TdApi.AuthorizationStateLoggingOut -> listener.onStatus("Logging out…")
-                is TdApi.AuthorizationStateClosing -> listener.onStatus("Closing session…")
-                is TdApi.AuthorizationStateClosed -> listener.onStatus("Session closed")
-                else -> listener.onStatus("Telegram authorization state: ${state.javaClass.simpleName}")
             }
+            is TdApi.AuthorizationStateWaitCode -> listener.onStatus("Telegram OTP required")
+            is TdApi.AuthorizationStateWaitPassword -> listener.onStatus("Telegram 2-step password required")
+            is TdApi.AuthorizationStateWaitOtherDeviceConfirmation -> {
+                listener.onStatus("Scan this QR code from an already logged-in Telegram app")
+                listener.onQrLink(state.link)
+            }
+            is TdApi.AuthorizationStateReady -> listener.onStatus("Telegram account connected")
+            is TdApi.AuthorizationStateLoggingOut -> listener.onStatus("Logging out…")
+            is TdApi.AuthorizationStateClosing -> listener.onStatus("Closing session…")
+            is TdApi.AuthorizationStateClosed -> listener.onStatus("Session closed")
+            else -> listener.onStatus("Telegram authorization state: ${state.javaClass.simpleName}")
         }
     }
 
     fun submitCode(value: String) {
         require(value.isNotBlank()) { "Enter the Telegram code." }
-        active?.client?.send(TdApi.CheckAuthenticationCode(value)) { handleResult(active!!, it) }
+        val session = active ?: error("No active Telegram session")
+        session.client.send(TdApi.CheckAuthenticationCode(value)) { handleResult(it) }
     }
 
     fun submitPassword(value: String) {
         require(value.isNotBlank()) { "Enter the 2FA password." }
-        active?.client?.send(TdApi.CheckAuthenticationPassword(value)) { handleResult(active!!, it) }
-    }
-
-    fun requestQrLogin() {
-        active?.client?.send(TdApi.RequestQrCodeAuthentication(emptyArray())) {
-            active?.let { handleResult(it, it.client.execute(TdApi.GetAuthorizationState())) }
-        }
-    }
-
-    private fun handleResult(session: Session, result: TdApi.Object) {
-        if (result is TdApi.Error) listener.onStatus("Telegram: ${result.message}")
+        val session = active ?: error("No active Telegram session")
+        session.client.send(TdApi.CheckAuthenticationPassword(value)) { handleResult(it) }
     }
 
     @Synchronized
@@ -127,8 +155,14 @@ class TelegramSessionManager(
     @Synchronized
     fun closeAccount(accountId: String) {
         val session = sessions.remove(accountId) ?: return
+        pendingPhones.remove(accountId)
+        qrSessions.remove(accountId)
         session.client.send(TdApi.Close()) { }
         if (active?.id == accountId) active = null
+    }
+
+    private fun handleResult(result: TdApi.Object) {
+        if (result is TdApi.Error) listener.onStatus("Telegram error ${result.code}: ${result.message}")
     }
 
     private fun loadOrCreateDatabaseKey(id: String): ByteArray {
@@ -156,14 +190,17 @@ class TelegramSessionManager(
     private fun encrypt(plain: ByteArray): String {
         val cipher = Cipher.getInstance("AES/GCM/NoPadding")
         cipher.init(Cipher.ENCRYPT_MODE, getOrCreateMasterKey())
-        val payload = cipher.iv + cipher.doFinal(plain)
-        return Base64.encodeToString(payload, Base64.NO_WRAP)
+        return Base64.encodeToString(cipher.iv + cipher.doFinal(plain), Base64.NO_WRAP)
     }
 
     private fun decrypt(value: String): ByteArray {
         val payload = Base64.decode(value, Base64.NO_WRAP)
         val cipher = Cipher.getInstance("AES/GCM/NoPadding")
-        cipher.init(Cipher.DECRYPT_MODE, getOrCreateMasterKey(), GCMParameterSpec(128, payload.copyOfRange(0, 12)))
+        cipher.init(
+            Cipher.DECRYPT_MODE,
+            getOrCreateMasterKey(),
+            GCMParameterSpec(128, payload.copyOfRange(0, 12))
+        )
         return cipher.doFinal(payload.copyOfRange(12, payload.size))
     }
 }
