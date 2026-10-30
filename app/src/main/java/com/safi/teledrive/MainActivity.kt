@@ -69,6 +69,20 @@ class MainActivity : Activity(), TelegramSessionManager.Listener {
             setOnClickListener { sessions.startQrLogin() }
         })
         root.addView(Button(this).apply {
+            text = "Choose backup folder (automatic daily cloud backup)"
+            setOnClickListener {
+                val intent = Intent(Intent.ACTION_OPEN_DOCUMENT_TREE)
+                startActivityForResult(intent, 4102)
+            }
+        })
+        root.addView(Button(this).apply {
+            text = "Cancel automatic cloud backup"
+            setOnClickListener {
+                TelegramBackupScheduler.cancel(this@MainActivity)
+                status.text = "Automatic backup cancelled"
+            }
+        })
+        root.addView(Button(this).apply {
             text = "Choose file and upload to Saved Messages"
             setOnClickListener {
                 val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
@@ -105,8 +119,22 @@ class MainActivity : Activity(), TelegramSessionManager.Listener {
     @Deprecated("Deprecated in Android API; retained for broad device compatibility")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode != 4101 || resultCode != RESULT_OK) return
+        if (resultCode != RESULT_OK) return
         val uri = data?.data ?: return
+        if (requestCode == 4102) {
+            try {
+                contentResolver.takePersistableUriPermission(
+                    uri,
+                    Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+                )
+                TelegramBackupScheduler.schedule(this, uri, 24L)
+                status.text = "Daily cloud backup scheduled for the selected folder"
+            } catch (e: Exception) {
+                status.text = "Could not schedule backup: ${e.message}"
+            }
+            return
+        }
+        if (requestCode != 4101) return
         status.text = "Preparing selected file…"
         Thread {
             try {
