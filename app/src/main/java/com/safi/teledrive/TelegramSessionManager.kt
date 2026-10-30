@@ -29,13 +29,19 @@ class TelegramSessionManager(
         fun onQrLink(link: String)
     }
 
+    interface TransferCallback {
+        fun onSuccess(message: String)
+        fun onError(message: String)
+    }
+
     private data class Session(
         val id: String,
         val phoneNumber: String,
         val client: Client,
         val dbKey: ByteArray,
         val qrLogin: Boolean = false,
-        var parametersSent: Boolean = false
+        var parametersSent: Boolean = false,
+        @Volatile var ready: Boolean = false
     )
 
     private val prefs by lazy {
@@ -161,6 +167,7 @@ class TelegramSessionManager(
                 }
             }
             is TdApi.AuthorizationStateReady -> {
+                session.ready = true
                 prefs.edit().putStringSet(
                     "saved_accounts",
                     (prefs.getStringSet("saved_accounts", emptySet()).orEmpty() + id)
@@ -191,6 +198,63 @@ class TelegramSessionManager(
 
     fun requestQrLogin() {
         startQrLogin()
+    }
+
+    /** Uploads a local file to the authenticated account's Saved Messages chat. */
+    fun uploadToSavedMessages(localPath: String, caption: String = "", callback: TransferCallback) {
+        val session = active
+        if (session == null || !session.ready) {
+            callback.onError("No connected Telegram account. Complete login first.")
+            return
+        }
+        val localFile = File(localPath)
+        if (!localFile.isFile || !localFile.canRead()) {
+            callback.onError("Selected file cannot be read.")
+            return
+        }
+        session.client.send(TdApi.GetMe()) { meResult ->
+            if (meResult !is TdApi.User) {
+                callback.onError((meResult as? TdApi.Error)?.message ?: "Unable to load Telegram profile.")
+                return@send
+            }
+            session.client.send(TdApi.CreatePrivateChat(meResult.id, true)) { chatResult ->
+                if (chatResult !is TdApi.Chat) {
+                    callback.onError((chatResult as? TdApi.Error)?.message ?: "Unable to open Saved Messages.")
+                    return@send
+                }
+                val content = TdApi.InputMessageDocument(
+                    TdApi.InputFileLocal(localFile.absolutePath),
+                    null,
+                    false,
+                    TdApi.FormattedText(caption, emptyArray())
+                )
+                session.client.send(
+                    TdApi.SendMessage(chatResult.id, 0L, null, null, null, content)
+                ) { messageResult ->
+                    if (messageResult is TdApi.Message) {
+                        callback.onSuccess("Upload queued in Telegram Saved Messages (message ${messageResult.id}).")
+                    } else {
+                        callback.onError((messageResult as? TdApi.Error)?.message ?: "Telegram upload failed.")
+                    }
+                }
+            }
+        }
+    }
+
+    /** Downloads a Telegram file ID into TDLib's private files directory. */
+    fun downloadFile(fileId: Int, callback: TransferCallback) {
+        val session = active
+        if (session == null || !session.ready) {
+            callback.onError("No connected Telegram account. Complete login first.")
+            return
+        }
+        session.client.send(TdApi.DownloadFile(fileId, 16, 0L, 0L, true)) { result ->
+            if (result is TdApi.File && result.local != null && result.local.isDownloadingCompleted) {
+                callback.onSuccess(result.local.path)
+            } else {
+                callback.onError((result as? TdApi.Error)?.message ?: "Download did not complete.")
+            }
+        }
     }
 
     private fun handleResult(session: Session, result: TdApi.Object) {
