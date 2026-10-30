@@ -1,0 +1,473 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ===============================================================
+    // Assumed Data Model
+    // ===============================================================
+    //
+    // NexaCloud / TeleDrive Ecosystem Assumed Data Structures:
+    //
+    // 1. Collection: /users/{userId}
+    //    Document ID: Firebase Auth UID
+    //    Fields:
+    //      - uid: string (required on create, immutable) - Must match request.auth.uid
+    //      - displayName: string (optional, 1..100 chars) - User profile name
+    //      - email: string (optional, valid email format, <= 150 chars)
+    //      - photoUrl: string (optional, valid URL, <= 500 chars)
+    //      - telegramUsername: string (optional, 1..64 chars) - Telegram handle
+    //      - telegramChatId: string | int (optional, <= 64 chars) - Personal sync chat ID
+    //      - storageUsedBytes: int (optional, >= 0) - Calculated storage footprint
+    //      - theme: string (optional, 1..32 chars) - Active visual theme
+    //      - createdAt: timestamp (optional, immutable) - Account creation timestamp
+    //      - updatedAt: timestamp (optional) - Last metadata update timestamp
+    //
+    // 2. Collection: /users/{userId}/profile/{profileId}
+    //    Document ID: Profile document identifier (e.g., 'main', 'default', or UID)
+    //    Fields:
+    //      - uid: string (optional, immutable) - Must match request.auth.uid
+    //      - displayName: string (optional, 1..100 chars)
+    //      - telegramUsername: string (optional, 1..64 chars)
+    //      - telegramChatId: string | int (optional, <= 64 chars)
+    //      - duressPinEnabled: bool (optional) - Decoy PIN security state
+    //      - theme: string (optional, 1..32 chars)
+    //      - createdAt: timestamp (optional, immutable)
+    //      - updatedAt: timestamp (optional)
+    //
+    // 3. Collection: /users/{userId}/backups/{backupId}
+    //    Document ID: Backup manifest identifier
+    //    Fields:
+    //      - timestamp: timestamp (required, immutable) - Manifest timestamp, must be recent on create
+    //      - fileCount: int (required, >= 0, <= 1000000) - Total files included in backup
+    //      - totalBytes: int (required, >= 0, <= 10995116277760 [10 TB]) - Combined byte size
+    //      - telegramChatId: string | int (required, <= 64 chars) - Target Telegram channel or group
+    //      - status: string (required) - Must be one of: 'pending', 'completed', 'failed'
+    //      - backupId: string (optional, <= 64 chars, immutable)
+    //      - completedAt: timestamp (optional) - Completion timestamp
+    //      - errorMessage: string (optional, <= 500 chars) - Failure details
+    //      - version: string (optional, <= 20 chars) - Backup format version
+    //      - manifestUrl: string (optional, <= 500 chars)
+    //
+    // 4. Collection: /users/{userId}/files/{fileId}
+    //    Document ID: File entry identifier (e.g., 'rec_file_1')
+    //    Fields:
+    //      - fileName: string (required, 1..255 chars) - File name with extension
+    //      - fileSize: int (required, 1..4294967296 [4 GB max Telegram limit]) - File size in bytes
+    //      - mimeType: string (required, 3..127 chars) - MIME type (e.g., 'image/png')
+    //      - telegramMessageId: string | int (required, <= 64 chars) - Telegram cloud message pointer
+    //      - folderCategory: string (required) - Must be one of:
+    //          ['Photos', 'Job Files', 'SMS & OTP', 'Cards & Keys', 'Videos',
+    //           'Documents', 'Archive', 'Code', 'Tutorials', 'Bin']
+    //      - fileId: string (optional, <= 64 chars, immutable)
+    //      - telegramChatId: string | int (optional, <= 64 chars)
+    //      - telegramTopicId: string | int (optional, <= 64 chars)
+    //      - encrypted: bool (optional) - AES-256 client encryption flag
+    //      - encryptionIv: string (optional, <= 128 chars) - Encryption IV
+    //      - checksum: string (optional, <= 128 chars) - SHA-256 integrity hash
+    //      - thumbnailUrl: string (optional, <= 500 chars)
+    //      - notes: string (optional, <= 2000 chars)
+    //      - tags: list (optional, <= 20 items)
+    //      - isAvailableOffline: bool (optional) - PWA offline cache indicator
+    //      - createdAt: timestamp (optional, immutable)
+    //      - updatedAt: timestamp (optional)
+    //      - deletedAt: timestamp (optional) - Soft deletion timestamp in 'Bin'
+    //
+    // 5. Collection: /users/{userId}/folders/{folderId}
+    //    Document ID: Folder entry identifier
+    //    Fields:
+    //      - name: string (required, 1..100 chars) - Folder display name
+    //      - folderCategory: string (required) - Category alignment
+    //      - telegramTopicId: string | int (optional, <= 64 chars) - Linked Telegram topic
+    //      - icon: string (optional, <= 10 chars)
+    //      - color: string (optional, <= 32 chars)
+    //      - parentId: string (optional, <= 64 chars)
+    //      - createdAt: timestamp (optional, immutable)
+    //      - updatedAt: timestamp (optional)
+    //
+    // 6. Collection: /users/{userId}/sessions/{sessionId}
+    //    Document ID: Session or device identifier
+    //    Fields:
+    //      - deviceId: string (required, 1..128 chars)
+    //      - deviceModel: string (required, 1..100 chars)
+    //      - clientVersion: string (optional, 1..32 chars)
+    //      - ipAddress: string (optional, <= 64 chars)
+    //      - lastActive: timestamp (required) - Active ping timestamp
+    //      - isCurrent: bool (optional)
+    //      - createdAt: timestamp (optional, immutable)
+    //
+    // ===============================================================
+
+    // ===============================================================
+    // Helper Functions
+    // ===============================================================
+
+    // Verify user is authenticated with Firebase Auth
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    // Verify user owns the document path
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    // Verify UID field matches authenticated user if provided
+    function uidUnchanged() {
+      return !('uid' in request.resource.data) ||
+        request.resource.data.uid == request.auth.uid;
+    }
+
+    // Ensure UID field cannot be altered on update
+    function uidNotModified() {
+      return !('uid' in request.resource.data) ||
+        request.resource.data.uid == resource.data.uid;
+    }
+
+    // Verify document contains all required fields
+    function hasRequiredFields(fields) {
+      return request.resource.data.keys().hasAll(fields);
+    }
+
+    // Strictly enforce schema: prevent extraneous/malicious fields
+    function hasOnlyAllowedFields(fields) {
+      return request.resource.data.keys().hasOnly(fields);
+    }
+
+    // Ensure protected fields are not modified on update
+    function areImmutableFieldsUnchanged(fields) {
+      return !request.resource.data.diff(resource.data).affectedKeys().hasAny(fields);
+    }
+
+    // Validate string length bounds
+    function validStringLength(field, minLen, maxLen) {
+      return request.resource.data[field] is string &&
+        request.resource.data[field].size() >= minLen &&
+        request.resource.data[field].size() <= maxLen;
+    }
+
+    // Validate optional string length if present
+    function isValidOptionalString(field, minLen, maxLen) {
+      return !(field in request.resource.data) ||
+        (request.resource.data[field] is string &&
+         request.resource.data[field].size() >= minLen &&
+         request.resource.data[field].size() <= maxLen);
+    }
+
+    // Validate email format
+    function isValidEmail(email) {
+      return email is string &&
+        email.size() <= 150 &&
+        email.matches('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$');
+    }
+
+    // Validate URL format
+    function isValidUrl(url) {
+      return url is string &&
+        url.size() <= 500 &&
+        (url.matches('^https://.*') || url.matches('^http://.*'));
+    }
+
+    // Temporal validation: ensures timestamp is recent and accounts for minor client clock skew (+1m to -5m)
+    function isRecent(time) {
+      return time is timestamp &&
+        time <= request.time + duration.value(1, 'm') &&
+        time >= request.time - duration.value(5, 'm');
+    }
+
+    // Validate Telegram Chat ID (string or integer)
+    function isValidTelegramChatId(chatId) {
+      return (chatId is int) ||
+        (chatId is string && chatId.size() > 0 && chatId.size() <= 64);
+    }
+
+    // Validate Telegram Message ID (positive integer or string)
+    function isValidTelegramMessageId(msgId) {
+      return (msgId is int && msgId > 0) ||
+        (msgId is string && msgId.size() > 0 && msgId.size() <= 64);
+    }
+
+    // ===============================================================
+    // Domain Validators (Applied to both create and update)
+    // ===============================================================
+
+    // Domain validator for root User Document
+    function isValidUser(data) {
+      let allowed = [
+        'uid', 'displayName', 'email', 'photoUrl', 'telegramUsername',
+        'telegramChatId', 'storageUsedBytes', 'theme', 'createdAt', 'updatedAt'
+      ];
+      return hasOnlyAllowedFields(allowed) &&
+        ('uid' in data ? (data.uid is string && data.uid == request.auth.uid) : true) &&
+        isValidOptionalString('displayName', 1, 100) &&
+        (!('email' in data) || isValidEmail(data.email)) &&
+        (!('photoUrl' in data) || isValidUrl(data.photoUrl)) &&
+        isValidOptionalString('telegramUsername', 1, 64) &&
+        (!('telegramChatId' in data) || isValidTelegramChatId(data.telegramChatId)) &&
+        (!('storageUsedBytes' in data) || (data.storageUsedBytes is int && data.storageUsedBytes >= 0)) &&
+        isValidOptionalString('theme', 1, 32) &&
+        (!('createdAt' in data) || data.createdAt is timestamp) &&
+        (!('updatedAt' in data) || data.updatedAt is timestamp);
+    }
+
+    // Domain validator for User Profile Subcollection
+    function isValidProfile(data) {
+      let allowed = [
+        'uid', 'displayName', 'telegramUsername', 'telegramChatId',
+        'duressPinEnabled', 'theme', 'createdAt', 'updatedAt'
+      ];
+      return hasOnlyAllowedFields(allowed) &&
+        ('uid' in data ? (data.uid is string && data.uid == request.auth.uid) : true) &&
+        isValidOptionalString('displayName', 1, 100) &&
+        isValidOptionalString('telegramUsername', 1, 64) &&
+        (!('telegramChatId' in data) || isValidTelegramChatId(data.telegramChatId)) &&
+        (!('duressPinEnabled' in data) || data.duressPinEnabled is bool) &&
+        isValidOptionalString('theme', 1, 32) &&
+        (!('createdAt' in data) || data.createdAt is timestamp) &&
+        (!('updatedAt' in data) || data.updatedAt is timestamp);
+    }
+
+    // Domain validator for Backup Manifest
+    function isValidBackup(data) {
+      let required = ['timestamp', 'fileCount', 'totalBytes', 'telegramChatId', 'status'];
+      let allowed = [
+        'timestamp', 'fileCount', 'totalBytes', 'telegramChatId', 'status',
+        'backupId', 'completedAt', 'errorMessage', 'version', 'manifestUrl'
+      ];
+
+      return hasRequiredFields(required) &&
+        hasOnlyAllowedFields(allowed) &&
+        data.timestamp is timestamp &&
+        data.fileCount is int && data.fileCount >= 0 && data.fileCount <= 1000000 &&
+        data.totalBytes is int && data.totalBytes >= 0 && data.totalBytes <= 10995116277760 &&
+        isValidTelegramChatId(data.telegramChatId) &&
+        data.status in ['pending', 'completed', 'failed'] &&
+        isValidOptionalString('backupId', 1, 64) &&
+        (!('completedAt' in data) || data.completedAt is timestamp) &&
+        isValidOptionalString('errorMessage', 1, 500) &&
+        isValidOptionalString('version', 1, 20) &&
+        isValidOptionalString('manifestUrl', 1, 500);
+    }
+
+    // Validate backup status lifecycle transitions
+    function isValidBackupTransition() {
+      let oldStatus = resource.data.status;
+      let newStatus = request.resource.data.status;
+      return oldStatus == newStatus ||
+        (oldStatus == 'pending' && (newStatus == 'completed' || newStatus == 'failed')) ||
+        (oldStatus == 'failed' && newStatus == 'pending');
+    }
+
+    // Domain validator for File Catalog
+    function isValidFile(data) {
+      let required = ['fileName', 'fileSize', 'mimeType', 'telegramMessageId', 'folderCategory'];
+      let allowed = [
+        'fileName', 'fileSize', 'mimeType', 'telegramMessageId', 'folderCategory',
+        'fileId', 'telegramChatId', 'telegramTopicId', 'encrypted', 'encryptionIv',
+        'checksum', 'thumbnailUrl', 'notes', 'tags', 'isAvailableOffline',
+        'createdAt', 'updatedAt', 'deletedAt'
+      ];
+      let allowedCategories = [
+        'Photos', 'Job Files', 'SMS & OTP', 'Cards & Keys', 'Videos',
+        'Documents', 'Archive', 'Code', 'Tutorials', 'Bin'
+      ];
+
+      return hasRequiredFields(required) &&
+        hasOnlyAllowedFields(allowed) &&
+        validStringLength('fileName', 1, 255) &&
+        // Rate limiting / size sanity check: 1 byte to 4 GB (Telegram maximum cloud upload ceiling)
+        data.fileSize is int && data.fileSize > 0 && data.fileSize <= 4294967296 &&
+        validStringLength('mimeType', 3, 127) &&
+        isValidTelegramMessageId(data.telegramMessageId) &&
+        data.folderCategory in allowedCategories &&
+        isValidOptionalString('fileId', 1, 64) &&
+        (!('telegramChatId' in data) || isValidTelegramChatId(data.telegramChatId)) &&
+        (!('telegramTopicId' in data) || isValidTelegramChatId(data.telegramTopicId)) &&
+        (!('encrypted' in data) || data.encrypted is bool) &&
+        isValidOptionalString('encryptionIv', 1, 128) &&
+        isValidOptionalString('checksum', 1, 128) &&
+        isValidOptionalString('thumbnailUrl', 1, 500) &&
+        isValidOptionalString('notes', 0, 2000) &&
+        (!('tags' in data) || (data.tags is list && data.tags.size() <= 20)) &&
+        (!('isAvailableOffline' in data) || data.isAvailableOffline is bool) &&
+        (!('createdAt' in data) || data.createdAt is timestamp) &&
+        (!('updatedAt' in data) || data.updatedAt is timestamp) &&
+        (!('deletedAt' in data) || data.deletedAt is timestamp);
+    }
+
+    // Domain validator for Folder Hierarchies
+    function isValidFolder(data) {
+      let required = ['name', 'folderCategory'];
+      let allowed = [
+        'name', 'folderCategory', 'telegramTopicId', 'icon', 'color',
+        'parentId', 'createdAt', 'updatedAt'
+      ];
+      let allowedCategories = [
+        'Photos', 'Job Files', 'SMS & OTP', 'Cards & Keys', 'Videos',
+        'Documents', 'Archive', 'Code', 'Tutorials', 'Bin'
+      ];
+
+      return hasRequiredFields(required) &&
+        hasOnlyAllowedFields(allowed) &&
+        validStringLength('name', 1, 100) &&
+        data.folderCategory in allowedCategories &&
+        (!('telegramTopicId' in data) || isValidTelegramChatId(data.telegramTopicId)) &&
+        isValidOptionalString('icon', 1, 10) &&
+        isValidOptionalString('color', 1, 32) &&
+        isValidOptionalString('parentId', 1, 64) &&
+        (!('createdAt' in data) || data.createdAt is timestamp) &&
+        (!('updatedAt' in data) || data.updatedAt is timestamp);
+    }
+
+    // Domain validator for Multi-Device Session States
+    function isValidSession(data) {
+      let required = ['deviceId', 'deviceModel', 'lastActive'];
+      let allowed = [
+        'deviceId', 'deviceModel', 'clientVersion', 'ipAddress',
+        'lastActive', 'isCurrent', 'createdAt'
+      ];
+
+      return hasRequiredFields(required) &&
+        hasOnlyAllowedFields(allowed) &&
+        validStringLength('deviceId', 1, 128) &&
+        validStringLength('deviceModel', 1, 100) &&
+        isValidOptionalString('clientVersion', 1, 32) &&
+        isValidOptionalString('ipAddress', 1, 64) &&
+        data.lastActive is timestamp &&
+        data.lastActive <= request.time + duration.value(1, 'm') &&
+        (!('isCurrent' in data) || data.isCurrent is bool) &&
+        (!('createdAt' in data) || data.createdAt is timestamp);
+    }
+
+    // ===============================================================
+    // Rules Definitions
+    // ===============================================================
+
+    // Root user document matching: /users/{userId}
+    match /users/{userId} {
+      // 1. Users can only read and write their own documents
+      allow read: if isOwner(userId);
+
+      // Create: Owner-only, validate user payload, uid immutability, recent createdAt
+      allow create: if isOwner(userId) &&
+        uidUnchanged() &&
+        isValidUser(request.resource.data) &&
+        (!('createdAt' in request.resource.data) || isRecent(request.resource.data.createdAt));
+
+      // Update: Owner-only, validate user payload, prevent UID modification & createdAt change
+      allow update: if isOwner(userId) &&
+        uidNotModified() &&
+        isValidUser(request.resource.data) &&
+        areImmutableFieldsUnchanged(['uid', 'createdAt']) &&
+        (!('updatedAt' in request.resource.data) || isRecent(request.resource.data.updatedAt));
+
+      // Delete: Owner-only
+      allow delete: if isOwner(userId);
+
+      // -----------------------------------------------------------
+      // 2. User Profile Subcollection: /users/{userId}/profile/{profileId}
+      // -----------------------------------------------------------
+      match /profile/{profileId} {
+        allow read: if isOwner(userId);
+
+        allow create: if isOwner(userId) &&
+          uidUnchanged() &&
+          isValidProfile(request.resource.data) &&
+          (!('createdAt' in request.resource.data) || isRecent(request.resource.data.createdAt));
+
+        allow update: if isOwner(userId) &&
+          uidNotModified() &&
+          isValidProfile(request.resource.data) &&
+          areImmutableFieldsUnchanged(['uid', 'createdAt']) &&
+          (!('updatedAt' in request.resource.data) || isRecent(request.resource.data.updatedAt));
+
+        allow delete: if isOwner(userId);
+      }
+
+      // -----------------------------------------------------------
+      // 3. Backup Manifests: /users/{userId}/backups/{backupId}
+      // -----------------------------------------------------------
+      match /backups/{backupId} {
+        allow read: if isOwner(userId);
+
+        // Create: Enforce required fields, size bounds, and recent creation timestamp
+        allow create: if isOwner(userId) &&
+          isValidBackup(request.resource.data) &&
+          isRecent(request.resource.data.timestamp);
+
+        // Update: Enforce validator, immutable timestamp/backupId, and valid status transition
+        allow update: if isOwner(userId) &&
+          isValidBackup(request.resource.data) &&
+          areImmutableFieldsUnchanged(['timestamp', 'backupId']) &&
+          isValidBackupTransition();
+
+        allow delete: if isOwner(userId);
+      }
+
+      // -----------------------------------------------------------
+      // 4. File Catalog / Topics: /users/{userId}/files/{fileId}
+      // -----------------------------------------------------------
+      match /files/{fileId} {
+        allow read: if isOwner(userId);
+
+        // Create: Enforce all required fields, category enum, telegram IDs, and 4GB max size
+        allow create: if isOwner(userId) &&
+          isValidFile(request.resource.data) &&
+          (!('createdAt' in request.resource.data) || isRecent(request.resource.data.createdAt));
+
+        // Update: Enforce validator, immutable file identity & creation timestamp
+        allow update: if isOwner(userId) &&
+          isValidFile(request.resource.data) &&
+          areImmutableFieldsUnchanged(['fileId', 'createdAt']) &&
+          (!('updatedAt' in request.resource.data) || isRecent(request.resource.data.updatedAt));
+
+        allow delete: if isOwner(userId);
+      }
+
+      // -----------------------------------------------------------
+      // 5. Folder Hierarchies: /users/{userId}/folders/{folderId}
+      // -----------------------------------------------------------
+      match /folders/{folderId} {
+        allow read: if isOwner(userId);
+
+        allow create: if isOwner(userId) &&
+          isValidFolder(request.resource.data) &&
+          (!('createdAt' in request.resource.data) || isRecent(request.resource.data.createdAt));
+
+        allow update: if isOwner(userId) &&
+          isValidFolder(request.resource.data) &&
+          areImmutableFieldsUnchanged(['createdAt']) &&
+          (!('updatedAt' in request.resource.data) || isRecent(request.resource.data.updatedAt));
+
+        allow delete: if isOwner(userId);
+      }
+
+      // -----------------------------------------------------------
+      // 6. Multi-Device Session States: /users/{userId}/sessions/{sessionId}
+      // -----------------------------------------------------------
+      match /sessions/{sessionId} {
+        allow read: if isOwner(userId);
+
+        allow create: if isOwner(userId) &&
+          isValidSession(request.resource.data) &&
+          isRecent(request.resource.data.lastActive) &&
+          (!('createdAt' in request.resource.data) || isRecent(request.resource.data.createdAt));
+
+        allow update: if isOwner(userId) &&
+          isValidSession(request.resource.data) &&
+          areImmutableFieldsUnchanged(['deviceId', 'createdAt']) &&
+          isRecent(request.resource.data.lastActive);
+
+        allow delete: if isOwner(userId);
+      }
+    }
+
+    // ===============================================================
+    // Default Deny Rule
+    // Explicitly rejects all read and write requests for any undefined
+    // collection or unauthenticated access outside /users/{userId}.
+    // ===============================================================
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
