@@ -232,8 +232,13 @@ class TelegramSessionManager(
                     callback.onError((chatResult as? TdApi.Error)?.message ?: "Unable to open Saved Messages.")
                     return@send
                 }
-                val content = TdApi.InputMessageDocument(
+                val inputDocument = TdApi.InputDocument(
                     TdApi.InputFileLocal(localFile.absolutePath),
+                    null,
+                    false
+                )
+                val content = TdApi.InputMessageDocument(
+                    inputDocument,
                     TdApi.FormattedText(caption, emptyArray())
                 )
                 session.client.send(
