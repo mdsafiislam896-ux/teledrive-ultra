@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>TeleDrive — Unlimited Telegram Cloud Storage</title>
   
   <!-- Web App Meta -->
-  <meta name="theme-color" content="#F5F7FC" id="theme-meta-color">
+  <meta name="theme-color" content="#0C0E12" id="theme-meta-color">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <link rel="manifest" href="manifest.json">
@@ -2184,7 +2184,487 @@
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
     }
 
-  </style>
+  
+    /* ========================================================
+       FIGMA LUXURY DARK THEME DESIGN TOKENS (media_1793375614816_562dbe2b)
+       ======================================================== */
+    [data-theme="dark"], :root {
+      --bg-page: #0C0E12;
+      --bg-surface: #14161B;
+      --bg-card: #181B20;
+      --bg-card-elevated: #1E2228;
+      --bg-card-hover: #252A32;
+      --border-card: #23272F;
+      --border-subtle: #2C323C;
+      --text-main: #F8FAFC;
+      --text-sub: #94A3B8;
+      --text-muted: #64748B;
+
+      /* Brand Accents */
+      --accent-lime: #D8F864;
+      --accent-lime-hover: #C5E84A;
+      --accent-lime-dark: #111827;
+      --accent-cyan: #38BDF8;
+      --accent-blue: #2563EB;
+
+      /* 6 Pastel Category Colors (media_1793375614816_562dbe2b) */
+      --pastel-lime: #D8F864;
+      --pastel-yellow: #FEF08A;
+      --pastel-lavender: #DDD6FE;
+      --pastel-peach: #FED7AA;
+      --pastel-blue: #BFDBFE;
+      --pastel-cream: #FEF3C7;
+      --pastel-text: #111827; /* 12:1+ contrast on pastel backgrounds */
+
+      /* Bottom Dock */
+      --dock-bg: #11141A;
+      --dock-border: #1F232B;
+      --dock-active: #D8F864;
+    }
+
+    /* Page Canvas */
+    body {
+      background-color: var(--bg-page) !important;
+      color: var(--text-main) !important;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .dashboard-shell, .photos-shell, .streams-shell, .settings-shell {
+      max-width: 480px !important;
+      margin: 0 auto !important;
+      padding: 16px 18px 100px 18px !important;
+      box-sizing: border-box !important;
+    }
+
+    /* Top Bar Search Pill (Figma Screen 1) */
+    .figma-search-bar {
+      display: flex;
+      align-items: center;
+      background: var(--bg-card-elevated);
+      border: 1px solid var(--border-card);
+      border-radius: 100px;
+      padding: 12px 18px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+    }
+    .figma-search-bar input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: var(--text-main);
+      font-size: 14.5px;
+      font-weight: 500;
+      margin-left: 10px;
+      font-family: inherit;
+    }
+    .figma-search-bar input::placeholder {
+      color: var(--text-sub);
+    }
+
+    /* 50% Cloud Capacity Donut Card (Figma Screen 1) */
+    .figma-capacity-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: 24px;
+      padding: 22px;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+    }
+    .figma-capacity-top {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .figma-donut-box {
+      position: relative;
+      width: 90px;
+      height: 90px;
+      flex-shrink: 0;
+    }
+    .figma-donut-svg {
+      width: 100%;
+      height: 100%;
+      transform: rotate(-90deg);
+    }
+    .figma-donut-circle-bg {
+      fill: none;
+      stroke: #252A32;
+      stroke-width: 10;
+    }
+    .figma-donut-circle-bar {
+      fill: none;
+      stroke: url(#figmaDonutGrad);
+      stroke-width: 10;
+      stroke-linecap: round;
+      stroke-dasharray: 251.2;
+      stroke-dashoffset: 125.6; /* 50% */
+      transition: stroke-dashoffset 1s ease;
+    }
+    .figma-donut-center-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+    .figma-capacity-info {
+      flex: 1;
+    }
+    .figma-capacity-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-sub);
+      text-transform: capitalize;
+    }
+    .figma-capacity-amount {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+      margin-top: 4px;
+    }
+    .figma-capacity-val {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--text-main);
+      letter-spacing: -0.5px;
+    }
+    .figma-capacity-max {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+    .figma-capacity-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 18px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border-card);
+    }
+    .figma-capacity-prompt {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+    .figma-capacity-upgrade-btn {
+      background: var(--accent-lime);
+      color: var(--accent-lime-dark);
+      border: none;
+      border-radius: 100px;
+      padding: 8px 18px;
+      font-size: 13.5px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 2px 10px rgba(216, 248, 100, 0.3);
+      transition: transform 0.2s, background 0.2s;
+    }
+    .figma-capacity-upgrade-btn:hover {
+      background: var(--accent-lime-hover);
+      transform: translateY(-1px);
+    }
+
+    /* 6 Pastel Category Cards Grid (Figma Screen 1) */
+    .figma-pastel-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 28px;
+    }
+    .figma-pastel-card {
+      border-radius: 22px;
+      padding: 18px;
+      min-height: 125px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      position: relative;
+      box-sizing: border-box;
+    }
+    .figma-pastel-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    }
+    .figma-pastel-icon {
+      width: 32px;
+      height: 32px;
+      color: var(--pastel-text);
+    }
+    .figma-pastel-title {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--pastel-text);
+      margin-bottom: 2px;
+    }
+    .figma-pastel-count {
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--pastel-text);
+      letter-spacing: -0.5px;
+      line-height: 1.1;
+    }
+
+    /* All Files Header & Filter Chips (Figma Screen 2) */
+    .figma-screen-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+    }
+    .figma-screen-header-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .figma-back-btn {
+      background: var(--bg-card-elevated);
+      border: 1px solid var(--border-card);
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-main);
+      cursor: pointer;
+    }
+    .figma-screen-title {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--text-main);
+      margin: 0;
+    }
+    .figma-filter-chips-row {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 12px;
+      margin-bottom: 18px;
+      scrollbar-width: none;
+    }
+    .figma-filter-chips-row::-webkit-scrollbar {
+      display: none;
+    }
+    .figma-chip {
+      background: var(--bg-card-elevated);
+      color: var(--text-sub);
+      border: 1px solid var(--border-card);
+      border-radius: 100px;
+      padding: 8px 18px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+    .figma-chip.active {
+      background: var(--accent-lime);
+      color: var(--accent-lime-dark);
+      border-color: var(--accent-lime);
+      box-shadow: 0 2px 10px rgba(216, 248, 100, 0.25);
+    }
+
+    /* Folders 2x2 Grid (Figma Screen 2) */
+    .figma-folders-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .figma-folder-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: 18px;
+      padding: 16px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .figma-folder-card:hover {
+      background: var(--bg-card-elevated);
+    }
+    .figma-folder-icon {
+      color: #94A3B8;
+      margin-bottom: 10px;
+    }
+    .figma-folder-name {
+      font-size: 14.5px;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 2px;
+    }
+    .figma-folder-count {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-sub);
+    }
+
+    /* Files List Items (Figma Screen 2) */
+    .figma-file-item {
+      display: flex;
+      align-items: center;
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: 16px;
+      padding: 14px 16px;
+      margin-bottom: 10px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .figma-file-item:hover {
+      background: var(--bg-card-elevated);
+    }
+    .figma-file-icon-box {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: var(--bg-card-elevated);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent-lime);
+      margin-right: 14px;
+      flex-shrink: 0;
+    }
+    .figma-file-info {
+      flex: 1;
+      min-width: 0;
+    }
+    .figma-file-name {
+      font-size: 14.5px;
+      font-weight: 700;
+      color: var(--text-main);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .figma-file-meta {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-sub);
+      margin-top: 2px;
+    }
+    .figma-file-menu-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-sub);
+      font-size: 18px;
+      cursor: pointer;
+      padding: 8px;
+    }
+
+    /* Extract Path Bottom Sheet (Figma Screen 3) */
+    .figma-bottom-sheet {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #14161C;
+      border-top: 1px solid var(--border-card);
+      border-radius: 28px 28px 0 0;
+      padding: 24px 20px 32px 20px;
+      z-index: 9999;
+      box-shadow: 0 -8px 40px rgba(0, 0, 0, 0.7);
+      max-width: 480px;
+      margin: 0 auto;
+      box-sizing: border-box;
+      display: none;
+    }
+    .figma-bottom-sheet.open {
+      display: block;
+      animation: figmaSlideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes figmaSlideUp {
+      from { transform: translateY(100%); }
+      to { transform: translateY(0); }
+    }
+    .figma-sheet-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .figma-sheet-title {
+      font-size: 19px;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+    .figma-sheet-close {
+      background: transparent;
+      border: none;
+      color: var(--text-sub);
+      font-size: 20px;
+      cursor: pointer;
+    }
+    .figma-sheet-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 24px;
+      max-height: 240px;
+      overflow-y: auto;
+    }
+    .figma-sheet-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: 16px;
+      padding: 14px 16px;
+      cursor: pointer;
+    }
+    .figma-sheet-item.selected {
+      border-color: var(--accent-lime);
+      background: rgba(216, 248, 100, 0.06);
+    }
+    .figma-sheet-actions {
+      display: flex;
+      gap: 12px;
+    }
+    .figma-btn-dark {
+      flex: 1;
+      background: var(--bg-card-elevated);
+      border: 1px solid var(--border-card);
+      color: var(--text-main);
+      border-radius: 100px;
+      padding: 14px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .figma-btn-lime {
+      flex: 1;
+      background: var(--accent-lime);
+      border: none;
+      color: var(--accent-lime-dark);
+      border-radius: 100px;
+      padding: 14px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 4px 16px rgba(216, 248, 100, 0.35);
+    }
+
+    /* Floating Dock (OLED Dark Pill) */
+    .floating-bottom-dock {
+      background: var(--dock-bg) !important;
+      border: 1px solid var(--dock-border) !important;
+      border-radius: 100px !important;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6) !important;
+    }
+    .dock-tab-btn.active svg {
+      fill: var(--dock-active) !important;
+      filter: drop-shadow(0 0 8px rgba(216, 248, 100, 0.5)) !important;
+    }
+
+</style>
 </head>
 <body>
 
@@ -2210,121 +2690,154 @@
       <!-- ========================================================
            TAB 1: DROPBOX / HOME STORAGE (SCREEN 2 EXACT MATCH)
            ======================================================== -->
+            <!-- ==============================================
+           TAB 1: HOME (FIGMA REPLICA: media_1793375614816_562dbe2b)
+           ============================================== -->
       <section id="tab-home" class="tab-view active">
         <div class="dashboard-shell">
-          
-          <!-- Top Row: Dropbox Large Title & Action Tray Icons -->
-          <div class="dropbox-header-row">
-            <h1 class="dropbox-title-large">Dropbox</h1>
-            <div class="dropbox-header-icons">
-              <button class="btn-circle-tray" onclick="toggleThemeMode()" title="Toggle Dark/Light Mode">
-                <span class="theme-icon-slot">🌙</span>
-              </button>
-              <button class="btn-circle-tray" onclick="triggerDirectUpload()" title="Upload File">📤</button>
-              <button class="btn-circle-tray" onclick="toggleEditFoldersMode()" title="Select / Edit Folders">☑</button>
+
+          <!-- 1. Top Search Bar -->
+          <div class="figma-search-bar">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input type="text" id="home-search-input" placeholder="Search your file" oninput="handleSearchFilter(this.value)">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="cursor:pointer;" onclick="triggerDirectUpload()">
+              <line x1="4" y1="21" x2="4" y2="14"></line>
+              <line x1="4" y1="10" x2="4" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="12"></line>
+              <line x1="12" y1="8" x2="12" y2="3"></line>
+              <line x1="20" y1="21" x2="20" y2="16"></line>
+              <line x1="20" y1="12" x2="20" y2="3"></line>
+            </svg>
+          </div>
+
+          <!-- 2. Cloud Capacity 50% Donut Card -->
+          <div class="figma-capacity-card" id="figma-storage-card">
+            <div class="figma-capacity-top">
+              <div class="figma-donut-box">
+                <svg class="figma-donut-svg" viewBox="0 0 100 100">
+                  <defs>
+                    <linearGradient id="figmaDonutGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stop-color="#D8F864" />
+                      <stop offset="50%" stop-color="#DDD6FE" />
+                      <stop offset="100%" stop-color="#FEF08A" />
+                    </linearGradient>
+                  </defs>
+                  <circle class="figma-donut-circle-bg" cx="50" cy="50" r="40" />
+                  <circle class="figma-donut-circle-bar" id="figma-donut-bar" cx="50" cy="50" r="40" />
+                </svg>
+                <div class="figma-donut-center-text" id="figma-donut-pct">50%</div>
+              </div>
+              <div class="figma-capacity-info">
+                <div class="figma-capacity-label">Cloud Capacity</div>
+                <div class="figma-capacity-amount">
+                  <span class="figma-capacity-val" id="figma-used-val">5 GB</span>
+                  <span class="figma-capacity-max" id="figma-max-val">/ 10 GB</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="figma-capacity-bottom">
+              <div class="figma-capacity-prompt">Need more storage capacity?</div>
+              <button class="figma-capacity-upgrade-btn" onclick="openExtractPathModal()">Upgrade</button>
             </div>
           </div>
 
-          <!-- Pill Search Bar with Filter Sliders Icon -->
-          <div class="search-filter-box">
-            <span style="font-size:15px; color:var(--text-sub);">🔍</span>
-            <input type="text" id="home-search-input" placeholder="Search" oninput="handleSearchFilter(this.value)">
-            <span class="icon-filter-slider" onclick="triggerDirectUpload()">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="4" y1="21" x2="4" y2="14"></line>
-                <line x1="4" y1="10" x2="4" y2="3"></line>
-                <line x1="12" y1="21" x2="12" y2="12"></line>
-                <line x1="12" y1="8" x2="12" y2="3"></line>
-                <line x1="20" y1="21" x2="20" y2="16"></line>
-                <line x1="20" y1="12" x2="20" y2="3"></line>
-                <line x1="1" y1="14" x2="7" y2="14"></line>
-                <line x1="9" y1="8" x2="15" y2="8"></line>
-                <line x1="17" y1="16" x2="23" y2="16"></line>
+          <!-- 3. The 6 Pastel Category Cards (Exact 2-Col Grid) -->
+          <div class="figma-pastel-grid">
+            <!-- 1. Total Files (Lime #D8F864) -->
+            <div class="figma-pastel-card" style="background:#D8F864;" onclick="filterCategoryFromCard('all')">
+              <svg class="figma-pastel-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+                <polyline points="10 9 9 9 8 9"></polyline>
               </svg>
-            </span>
-          </div>
-
-          <!-- 3 Pastel Action Pills (Upload, Folder, Scan) -->
-          <div class="action-pills-row">
-            <button class="action-pill-btn pill-upload" onclick="triggerDirectUpload()">
-              <span>☘</span> Upload
-            </button>
-            <button class="action-pill-btn pill-folder" onclick="openNewFolderModal()">
-              <span>📁</span> Folder
-            </button>
-            <button class="action-pill-btn pill-scan" onclick="triggerCameraScan()">
-              <span>📷</span> Scan
-            </button>
-          </div>
-
-          <!-- Name Sort Row with List Toggle -->
-          <div class="sort-control-row">
-            <div class="sort-title-left" onclick="toggleSortDirection()">
-              Name <span id="sort-arrow-indicator">↑</span>
+              <div>
+                <div class="figma-pastel-title">Total Files</div>
+                <div class="figma-pastel-count" id="stat-total-files">1,2k</div>
+              </div>
             </div>
-            <button class="btn-list-view-toggle" onclick="toggleSortDirection()" title="Sort">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                <line x1="3" y1="6" x2="21" y2="6" stroke="currentColor" stroke-width="2"></line>
-                <line x1="3" y1="12" x2="21" y2="12" stroke="currentColor" stroke-width="2"></line>
-                <line x1="3" y1="18" x2="21" y2="18" stroke="currentColor" stroke-width="2"></line>
+
+            <!-- 2. Image (Soft Yellow #FEF08A) -->
+            <div class="figma-pastel-card" style="background:#FEF08A;" onclick="filterCategoryFromCard('images')">
+              <svg class="figma-pastel-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                <polyline points="21 15 16 10 5 21"></polyline>
               </svg>
-            </button>
-          </div>
-
-          <!-- 4 Quick Storage Cards (Photos, Job Files, SMS & OTP, Cards & Keys) -->
-          <div class="quick-storage-grid">
-            <div class="quick-card-item" onclick="openFolderView('photos')">
-              <div class="quick-card-icon-box" style="background:#FEF3C7; color:#D97706;">🖼️</div>
-              <div class="quick-card-info">
-                <div class="quick-card-name">Photos</div>
-                <div class="quick-card-sub" id="stat-photos-sub">35% • 1.4 GB</div>
+              <div>
+                <div class="figma-pastel-title">Image</div>
+                <div class="figma-pastel-count" id="stat-images">1,5k</div>
               </div>
             </div>
 
-            <div class="quick-card-item" onclick="openFolderView('job_files')">
-              <div class="quick-card-icon-box" style="background:#EDE9FE; color:#7C3AED;">💼</div>
-              <div class="quick-card-info">
-                <div class="quick-card-name">Job Files</div>
-                <div class="quick-card-sub" id="stat-job-sub">42% • 900 MB</div>
+            <!-- 3. Documents (Soft Lavender #DDD6FE) -->
+            <div class="figma-pastel-card" style="background:#DDD6FE;" onclick="filterCategoryFromCard('documents')">
+              <svg class="figma-pastel-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+              </svg>
+              <div>
+                <div class="figma-pastel-title">Documents</div>
+                <div class="figma-pastel-count" id="stat-documents">102</div>
               </div>
             </div>
 
-            <div class="quick-card-item" onclick="openFolderView('sms')">
-              <div class="quick-card-icon-box" style="background:#DCFCE7; color:#15803D;">✉️</div>
-              <div class="quick-card-info">
-                <div class="quick-card-name">SMS & OTP</div>
-                <div class="quick-card-sub" id="stat-sms-sub">28% • 270 MB</div>
+            <!-- 4. Video (Soft Peach #FED7AA) -->
+            <div class="figma-pastel-card" style="background:#FED7AA;" onclick="filterCategoryFromCard('video')">
+              <svg class="figma-pastel-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="23 7 16 12 23 17 23 7"></polygon>
+                <rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>
+              </svg>
+              <div>
+                <div class="figma-pastel-title">Total Files</div>
+                <div class="figma-pastel-count" id="stat-videos">5</div>
               </div>
             </div>
 
-            <div class="quick-card-item" onclick="openFolderView('cards')">
-              <div class="quick-card-icon-box" style="background:#E0F2FE; color:#0284C7;">💳</div>
-              <div class="quick-card-info">
-                <div class="quick-card-name">Cards & Keys</div>
-                <div class="quick-card-sub" id="stat-cards-sub">30% • 180 MB</div>
+            <!-- 5. Archive (Soft Blue #BFDBFE) -->
+            <div class="figma-pastel-card" style="background:#BFDBFE;" onclick="filterCategoryFromCard('archives')">
+              <svg class="figma-pastel-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="21 8 21 21 3 21 3 8"></polyline>
+                <rect x="1" y="3" width="22" height="5"></rect>
+                <line x1="10" y1="12" x2="14" y2="12"></line>
+              </svg>
+              <div>
+                <div class="figma-pastel-title">Archive</div>
+                <div class="figma-pastel-count" id="stat-archives">5</div>
+              </div>
+            </div>
+
+            <!-- 6. Code (Soft Cream #FEF3C7) -->
+            <div class="figma-pastel-card" style="background:#FEF3C7;" onclick="filterCategoryFromCard('code')">
+              <svg class="figma-pastel-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="16 18 22 12 16 6"></polyline>
+                <polyline points="8 6 2 12 8 18"></polyline>
+              </svg>
+              <div>
+                <div class="figma-pastel-title">Code</div>
+                <div class="figma-pastel-count" id="stat-code">5</div>
               </div>
             </div>
           </div>
 
-          <!-- Clean File List (Final UI Presentation, Client Files, Documents, Download, Apps) -->
-          <div class="file-list-stack" id="main-files-list-container">
-            <!-- Dynamically rendered rows -->
+          <!-- 4. Quick Transition to All Files Explorer -->
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+            <span style="font-size:16px; font-weight:800; color:var(--text-main);">Recent Files</span>
+            <span style="font-size:13px; font-weight:700; color:var(--accent-lime); cursor:pointer;" onclick="switchMainTab('streams')">View All Files →</span>
           </div>
 
-          <!-- All Folders Section (With Tab Cutouts & New Topic) -->
-          <div class="folders-section-header">
-            <div class="folders-section-title">All Vault Folders</div>
-            <div class="folders-actions-right">
-              <button class="btn-folders-action" onclick="openNewFolderModal()">+ New Topic</button>
-            </div>
-          </div>
-
-          <div class="all-folders-grid" id="all-folders-grid-container">
-            <!-- Dynamically rendered folder tabs -->
+          <div id="main-files-list-container">
+            <!-- Dynamically populated files list -->
           </div>
 
         </div>
       </section>
+
 
       <!-- ========================================================
            TAB 2: PHOTOS TAB (SCREEN 1 EXACT MATCH)
@@ -2423,58 +2936,111 @@
       <!-- ========================================================
            TAB 3: FILE UPLOAD / STREAMS (SCREEN 3 EXACT MATCH)
            ======================================================== -->
+            <!-- ==============================================
+           TAB 2: ALL FILES (FIGMA REPLICA: media_1793375614816_562dbe2b Screen 2)
+           ============================================== -->
       <section id="tab-streams" class="tab-view">
-        <div class="streams-tab-shell">
-          
-          <!-- Top Row: Back Button & File Upload Title -->
-          <div class="streams-top-header">
-            <div style="display:flex; align-items:center; gap:12px;">
-              <button class="btn-back-header" onclick="switchMainTab('home')">←</button>
-              <h1 class="streams-title-main">File Upload</h1>
+        <div class="streams-shell">
+
+          <!-- Header with Back Button, Title and Search -->
+          <div class="figma-screen-header">
+            <div class="figma-screen-header-left">
+              <button class="figma-back-btn" onclick="switchMainTab('home')">←</button>
+              <h1 class="figma-screen-title">All Files</h1>
             </div>
-            <div class="streams-header-actions">
-              <button class="btn-circle-tray" onclick="toggleThemeMode()" title="Theme Toggle">
-                <span class="theme-icon-slot">🌙</span>
-              </button>
-              <button class="btn-circle-tray" onclick="triggerDirectUpload()" title="Upload File">↓</button>
-              <button class="btn-circle-tray" onclick="openTgConfigModal()" title="Telegram Bot Sync">•••</button>
+            <button class="figma-back-btn" onclick="triggerDirectUpload()" title="Add File">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+              </svg>
+            </button>
+          </div>
+
+          <!-- Horizontally Scrollable Filter Chips -->
+          <div class="figma-filter-chips-row">
+            <button class="figma-chip active" id="chip-all" onclick="applyFigmaFilter('all', this)">All</button>
+            <button class="figma-chip" id="chip-video" onclick="applyFigmaFilter('video', this)">Video</button>
+            <button class="figma-chip" id="chip-image" onclick="applyFigmaFilter('image', this)">Image</button>
+            <button class="figma-chip" id="chip-archive" onclick="applyFigmaFilter('archive', this)">Archive</button>
+            <button class="figma-chip" id="chip-docs" onclick="applyFigmaFilter('documents', this)">Documents</button>
+          </div>
+
+          <!-- Folders 2x2 Grid (Figma Screen 2) -->
+          <div class="figma-folders-grid">
+            <div class="figma-folder-card" onclick="openFigmaFolder('Folder 1')">
+              <svg class="figma-folder-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+              </svg>
+              <div class="figma-folder-name">Folder 1</div>
+              <div class="figma-folder-count">20 Files</div>
+            </div>
+
+            <div class="figma-folder-card" onclick="openFigmaFolder('Folder 2')">
+              <svg class="figma-folder-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+              </svg>
+              <div class="figma-folder-name">Folder 2</div>
+              <div class="figma-folder-count">25 Files</div>
+            </div>
+
+            <div class="figma-folder-card" onclick="openFigmaFolder('Folder 3')">
+              <svg class="figma-folder-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+              </svg>
+              <div class="figma-folder-name">Folder 3</div>
+              <div class="figma-folder-count">25 Files</div>
+            </div>
+
+            <div class="figma-folder-card" onclick="openFigmaFolder('New Update')">
+              <svg class="figma-folder-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+              </svg>
+              <div class="figma-folder-name">New Update</div>
+              <div class="figma-folder-count">20 Files</div>
             </div>
           </div>
 
-          <!-- In Progress Section -->
-          <div class="streams-section-label">
-            <span>In Progress</span>
-            <span style="font-size:12px; font-weight:600; color:var(--text-sub);">Active Streams</span>
-          </div>
-
-          <div class="in-progress-stack" id="in-progress-stack-container">
-            <!-- Dynamically rendered progress cards -->
-          </div>
-
-          <!-- Recent Uploaded Section -->
-          <div class="streams-section-label">
-            <span>Recent Uploaded</span>
-            <span style="font-size:12.5px; font-weight:700; color:#2563EB; cursor:pointer;" onclick="switchMainTab('home')">See All</span>
-          </div>
-
-          <div class="recent-uploaded-grid" id="recent-uploaded-grid-container">
-            <!-- Dynamically rendered recent uploaded cards -->
-          </div>
-
-          <!-- Full-Width Browser File Upload Card -->
-          <div class="browser-file-card">
-            <div class="browser-file-left">
-              <div class="recent-card-icon" style="background:#FEF3C7; color:#D97706;">📁</div>
-              <div>
-                <div style="font-size:14px; font-weight:800; color:var(--text-main);">Browser File</div>
-                <div style="font-size:11.5px; color:var(--text-sub);">Files under 1 GB.</div>
+          <!-- Files List (Matching Screen 2 wa213.jpeg, 123.zip) -->
+          <div style="font-size:15px; font-weight:800; color:var(--text-main); margin-bottom:12px;">Files</div>
+          <div id="figma-all-files-list">
+            <!-- Sample Items matching screen -->
+            <div class="figma-file-item" onclick="openPhotoViewerModal(0)">
+              <div class="figma-file-icon-box">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="3" width="18" height="18" rx="2"></rect>
+                  <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                  <polyline points="21 15 16 10 5 21"></polyline>
+                </svg>
               </div>
+              <div class="figma-file-info">
+                <div class="figma-file-name">wa213.jpeg</div>
+                <div class="figma-file-meta">12/12/2023 • 1,023 KB</div>
+              </div>
+              <button class="figma-file-menu-btn" onclick="event.stopPropagation(); triggerDirectUpload()">⋮</button>
             </div>
-            <button class="btn-pill-upload-dark" onclick="triggerDirectUpload()">Upload</button>
+
+            <div class="figma-file-item" onclick="showToast('Downloading 123.zip via IDM Range Engine...')">
+              <div class="figma-file-icon-box">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="21 8 21 21 3 21 3 8"></polyline>
+                  <rect x="1" y="3" width="22" height="5"></rect>
+                </svg>
+              </div>
+              <div class="figma-file-info">
+                <div class="figma-file-name">123.zip</div>
+                <div class="figma-file-meta">12/12/2023 • 1,023 KB</div>
+              </div>
+              <button class="figma-file-menu-btn" onclick="event.stopPropagation(); triggerDirectUpload()">⋮</button>
+            </div>
+
+            <!-- In-Progress Transferred Files -->
+            <div id="in-progress-stack-container" style="display:none;"></div>
+            <div id="recent-uploaded-grid-container" style="display:none;"></div>
           </div>
 
         </div>
       </section>
+
 
       <!-- ========================================================
            TAB 4: SETTINGS / PROFILE TAB (IMAGE 1 & 6 PARITY)
@@ -5265,7 +5831,55 @@
       goToWizardStep(4);
     }
 
-  </script>
+  
+    /* ========================================================
+       FIGMA UX & NAVIGATION HELPER FUNCTIONS
+       ======================================================== */
+    function openExtractPathModal() {
+      const sheet = document.getElementById('figma-extract-path-sheet');
+      if (sheet) sheet.classList.add('open');
+    }
+
+    function closeExtractPathModal() {
+      const sheet = document.getElementById('figma-extract-path-sheet');
+      if (sheet) sheet.classList.remove('open');
+    }
+
+    function selectExtractFolder(el, folderName) {
+      document.querySelectorAll('.figma-sheet-item').forEach(i => i.classList.remove('selected'));
+      el.classList.add('selected');
+      showToast(`Selected path: ${folderName}`);
+    }
+
+    function createNewFolderPrompt() {
+      const name = prompt('Enter new folder name:', 'New Vault Folder');
+      if (name) {
+        showToast(`Folder "${name}" created in Telegram Drive!`);
+      }
+    }
+
+    function executeExtractPath() {
+      closeExtractPathModal();
+      showToast('Files extracted successfully to Telegram destination!');
+    }
+
+    function filterCategoryFromCard(category) {
+      switchMainTab('streams');
+      const chip = document.getElementById(`chip-${category}`) || document.getElementById('chip-all');
+      if (chip) applyFigmaFilter(category, chip);
+    }
+
+    function applyFigmaFilter(cat, btn) {
+      document.querySelectorAll('.figma-chip').forEach(c => c.classList.remove('active'));
+      btn.classList.add('active');
+      showToast(`Filtering files by: ${cat.toUpperCase()}`);
+    }
+
+    function openFigmaFolder(folderName) {
+      showToast(`Opening ${folderName}...`);
+    }
+
+</script>
 
   <!-- Modal: Dedicated High-Resolution Photo Viewer with Full Delete & Download -->
   <div class="modal-overlay" id="modal-photo-viewer" style="z-index: 12500;">
@@ -5348,6 +5962,54 @@
   <div class="batch-status-banner" id="batch-status-banner">
     <span class="live-pulse-dot" style="background:#10B981;"></span>
     <span id="batch-status-text">Batch Uploading: 1 of 5 files...</span>
+  </div>
+
+
+  <!-- ==============================================
+       EXTRACT PATH BOTTOM SHEET MODAL (Figma Screen 3)
+       ============================================== -->
+  <div class="figma-bottom-sheet" id="figma-extract-path-sheet">
+    <div class="figma-sheet-header">
+      <div class="figma-sheet-title">Extract Path</div>
+      <button class="figma-sheet-close" onclick="closeExtractPathModal()">✕</button>
+    </div>
+
+    <div class="figma-sheet-list">
+      <div class="figma-sheet-item selected" onclick="selectExtractFolder(this, 'Folder 1')">
+        <div style="display:flex; align-items:center; gap:12px;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#D8F864" stroke-width="2">
+            <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+          </svg>
+          <span style="font-weight:700; color:var(--text-main);">Folder 1</span>
+        </div>
+        <span style="font-size:12px; color:var(--text-sub);">10 Files</span>
+      </div>
+
+      <div class="figma-sheet-item" onclick="selectExtractFolder(this, 'Folder 2')">
+        <div style="display:flex; align-items:center; gap:12px;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="2">
+            <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+          </svg>
+          <span style="font-weight:700; color:var(--text-main);">Folder 2</span>
+        </div>
+        <span style="font-size:12px; color:var(--text-sub);">15 Files</span>
+      </div>
+
+      <div class="figma-sheet-item" onclick="selectExtractFolder(this, 'Folder 3')">
+        <div style="display:flex; align-items:center; gap:12px;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="2">
+            <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+          </svg>
+          <span style="font-weight:700; color:var(--text-main);">Folder 3</span>
+        </div>
+        <span style="font-size:12px; color:var(--text-sub);">15 Files</span>
+      </div>
+    </div>
+
+    <div class="figma-sheet-actions">
+      <button class="figma-btn-dark" onclick="createNewFolderPrompt()">New Folder</button>
+      <button class="figma-btn-lime" onclick="executeExtractPath()">Extract Here</button>
+    </div>
   </div>
 
 </body>
