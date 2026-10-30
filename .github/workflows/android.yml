@@ -2,7 +2,7 @@ name: Android CI
 
 on:
   push:
-    branches: [ "feat/native-tdlib-auth", "main" ]
+    branches: [ "feat/native-tdlib-auth", "feat/nexacloud-premium", "main" ]
   pull_request:
     branches: [ "feat/native-tdlib-auth", "main" ]
   workflow_dispatch:
