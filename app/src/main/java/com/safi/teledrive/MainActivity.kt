@@ -346,6 +346,7 @@ class MainActivity : ComponentActivity(), TelegramSessionManager.Listener {
 
     override fun onQrLink(link: String) {
         runOnUiThread {
+            if (!::qr.isInitialized) return@runOnUiThread
             try {
                 val matrix = com.google.zxing.MultiFormatWriter().encode(link,
                     com.google.zxing.BarcodeFormat.QR_CODE, 640, 640)
