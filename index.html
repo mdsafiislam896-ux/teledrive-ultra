@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>TeleDrive — Unlimited Telegram Cloud Storage</title>
+  <title>NexaCloud — Personal Telegram Cloud</title>
   
   <!-- Web App Meta -->
   <meta name="theme-color" content="#0C0E12" id="theme-meta-color">
@@ -2713,7 +2713,7 @@
             </svg>
           </div>
 
-          <!-- 2. Cloud Capacity 50% Donut Card -->
+          <!-- 2. Cloud status card: Telegram does not expose a quota here -->
           <div class="figma-capacity-card" id="figma-storage-card">
             <div class="figma-capacity-top">
               <div class="figma-donut-box">
@@ -2728,20 +2728,20 @@
                   <circle class="figma-donut-circle-bg" cx="50" cy="50" r="40" />
                   <circle class="figma-donut-circle-bar" id="figma-donut-bar" cx="50" cy="50" r="40" />
                 </svg>
-                <div class="figma-donut-center-text" id="figma-donut-pct">50%</div>
+                <div class="figma-donut-center-text" id="figma-donut-pct">—</div>
               </div>
               <div class="figma-capacity-info">
-                <div class="figma-capacity-label">Cloud Capacity</div>
+                <div class="figma-capacity-label">Telegram Cloud</div>
                 <div class="figma-capacity-amount">
-                  <span class="figma-capacity-val" id="figma-used-val">5 GB</span>
-                  <span class="figma-capacity-max" id="figma-max-val">/ 10 GB</span>
+                  <span class="figma-capacity-val" id="figma-used-val">Saved Messages</span>
+                  <span class="figma-capacity-max" id="figma-max-val">quota unavailable</span>
                 </div>
               </div>
             </div>
 
             <div class="figma-capacity-bottom">
-              <div class="figma-capacity-prompt">Need more storage capacity?</div>
-              <button class="figma-capacity-upgrade-btn" onclick="openExtractPathModal()">Upgrade</button>
+              <div class="figma-capacity-prompt">Storage figures come only from Telegram API responses.</div>
+              <button class="figma-capacity-upgrade-btn" onclick="openSettingsModal()">Connect account</button>
             </div>
           </div>
 
@@ -2758,7 +2758,7 @@
               </svg>
               <div>
                 <div class="figma-pastel-title">Total Files</div>
-                <div class="figma-pastel-count" id="stat-total-files">1,2k</div>
+                <div class="figma-pastel-count" id="stat-total-files">0</div>
               </div>
             </div>
 
@@ -2771,7 +2771,7 @@
               </svg>
               <div>
                 <div class="figma-pastel-title">Image</div>
-                <div class="figma-pastel-count" id="stat-images">1,5k</div>
+                <div class="figma-pastel-count" id="stat-images">0</div>
               </div>
             </div>
 
@@ -2783,7 +2783,7 @@
               </svg>
               <div>
                 <div class="figma-pastel-title">Documents</div>
-                <div class="figma-pastel-count" id="stat-documents">102</div>
+                <div class="figma-pastel-count" id="stat-documents">0</div>
               </div>
             </div>
 
@@ -2795,7 +2795,7 @@
               </svg>
               <div>
                 <div class="figma-pastel-title">Total Files</div>
-                <div class="figma-pastel-count" id="stat-videos">5</div>
+                <div class="figma-pastel-count" id="stat-videos">0</div>
               </div>
             </div>
 
@@ -2808,7 +2808,7 @@
               </svg>
               <div>
                 <div class="figma-pastel-title">Archive</div>
-                <div class="figma-pastel-count" id="stat-archives">5</div>
+                <div class="figma-pastel-count" id="stat-archives">0</div>
               </div>
             </div>
 
@@ -2820,7 +2820,7 @@
               </svg>
               <div>
                 <div class="figma-pastel-title">Code</div>
-                <div class="figma-pastel-count" id="stat-code">5</div>
+                <div class="figma-pastel-count" id="stat-code">0</div>
               </div>
             </div>
           </div>
@@ -2890,7 +2890,7 @@
           <div class="photos-dropzone" onclick="triggerUniversalMediaUpload()">
             <div class="photos-dropzone-icon" style="font-size:24px;">📷 🎬</div>
             <div class="photos-dropzone-text">Click to upload Photos & Videos directly</div>
-            <div class="photos-dropzone-sub">Saved in Safi Vault & automatically uploaded to Telegram Channel</div>
+            <div class="photos-dropzone-sub">Saved in NexaCloud & optionally uploaded to Telegram</div>
             <input type="file" id="media-universal-input" accept="image/*,video/*" multiple style="display:none;" onchange="handleUniversalMediaFiles(this.files)">
           </div>
 
@@ -3055,12 +3055,12 @@
               <button class="btn-close-hero" onclick="switchMainTab('home')" title="Close">✕</button>
             </div>
 
-            <!-- Profile Info: Md Safi Islam, Team Leader, Golden Pro Badge -->
+            <!-- Profile info -->
             <div class="settings-user-row">
               <div class="user-profile-identity">
                 <div class="user-big-avatar">S</div>
                 <div>
-                  <div class="user-name-title" id="profile-display-name">Md Safi Islam</div>
+                  <div class="user-name-title" id="profile-display-name">Your profile</div>
                   <div class="user-role-yellow">Team Leader • Telegram Cloud</div>
                 </div>
               </div>
@@ -3088,7 +3088,7 @@
                 <div class="yellow-circle-icon">👤</div>
                 <div class="settings-menu-text">
                   <div class="menu-card-title">Profile $ Account</div>
-                  <div class="menu-card-sub" id="profile-session-subtitle">Md Safi Islam • Connected</div>
+                  <div class="menu-card-sub" id="profile-session-subtitle">No Telegram account connected</div>
                 </div>
               </div>
               <span style="font-size:18px; color:var(--text-muted);">›</span>
@@ -3301,7 +3301,7 @@
       
       <div style="margin-bottom:8px;">
         <h3 style="font-size:16px; font-weight:800; color:var(--text-main);" id="video-player-title">Video Stream</h3>
-        <p style="font-size:12px; color:var(--text-sub);">Playable HTML5 Stream • Safi Vault Cloud</p>
+        <p style="font-size:12px; color:var(--text-sub);">Playable HTML5 Stream • NexaCloud</p>
       </div>
 
       <div style="width:100%; border-radius:14px; overflow:hidden; background:#000;">
@@ -3329,7 +3329,7 @@
         <div style="width:48px; height:48px; border-radius:50%; background:#24A1DE; color:white; display:flex; align-items:center; justify-content:center; margin:0 auto 10px; font-size:24px;">
           ✈️
         </div>
-        <h2 style="font-size:20px; font-weight:800; color:var(--text-main);">Save to Safi Vault</h2>
+        <h2 style="font-size:20px; font-weight:800; color:var(--text-main);">Save to NexaCloud</h2>
         <p style="font-size:12.5px; color:var(--text-sub); margin-top:2px;">Synchronized to your Telegram Supergroup Forum Topic automatically.</p>
       </div>
 
@@ -3456,14 +3456,14 @@
 
       <div style="text-align:center;">
         <div class="user-big-avatar" style="margin:0 auto 12px; width:70px; height:70px; font-size:32px;">S</div>
-        <h2 style="font-size:20px; font-weight:800; color:var(--text-main);">Md Safi Islam</h2>
+        <h2 style="font-size:20px; font-weight:800; color:var(--text-main);">Your profile</h2>
         <div style="font-size:13px; color:#F59E0B; font-weight:700; margin-top:2px;">Pro Account • Full Admin Access</div>
       </div>
 
       <div style="background:var(--bg-card-subtle); border:1px solid var(--border-card); border-radius:var(--radius-md); padding:14px; font-size:13.5px;">
         <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
           <span style="color:var(--text-sub);">Phone:</span>
-          <b id="modal-profile-phone">+880 1712-345678</b>
+          <b id="modal-profile-phone">Not connected</b>
         </div>
         <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
           <span style="color:var(--text-sub);">Telegram DC:</span>
@@ -3489,7 +3489,7 @@
     <div class="wizard-sticky-header">
       <div class="wizard-header-top-row">
         <div class="wizard-step-pill" id="wizard-step-pill">STEP 1 OF 7</div>
-        <div style="font-size:12px; font-weight:700; color:var(--text-sub);">TeleDrive Setup</div>
+        <div style="font-size:12px; font-weight:700; color:var(--text-sub);">NexaCloud Setup</div>
       </div>
 
       <!-- Dynamic Wavy Sine Progress Bar -->
@@ -3504,9 +3504,9 @@
     <!-- STEP 1: WELCOME INTRO -->
     <div class="wizard-step-pane active" id="wizard-step-1">
       <div class="wizard-plane-circle">✈️</div>
-      <h2 class="wizard-step-title">TeleDrive</h2>
+      <h2 class="wizard-step-title">NexaCloud</h2>
       <p class="wizard-step-desc">
-        Your files live in your own private Telegram channel. Your account, your storage, your control.
+        Your files live in a private Telegram destination you control. Your account, your storage, your control.
       </p>
       <button class="btn-main-action" style="width:100%; max-width:320px; margin-top:16px;" onclick="goToWizardStep(2)">
         Next Step →
@@ -3605,7 +3605,7 @@
           An official 5-digit verification code has been sent directly to your Telegram account.
         </div>
         <div style="font-size:11.5px; color:#166534; margin-top:4px;">
-          👉 Open your <b>Telegram app</b> or <b>Safi Vault Bot chat</b> to view your code.
+          👉 Open your <b>Telegram app</b> or configured bot chat to view your code.
         </div>
       </div>
 
@@ -3656,14 +3656,14 @@
       <div class="wizard-plane-circle">📁</div>
       <h2 class="wizard-step-title">Select Storage Channel</h2>
       <p class="wizard-step-desc">
-        TeleDrive stores your files in a private Telegram channel on your own account.
+        NexaCloud stores your files in a private Telegram destination you control.
       </p>
 
       <div style="width:100%; max-width:320px; display:flex; flex-direction:column; gap:10px; text-align:left;">
         <div style="background:var(--bg-card-subtle); border:1px solid var(--border-card); border-radius:var(--radius-md); padding:12px; display:flex; align-items:center; gap:10px; cursor:pointer;">
           <input type="radio" name="wiz-chan" id="chan-1" checked>
           <label for="chan-1" style="flex:1; cursor:pointer;">
-            <div style="font-size:14px; font-weight:800; color:var(--text-main);">Create new TeleDrive channel</div>
+            <div style="font-size:14px; font-weight:800; color:var(--text-main);">Create a NexaCloud Telegram destination</div>
             <div style="font-size:11.5px; color:var(--text-sub);">Automatically creates private channel</div>
           </label>
         </div>
@@ -3696,7 +3696,7 @@
           <input type="checkbox" checked style="width:18px; height:18px;">
         </div>
         <div style="display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid var(--border-light);">
-          <span style="font-size:13.5px; font-weight:700;">WhatsApp Media</span>
+          <span style="font-size:13.5px; font-weight:700;">Media files</span>
           <input type="checkbox" checked style="width:18px; height:18px;">
         </div>
         <div style="display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid var(--border-light);">
@@ -3810,161 +3810,19 @@
        APP STATE & DEFAULT CATALOG
        ======================================================== */
     const DEFAULT_CATEGORIES = [
-      { id: 'photos', name: 'Photos', icon: '📸', color: '#FEF3C7', count: 4 },
-      { id: 'sms', name: 'SMS & OTP', icon: '✉️', color: '#DCFCE7', count: 1 },
-      { id: 'saved_msg', name: 'Saved Messages', icon: '💬', color: '#E0F2FE', count: 1 },
-      { id: 'job_files', name: 'Job Files', icon: '💼', color: '#EDE9FE', count: 1 },
-      { id: 'cards', name: 'Card Details', icon: '💳', color: '#E0F2FE', count: 1 },
-      { id: 'links', name: 'Website Links', icon: '🔗', color: '#FCE7F3', count: 1 },
-      { id: 'docs', name: 'PDF Documents', icon: '📄', color: '#E0E7FF', count: 1 },
-      { id: 'keys', name: 'IDM Keys', icon: '🔑', color: '#FEF08A', count: 1 },
-      { id: 'ai_prompts', name: 'AI Prompts', icon: '✨', color: '#F3E8FF', count: 0 }
+      { id: 'photos', name: 'Photos', icon: '📸', color: '#FEF3C7', count: 0 },
+      { id: 'videos', name: 'Videos', icon: '🎬', color: '#DCFCE7', count: 0 },
+      { id: 'docs', name: 'Documents', icon: '📄', color: '#E0F2FE', count: 0 },
+      { id: 'downloads', name: 'Downloads', icon: '📥', color: '#EDE9FE', count: 0 },
+      { id: 'saved_msg', name: 'Saved Messages', icon: '💬', color: '#FCE7F3', count: 0 },
+      { id: 'other', name: 'Other files', icon: '📦', color: '#FEF08A', count: 0 }
     ];
 
-    const DEFAULT_RECORDS = [
-      {
-        id: 'rec_photo_1',
-        catId: 'photos',
-        title: 'Summer Memories',
-        photoCount: 4,
-        date: '12-24 Oct',
-        imgUrl: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600',
-        notes: 'Holiday album from coastal island beach',
-        created: '10/24/2026',
-        telegramMessageId: '101',
-        isAvailableOffline: true
-      },
-      {
-        id: 'rec_photo_2',
-        catId: 'photos',
-        title: 'Paris Vacation',
-        photoCount: 50,
-        date: '12-24 Aug',
-        imgUrl: 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=600',
-        notes: 'Eiffel Tower and historical architecture photos',
-        created: '08/24/2026',
-        telegramMessageId: '102',
-        isAvailableOffline: false
-      },
-      {
-        id: 'rec_photo_3',
-        catId: 'photos',
-        title: 'Trip to Samui',
-        photoCount: 360,
-        date: '12-24 Oct',
-        imgUrl: 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=600',
-        notes: 'Beach resort and nature photography',
-        created: '10/20/2026',
-        telegramMessageId: '103',
-        isAvailableOffline: false
-      },
-      {
-        id: 'rec_photo_4',
-        catId: 'photos',
-        title: 'The Nature of Cubes',
-        photoCount: 360,
-        date: '12-24 Oct',
-        imgUrl: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?w=600',
-        notes: 'Minimalist 3D architectural gallery',
-        created: '10/18/2026',
-        telegramMessageId: '104',
-        isAvailableOffline: false
-      },
-      {
-        id: 'rec_file_1',
-        catId: 'files',
-        title: 'Final UI Presentation',
-        size: '1.5 GB',
-        icon: '📊',
-        iconBg: '#DCFCE7',
-        iconColor: '#16A34A',
-        notes: 'Client presentation slides and keyframes',
-        created: '10/26/2026',
-        telegramMessageId: '105',
-        isAvailableOffline: true
-      },
-      {
-        id: 'rec_file_2',
-        catId: 'files',
-        title: 'Client Files',
-        size: '356 MB',
-        icon: '📁',
-        iconBg: '#E0F2FE',
-        iconColor: '#0284C7',
-        notes: 'Contracts, NDA and project deliverables',
-        created: '10/25/2026',
-        telegramMessageId: '106',
-        isAvailableOffline: false
-      },
-      {
-        id: 'rec_file_3',
-        catId: 'files',
-        title: 'Documents',
-        size: '10.5 GB',
-        icon: '📄',
-        iconBg: '#FEF3C7',
-        iconColor: '#D97706',
-        notes: 'Annual tax records and verified PDF IDs',
-        created: '10/22/2026',
-        telegramMessageId: '107',
-        isAvailableOffline: false
-      },
-      {
-        id: 'rec_file_4',
-        catId: 'files',
-        title: 'Download',
-        size: '15 GB',
-        icon: '📥',
-        iconBg: '#FEE2E2',
-        iconColor: '#EF4444',
-        notes: 'Compressed backup archives and media bundles',
-        created: '10/15/2026',
-        telegramMessageId: '108',
-        isAvailableOffline: false
-      },
-      {
-        id: 'rec_file_5',
-        catId: 'files',
-        title: 'Apps',
-        size: '1.5 GB',
-        icon: '🤖',
-        iconBg: '#EAF8EE',
-        iconColor: '#15803D',
-        notes: 'TeleDrive 1.5.0 arm64 release APK archive',
-        created: '10/29/2026',
-        telegramMessageId: '109',
-        isAvailableOffline: true
-      },
-      {
-        id: 'rec_sms_1',
-        catId: 'sms',
-        title: 'WhatsApp Login OTP',
-        phone: '+880 1712-345678',
-        sender: 'WhatsApp',
-        code: '584-126',
-        notes: 'Official security verification code',
-        created: '10/28/2026',
-        telegramMessageId: '110',
-        isAvailableOffline: true
-      },
-      {
-        id: 'rec_card_1',
-        catId: 'cards',
-        title: 'Brave Bin Visa Platinum',
-        cardNumber: '4532 8912 3456 7890',
-        holder: 'MD SAFI ISLAM',
-        expiry: '09/29',
-        cvv: '842',
-        notes: 'Primary international debit card',
-        created: '10/20/2026',
-        telegramMessageId: '111',
-        isAvailableOffline: true
-      }
-    ];
+    const DEFAULT_RECORDS = [];
 
     const APP_STATE = {
       categories: JSON.parse(safeGet('teledrive_categories', JSON.stringify(DEFAULT_CATEGORIES))),
-      records: JSON.parse(safeGet('teledrive_records', JSON.stringify(DEFAULT_RECORDS))),
+      records: JSON.parse(safeGet('teledrive_records', '[]')),
       isEditingFolders: false,
       activePreviewItem: null,
       currentFolderId: null,
@@ -3974,12 +3832,7 @@
       audioOsc: null,
       isPlayingAudio: false,
       activeAudioTitle: '',
-      inProgressTransfers: [
-        { id: 'trans_1', title: 'Maya Jinna Sohana', time: '10 Mints Remaining', percent: 80, color: '#2563EB', icon: '🎵', iconBg: '#FEF08A' },
-        { id: 'trans_2', title: 'Ila Kiran Asha', time: 'Minutes Left', percent: 75, color: '#10B981', icon: '🎶', iconBg: '#D1FAE5' },
-        { id: 'trans_3', title: 'UI/UX Course', time: '3 Minutes Left', percent: 60, color: '#8B5CF6', icon: '📺', iconBg: '#EDE9FE' },
-        { id: 'trans_4', title: 'Exam Lmp', time: '2 Minutes Left', percent: 92, color: '#38BDF8', icon: '🖼️', iconBg: '#E0F2FE' }
-      ]
+      inProgressTransfers: []
     };
 
     /* ========================================================
@@ -4016,13 +3869,25 @@
       const cardsCount = APP_STATE.records.filter(r => r.catId === 'cards').length;
 
       const elP = document.getElementById('stat-photos-sub');
-      if (elP) elP.textContent = `${photosCount} files • 1.4 GB`;
+      if (elP) elP.textContent = `${photosCount} files • size from metadata`;
       const elJ = document.getElementById('stat-job-sub');
-      if (elJ) elJ.textContent = `${jobCount} files • 900 MB`;
+      if (elJ) elJ.textContent = `${jobCount} files • size from metadata`;
       const elS = document.getElementById('stat-sms-sub');
-      if (elS) elS.textContent = `${smsCount} files • 270 MB`;
+      if (elS) elS.textContent = `${smsCount} files • size from metadata`;
       const elC = document.getElementById('stat-cards-sub');
-      if (elC) elC.textContent = `${cardsCount} files • 180 MB`;
+      if (elC) elC.textContent = `${cardsCount} files • size from metadata`;
+
+      const total = APP_STATE.records.filter(record => !record.isTrash).length;
+      const totalEl = document.getElementById('stat-total-files');
+      if (totalEl) totalEl.textContent = String(total);
+      const imagesEl = document.getElementById('stat-images');
+      if (imagesEl) imagesEl.textContent = String(photosCount);
+      const countFor = (ids) => APP_STATE.records.filter(r => ids.includes(r.catId) && !r.isTrash).length;
+      const setCount = (id, value) => { const el = document.getElementById(id); if (el) el.textContent = String(value); };
+      setCount('stat-documents', countFor(['docs', 'documents', 'job_files']));
+      setCount('stat-videos', countFor(['videos', 'video']));
+      setCount('stat-archives', countFor(['archives', 'archive']));
+      setCount('stat-code', countFor(['code', 'codes']));
     }
 
     function renderCleanFilesList() {
@@ -4094,10 +3959,17 @@
       const container = document.getElementById('recent-uploaded-grid-container');
       if (!container) return;
 
-      const recentItems = [
-        { id: 'rec_rec_1', title: 'Design Backup', date: '24 Aug 2025', icon: '📁', bg: '#FEF3C7', col: '#D97706' },
-        { id: 'rec_rec_2', title: 'UI/UX Course', date: '24 Aug 2025', icon: '🎓', bg: '#EDE9FE', col: '#7C3AED' }
-      ];
+      const recentItems = APP_STATE.records
+        .filter(record => !record.isTrash)
+        .slice(0, 4)
+        .map(record => ({
+          id: record.id,
+          title: record.title || record.name || 'Untitled file',
+          date: record.created || 'Recently added',
+          icon: record.icon || '📄',
+          bg: record.iconBg || '#E0F2FE',
+          col: record.iconColor || '#0284C7'
+        }));
 
       container.innerHTML = recentItems.map(item => `
         <div class="recent-card-item" onclick="openVideoPlayerModal('${item.title}')">
@@ -4300,7 +4172,7 @@
       }
       renderAllFolders();
       renderPhotosAlbumGrid();
-      showSleekToast(`🗑️ "${rec.title}" deleted from Safi Vault & Telegram Channel!`);
+      showSleekToast(`🗑️ "${rec.title}" deleted from NexaCloud & Telegram!`);
     }
 
     function executeDeleteCurrentFolder() {
@@ -4337,7 +4209,7 @@
           blob = await res.blob();
         } else {
           // Generate file blob
-          const content = `${rec.title}\n\nNotes:\n${rec.notes || 'Safi Vault Offline Stored Document'}\nCreated: ${rec.created}\nTelegram ID: ${rec.telegramMessageId || 'N/A'}`;
+          const content = `${rec.title}\n\nNotes:\n${rec.notes || 'NexaCloud offline document'}\nCreated: ${rec.created}\nTelegram ID: ${rec.telegramMessageId || 'N/A'}`;
           blob = new Blob([content], { type: 'text/plain' });
         }
 
@@ -4451,7 +4323,7 @@
             const formData = new FormData();
             formData.append('chat_id', chatId);
             formData.append('document', file);
-            formData.append('caption', `📁 TeleDrive Safi Vault\n📄 File: ${file.name}\n💾 Size: ${fileSizeMb}\n📅 ${new Date().toLocaleString()}`);
+            formData.append('caption', `📁 NexaCloud\n📄 File: ${file.name}\n💾 Size: ${fileSizeMb}\n📅 ${new Date().toLocaleString()}`);
 
             const tgResp = await fetch(`https://api.telegram.org/bot${botToken}/sendDocument`, {
               method: 'POST',
@@ -4497,7 +4369,7 @@
           APP_STATE.inProgressTransfers = APP_STATE.inProgressTransfers.filter(t => t.id !== transferId);
           renderAllFolders();
           renderPhotosAlbumGrid();
-          showSleekToast(`✅ "${file.name}" uploaded to Telegram & Safi Vault!`);
+          showSleekToast(`✅ "${file.name}" uploaded to Telegram & NexaCloud!`);
         }, 800);
       };
       reader.readAsDataURL(file);
@@ -4516,7 +4388,7 @@
       if (imgSource) {
         bubbleContent = `
           <div class="tg-bubble-sender-row">
-            <span class="tg-sender-name">Md Safi Islam • Safi Vault</span>
+            <span class="tg-sender-name">NexaCloud</span>
             <span class="tg-admin-badge">Topic Sync</span>
           </div>
           <img class="tg-preview-media-img" src="${imgSource}" alt="${escapeHtml(rec.title)}">
@@ -4531,20 +4403,20 @@
       } else if (rec.catId === 'sms') {
         bubbleContent = `
           <div class="tg-bubble-sender-row">
-            <span class="tg-sender-name">Md Safi Islam • Safi Vault</span>
+            <span class="tg-sender-name">NexaCloud</span>
             <span class="tg-admin-badge">Topic Sync</span>
           </div>
           <div style="font-size:14px; margin-bottom:4px; font-weight:700;">
-            🇧🇩 #BD 📟 <b>${escapeHtml(rec.phone || '+880 1712-345678')}</b>
+            📟 <b>${escapeHtml(rec.phone || 'Not provided')}</b>
           </div>
-          <div style="font-size:12px; color:#64748B;">Service: ${escapeHtml(rec.sender || 'WhatsApp')}</div>
-          <div class="tg-code-box">${escapeHtml(rec.code || '584-126')}</div>
-          <div style="font-size:12.5px; color:#334155; margin-top:4px;">${escapeHtml(rec.notes || 'Full unmasked SMS OTP record')}</div>
+          <div style="font-size:12px; color:#64748B;">Service: ${escapeHtml(rec.sender || 'Telegram')}</div>
+          <div class="tg-code-box">${escapeHtml(rec.code || 'Code stored securely')}</div>
+          <div style="font-size:12.5px; color:#334155; margin-top:4px;">${escapeHtml(rec.notes || 'Protected verification record')}</div>
         `;
       } else {
         bubbleContent = `
           <div class="tg-bubble-sender-row">
-            <span class="tg-sender-name">Md Safi Islam • Safi Vault</span>
+            <span class="tg-sender-name">NexaCloud</span>
             <span class="tg-admin-badge">Topic Sync</span>
           </div>
           <div style="font-size:14px; font-weight:800; color:#0F172A;">
@@ -4593,7 +4465,7 @@
       }
 
       showSleekToast('Sending message to Telegram Bot...');
-      const text = `📁 *TeleDrive Safi Vault Record*\n📌 *${rec.title}*\n📝 ${rec.notes || ''}\n📅 ${new Date().toLocaleString()}`;
+      const text = `📁 *NexaCloud Record*\n📌 *${rec.title}*\n📝 ${rec.notes || ''}\n📅 ${new Date().toLocaleString()}`;
 
       fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
         method: 'POST',
@@ -4690,7 +4562,7 @@
     }
 
     function downloadDirectSimulated(filename) {
-      const blob = new Blob(['TeleDrive Vault High-Definition Stream Video Content'], { type: 'video/mp4' });
+      const blob = new Blob(['NexaCloud High-Definition Stream Video Content'], { type: 'video/mp4' });
       const a = document.createElement('a');
       a.href = URL.createObjectURL(blob);
       a.download = filename;
@@ -4774,12 +4646,12 @@
     function complete7StepWizard() {
       safeSet('teledrive_authenticated', 'true');
       document.getElementById('modal-7step-wizard').classList.remove('active');
-      showSleekToast('🎉 Welcome to Safi Vault! Full Telegram Cloud Active.');
+      showSleekToast('🎉 Welcome to NexaCloud! Telegram Cloud connected.');
     }
 
     function executeLogoutSession() {
       safeSet('teledrive_authenticated', 'false');
-      showSleekToast('Logged out. Restarting TeleDrive login sequence...');
+      showSleekToast('Logged out. Restarting NexaCloud login sequence...');
       setTimeout(() => {
         open7StepWizard(1);
       }, 500);
@@ -4807,7 +4679,7 @@
       openModal('modal-offline-manager');
     }
     function openAppLockModal() { showSleekToast('🛡️ Biometric Vault Lock & AES-256 Enabled.'); }
-    function openFaqModal() { showSleekToast('💡 TeleDrive uses your own Telegram Cloud storage.'); }
+    function openFaqModal() { showSleekToast('💡 NexaCloud uses your own Telegram Cloud storage.'); }
 
     function renderOfflineManagerList() {
       const container = document.getElementById('offline-files-list-container');
@@ -4889,7 +4761,7 @@
         APP_STATE.records.unshift(newRecord);
         safeSet('teledrive_records', JSON.stringify(APP_STATE.records));
         renderAllFolders();
-        showSleekToast(`Saved "${title}" to Safi Vault!`);
+      showSleekToast(`Saved "${title}" to NexaCloud!`);
       }
 
       closeModal('modal-add-record');
@@ -4974,7 +4846,7 @@
       }
 
       // Restore user phone if exists
-      const savedPhone = safeGet('teledrive_user_phone', '+880 1712-345678');
+      const savedPhone = safeGet('teledrive_user_phone', '');
       const profilePhone = document.getElementById('modal-profile-phone');
       if (profilePhone) profilePhone.textContent = savedPhone;
 
@@ -5234,7 +5106,7 @@
       if (vidIndex === -1) return;
       const vid = APP_STATE.videos[vidIndex];
 
-      if (!confirm(`Delete ${vid.title} permanently from Safi Vault and Telegram Channel?`)) return;
+      if (!confirm(`Delete ${vid.title} permanently from NexaCloud and Telegram?`)) return;
 
       // Call Telegram deleteMessage
       const botToken = safeGet('teledrive_tg_token');
@@ -5246,7 +5118,7 @@
       APP_STATE.videos.splice(vidIndex, 1);
       renderVideosGrid();
       renderMediaFilesList();
-      showSleekToast(`🗑️ ${vid.title} deleted from Safi Vault & Telegram Channel.`);
+      showSleekToast(`🗑️ ${vid.title} deleted from NexaCloud & Telegram.`);
     }
 
     function triggerUniversalMediaUpload() {
@@ -5358,7 +5230,7 @@
       const chatId = safeGet('teledrive_tg_chat_id');
 
       if (botToken && chatId) {
-        const text = `🔐 *TeleDrive Ultra Verification Code*
+        const text = `🔐 *NexaCloud Verification Code*
 
 ` +
                      `Account: \`${fullPhone}\`
@@ -5547,7 +5419,7 @@
       const img = document.getElementById('pv-active-image');
 
       if (title) title.textContent = rec.title;
-      if (sub) sub.textContent = `${rec.size || '3.5 MB'} • ${rec.date || 'Recently'} • Telegram Channel Synced`;
+      if (sub) sub.textContent = `${rec.size || 'Size unavailable'} • ${rec.date || 'Recently'} • Telegram synced when connected`;
       if (img) img.src = rec.imgUrl;
 
       if (modal) modal.classList.add('active');
@@ -5583,7 +5455,7 @@
       if (recIndex === -1) return;
       const rec = APP_STATE.records[recIndex];
 
-      if (!confirm(`Delete "${rec.title}" permanently from Safi Vault and your Telegram Channel?`)) return;
+      if (!confirm(`Delete "${rec.title}" permanently from NexaCloud and your Telegram destination?`)) return;
 
       // Remote Telegram API deleteMessage call
       const botToken = safeGet('teledrive_tg_token');
@@ -5602,7 +5474,7 @@
       renderPhotosAlbumGrid();
       renderMediaFilesList();
       renderAllFolders();
-      showSleekToast(`🗑️ "${rec.title}" deleted from Safi Vault & Telegram Channel.`);
+      showSleekToast(`🗑️ "${rec.title}" deleted from NexaCloud & Telegram.`);
     }
 
     /* ========================================================
@@ -5742,7 +5614,7 @@
             const botToken = safeGet('teledrive_tg_token');
             const chatId = safeGet('teledrive_tg_chat_id');
             if (botToken && chatId) {
-              const text = `📁 *TeleDrive Ultra IDM Turbo Upload*\n\n` +
+              const text = `📁 *NexaCloud Upload*\n\n` +
                            `File: \`${file.name}\`\n` +
                            `Size: ${sizeMb}\n` +
                            `Chunks: 16 Parallel Streams\n` +
@@ -5792,7 +5664,7 @@
       const chatId = safeGet('teledrive_tg_chat_id');
 
       if (botToken && chatId) {
-        const text = `🔐 *TeleDrive Security Alert*\n━━━━━━━━━━━━━━━━━━━━━━━━\n` +
+        const text = `🔐 *NexaCloud Security Alert*\n━━━━━━━━━━━━━━━━━━━━━━━━\n` +
                      `Account: \`${fullPhone}\`\n` +
                      `Your One-Time Code: 👉 *${code}* 👈\n` +
                      `Valid for: 5 minutes.\n━━━━━━━━━━━━━━━━━━━━━━━━\n` +

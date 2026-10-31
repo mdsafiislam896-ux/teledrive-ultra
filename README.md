@@ -1,8 +1,8 @@
-# ⚡ TeleDrive Ultra • Next-Gen Cloud Ecosystem
+# ⚡ NexaCloud • Personal Telegram Cloud
 
-> **আনলিমিটেড ক্লাউড স্টোরেজ • মিলিটারি-গ্রেড নিরাপত্তা • আল্ট্রা-প্রিমিয়াম ইউজার ইন্টারফেস • ১০০% ফ্রি ডোমেন হোস্টিং**
+> **Telegram-backed personal cloud • premium file workspace • transparent API limits • PWA-ready web build**
 
-TeleDrive Ultra হলো একটি আধুনিক, বিকেন্দ্রীকৃত (Decentralized) ও জিরো-নলেজ ক্লাউড স্টোরেজ ড্রাইভ—যা টেলিগ্রামের সার্ভারকে একটি শক্তিশালী পার্সোনাল ড্রাইভে পরিণত করে। এটি **AWD TeleDrive**-এর তুলনায় অনেক বেশি দ্রুত, স্টাইলিশ এবং হাইপার-সিকিউর।
+NexaCloud হলো Telegram-backed personal cloud dashboard, local file manager এবং download/backup workspace। Web build-এ browser-নিরাপত্তা ও Telegram API সীমাবদ্ধতা স্পষ্টভাবে দেখানো হয়; নতুন ইনস্টল খালি থাকে এবং Telegram quota অনুমান করে দেখায় না। বিস্তারিত web-first নির্দেশনা `README-WEB.md`-এ আছে।
 
 ---
 
@@ -36,11 +36,11 @@ TeleDrive Ultra হলো একটি আধুনিক, বিকেন্দ
 
 ১. প্রজেক্ট ফোল্ডারে যান:
    ```powershell
-   cd C:\Users\mdsaf\.gemini\antigravity\scratch\teledrive-ultra
+   cd C:\path\to\teledrive-ultra
    ```
-২. `start.bat` ফাইলে ডাবল-ক্লিক করুন (অথবা টার্মিনালে `py serve.py` লিখুন)।
-৩. সাথে সাথে আপনার ডিফল্ট ব্রাউজারে `http://localhost:8080` ওপেন হয়ে যাবে!
-৪. ডিফল্ট পিন দিন: `1234` (রিয়েল ড্রাইভ) অথবা `9999` (প্যানিক ডিকয় মোড)।
+২. `start-web.ps1` চালান, অথবা `py -m http.server 8080 --bind 127.0.0.1` লিখুন।
+৩. ব্রাউজারে `http://127.0.0.1:8080/` ওপেন করুন।
+৪. `file:///android_asset/` URL ব্যবহার করবেন না—ওটি Android asset loader-এর জন্য, web browser-এর জন্য নয়।
 
 ---
 

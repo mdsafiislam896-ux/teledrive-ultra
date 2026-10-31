@@ -1,6 +1,6 @@
 {
-  "name": "TeleDrive Ultra • Cloud Storage",
-  "short_name": "TeleDrive",
+  "name": "NexaCloud • Personal Telegram Cloud",
+  "short_name": "NexaCloud",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#030712",
