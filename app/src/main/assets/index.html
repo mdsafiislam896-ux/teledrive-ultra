@@ -5970,6 +5970,48 @@
       }
     }
 
+    const nativeUpload = (category = 'files') => callNative('pickAndUpload', category);
+    function triggerDirectUpload() { nativeUpload('files'); }
+    function triggerUniversalMediaUpload() { nativeUpload('photos'); }
+    function handleRealFileSelected() { nativeUpload('files'); }
+    function handleUniversalMediaFiles() { nativeUpload('photos'); }
+    function executeUploadFileToVaultAndTelegram() { nativeUpload('files'); }
+
+    function addNativeUploadRecord(payload) {
+      const [name, rawBytes, category] = String(payload || '').split('|');
+      const bytes = Number(rawBytes) || 0;
+      if (!name) return;
+      const size = bytes >= 1024 * 1024
+        ? `${(bytes / (1024 * 1024)).toFixed(2)} MB`
+        : `${Math.max(1, Math.ceil(bytes / 1024))} KB`;
+      const isPhoto = category === 'photos' || /\.(png|jpe?g|gif|webp|heic)$/i.test(name);
+      const record = {
+        id: `native_${Date.now()}`,
+        catId: isPhoto ? 'photos' : 'files',
+        title: name,
+        size,
+        date: 'Just now',
+        created: new Date().toLocaleDateString(),
+        notes: 'Saved to Telegram Saved Messages',
+        telegramMessageId: null,
+        isAvailableOffline: false
+      };
+      APP_STATE.records.unshift(record);
+      safeSet('teledrive_records', JSON.stringify(APP_STATE.records));
+      renderAllFolders();
+      renderPhotosAlbumGrid();
+      renderMediaFilesList();
+    }
+    window.onNativeUploadStarted = (payload) => {
+      const [name] = String(payload || '').split('|');
+      showSleekToast(`Uploading ${name || 'file'} to Saved Messages…`);
+    };
+    window.onNativeUploadComplete = (payload) => {
+      addNativeUploadRecord(payload);
+      const [name] = String(payload || '').split('|');
+      showSleekToast(`Saved ${name || 'file'} to Telegram.`);
+    };
+
 </script>
 
   <!-- Modal: Dedicated High-Resolution Photo Viewer with Full Delete & Download -->

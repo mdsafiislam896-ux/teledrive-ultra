@@ -16,6 +16,7 @@ import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.result.contract.ActivityResultContracts
 import org.json.JSONObject
+import java.io.File
 
 /** Hosts the bundled UI and exposes a small, trusted bridge to TDLib. */
 class MainActivity : ComponentActivity(), TelegramSessionManager.Listener {
@@ -35,6 +36,14 @@ class MainActivity : ComponentActivity(), TelegramSessionManager.Listener {
             } else null
         )
         fileUploadCallback = null
+    }
+
+    private var uploadCategory = "files"
+    private val uploadPickerLauncher = registerForActivityResult(
+        ActivityResultContracts.OpenMultipleDocuments()
+    ) { uris ->
+        if (uris.isEmpty()) return@registerForActivityResult
+        uris.forEach { uri -> uploadSelectedFile(uri, uploadCategory) }
     }
 
     @SuppressLint("SetJavaScriptEnabled")
@@ -125,6 +134,38 @@ class MainActivity : ComponentActivity(), TelegramSessionManager.Listener {
         runOnUiThread { Toast.makeText(this, message, Toast.LENGTH_LONG).show() }
     }
 
+    private fun uploadSelectedFile(uri: Uri, category: String) {
+        val resolver = contentResolver
+        val name = resolver.query(uri, arrayOf(android.provider.OpenableColumns.DISPLAY_NAME), null, null, null)
+            ?.use { cursor -> if (cursor.moveToFirst()) cursor.getString(0) else null }
+            ?.takeIf { it.isNotBlank() } ?: "upload-${System.currentTimeMillis()}"
+        val safeName = name.replace(Regex("[^A-Za-z0-9._ -]"), "_").take(120)
+        val cacheFile = File(cacheDir, "upload-${System.currentTimeMillis()}-$safeName")
+        try {
+            resolver.openInputStream(uri)?.use { input -> cacheFile.outputStream().use(input::copyTo) }
+                ?: error("Unable to read the selected file.")
+            val sizeBytes = cacheFile.length()
+            dispatchToPage("onNativeUploadStarted", "$safeName|$sizeBytes|$category")
+            sessions.uploadToSavedMessages(cacheFile.absolutePath, safeName,
+                object : TelegramSessionManager.TransferCallback {
+                    override fun onSuccess(message: String) {
+                        cacheFile.delete()
+                        dispatchToPage("onNativeUploadComplete", "$safeName|$sizeBytes|$category")
+                        dispatchToPage("onNativeStatus", message)
+                    }
+
+                    override fun onError(message: String) {
+                        cacheFile.delete()
+                        showBridgeError(message)
+                    }
+                }
+            )
+        } catch (error: Exception) {
+            cacheFile.delete()
+            showBridgeError(error.message ?: "Unable to prepare the selected file.")
+        }
+    }
+
     inner class WebAppBridge {
         private fun allowCall(): Boolean {
             if (trustedPageLoaded) return true
@@ -144,6 +185,17 @@ class MainActivity : ComponentActivity(), TelegramSessionManager.Listener {
             if (!allowCall()) return@runOnUiThread
             runCatching { sessions.startQrLogin() }
                 .onFailure { showBridgeError(it.message ?: "Unable to start QR login.") }
+        }
+
+        @JavascriptInterface
+        fun pickAndUpload(category: String?) = runOnUiThread {
+            if (!allowCall()) return@runOnUiThread
+            if (!sessions.hasActiveSession()) {
+                showBridgeError("Connect a Telegram account before uploading files.")
+                return@runOnUiThread
+            }
+            uploadCategory = if (category == "photos") "photos" else "files"
+            uploadPickerLauncher.launch(arrayOf("*/*"))
         }
 
         @JavascriptInterface
