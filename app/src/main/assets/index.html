@@ -2890,7 +2890,7 @@
           <div class="photos-dropzone" onclick="triggerUniversalMediaUpload()">
             <div class="photos-dropzone-icon" style="font-size:24px;">📷 🎬</div>
             <div class="photos-dropzone-text">Click to upload Photos & Videos directly</div>
-            <div class="photos-dropzone-sub">Saved in Safi Vault & automatically uploaded to Telegram Channel</div>
+            <div class="photos-dropzone-sub">Saved privately to your Telegram Saved Messages</div>
             <input type="file" id="media-universal-input" accept="image/*,video/*" multiple style="display:none;" onchange="handleUniversalMediaFiles(this.files)">
           </div>
 
@@ -3060,8 +3060,8 @@
               <div class="user-profile-identity">
                 <div class="user-big-avatar">S</div>
                 <div>
-                  <div class="user-name-title" id="profile-display-name">Md Safi Islam</div>
-                  <div class="user-role-yellow">Team Leader • Telegram Cloud</div>
+                  <div class="user-name-title" id="profile-display-name">Telegram Account</div>
+                  <div class="user-role-yellow">Private Telegram Cloud</div>
                 </div>
               </div>
               <div class="badge-pro-pill">Pro</div>
@@ -3088,7 +3088,7 @@
                 <div class="yellow-circle-icon">👤</div>
                 <div class="settings-menu-text">
                   <div class="menu-card-title">Profile $ Account</div>
-                  <div class="menu-card-sub" id="profile-session-subtitle">Md Safi Islam • Connected</div>
+                  <div class="menu-card-sub" id="profile-session-subtitle">Telegram account status</div>
                 </div>
               </div>
               <span style="font-size:18px; color:var(--text-muted);">›</span>
@@ -3108,12 +3108,12 @@
               </div>
             </div>
 
-            <!-- 3. Telegram Bot & Channel Sync -->
+            <!-- 3. Telegram account status -->
             <div class="settings-menu-card" onclick="openTgConfigModal()">
               <div class="settings-menu-left">
                 <div class="yellow-circle-icon">✈️</div>
                 <div class="settings-menu-text">
-                  <div class="menu-card-title">Telegram Bot & Channel Sync</div>
+                  <div class="menu-card-title">Telegram Connection</div>
                   <div class="menu-card-sub" id="settings-tg-sync-status">Configure Bot Token & Chat ID</div>
                 </div>
               </div>
@@ -3456,7 +3456,7 @@
 
       <div style="text-align:center;">
         <div class="user-big-avatar" style="margin:0 auto 12px; width:70px; height:70px; font-size:32px;">S</div>
-        <h2 style="font-size:20px; font-weight:800; color:var(--text-main);">Md Safi Islam</h2>
+        <h2 style="font-size:20px; font-weight:800; color:var(--text-main);">Telegram Account</h2>
         <div style="font-size:13px; color:#F59E0B; font-weight:700; margin-top:2px;">Pro Account • Full Admin Access</div>
       </div>
 
@@ -3810,18 +3810,15 @@
        APP STATE & DEFAULT CATALOG
        ======================================================== */
     const DEFAULT_CATEGORIES = [
-      { id: 'photos', name: 'Photos', icon: '📸', color: '#FEF3C7', count: 4 },
-      { id: 'sms', name: 'SMS & OTP', icon: '✉️', color: '#DCFCE7', count: 1 },
-      { id: 'saved_msg', name: 'Saved Messages', icon: '💬', color: '#E0F2FE', count: 1 },
-      { id: 'job_files', name: 'Job Files', icon: '💼', color: '#EDE9FE', count: 1 },
-      { id: 'cards', name: 'Card Details', icon: '💳', color: '#E0F2FE', count: 1 },
-      { id: 'links', name: 'Website Links', icon: '🔗', color: '#FCE7F3', count: 1 },
-      { id: 'docs', name: 'PDF Documents', icon: '📄', color: '#E0E7FF', count: 1 },
-      { id: 'keys', name: 'IDM Keys', icon: '🔑', color: '#FEF08A', count: 1 },
-      { id: 'ai_prompts', name: 'AI Prompts', icon: '✨', color: '#F3E8FF', count: 0 }
+      { id: 'photos', name: 'Photos', icon: '📸', color: '#FEF3C7', count: 0 },
+      { id: 'files', name: 'Files', icon: '📁', color: '#E0F2FE', count: 0 },
+      { id: 'documents', name: 'Documents', icon: '📄', color: '#E0E7FF', count: 0 },
+      { id: 'archives', name: 'Archives', icon: '🗜️', color: '#FEF08A', count: 0 },
+      { id: 'videos', name: 'Videos', icon: '🎬', color: '#FCE7F3', count: 0 }
     ];
 
-    const DEFAULT_RECORDS = [
+    // Legacy mock data is intentionally never loaded. Real file records start empty.
+    const LEGACY_SAMPLE_RECORDS = [
       {
         id: 'rec_photo_1',
         catId: 'photos',
@@ -3961,6 +3958,8 @@
         isAvailableOffline: true
       }
     ];
+
+    const DEFAULT_RECORDS = [];
 
     const APP_STATE = {
       categories: JSON.parse(safeGet('teledrive_categories', JSON.stringify(DEFAULT_CATEGORIES))),
@@ -6043,7 +6042,9 @@
       if (safeGet('teledrive_demo_cleanup_v1', '') === 'done') return;
       APP_STATE.records = [];
       APP_STATE.videos = [];
+      APP_STATE.categories = DEFAULT_CATEGORIES;
       safeSet('teledrive_records', JSON.stringify(APP_STATE.records));
+      safeSet('teledrive_categories', JSON.stringify(APP_STATE.categories));
       safeSet('teledrive_demo_cleanup_v1', 'done');
       renderAllFolders();
       renderPhotosAlbumGrid();
