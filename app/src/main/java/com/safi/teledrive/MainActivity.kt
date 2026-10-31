@@ -91,14 +91,14 @@ class MainActivity : ComponentActivity(), TelegramSessionManager.Listener {
             addJavascriptInterface(WebAppBridge(), "AndroidBridge")
             webViewClient = object : WebViewClient() {
                 override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
-                    if (url.startsWith(ASSET_URL)) return false
+                    if (url.startsWith(ASSET_ROOT)) return false
                     trustedPageLoaded = false
                     runCatching { startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url))) }
                     return true
                 }
 
                 override fun onPageFinished(view: WebView, url: String) {
-                    trustedPageLoaded = url.startsWith(ASSET_URL)
+                    trustedPageLoaded = url.startsWith(ASSET_ROOT)
                     if (trustedPageLoaded) syncNativeAuthState()
                 }
             }
@@ -399,5 +399,8 @@ class MainActivity : ComponentActivity(), TelegramSessionManager.Listener {
         if (::webView.isInitialized && webView.canGoBack()) webView.goBack() else super.onBackPressed()
     }
 
-    private companion object { const val ASSET_URL = "file:///android_asset/" }
+    private companion object {
+        const val ASSET_ROOT = "file:///android_asset/"
+        const val ASSET_URL = "file:///android_asset/index.html"
+    }
 }
