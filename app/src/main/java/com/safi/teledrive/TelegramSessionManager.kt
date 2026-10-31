@@ -31,7 +31,7 @@ class TelegramSessionManager(
         val fileId: Int,
         val name: String,
         val mimeType: String,
-        val size: Int,
+        val size: Long,
         val date: Int
     )
 
@@ -369,7 +369,16 @@ class TelegramSessionManager(
                     return@send
                 }
                 session.client.send(
-                    TdApi.SearchChatMessages(chatResult.id, "", null, 0L, 0, limit.coerceIn(1, 100), null, 0L, 0L)
+                    TdApi.SearchChatMessages(
+                        chatResult.id,
+                        null,
+                        "",
+                        null,
+                        0L,
+                        0,
+                        limit.coerceIn(1, 100),
+                        TdApi.SearchMessagesFilterDocument()
+                    )
                 ) { result ->
                     if (result !is TdApi.Messages) {
                         callback.onError((result as? TdApi.Error)?.message ?: "Unable to load Saved Messages.")
