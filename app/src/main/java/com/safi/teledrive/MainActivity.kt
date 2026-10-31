@@ -6,6 +6,10 @@ import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
+import android.os.Build
+import android.os.Environment
+import android.content.ContentValues
+import android.provider.MediaStore
 import android.webkit.JavascriptInterface
 import android.webkit.ValueCallback
 import android.webkit.WebChromeClient
@@ -16,6 +20,7 @@ import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.result.contract.ActivityResultContracts
 import org.json.JSONObject
+import org.json.JSONArray
 import java.io.File
 
 /** Hosts the bundled UI and exposes a small, trusted bridge to TDLib. */
@@ -39,11 +44,25 @@ class MainActivity : ComponentActivity(), TelegramSessionManager.Listener {
     }
 
     private var uploadCategory = "files"
+    private var backupIntervalHours = 24L
     private val uploadPickerLauncher = registerForActivityResult(
         ActivityResultContracts.OpenMultipleDocuments()
     ) { uris ->
         if (uris.isEmpty()) return@registerForActivityResult
         uris.forEach { uri -> uploadSelectedFile(uri, uploadCategory) }
+    }
+
+    private val backupFolderLauncher = registerForActivityResult(
+        ActivityResultContracts.OpenDocumentTree()
+    ) { uri ->
+        if (uri == null) return@registerForActivityResult
+        try {
+            contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            TelegramBackupScheduler.schedule(applicationContext, uri, backupIntervalHours)
+            dispatchToPage("onNativeBackupScheduled", backupIntervalHours)
+        } catch (error: Exception) {
+            showBridgeError(error.message ?: "Unable to save the backup folder permission.")
+        }
     }
 
     @SuppressLint("SetJavaScriptEnabled")
@@ -123,7 +142,11 @@ class MainActivity : ComponentActivity(), TelegramSessionManager.Listener {
 
     private fun dispatchToPage(callback: String, value: Any) {
         if (!trustedPageLoaded || !::webView.isInitialized) return
-        val payload = JSONObject.quote(value.toString())
+        val payload = when (value) {
+            is JSONObject, is JSONArray -> value.toString()
+            is Boolean, is Number -> value.toString()
+            else -> JSONObject.quote(value.toString())
+        }
         webView.post {
             if (trustedPageLoaded) webView.evaluateJavascript("window.$callback && window.$callback($payload);", null)
         }
@@ -167,6 +190,79 @@ class MainActivity : ComponentActivity(), TelegramSessionManager.Listener {
         }
     }
 
+    private fun dispatchAccounts() {
+        val accounts = JSONArray().apply {
+            sessions.accountInfo().forEach { account ->
+                put(JSONObject().apply {
+                    put("id", account.id)
+                    put("phone", account.phoneNumber)
+                    put("ready", account.ready)
+                    put("active", account.active)
+                })
+            }
+        }
+        dispatchToPage("onNativeAccounts", accounts)
+    }
+
+    private fun dispatchCloudFiles() {
+        sessions.listSavedFiles(callback = object : TelegramSessionManager.CloudFilesCallback {
+            override fun onSuccess(files: List<TelegramSessionManager.CloudFile>) {
+                val payload = JSONArray().apply {
+                    files.forEach { file ->
+                        put(JSONObject().apply {
+                            put("messageId", file.messageId)
+                            put("fileId", file.fileId)
+                            put("name", file.name)
+                            put("mimeType", file.mimeType)
+                            put("size", file.size)
+                            put("date", file.date)
+                        })
+                    }
+                }
+                dispatchToPage("onNativeCloudFiles", payload)
+            }
+
+            override fun onError(message: String) = showBridgeError(message)
+        })
+    }
+
+    private fun exportToDownloads(sourcePath: String, requestedName: String, mimeType: String) {
+        val source = File(sourcePath)
+        if (!source.isFile) {
+            showBridgeError("Telegram did not return a downloadable file.")
+            return
+        }
+        try {
+            val name = requestedName.replace(Regex("[^A-Za-z0-9._ -]"), "_").take(120).ifBlank { "download" }
+            val values = ContentValues().apply {
+                put(MediaStore.Downloads.DISPLAY_NAME, name)
+                put(MediaStore.Downloads.MIME_TYPE, mimeType.ifBlank { "application/octet-stream" })
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                    put(MediaStore.Downloads.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS + "/NexaCloud")
+                    put(MediaStore.Downloads.IS_PENDING, 1)
+                }
+            }
+            val resolver = contentResolver
+            val destination = resolver.insert(MediaStore.Downloads.EXTERNAL_CONTENT_URI, values)
+                ?: error("Unable to create the Downloads entry.")
+            try {
+                source.inputStream().use { input ->
+                    resolver.openOutputStream(destination)?.use { output -> input.copyTo(output) }
+                        ?: error("Unable to write to Downloads.")
+                }
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                    resolver.update(destination, ContentValues().apply { put(MediaStore.Downloads.IS_PENDING, 0) }, null, null)
+                }
+                dispatchToPage("onNativeCloudDownloadComplete", name)
+            } catch (error: Exception) {
+                resolver.delete(destination, null, null)
+                throw error
+            }
+        } catch (error: Exception) {
+            showBridgeError(error.message ?: "Unable to save the Telegram file to Downloads.")
+        }
+    }
+
     inner class WebAppBridge {
         private fun allowCall(): Boolean {
             if (trustedPageLoaded) return true
@@ -197,6 +293,35 @@ class MainActivity : ComponentActivity(), TelegramSessionManager.Listener {
             }
             uploadCategory = if (category == "photos") "photos" else "files"
             uploadPickerLauncher.launch(arrayOf("*/*"))
+        }
+
+        @JavascriptInterface
+        fun refreshAccounts() = runOnUiThread { if (allowCall()) dispatchAccounts() }
+
+        @JavascriptInterface
+        fun switchAccount(accountId: String?) = runOnUiThread {
+            if (!allowCall()) return@runOnUiThread
+            runCatching { sessions.switchAccount(accountId.orEmpty()); dispatchAccounts(); dispatchCloudFiles() }
+                .onFailure { showBridgeError(it.message ?: "Unable to switch Telegram account.") }
+        }
+
+        @JavascriptInterface
+        fun refreshCloudFiles() = runOnUiThread { if (allowCall()) dispatchCloudFiles() }
+
+        @JavascriptInterface
+        fun downloadCloudFile(fileId: Int, fileName: String?, mimeType: String?) = runOnUiThread {
+            if (!allowCall()) return@runOnUiThread
+            sessions.downloadFile(fileId, object : TelegramSessionManager.TransferCallback {
+                override fun onSuccess(message: String) = exportToDownloads(message, fileName.orEmpty(), mimeType.orEmpty())
+                override fun onError(message: String) = showBridgeError(message)
+            })
+        }
+
+        @JavascriptInterface
+        fun scheduleBackup(intervalHours: Int) = runOnUiThread {
+            if (!allowCall()) return@runOnUiThread
+            backupIntervalHours = intervalHours.toLong().coerceIn(1L, 24L * 30L)
+            backupFolderLauncher.launch(null)
         }
 
         @JavascriptInterface
@@ -261,6 +386,9 @@ class MainActivity : ComponentActivity(), TelegramSessionManager.Listener {
         }
         dispatchToPage("onAuthStateChanged", state)
         dispatchToPage("onNativeStatus", message)
+        if (message.contains("connected", ignoreCase = true) || message.contains("removed", ignoreCase = true)) {
+            dispatchAccounts()
+        }
         if (message.startsWith("Telegram error:") || message.startsWith("TDLib error:")) showBridgeError(message)
     }
 

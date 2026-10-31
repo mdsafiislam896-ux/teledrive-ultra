@@ -25,6 +25,16 @@ class TelegramSessionManager(
     private val context: Context,
     private val listener: Listener
 ) {
+    data class AccountInfo(val id: String, val phoneNumber: String, val ready: Boolean, val active: Boolean)
+    data class CloudFile(
+        val messageId: Long,
+        val fileId: Int,
+        val name: String,
+        val mimeType: String,
+        val size: Int,
+        val date: Int
+    )
+
     interface Listener {
         fun onStatus(message: String)
         fun onQrLink(link: String)
@@ -32,6 +42,11 @@ class TelegramSessionManager(
 
     interface TransferCallback {
         fun onSuccess(message: String)
+        fun onError(message: String)
+    }
+
+    interface CloudFilesCallback {
+        fun onSuccess(files: List<CloudFile>)
         fun onError(message: String)
     }
 
@@ -336,6 +351,49 @@ class TelegramSessionManager(
         }
     }
 
+    /** Lists document-like messages from the active account's Saved Messages. */
+    fun listSavedFiles(limit: Int = 100, callback: CloudFilesCallback) {
+        val session = active
+        if (session == null || !session.ready) {
+            callback.onError("No connected Telegram account. Complete login first.")
+            return
+        }
+        session.client.send(TdApi.GetMe()) { meResult ->
+            if (meResult !is TdApi.User) {
+                callback.onError((meResult as? TdApi.Error)?.message ?: "Unable to load Telegram profile.")
+                return@send
+            }
+            session.client.send(TdApi.CreatePrivateChat(meResult.id, true)) { chatResult ->
+                if (chatResult !is TdApi.Chat) {
+                    callback.onError((chatResult as? TdApi.Error)?.message ?: "Unable to open Saved Messages.")
+                    return@send
+                }
+                session.client.send(
+                    TdApi.SearchChatMessages(chatResult.id, "", null, 0L, 0, limit.coerceIn(1, 100), null, 0L, 0L)
+                ) { result ->
+                    if (result !is TdApi.Messages) {
+                        callback.onError((result as? TdApi.Error)?.message ?: "Unable to load Saved Messages.")
+                        return@send
+                    }
+                    callback.onSuccess(result.messages.mapNotNull(::cloudFileFromMessage))
+                }
+            }
+        }
+    }
+
+    private fun cloudFileFromMessage(message: TdApi.Message): CloudFile? {
+        val document = (message.content as? TdApi.MessageDocument)?.document ?: return null
+        val file = document.document
+        return CloudFile(
+            messageId = message.id,
+            fileId = file.id,
+            name = document.fileName.ifBlank { "Telegram file ${message.id}" },
+            mimeType = document.mimeType.ifBlank { "application/octet-stream" },
+            size = file.size,
+            date = message.date
+        )
+    }
+
     suspend fun awaitActiveReady(timeoutMs: Long = 120_000L): Boolean {
         val deadline = System.currentTimeMillis() + timeoutMs
         while (System.currentTimeMillis() < deadline) {
@@ -385,6 +443,11 @@ class TelegramSessionManager(
     @Synchronized
     fun savedAccountIds(): List<String> = prefs.getStringSet("saved_accounts", emptySet())
         .orEmpty().toList()
+
+    @Synchronized
+    fun accountInfo(): List<AccountInfo> = sessions.values.map { session ->
+        AccountInfo(session.id, session.phoneNumber, session.ready, active?.id == session.id)
+    }
 
     @Synchronized
     fun closeAccount(accountId: String, forget: Boolean = false) {

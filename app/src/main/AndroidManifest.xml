@@ -4,7 +4,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="28" />
     <application
         android:allowBackup="false"
-        android:label="TeleDrive Ultra"
+        android:label="NexaCloud"
         android:icon="@drawable/ic_nexacloud"
         android:roundIcon="@drawable/ic_nexacloud"
         android:theme="@android:style/Theme.Material.NoActionBar"
