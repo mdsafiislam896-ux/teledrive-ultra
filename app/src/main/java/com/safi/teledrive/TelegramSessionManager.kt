@@ -307,6 +307,35 @@ class TelegramSessionManager(
         }
     }
 
+    /** Deletes a message previously uploaded by this app to Saved Messages. */
+    fun deleteSavedMessage(messageId: Long, callback: TransferCallback) {
+        val session = active
+        if (session == null || !session.ready) {
+            callback.onError("No connected Telegram account. Complete login first.")
+            return
+        }
+        if (messageId <= 0L) {
+            callback.onError("This file has no Telegram message reference.")
+            return
+        }
+        session.client.send(TdApi.GetMe()) { meResult ->
+            if (meResult !is TdApi.User) {
+                callback.onError((meResult as? TdApi.Error)?.message ?: "Unable to load Telegram profile.")
+                return@send
+            }
+            session.client.send(TdApi.CreatePrivateChat(meResult.id, true)) { chatResult ->
+                if (chatResult !is TdApi.Chat) {
+                    callback.onError((chatResult as? TdApi.Error)?.message ?: "Unable to open Saved Messages.")
+                    return@send
+                }
+                session.client.send(TdApi.DeleteMessages(chatResult.id, longArrayOf(messageId), true)) { result ->
+                    if (result is TdApi.Ok) callback.onSuccess("Telegram message $messageId deleted.")
+                    else callback.onError((result as? TdApi.Error)?.message ?: "Telegram could not delete this file.")
+                }
+            }
+        }
+    }
+
     suspend fun awaitActiveReady(timeoutMs: Long = 120_000L): Boolean {
         val deadline = System.currentTimeMillis() + timeoutMs
         while (System.currentTimeMillis() < deadline) {

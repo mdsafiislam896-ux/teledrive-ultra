@@ -150,7 +150,8 @@ class MainActivity : ComponentActivity(), TelegramSessionManager.Listener {
                 object : TelegramSessionManager.TransferCallback {
                     override fun onSuccess(message: String) {
                         cacheFile.delete()
-                        dispatchToPage("onNativeUploadComplete", "$safeName|$sizeBytes|$category")
+                        val messageId = Regex("message (\\d+)").find(message)?.groupValues?.getOrNull(1).orEmpty()
+                        dispatchToPage("onNativeUploadComplete", "$safeName|$sizeBytes|$category|$messageId")
                         dispatchToPage("onNativeStatus", message)
                     }
 
@@ -229,6 +230,24 @@ class MainActivity : ComponentActivity(), TelegramSessionManager.Listener {
             if (!allowCall()) return@runOnUiThread
             sessions.removeAccount()
             syncNativeAuthState()
+        }
+
+        @JavascriptInterface
+        fun deleteSavedMessage(messageId: String?) = runOnUiThread {
+            if (!allowCall()) return@runOnUiThread
+            val id = messageId?.toLongOrNull()
+            if (id == null) {
+                showBridgeError("This file has no Telegram message reference.")
+                return@runOnUiThread
+            }
+            sessions.deleteSavedMessage(id, object : TelegramSessionManager.TransferCallback {
+                override fun onSuccess(message: String) {
+                    dispatchToPage("onNativeDeleteComplete", id)
+                    dispatchToPage("onNativeStatus", message)
+                }
+
+                override fun onError(message: String) = showBridgeError(message)
+            })
         }
     }
 
